@@ -15,4 +15,10 @@ public class UserController {
     public String userSignup(){
         return "/user/signup";
     }
+
+    @GetMapping("/user/findId")
+    public String findUserId(){ return "/user/findId";}
+
+    @GetMapping("/user/findPassword")
+    public String findUserPassword(){ return "/user/findPassword";}
 }

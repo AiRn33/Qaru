@@ -1,28 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<!DOCTYPE html>
-<html lang="en">
-<%--<html lang="en" data-bs-theme="dark">--%>
-<head>
-    <meta charset="UTF-8">
-    <%-- bootstrap setting --%>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="../css/style.css">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-    <title>Qaru</title>
-</head>
-<body>
-<%-- Nav --%>
-<nav class="navbar navbar-expand-lg" style="left: 10px">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/">
-            <i class="bi bi-qr-code-scan" style="color: black"></i>&nbsp;
-            Qaru
-        </a>
-    </div>
-</nav>
-<%-- Body --%>
 <div class="container-md" style="height:     55%!important;">
     <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-2"></div>
@@ -79,10 +56,10 @@
             <div class="row g-0">
                 <div class="col-4">
                     <div class="card" style="padding:8px">
-                        <button type="button" class="btn btn-pink">
+                        <button type="button" class="btn btn-pink" onclick="location.href='/tour/tourList'">
                             <i class="bi bi-bus-front-fill fs-3" style="color: white"></i>
                         </button>
-                        <h8 style="padding-top: 10px;">교통</h8>
+                        <h8 style="padding-top: 10px;">여행</h8>
                     </div>
                 </div>
                 <div class="col-4">
@@ -90,7 +67,7 @@
                         <button type="button" class="btn btn-outline-pink">
                             <i class="bi bi-clipboard-heart fs-3"></i>
                         </button>
-                        <h8 style="padding-top: 10px;">메뉴</h8>
+                        <h8 style="padding-top: 10px;">식당</h8>
                     </div>
                 </div>
                 <div class="col-4">
@@ -106,5 +83,3 @@
         <div class="col-2"></div>
     </div>
 </div>
-</body>
-</html>

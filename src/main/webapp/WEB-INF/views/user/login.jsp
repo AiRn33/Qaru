@@ -1,28 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<!DOCTYPE html>
-<html lang="en">
-<%--<html lang="en" data-bs-theme="dark">--%>
-<head>
-    <meta charset="UTF-8">
-    <%-- bootstrap setting --%>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="../css/style.css">
-
-    <title>Qaru</title>
-</head>
-<body>
-<%-- Nav --%>
-<nav class="navbar navbar-expand-lg" style="left: 10px">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/">
-            <i class="bi bi-qr-code-scan" style="color: black"></i>&nbsp;
-            Qaru
-        </a>
-    </div>
-</nav>
-<%-- Body --%>
 <div class="container-md" style="height: 110%!important;">
     <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-4"></div>
@@ -69,14 +45,14 @@
             <div class="row g-0">
                 <div class="col-6">
                     <div class="card" style="padding:8px">
-                        <button type="button" class="btn btn-outline-secondary">
+                        <button type="button" class="btn btn-outline-secondary"  onclick="location.href='/user/findId'">
                             아이디 찾기
                         </button>
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="card" style="padding:8px">
-                        <button type="button" class="btn btn-secondary">
+                        <button type="button" class="btn btn-secondary"  onclick="location.href='/user/findPassword'">
                             비밀번호 찾기
                         </button>
                     </div>
@@ -88,5 +64,3 @@
         <div class="col-4"></div>
     </div>
 </div>
-</body>
-</html>
