@@ -20,6 +20,11 @@ html,body {
     opacity: .25;
 }
 
+.invalid-feedback-common{
+    text-align: left;
+    font-size: 11px;
+    color: #ff6b81;
+}
 /* bootstrap color */
 .btn-light_red{
     --bs-btn-color: #fff;
@@ -190,7 +195,7 @@ html,body {
         --bs-btn-bg: #ff7675;
     --bs-btn-border-color: #ff7675;
     --bs-btn-hover-color: #d63031;
-    --bs-btn-hover-bg: #fff;
+    --bs-btn-hover-bg: #d63031;
     --bs-btn-hover-border-color: #d63031;
     --bs-btn-focus-shadow-rgb: 66,70,73;
     --bs-btn-active-color: #fff;
