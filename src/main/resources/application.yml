@@ -1,7 +1,7 @@
 spring:
 #  devtools:
 #    livereload:
-#      enabled: true
+#      enabled: true ㅁㅁㅁㅁ
   mvc:
     view:
       prefix: /WEB-INF/views/
