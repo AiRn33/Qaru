@@ -48,9 +48,6 @@ public class User {
     @Embedded
     private Address address;
 
-    // 인증X = 0, 인증O = 1
-    @Column(name = "user_email_check")
-    private boolean userEmailCheck;
     protected User(){
 
     }
@@ -59,7 +56,7 @@ public class User {
     public User(String userId, String userPw,
                 String userNickName, String userEmail,
                 RoleType role, UserType userSocialType,
-                DateTime dateTime, Address address, Boolean userEmailCheck) {
+                DateTime dateTime, Address address) {
         this.userId = userId;
         this.userPw = userPw;
         this.userNickName = userNickName;
@@ -69,6 +66,5 @@ public class User {
         this.userSocialType = userSocialType;
         this.dateTime = dateTime;
         this.address = address;
-        this.userEmailCheck = false;
     }
 }

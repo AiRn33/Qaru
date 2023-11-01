@@ -45,7 +45,7 @@ public class UserSignUpRequest {
                 .userNickName(userNickname)
                 .userEmail(userEmail)
                 .dateTime(new DateTime().createTime())
-                .role(RoleType.USER)
+                .role(RoleType.USER_NO_AUTH)
                 .userSocialType(UserType.NOMAL)
                 .build();
     }

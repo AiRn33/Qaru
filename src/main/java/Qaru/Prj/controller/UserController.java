@@ -2,6 +2,7 @@ package Qaru.Prj.controller;
 
 import Qaru.Prj.domain.request.UserSignUpRequest;
 import Qaru.Prj.error.ScriptErrors;
+import Qaru.Prj.service.EmailService;
 import Qaru.Prj.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
+import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +31,7 @@ import java.util.Map;
 public class UserController {
 
     private final UserService userService;
+    private final EmailService emailService;
 
     @GetMapping("/user/login")
     public String userLogin(){
@@ -40,7 +44,7 @@ public class UserController {
     }
 
     @PostMapping("/user/signup")
-    public String userSignupPost(@Valid UserSignUpRequest request, BindingResult result, Model model){
+    public String userSignupPost(@Valid UserSignUpRequest request, BindingResult result, Model model) throws MessagingException, UnsupportedEncodingException {
 
         // valid에 걸릴 시
         if(result.hasErrors()){
@@ -56,6 +60,7 @@ public class UserController {
             return "/user/signup";
         }
         model.addAttribute("email", request.getUserEmail());
+        emailService.sendMail(request.getUserEmail());
         return "/user/emailAlram";
     }
 
