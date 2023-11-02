@@ -4,10 +4,7 @@ import Qaru.Prj.domain.baseEntity.DateTime;
 import Qaru.Prj.domain.entity.User;
 import Qaru.Prj.domain.enums.RoleType;
 import Qaru.Prj.domain.enums.UserType;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -15,6 +12,7 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 public class UserSignUpRequest {
 
     @NotEmpty(message = "아이디를 입력해주세요.")
@@ -38,6 +36,13 @@ public class UserSignUpRequest {
         this.userEmail = userEmail;
     }
 
+    public UserSignUpRequest(UserAuthRequest request){
+        this.userId = request.getUserId();
+        this.userPw = request.getUserPw();
+        this.userNickname = request.getUserNickname();
+        this.userEmail = request.getUserEmail();
+    }
+
     public User toEntity(){
         return User.builder()
                 .userId(userId)
@@ -45,7 +50,7 @@ public class UserSignUpRequest {
                 .userNickName(userNickname)
                 .userEmail(userEmail)
                 .dateTime(new DateTime().createTime())
-                .role(RoleType.USER_NO_AUTH)
+                .role(RoleType.USER)
                 .userSocialType(UserType.NOMAL)
                 .build();
     }

@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <div class="container-md" style="height:     55%!important;">
     <div class="row d-flex justify-content-center align-items-center h-100">
@@ -19,19 +20,44 @@
                 </div>
                 <div class="col-3">
                     <div class="card" style="padding:8px">
-                        <button type="button" class="btn btn-outline-light_green" onclick="location.href='/user/login'">
-                            <i class="bi bi-box-arrow-in-right fs-4"></i>
-                        </button>
-                        <h8 style="padding-top: 10px;">로그인</h8>
+                        <c:choose>
+                            <c:when test="${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.user.userNickName == null}">
+                                <button type="button" class="btn btn-outline-light_green"
+                                        onclick="location.href='/user/login'">
+                                    <i class="bi bi-box-arrow-in-right fs-4"></i>
+                                </button>
+                                <h8 style="padding-top: 10px;">로그인</h8>
+                            </c:when>
+                            <c:otherwise>
+                                <button type="button" class="btn btn-outline-pink"
+                                        onclick="location.href='/user/logout'">
+                                    <i class="bi bi-box-arrow-in-right fs-4"></i>
+                                </button>
+                                <h8 style="padding-top: 10px;">로그아웃</h8>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
                 <div class="col-3">
                     <div class="card" style="padding:8px">
-                        <button type="button" class="btn btn-outline-info" onclick="location.href='/user/signup'"
-                                style="--bs-btn-hover-color: white; --bs-btn-active-color: white">
-                            <i class="bi bi-person-circle fs-4"></i>
-                        </button>
-                        <h8 style="padding-top: 10px;">회원가입</h8>
+                        <c:choose>
+                            <c:when test="${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.user.userNickName == null}">
+                                <button type="button" class="btn btn-outline-info"
+                                        onclick="location.href='/user/signup'"
+                                        style="--bs-btn-hover-color: white; --bs-btn-active-color: white">
+                                    <i class="bi bi-person-circle fs-4"></i>
+                                </button>
+                                <h8 style="padding-top: 10px;">회원가입</h8>
+                            </c:when>
+                            <c:otherwise>
+                                <button type="button" class="btn btn-outline-mint"
+                                        onclick="location.href='/user/mypage'"
+                                        style="--bs-btn-hover-color: white; --bs-btn-active-color: white">
+                                    <i class="bi bi-person-circle fs-4"></i>
+                                </button>
+                                <h8 style="padding-top: 10px;">마이페이지</h8>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
             </div>

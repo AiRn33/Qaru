@@ -2,6 +2,7 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <nav class="navbar navbar-expand-lg" style="left: 10px">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">
@@ -9,4 +10,5 @@
             Qaru
         </a>
     </div>
+    <c:set var="userNickname" value="${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.user.userNickName}" />
 </nav>

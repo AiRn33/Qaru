@@ -8,12 +8,11 @@ function errors(){
 
         for(let i = 0; i < errorArr.length; i++){
             if(i % 2 > 0){
-                console.log(errorArr[i].trim());
                 // field
+                console.log(errorArr[i]);
                 document.querySelector('#' + errorArr[i].trim() + 'Area').innerHTML += html;
                 html = '';
             }else{
-                console.log(errorArr[i].trim());
                 // msg
                 html += '<div class="input-group has-validation">';
                 html += '<div class="form-floating is-invalid">';

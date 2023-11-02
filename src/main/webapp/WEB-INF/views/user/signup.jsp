@@ -15,11 +15,11 @@
                     <div class="col">
                         <div class="card" style="padding:8px">
                             <div class="form-floating mb-1" id="userIdArea">
-                                <input type="text" class="form-control" id="userId" name="userId" placeholder="">
+                                <input type="text" class="form-control" id="userId" name="userId" placeholder="" value="${userData.userId}">
                                 <label for="userId">아이디 &nbsp <i class="bi bi-mouse"></i></label>
                             </div>
                             <div class="form-floating mb-1">
-                                <input type="password" class="form-control" id="userPw" name="userPw" placeholder="">
+                                <input type="password" class="form-control" id="userPw" name="userPw" placeholder="" value="${userData.userPw}">
                                 <label for="userPw">비밀번호 &nbsp;<i class="bi bi-mouse"></i></label>
                             </div>
                             <div class="form-floating mb-1" id="userPwArea">
@@ -27,13 +27,13 @@
                                        placeholder="">
                                 <label for="userPwCk">비밀번호 확인 &nbsp;<i class="bi bi-mouse"></i></label>
                             </div>
-                            <div class="form-floating mb-1" id="userNicknameArea">
-                                <input type="text" class="form-control" id="userNickname" name="userNickname"
+                            <div class="form-floating mb-1" id="userNicknameArea" >
+                                <input type="text" class="form-control" id="userNickname" name="userNickname" value="${userData.userNickname}"
                                        placeholder="">
                                 <label for="userNickname">닉네임 &nbsp;<i class="bi bi-mouse"></i></label>
                             </div>
                             <div class="form-floating mb-1" id="userEmailArea">
-                                <input type="email" class="form-control" id="userEmail" name="userEmail" placeholder="">
+                                <input type="email" class="form-control" id="userEmail" name="userEmail" placeholder="" value="${userData.userEmail}">
                                 <label for="userEmail">이메일 &nbsp;<i class="bi bi-mouse"></i></label>
 <%--                                <spring:hasBindErrors name="userSignUpRequest">--%>
 <%--                                    <c:if test="${errors.hasFieldErrors('userEmail')}">--%>
