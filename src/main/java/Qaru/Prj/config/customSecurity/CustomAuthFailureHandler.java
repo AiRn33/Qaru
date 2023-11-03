@@ -34,6 +34,8 @@ public class CustomAuthFailureHandler extends SimpleUrlAuthenticationFailureHand
 
         if (exception instanceof BadCredentialsException) {
             errorMessage = "[아이디 또는 비밀번호가 맞지않습니다. 다시확인해주세요, userPw]";
+        }else{
+            errorMessage = "[알 수 없는 에러가 발생했습니다., userPw]";
         }
 
         errorMessage = URLEncoder.encode(errorMessage, "UTF-8"); /* 한글 인코딩 깨지는 문제 방지 */

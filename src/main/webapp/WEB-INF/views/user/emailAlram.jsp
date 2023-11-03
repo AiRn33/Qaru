@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
-<input type="hidden" id="errorScript" value="${errorScript}">
 
 <div class="container-md" style="height: 110%!important;">
     <div class="row d-flex justify-content-center align-items-center h-100">
@@ -11,7 +10,7 @@
             <div class="card" style="padding:8px">
                 <h1>회원가입</h1>
             </div>
-            <form action="/user/emailCheck" method="post">
+            <form action="/user/email" method="post">
                 <input type="hidden" name="email" id="email" value="${userData.userEmail}">
                 <input type="hidden" name="userId" id="userId" value="${userData.userId}">
                 <input type="hidden" name="userPw" id="userPw" value="${userData.userPw}">

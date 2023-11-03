@@ -1,23 +1,26 @@
 package Qaru.Prj.controller;
 
+import Qaru.Prj.config.customSecurity.PrincipalDetails;
+import Qaru.Prj.domain.entity.User;
 import Qaru.Prj.domain.request.UserAuthRequest;
 import Qaru.Prj.domain.request.UserSignUpRequest;
+import Qaru.Prj.domain.request.UserUpdateRequest;
+import Qaru.Prj.domain.response.UserMypageRespose;
 import Qaru.Prj.error.ScriptErrors;
 import Qaru.Prj.service.EmailService;
+import Qaru.Prj.service.FileService;
 import Qaru.Prj.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
 import javax.validation.Valid;
@@ -32,9 +35,11 @@ public class UserController {
     private final BCryptPasswordEncoder passwordEncoder;
     private final UserService userService;
     private final EmailService emailService;
+    private final FileService fileService;
 
     @GetMapping("/user/login")
     public String userLogin(){
+
         return "/user/login";
     }
 
@@ -82,7 +87,7 @@ public class UserController {
         return "/user/emailAlram";
     }
 
-    @PostMapping("/user/emailCheck")
+    @PostMapping("/user/email")
     public String emailCheck(@Valid UserAuthRequest request, BindingResult result, Model model){
         if(result.hasErrors()){
             List errors = new ScriptErrors().errors(result);
@@ -102,9 +107,78 @@ public class UserController {
         model.addAttribute("signupSuccess", true);
         return "/user/signupSuccessAlert";
     }
-    @GetMapping("/user/findId")
+
+    @GetMapping("/user/mypage")
+    public String userMypage(@AuthenticationPrincipal PrincipalDetails request, Model model) throws Exception {
+
+        User user = userService.getUserByUserId(request.getUsername());
+
+        model.addAttribute("userData", new UserMypageRespose().userUpdate(user));
+
+        return "/user/mypage";
+    }
+
+    @GetMapping("/user/modify")
+    public String userModify(@AuthenticationPrincipal PrincipalDetails request, Model model) throws Exception {
+
+        User user = userService.getUserByUserId(request.getUsername());
+
+        model.addAttribute("userData", new UserMypageRespose().userUpdate(user));
+
+        return "/user/modifyForm";
+    }
+
+    @PostMapping("/user/modify")
+    public String userModifyPost(@Valid UserUpdateRequest updateUser, BindingResult bindingResult, @AuthenticationPrincipal PrincipalDetails request, Model model) throws Exception {
+
+        // valid에 걸릴 시
+        if(bindingResult.hasErrors()){
+            List errors = new ScriptErrors().errors(bindingResult);
+            model.addAttribute("errorScript", errors);
+            model.addAttribute("userData", new UserMypageRespose().userUpdate(userService.getUserByUserId(request.getUsername())));
+            return "/user/modifyForm";
+        }
+
+        if(!request.getUser().getUserNickName().equals(updateUser.getUserNickname())){
+            if(!userService.userNickNameEmptyCheck(updateUser)){
+                model.addAttribute("errorScript", "[중복된 닉네임이 있습니다.,userNickname]");
+                model.addAttribute("userData", new UserMypageRespose().userUpdate(userService.getUserByUserId(request.getUsername())));
+                return "/user/modifyForm";
+            }
+        }
+        userService.updateUser(updateUser);
+
+        User user = userService.getUserByUserId(request.getUsername());
+
+        model.addAttribute("userData", new UserMypageRespose().userUpdate(user));
+
+        return "/user/mypage";
+    }
+
+    @GetMapping("/user/change-admin")
+    public String changeRoleAdmin(@AuthenticationPrincipal PrincipalDetails request, Model model) throws Exception {
+
+        model.addAttribute("userData", new UserMypageRespose().userUpdate(userService.getUserByUserId(request.getUsername())));
+
+        return "/user/adminForm";
+    }
+
+    @PostMapping("/user/change-admin")
+    public String changeRoleAdminPost(@RequestParam("file") MultipartFile file, @AuthenticationPrincipal PrincipalDetails request, Model model) throws Exception {
+
+        System.out.println("============> : " + file.getName());
+        System.out.println("============> : " + file.getOriginalFilename());
+        System.out.println("============> : " + file.getSize());
+
+        fileService.serverUploadFile(file);
+
+        return "/user/adminForm";
+    }
+
+    @GetMapping("/user/find-id")
     public String findUserId(){ return "/user/findId";}
 
-    @GetMapping("/user/findPassword")
+    @GetMapping("/user/find-password")
     public String findUserPassword(){ return "/user/findPassword";}
+
 }

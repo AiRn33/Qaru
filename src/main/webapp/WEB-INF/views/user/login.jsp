@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<input type="hidden" id="errorScript" value="">
 <div class="container-md" style="height: 110%!important;">
     <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-4"></div>
@@ -48,14 +47,14 @@
             <div class="row g-0">
                 <div class="col-6">
                     <div class="card" style="padding:8px">
-                        <button type="button" class="btn btn-outline-secondary" onclick="location.href='/user/findId'">
+                        <button type="button" class="btn btn-outline-secondary" onclick="location.href='/user/find-id'">
                             아이디 찾기
                         </button>
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="card" style="padding:8px">
-                        <button type="button" class="btn btn-secondary" onclick="location.href='/user/findPassword'">
+                        <button type="button" class="btn btn-secondary" onclick="location.href='/user/find-password'">
                             비밀번호 찾기
                         </button>
                     </div>

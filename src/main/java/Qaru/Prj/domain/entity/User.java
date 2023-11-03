@@ -4,21 +4,24 @@ import Qaru.Prj.domain.baseEntity.Address;
 import Qaru.Prj.domain.baseEntity.DateTime;
 import Qaru.Prj.domain.enums.UserType;
 import Qaru.Prj.domain.enums.RoleType;
+import Qaru.Prj.domain.request.UserUpdateRequest;
 import lombok.Builder;
 import lombok.Getter;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@DynamicUpdate //변경된 필드만 적용
 public class User {
 
     @Id
     @GeneratedValue
-    @Column(name = "id")
+    @Column(name = "user_id")
     private Long id;
 
-    @Column(name = "user_id")
+    @Column(name = "user_account")
     private String userId;
 
     @Column(name = "user_pw")
@@ -66,5 +69,19 @@ public class User {
         this.userSocialType = userSocialType;
         this.dateTime = dateTime;
         this.address = address;
+    }
+
+    public User updateUser(UserUpdateRequest request){
+        this.userNickName = request.getUserNickname();
+        this.address = new Address(request.getUserCity(), request.getUserStreet(), request.getUserZipcode());
+        this.dateTime = new DateTime().updateTime(this);
+        return this;
+    }
+
+    public User updateRole(Boolean roleCheck){
+        if(roleCheck){
+            this.role = RoleType.ADMIN;
+        }
+        return this;
     }
 }

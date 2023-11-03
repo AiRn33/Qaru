@@ -1,7 +1,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
-<input type="hidden" id="errorScript" value="${errorScript}">
 
 <div class="container-md" style="height: 110%!important;">
     <div class="row d-flex justify-content-center align-items-center h-100">

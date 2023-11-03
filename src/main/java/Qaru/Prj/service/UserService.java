@@ -1,7 +1,11 @@
 package Qaru.Prj.service;
 
+import Qaru.Prj.config.customSecurity.PrincipalDetails;
+import Qaru.Prj.domain.baseEntity.Address;
+import Qaru.Prj.domain.entity.User;
 import Qaru.Prj.domain.request.UserAuthRequest;
 import Qaru.Prj.domain.request.UserSignUpRequest;
+import Qaru.Prj.domain.request.UserUpdateRequest;
 import Qaru.Prj.email.RedisUtil;
 import Qaru.Prj.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -10,8 +14,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import javax.transaction.Transactional;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -59,5 +66,24 @@ public class UserService {
         }
 
         return msg;
+    }
+
+    public User getUserByUserId(String username) throws Exception {
+
+        return Optional.ofNullable(userRepository.findByUserId(username).orElseThrow(() -> new Exception("회원이 존재하지 않습니다."))).get();
+    }
+
+    @Transactional
+    public void updateUser(UserUpdateRequest user) {
+
+        userRepository.findByUserId(user.getUserId()).get().updateUser(user);
+    }
+
+    public Boolean userNickNameEmptyCheck(UserUpdateRequest user){
+
+        if(userRepository.findByUserNickName(user.getUserNickname()).isPresent()){
+            return false;
+        }
+        return true;
     }
 }

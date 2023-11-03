@@ -16,4 +16,7 @@ public class Address {
     protected Address() {
 
     }
+    public String AddressToString(){
+        return this.city + " " + this.street;
+    }
 }

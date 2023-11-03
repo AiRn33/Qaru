@@ -6,6 +6,7 @@ import Qaru.Prj.domain.enums.RoleType;
 import Qaru.Prj.domain.enums.UserType;
 import lombok.*;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -15,17 +16,17 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class UserSignUpRequest {
 
-    @NotEmpty(message = "아이디를 입력해주세요.")
+    @NotBlank(message = "아이디를 입력해주세요.")
     private String userId;
 
-    @NotEmpty(message = "패스워드를 입력해주세요.")
+    @NotBlank(message = "패스워드를 입력해주세요.")
     private String userPw;
     private String userPwCk;
 
-    @NotEmpty(message = "닉네임을 입력해주세요.")
+    @NotBlank(message = "닉네임을 입력해주세요.")
     private String userNickname;
 
-    @NotEmpty(message = "이메일을 입력해주세요.")
+    @NotBlank(message = "이메일을 입력해주세요.")
     private String userEmail;
 
     public UserSignUpRequest(String userId, String userPw, String userPwCk, String userNickname, String userEmail) {
