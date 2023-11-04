@@ -10,19 +10,19 @@
                 <h1>가게 정보 입력</h1>
             </div>
             <form action="/user/change-admin" method="post" id="signupForm" enctype="multipart/form-data">
-                <input type="hidden" id="userZipcode" name="userZipcode" value="${userData.userZipcode}">
+                <input type="hidden" id="userZipcode" name="userZipcode" value="">
                 <div class="row g-0">
                     <div class="col">
                         <div class="card" style="padding:8px">
-                            <div class="form-floating mb-1" id="userIdArea">
-                                <input type="text" class="form-control" id="userId" name="userId" placeholder=""
+                            <div class="form-floating mb-1" id="shopTitleArea">
+                                <input type="text" class="form-control" id="shopTitle" name="shopTitle" placeholder=""
                                        value="">
-                                <label for="userId">가게 이름 &nbsp <i class="bi bi-mouse"></i></label>
+                                <label for="shopTitle">가게 이름 &nbsp <i class="bi bi-mouse"></i></label>
                             </div>
-                            <div class="form-floating mb-1" style="height: 200px">
-                                <input type="text" class="form-control" id="userPw" name="userPw" placeholder=""
-                                       value="" style="height: 200px">
-                                <label for="userPw">가게 설명 &nbsp;<i class="bi bi-mouse"></i></label>
+                            <div class="form-floating mb-1" style="height: 200px" id="shopCommentArea">
+                                <textarea class="form-control" id="shopComment" name="shopComment" placeholder=""
+                                          value="" style="height: 200px; resize: none;"></textarea>
+                                <label for="shopComment">가게 설명 &nbsp;<i class="bi bi-mouse"></i></label>
                             </div>
 
                             <input type="file" name="file" id="file" style="margin-bottom: 10px; margin-top: 5px;">
@@ -48,7 +48,7 @@
                 <div class="row g-0">
                     <div class="col">
                         <div class="card" style="padding:8px">
-                            <button type="submit" class="btn btn-primary">
+                            <button type="button" class="btn btn-primary" onclick="Submit()">
                                 <i class="bi bi-people-fill fs-5" style="color: white;">
                                     &nbsp;회원가입
                                 </i>
@@ -94,5 +94,13 @@
             }
         }).open();
     });
+
+    function Submit(){
+
+        document.querySelector('#userCity').disabled = false;
+        document.querySelector('#userStreet').disabled = false;
+
+        document.querySelector('#signupForm').submit();
+    }
 </script>
 

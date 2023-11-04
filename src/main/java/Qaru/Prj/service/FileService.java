@@ -27,11 +27,12 @@ public class FileService {
         if (multipartFile.isEmpty()) { //파일 없으면 null 반환
             return null;
         }
+
+        //         System.out.println("============> : " + file.getOriginalFilename()); 실제 이름
+
         String originalFilename = multipartFile.getOriginalFilename(); //원래 파일명
 
         String serverUploadFileName = createServerFileName(originalFilename); //uuid 생성해서 뒤에 원래파일명의 확장자명 붙이기
-        System.out.println("===============> 4 : " + serverUploadFileName);
-        System.out.println("===============> 4 : " + getFullPath(serverUploadFileName));
 
         multipartFile.transferTo(new File(getFullPath(serverUploadFileName)));//저장: (서버에 업로드되는 파일명, 업로드 되는 경로)
 

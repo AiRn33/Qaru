@@ -2,6 +2,7 @@ package Qaru.Prj.controller;
 
 import Qaru.Prj.config.customSecurity.PrincipalDetails;
 import Qaru.Prj.domain.entity.User;
+import Qaru.Prj.domain.request.UserAdminChangeRequest;
 import Qaru.Prj.domain.request.UserAuthRequest;
 import Qaru.Prj.domain.request.UserSignUpRequest;
 import Qaru.Prj.domain.request.UserUpdateRequest;
@@ -164,13 +165,26 @@ public class UserController {
     }
 
     @PostMapping("/user/change-admin")
-    public String changeRoleAdminPost(@RequestParam("file") MultipartFile file, @AuthenticationPrincipal PrincipalDetails request, Model model) throws Exception {
+    public String changeRoleAdminPost(@Valid UserAdminChangeRequest userRequest, BindingResult bindingResult,
+                                      @AuthenticationPrincipal PrincipalDetails request, Model model) throws Exception {
 
-        System.out.println("============> : " + file.getName());
-        System.out.println("============> : " + file.getOriginalFilename());
-        System.out.println("============> : " + file.getSize());
+        System.out.println("===========> : " + userRequest.toString());
+        // valid에 걸릴 시
+        if(bindingResult.hasErrors()){
+            List errors = new ScriptErrors().errors(bindingResult);
+            model.addAttribute("errorScript", errors);
+            model.addAttribute("userData", request);
+            return "/user/signup";
+        }
 
-        fileService.serverUploadFile(file);
+        // 아이디, 이메일, 닉네임 중복 체크
+//        List duplicateMsg = userService.DuplicateCheck(request);
+//        Boolean duplicateCheck = false;
+//        if(duplicateMsg.size() > 0){
+//            duplicateCheck = true;
+//        }
+
+        fileService.serverUploadFile(userRequest.getFile());
 
         return "/user/adminForm";
     }
