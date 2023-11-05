@@ -61,7 +61,7 @@ public class UserController {
         }
 
         // 아이디, 이메일, 닉네임 중복 체크
-        List duplicateMsg = userService.DuplicateCheck(request);
+        List duplicateMsg = userService.duplicateCheck(request);
         Boolean duplicateCheck = false;
         if(duplicateMsg.size() > 0){
             duplicateCheck = true;

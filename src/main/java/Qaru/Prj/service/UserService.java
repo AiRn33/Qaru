@@ -49,7 +49,7 @@ public class UserService {
         }
     }
 
-    public List DuplicateCheck(UserSignUpRequest request) {
+    public List duplicateCheck(UserSignUpRequest request) {
 
         List msg = new LinkedList();
 

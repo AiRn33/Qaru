@@ -4,6 +4,7 @@ import Qaru.Prj.domain.baseEntity.DateTime;
 import Qaru.Prj.domain.entity.User;
 import Qaru.Prj.domain.enums.RoleType;
 import Qaru.Prj.domain.enums.UserType;
+import Qaru.Prj.domain.request.UserUpdateRequest;
 import Qaru.Prj.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
@@ -81,6 +82,24 @@ class UserServiceTest {
 
         // when
         Assertions.assertThat(byUserEmail.get().getUserEmail()).isEqualTo(user.getUserEmail());
+    }
+
+    @Test
+    void 유저정보수정(){
+
+        // given
+        User user = createUser();
+        
+        // then
+        userRepository.save(user);
+        String updateNickName = "updateNickname";
+        UserUpdateRequest request = new UserUpdateRequest("00011","test44@naver.com",
+                updateNickName, "updateEmail", "city", "street");
+        user.updateUser(request);
+
+        // when
+        Assertions.assertThat(user.getUserNickName()).isEqualTo(updateNickName);
+        
     }
 
     static User createUser(){
