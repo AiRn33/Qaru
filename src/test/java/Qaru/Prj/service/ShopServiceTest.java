@@ -12,6 +12,7 @@ import Qaru.Prj.repository.ImageRepository;
 import Qaru.Prj.repository.ShopRepository;
 import Qaru.Prj.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,6 +21,7 @@ import org.springframework.test.annotation.Commit;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootTest
 @Transactional
@@ -36,29 +38,32 @@ public class ShopServiceTest {
     private ImageRepository imageRepository;
 
     @Test
-    @Commit
-    void 가게정보저장(){
+    void 가게정보저장() {
 
-                // given
-                User user = createUser();
+        // given
+        User user = createUser();
+
         ImageGroup imageGroup = createImgGroup();
 
-        userRepository.save(user);
-
-        Shop shop = createShop(user,imageGroup);
-
-        shopRepository.save(shop);
-
+        Shop shop = createShop(user, imageGroup);
         List<Image> list = new ArrayList<>();
-        for(int i = 0; i < 3; i++){
+        for (int i = 0; i < 3; i++) {
             Image image = createImg(imageGroup);
             list.add(image);
         }
 
-        imageRepository.saveAll(list);
+        // then
+        userRepository.save(user);
+        shopRepository.save(shop);
+        List<Image> images = imageRepository.saveAll(list);
+
+        // when
+        Assertions.assertThat(shop.getShopName()).isEqualTo(shopRepository.findById(shop.getId()).get().getShopName());
+        Assertions.assertThat(images.size()).isEqualTo(3);
     }
 
-    static User createUser(){
+
+    static User createUser() {
         // 유저 저장
         return User.builder()
                 .userId("test12355")
@@ -71,7 +76,7 @@ public class ShopServiceTest {
                 .build();
     }
 
-    static Shop createShop(User user, ImageGroup imageGroup){
+    static Shop createShop(User user, ImageGroup imageGroup) {
         // 가게 저장
         return Shop.builder()
                 .shopName("shopName")
@@ -83,14 +88,14 @@ public class ShopServiceTest {
                 .build();
     }
 
-    static ImageGroup createImgGroup(){
+    static ImageGroup createImgGroup() {
         // 이미지 그룹 저장
         return ImageGroup.builder()
                 .dateTime(new DateTime().createTime())
                 .build();
     }
 
-    static Image createImg(ImageGroup imageGroup){
+    static Image createImg(ImageGroup imageGroup) {
 
         String fileName = "fileName";
 

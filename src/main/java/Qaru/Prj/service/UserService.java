@@ -2,11 +2,15 @@ package Qaru.Prj.service;
 
 import Qaru.Prj.config.customSecurity.PrincipalDetails;
 import Qaru.Prj.domain.baseEntity.Address;
+import Qaru.Prj.domain.entity.Shop;
 import Qaru.Prj.domain.entity.User;
 import Qaru.Prj.domain.request.UserAuthRequest;
 import Qaru.Prj.domain.request.UserSignUpRequest;
 import Qaru.Prj.domain.request.UserUpdateRequest;
+import Qaru.Prj.domain.response.UserAdminUpdateResponse;
 import Qaru.Prj.email.RedisUtil;
+import Qaru.Prj.repository.Impl.UserRepositoryImpl;
+import Qaru.Prj.repository.ShopRepository;
 import Qaru.Prj.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -27,6 +31,8 @@ public class UserService {
     private final UserRepository userRepository;
     private final RedisUtil redisUtil;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final ShopRepository shopRepository;
+    private final UserRepositoryImpl userRepositoryImpl;
 
     public Boolean signup(UserSignUpRequest request) {
 
@@ -85,5 +91,18 @@ public class UserService {
             return false;
         }
         return true;
+    }
+
+    public Boolean userSignupAdminCheck(PrincipalDetails request){
+
+        return  shopRepository.findByUserId(request.getUser().getId()).isPresent();
+    }
+
+    public UserAdminUpdateResponse userAdminUpdate(PrincipalDetails request){
+
+        List<Shop> response = userRepositoryImpl.test(request.getUser().getId());
+
+        System.out.println("================> : " + response.get(0).getShopName());
+        return null;
     }
 }

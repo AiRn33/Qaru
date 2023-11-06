@@ -9,11 +9,6 @@
             <div class="card" style="padding:8px">
                 <h1>마이페이지</h1>
             </div>
-            <div class="has-validation admin_check" style="position: relative;flex-wrap: wrap;align-items: stretch;width: 100%;">
-                <div class="form-floating is-invalid"></div>
-                <div class="invalid-feedback"></div>
-                <div class="invalid-feedback-common" style="text-align: right;font-size: 11px;color: #ff6b81;">&nbsp;&nbsp; 사장 유저입니다.</div>
-            </div>
             <form action="/user/modify" method="get" id="signupForm">
                 <div class="row g-0">
                     <div class="col">
@@ -53,12 +48,17 @@
                     </div>
                 </div>
             </form>
-            <div class="row g-0 user_check">
+            <div class="row g-0" id="adminChange">
                 <div class="col">
                     <div class="card" style="padding:8px">
-                        <button type="submit" class="btn btn-mint" onclick="location.href='/user/change-admin'">
+                        <button type="submit" id="userBtn" class="btn btn-mint" onclick="location.href='/user/change-admin'">
                             <i class="bi bi-people-fill fs-5" style="color: white;">
                                 &nbsp;사장으로 전환하기
+                            </i>
+                        </button>
+                        <button type="submit" id="adminBtn" class="btn btn-mint" onclick="location.href='/user/change-admin/modify'">
+                            <i class="bi bi-people-fill fs-5" style="color: white;">
+                                가게정보 수정하기
                             </i>
                         </button>
                     </div>
@@ -85,10 +85,11 @@
     window.onload = function () {
         //실행될 코드
         errors();
-        if(${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.user.role == 'USER'}){
-            document.querySelector('.admin_check').innerHTML = '';
-        }else{
-            document.querySelector('.user_check').innerHTML = '';
+        if (${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.user.role == 'USER'}) {
+
+        } else {
+            document.querySelector('#userBtn').style.display = 'none';
+            document.querySelector('#adminBtn').style.display = '';
         }
     }
 </script>

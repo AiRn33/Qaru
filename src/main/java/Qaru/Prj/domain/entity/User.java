@@ -78,10 +78,8 @@ public class User {
         return this;
     }
 
-    public User updateRole(Boolean roleCheck){
-        if(roleCheck){
-            this.role = RoleType.ADMIN;
-        }
+    public User updateRole(){
+        this.role = RoleType.ADMIN;
         return this;
     }
 }

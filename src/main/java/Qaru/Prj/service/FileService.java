@@ -28,8 +28,6 @@ public class FileService {
             return null;
         }
 
-        //         System.out.println("============> : " + file.getOriginalFilename()); 실제 이름
-
         String originalFilename = multipartFile.getOriginalFilename(); //원래 파일명
 
         String serverUploadFileName = createServerFileName(originalFilename); //uuid 생성해서 뒤에 원래파일명의 확장자명 붙이기

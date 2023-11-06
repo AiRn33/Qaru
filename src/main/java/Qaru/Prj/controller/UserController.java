@@ -10,6 +10,7 @@ import Qaru.Prj.domain.response.UserMypageRespose;
 import Qaru.Prj.error.ScriptErrors;
 import Qaru.Prj.service.EmailService;
 import Qaru.Prj.service.FileService;
+import Qaru.Prj.service.ShopService;
 import Qaru.Prj.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +36,7 @@ public class UserController {
 
     private final BCryptPasswordEncoder passwordEncoder;
     private final UserService userService;
+    private final ShopService shopService;
     private final EmailService emailService;
     private final FileService fileService;
 
@@ -115,6 +117,7 @@ public class UserController {
         User user = userService.getUserByUserId(request.getUsername());
 
         model.addAttribute("userData", new UserMypageRespose().userUpdate(user));
+        model.addAttribute("adminCheck", userService.userSignupAdminCheck(request));
 
         return "/user/mypage";
     }
@@ -159,6 +162,7 @@ public class UserController {
     @GetMapping("/user/change-admin")
     public String changeRoleAdmin(@AuthenticationPrincipal PrincipalDetails request, Model model) throws Exception {
 
+        System.out.println("=============> : " + userService.getUserByUserId(request.getUsername()).getUserId());
         model.addAttribute("userData", new UserMypageRespose().userUpdate(userService.getUserByUserId(request.getUsername())));
 
         return "/user/adminForm";
@@ -168,25 +172,62 @@ public class UserController {
     public String changeRoleAdminPost(@Valid UserAdminChangeRequest userRequest, BindingResult bindingResult,
                                       @AuthenticationPrincipal PrincipalDetails request, Model model) throws Exception {
 
-        System.out.println("===========> : " + userRequest.toString());
         // valid에 걸릴 시
         if(bindingResult.hasErrors()){
             List errors = new ScriptErrors().errors(bindingResult);
             model.addAttribute("errorScript", errors);
-            model.addAttribute("userData", request);
-            return "/user/signup";
+            model.addAttribute("shopData", userRequest);
+            model.addAttribute("commentCheck", userRequest.getFile().getSize() < 1 ? true : false);
+
+            return "/user/adminForm";
         }
 
-        // 아이디, 이메일, 닉네임 중복 체크
-//        List duplicateMsg = userService.DuplicateCheck(request);
-//        Boolean duplicateCheck = false;
-//        if(duplicateMsg.size() > 0){
-//            duplicateCheck = true;
-//        }
+        model.addAttribute("changeSuccess", true);
 
-        fileService.serverUploadFile(userRequest.getFile());
+        String storedName = fileService.serverUploadFile(userRequest.getFile());
 
-        return "/user/adminForm";
+        Long shopId = shopService.createAdmin(userRequest, storedName, request);
+
+        if(shopId > 0L){
+            return "/user/userChangeAdminSuccessAlert";
+        }
+
+        return "/error";
+    }
+
+    @GetMapping("/user/change-admin/modify")
+    public String changeRoleAdminModify(@Valid UserAdminChangeRequest userRequest, BindingResult bindingResult,
+                                      @AuthenticationPrincipal PrincipalDetails request, Model model) throws Exception {
+
+        userService.userAdminUpdate(request);
+
+        return "/user/adminUpdateForm";
+    }
+    @PostMapping("/user/change-admin/modify")
+    public String changeRoleAdminModifyPost(@Valid UserAdminChangeRequest userRequest, BindingResult bindingResult,
+                                      @AuthenticationPrincipal PrincipalDetails request, Model model) throws Exception {
+
+        // valid에 걸릴 시
+        if(bindingResult.hasErrors()){
+            List errors = new ScriptErrors().errors(bindingResult);
+            model.addAttribute("errorScript", errors);
+            model.addAttribute("shopData", userRequest);
+            model.addAttribute("commentCheck", userRequest.getFile().getSize() < 1 ? true : false);
+
+            return "/user/adminForm";
+        }
+
+        model.addAttribute("changeSuccess", true);
+
+        String storedName = fileService.serverUploadFile(userRequest.getFile());
+
+        Long shopId = shopService.createAdmin(userRequest, storedName, request);
+
+        if(shopId > 0L){
+            return "/user/userChangeAdminSuccessAlert";
+        }
+
+        return "/error";
     }
 
     @GetMapping("/user/find-id")

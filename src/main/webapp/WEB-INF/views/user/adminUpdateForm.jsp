@@ -7,9 +7,9 @@
         <div class="col-4"></div>
         <div class="col-4 text-center">
             <div class="card" style="padding:8px">
-                <h1>가게 정보 입력</h1>
+                <h1>가게 정보 수정</h1>
             </div>
-            <form action="/user/change-admin" method="post" id="signupForm" enctype="multipart/form-data">
+            <form action="/user/change-admin/modify" method="post" id="signupForm" enctype="multipart/form-data">
                 <input type="hidden" id="userZipcode" name="userZipcode" value="${shopData.userZipcode}">
                 <input type="hidden" id="commentCheck" value="${commentCheck}">
                 <div class="row g-0">
