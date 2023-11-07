@@ -8,7 +8,5 @@ import java.util.List;
 
 public interface UserRepositoryCustom {
 
-    List<UserAdminUpdateResponse> findbyShopUpdate(Long userId);
-
-    List<Shop> test(Long userId);
+    UserAdminUpdateResponse findbyShopUpdate(Long userId);
 }

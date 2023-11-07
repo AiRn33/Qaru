@@ -5,6 +5,7 @@ import Qaru.Prj.domain.response.UserAdminUpdateResponse;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,6 +18,7 @@ import static Qaru.Prj.domain.entity.QImage.*;
 import static Qaru.Prj.domain.entity.QImageGroup.imageGroup;
 import static Qaru.Prj.domain.entity.QShop.shop;
 import static Qaru.Prj.domain.entity.QUser.user;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -28,15 +30,15 @@ class UserRepositoryImplTest {
     private JPAQueryFactory queryFactory;
 
     @Test
-    void 테스트(){
+    void 가게정보조회QueryDsl(){
 
-        List<UserAdminUpdateResponse> fetch =
+        UserAdminUpdateResponse fetch =
 
                 queryFactory
                 .select(Projections.fields(UserAdminUpdateResponse.class,
-                        shop.user.id,
+                        shop.user,
                         shop.shopName,
-                        shop.imageGroup.id,
+                        shop.imageGroup,
                         shop.shopComment,
                         shop.address.city,
                         shop.address.street,
@@ -44,13 +46,12 @@ class UserRepositoryImplTest {
                         image.originalFileName,
                         image.storedFileName,
                         image.storedFilePath))
-                .from(shop)
+                .from(shop,image)
                         .innerJoin(shop.imageGroup).on(image.imageGroup.id.eq(shop.imageGroup.id))
-                .where(shop.user.id.eq(45L)).fetch();
+                .where(shop.user.id.eq(45L)).fetchOne();
 
-        for (UserAdminUpdateResponse fetch1 : fetch) {
-            log.info("================> : " + fetch1.toString());
-        }
+        assertThat(45L).isEqualTo(fetch.getUser().getId());
+
     }
 
 }

@@ -2,6 +2,7 @@ package Qaru.Prj.domain.entity;
 
 import Qaru.Prj.domain.baseEntity.Address;
 import Qaru.Prj.domain.baseEntity.DateTime;
+import Qaru.Prj.domain.request.ShopUpdateRequest;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Getter;
@@ -52,6 +53,14 @@ public class Shop {
         this.shopComment = shopComment;
         this.dateTime = dateTime;
         this.address = address;
+    }
+
+    public Shop updateShop(ShopUpdateRequest request, Shop shop){
+        this.shopName = request.getShopName();
+        this.shopComment = request.getShopComment();
+        this.dateTime = dateTime.shopUpdateTime(shop);
+        this.address = new Address(request.getUserCity(), request.getUserStreet(), request.getUserZipcode());
+        return this;
     }
 
     protected Shop() {

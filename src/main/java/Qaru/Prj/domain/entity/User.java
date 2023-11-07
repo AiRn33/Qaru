@@ -74,7 +74,7 @@ public class User {
     public User updateUser(UserUpdateRequest request){
         this.userNickName = request.getUserNickname();
         this.address = new Address(request.getUserCity(), request.getUserStreet(), request.getUserZipcode());
-        this.dateTime = new DateTime().updateTime(this);
+        this.dateTime = new DateTime().userUpdateTime(this);
         return this;
     }
 

@@ -100,9 +100,6 @@ public class UserService {
 
     public UserAdminUpdateResponse userAdminUpdate(PrincipalDetails request){
 
-        List<Shop> response = userRepositoryImpl.test(request.getUser().getId());
-
-        System.out.println("================> : " + response.get(0).getShopName());
-        return null;
+        return userRepositoryImpl.findbyShopUpdate(request.getUser().getId());
     }
 }

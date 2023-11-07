@@ -56,7 +56,7 @@
                                 &nbsp;사장으로 전환하기
                             </i>
                         </button>
-                        <button type="submit" id="adminBtn" class="btn btn-mint" onclick="location.href='/user/change-admin/modify'">
+                        <button type="submit" id="adminBtn" class="btn btn-mint" onclick="location.href='/user/change-admin-modify'">
                             <i class="bi bi-people-fill fs-5" style="color: white;">
                                 가게정보 수정하기
                             </i>

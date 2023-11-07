@@ -38,11 +38,12 @@ class UserServiceTest {
     @Autowired
     private ShopRepository shopRepository;
 
+    CreateClass create = new CreateClass();
     @Test
-    void 유저회원가입(){
+    void 유저회원가입() {
 
         // given
-        User user = createUser();
+        User user = create.createUser();
 
         // then
         userRepository.save(user);
@@ -52,10 +53,10 @@ class UserServiceTest {
     }
 
     @Test
-    void 유저아이디중복확인(){
+    void 유저아이디중복확인() {
 
         // given
-        User user = createUser();
+        User user = create.createUser();
 
         // then
         userRepository.save(user);
@@ -66,10 +67,10 @@ class UserServiceTest {
     }
 
     @Test
-    void 유저닉네임중복확인(){
+    void 유저닉네임중복확인() {
 
         // given
-        User user = createUser();
+        User user = create.createUser();
 
         // then
         userRepository.save(user);
@@ -80,10 +81,10 @@ class UserServiceTest {
     }
 
     @Test
-    void 유저이메일중복확인(){
+    void 유저이메일중복확인() {
 
         // given
-        User user = createUser();
+        User user = create.createUser();
 
         // then
         userRepository.save(user);
@@ -94,29 +95,29 @@ class UserServiceTest {
     }
 
     @Test
-    void 유저정보수정(){
+    void 유저정보수정() {
 
         // given
-        User user = createUser();
-        
+        User user = create.createUser();
+
         // then
         userRepository.save(user);
         String updateNickName = "updateNickname";
-        UserUpdateRequest request = new UserUpdateRequest("00011","test44@naver.com",
+        UserUpdateRequest request = new UserUpdateRequest("00011", "test44@naver.com",
                 updateNickName, "updateEmail", "city", "street");
         user.updateUser(request);
 
         // when
         Assertions.assertThat(user.getUserNickName()).isEqualTo(updateNickName);
-        
+
     }
 
     @Test
-    void 유저어드민가입여부확인(){
+    void 유저어드민가입여부확인() {
         // given
-        User user = createUser();
-        ImageGroup imageGroup = createImgGroup();
-        Shop shop = createShop(user, imageGroup);
+        User user = create.createUser();
+        ImageGroup imageGroup = create.createImgGroup();
+        Shop shop = create.createShop(user, imageGroup);
 
         // then
         userRepository.save(user);
@@ -125,37 +126,4 @@ class UserServiceTest {
         // when
         Assertions.assertThat(shop.getShopName()).isEqualTo(shopRepository.findByUserId(user.getId()).get().getShopName());
     }
-
-    static User createUser(){
-        // 유저 저장
-        return User.builder()
-                .userId("test12355")
-                .userPw("1234")
-                .userNickName("nickname123")
-                .userEmail("test155155@naver.com")
-                .userSocialType(UserType.NOMAL)
-                .dateTime(new DateTime().createTime())
-                .role(RoleType.USER)
-                .build();
-    }
-
-    static Shop createShop(User user, ImageGroup imageGroup) {
-        // 가게 저장
-        return Shop.builder()
-                .shopName("shopName")
-                .user(user)
-                .imageGroup(imageGroup)
-                .shopComment("shopComment")
-                .address(new Address("city", "street", "00000"))
-                .dateTime(new DateTime().createTime())
-                .build();
-    }
-
-    static ImageGroup createImgGroup() {
-        // 이미지 그룹 저장
-        return ImageGroup.builder()
-                .dateTime(new DateTime().createTime())
-                .build();
-    }
-
 }

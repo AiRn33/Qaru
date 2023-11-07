@@ -27,9 +27,10 @@
                                 <label for="shopComment">가게 설명 &nbsp;<i class="bi bi-mouse"></i></label>
                             </div>
 
-
                             <input type="file" name="file" id="file" onchange="returnImg(this);"
-                                   style="margin-bottom: 10px;">
+                                   style="margin-bottom: 10px; display: none;">
+                            <label for="file" id="file_label" class="btn-mint btn">파일 추가</label><span></span>
+                            <input type="text" id="imageTitle" value="선택 된 파일이 없습니다." disabled style="text-align: center;">
 
                             <img src="" id="preview" class="img-thumbnail" alt="..." style="display: none;">
 
@@ -56,7 +57,7 @@
                         <div class="card" style="padding:8px">
                             <button type="button" class="btn btn-primary" onclick="Submit()">
                                 <i class="bi bi-people-fill fs-5" style="color: white;">
-                                    &nbsp;회원가입
+                                    &nbsp;가게 등록
                                 </i>
                             </button>
                         </div>
@@ -87,9 +88,9 @@
         //실행될 코드
         errors();
         if (document.querySelector('#commentCheck').value) {
-            document.querySelector('#file').style.marginTop = '25px';
+            document.querySelector('#file_label').style.marginTop = '25px';
         } else {
-            document.querySelector('#file').style.marginTop = '5px';
+            document.querySelector('#file_label').style.marginTop = '5px';
         }
 
     }

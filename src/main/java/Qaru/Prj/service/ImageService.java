@@ -1,12 +1,16 @@
 package Qaru.Prj.service;
 
 import Qaru.Prj.domain.entity.Image;
+import Qaru.Prj.domain.entity.ImageGroup;
 import Qaru.Prj.domain.entity.Shop;
 import Qaru.Prj.repository.ImageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -17,17 +21,30 @@ public class ImageService {
 
     private final ImageRepository imageRepository;
 
-    public void imageSave(MultipartFile file, String storedName, Shop shop){
+    public void imageSave(MultipartFile file, String storedName, ImageGroup imageGroup){
 
         String originalName = file.getOriginalFilename();
 
         Image image = Image.builder()
-                .imageGroup(shop.getImageGroup())
+                .imageGroup(imageGroup)
                 .originalFileName(originalName)
                 .storedFilePath(dir)
                 .storedFileName(storedName)
                 .build();
 
         imageRepository.save(image);
+    }
+
+    public List<Image> imageSelectAll(Long imageGroupId){
+
+        List<Image> images = imageRepository.findByImageGroupId(imageGroupId);
+
+        return images;
+    }
+
+    @Transactional
+    public void imageDelete(Long imageGroupId){
+
+        imageRepository.deleteByImageGroupId(imageGroupId);
     }
 }

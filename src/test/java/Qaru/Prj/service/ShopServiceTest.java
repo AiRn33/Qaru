@@ -37,18 +37,19 @@ public class ShopServiceTest {
     @Autowired
     private ImageRepository imageRepository;
 
+    CreateClass create = new CreateClass();
     @Test
     void 가게정보저장() {
 
         // given
-        User user = createUser();
+        User user = create.createUser();
 
-        ImageGroup imageGroup = createImgGroup();
+        ImageGroup imageGroup = create.createImgGroup();
 
-        Shop shop = createShop(user, imageGroup);
+        Shop shop = create.createShop(user, imageGroup);
         List<Image> list = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
-            Image image = createImg(imageGroup);
+            Image image = create.createImg(imageGroup);
             list.add(image);
         }
 
@@ -63,47 +64,5 @@ public class ShopServiceTest {
     }
 
 
-    static User createUser() {
-        // 유저 저장
-        return User.builder()
-                .userId("test12355")
-                .userPw("1234")
-                .userNickName("nickname123")
-                .userEmail("test155155@naver.com")
-                .userSocialType(UserType.NOMAL)
-                .dateTime(new DateTime().createTime())
-                .role(RoleType.USER)
-                .build();
-    }
 
-    static Shop createShop(User user, ImageGroup imageGroup) {
-        // 가게 저장
-        return Shop.builder()
-                .shopName("shopName")
-                .user(user)
-                .imageGroup(imageGroup)
-                .shopComment("shopComment")
-                .address(new Address("city", "street", "00000"))
-                .dateTime(new DateTime().createTime())
-                .build();
-    }
-
-    static ImageGroup createImgGroup() {
-        // 이미지 그룹 저장
-        return ImageGroup.builder()
-                .dateTime(new DateTime().createTime())
-                .build();
-    }
-
-    static Image createImg(ImageGroup imageGroup) {
-
-        String fileName = "fileName";
-
-        return Image.builder()
-                .imageGroup(imageGroup)
-                .originalFileName(fileName)
-                .storedFileName("storedFileName")
-                .storedFilePath("C:/file")
-                .build();
-    }
 }

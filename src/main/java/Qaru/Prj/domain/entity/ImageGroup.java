@@ -29,4 +29,9 @@ public class ImageGroup {
     public ImageGroup(DateTime dateTime) {
         this.dateTime = dateTime;
     }
+
+    public ImageGroup updateImageGroup(ImageGroup imageGroup){
+        this.dateTime = dateTime.ImageGroupUpdateTime(imageGroup);
+        return this;
+    }
 }

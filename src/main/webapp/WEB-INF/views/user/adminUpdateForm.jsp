@@ -9,9 +9,11 @@
             <div class="card" style="padding:8px">
                 <h1>가게 정보 수정</h1>
             </div>
-            <form action="/user/change-admin/modify" method="post" id="signupForm" enctype="multipart/form-data">
+            <form action="/user/change-admin-modify" method="post" id="signupForm" enctype="multipart/form-data">
                 <input type="hidden" id="userZipcode" name="userZipcode" value="${shopData.userZipcode}">
                 <input type="hidden" id="commentCheck" value="${commentCheck}">
+                <input type="hidden" id="storedFileName" name="storedFileName" value="${images.storedFileName}">
+                <input type="hidden" id="imageUpdateCheck" name="imageUpdateCheck" value="true">
                 <div class="row g-0">
                     <div class="col">
                         <div class="card" style="padding:8px">
@@ -22,16 +24,18 @@
                             </div>
                             <div class="form-floating mb-1" style="height: 200px" id="shopCommentArea">
                                 <textarea class="form-control" id="shopComment" name="shopComment" placeholder=""
-                                          value="${shopData.shopComment}"
-                                          style="height: 200px; resize: none;"></textarea>
+                                          style="height: 200px; resize: none;">${shopData.shopComment}</textarea>
                                 <label for="shopComment">가게 설명 &nbsp;<i class="bi bi-mouse"></i></label>
                             </div>
 
 
                             <input type="file" name="file" id="file" onchange="returnImg(this);"
-                                   style="margin-bottom: 10px;">
+                                   style="margin-bottom: 10px; display: none;">
+                            <label for="file" id="file_label" class="btn-mint btn">파일 추가</label><span></span>
+                            <input type="text" id="imageTitle" value="${images.originalFileName}" disabled style="text-align: center;">
 
-                            <img src="" id="preview" class="img-thumbnail" alt="..." style="display: none;">
+
+                            <img src="../img/${images.storedFileName}" id="preview" class="img-thumbnail" alt="..." style="">
 
                             <div class="form-floating mb-1" id="userCityArea">
                                 <input type="text" class="form-control" id="userCity" name="userCity" placeholder=""
@@ -56,7 +60,7 @@
                         <div class="card" style="padding:8px">
                             <button type="button" class="btn btn-primary" onclick="Submit()">
                                 <i class="bi bi-people-fill fs-5" style="color: white;">
-                                    &nbsp;회원가입
+                                    &nbsp;정보 수정
                                 </i>
                             </button>
                         </div>
@@ -87,9 +91,9 @@
         //실행될 코드
         errors();
         if (document.querySelector('#commentCheck').value) {
-            document.querySelector('#file').style.marginTop = '25px';
+            document.querySelector('#file_label').style.marginTop = '25px';
         } else {
-            document.querySelector('#file').style.marginTop = '5px';
+            document.querySelector('#file_label').style.marginTop = '5px';
         }
 
     }
@@ -121,6 +125,11 @@
             reader.onload = function (e) {
                 document.getElementById('preview').src = e.target.result;
                 document.querySelector('#preview').style.display = '';
+
+                let imgName = document.querySelector('#file').value.split('\\')[document.querySelector('#file').value.split('\\').length - 1];
+                document.querySelector('#imageTitle').value = imgName;
+
+                document.querySelector('#imageUpdateCheck').value = false;
             };
             reader.readAsDataURL(input.files[0]);
         } else {

@@ -1,17 +1,14 @@
 package Qaru.Prj.controller;
 
 import Qaru.Prj.config.customSecurity.PrincipalDetails;
+import Qaru.Prj.domain.entity.Image;
 import Qaru.Prj.domain.entity.User;
-import Qaru.Prj.domain.request.UserAdminChangeRequest;
-import Qaru.Prj.domain.request.UserAuthRequest;
-import Qaru.Prj.domain.request.UserSignUpRequest;
-import Qaru.Prj.domain.request.UserUpdateRequest;
+import Qaru.Prj.domain.request.*;
+import Qaru.Prj.domain.response.ImageResponse;
+import Qaru.Prj.domain.response.UserAdminUpdateResponse;
 import Qaru.Prj.domain.response.UserMypageRespose;
 import Qaru.Prj.error.ScriptErrors;
-import Qaru.Prj.service.EmailService;
-import Qaru.Prj.service.FileService;
-import Qaru.Prj.service.ShopService;
-import Qaru.Prj.service.UserService;
+import Qaru.Prj.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -39,6 +36,7 @@ public class UserController {
     private final ShopService shopService;
     private final EmailService emailService;
     private final FileService fileService;
+    private final ImageService imageService;
 
     @GetMapping("/user/login")
     public String userLogin(){
@@ -107,8 +105,8 @@ public class UserController {
 
         userService.signup(new UserSignUpRequest(request));
 
-        model.addAttribute("signupSuccess", true);
-        return "/user/signupSuccessAlert";
+        model.addAttribute("successAlert", 1);
+        return "/user/successAlert";
     }
 
     @GetMapping("/user/mypage")
@@ -177,57 +175,67 @@ public class UserController {
             List errors = new ScriptErrors().errors(bindingResult);
             model.addAttribute("errorScript", errors);
             model.addAttribute("shopData", userRequest);
-            model.addAttribute("commentCheck", userRequest.getFile().getSize() < 1 ? true : false);
+            model.addAttribute("commentCheck", userRequest.getShopComment().length() < 1 ? true : false);
 
             return "/user/adminForm";
         }
 
-        model.addAttribute("changeSuccess", true);
+        model.addAttribute("changeSuccess", 2);
 
         String storedName = fileService.serverUploadFile(userRequest.getFile());
 
         Long shopId = shopService.createAdmin(userRequest, storedName, request);
 
         if(shopId > 0L){
-            return "/user/userChangeAdminSuccessAlert";
+            return "/user/successAlert";
         }
 
         return "/error";
     }
 
-    @GetMapping("/user/change-admin/modify")
-    public String changeRoleAdminModify(@Valid UserAdminChangeRequest userRequest, BindingResult bindingResult,
-                                      @AuthenticationPrincipal PrincipalDetails request, Model model) throws Exception {
+    @GetMapping("/user/change-admin-modify")
+    public String changeRoleAdminModify(@AuthenticationPrincipal PrincipalDetails request, Model model) throws Exception {
 
-        userService.userAdminUpdate(request);
+        UserAdminUpdateResponse response = userService.userAdminUpdate(request);
+
+        ImageResponse imageResponse = new ImageResponse().selectImage(imageService.imageSelectAll(response.getImageGroup().getId()).get(0));
+
+        model.addAttribute("shopData", response);
+        model.addAttribute("images", imageResponse);
 
         return "/user/adminUpdateForm";
     }
-    @PostMapping("/user/change-admin/modify")
-    public String changeRoleAdminModifyPost(@Valid UserAdminChangeRequest userRequest, BindingResult bindingResult,
-                                      @AuthenticationPrincipal PrincipalDetails request, Model model) throws Exception {
+    @PostMapping("/user/change-admin-modify")
+    public String changeRoleAdminModifyPost(@Valid ShopUpdateRequest userRequest, BindingResult bindingResult,
+                                            @AuthenticationPrincipal PrincipalDetails request, Model model) throws Exception {
+        UserAdminUpdateResponse response = userService.userAdminUpdate(request);
 
         // valid에 걸릴 시
         if(bindingResult.hasErrors()){
+
             List errors = new ScriptErrors().errors(bindingResult);
             model.addAttribute("errorScript", errors);
             model.addAttribute("shopData", userRequest);
-            model.addAttribute("commentCheck", userRequest.getFile().getSize() < 1 ? true : false);
+            model.addAttribute("images", new ImageResponse().selectImage(imageService.imageSelectAll(response.getImageGroup().getId()).get(0)));
+            model.addAttribute("commentCheck", userRequest.getShopComment().length() < 1 ? true : false);
 
-            return "/user/adminForm";
+            return "/user/adminUpdateForm";
         }
 
-        model.addAttribute("changeSuccess", true);
+        if(!userRequest.getImageUpdateCheck()){
 
-        String storedName = fileService.serverUploadFile(userRequest.getFile());
+            // 기존 파일 삭제
+            fileService.deleteFile(response.getStoredFileName());
+            String storedName = fileService.serverUploadFile(userRequest.getFile());
+            imageService.imageDelete(response.getImageGroup().getId());
+            imageService.imageSave(userRequest.getFile(), storedName, response.getImageGroup());
 
-        Long shopId = shopService.createAdmin(userRequest, storedName, request);
-
-        if(shopId > 0L){
-            return "/user/userChangeAdminSuccessAlert";
         }
 
-        return "/error";
+        shopService.updateShop(userRequest, request);
+        model.addAttribute("successAlert", 3);
+
+        return "/user/successAlert";
     }
 
     @GetMapping("/user/find-id")

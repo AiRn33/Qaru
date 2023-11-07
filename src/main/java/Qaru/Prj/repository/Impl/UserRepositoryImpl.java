@@ -22,39 +22,26 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<UserAdminUpdateResponse> findbyShopUpdate(Long userId) {
-        List<UserAdminUpdateResponse> fetch = queryFactory
-                .select(Projections.fields(UserAdminUpdateResponse.class,
-                        user.id,
-                        shop.shopName,
-                        shop.shopComment,
-                        shop.address.city,
-                        shop.address.street,
-                        shop.address.zipcode,
-                        imageGroup.id,
-                        image.originalFileName,
-                        image.storedFileName,
-                        image.storedFilePath))
-                .from(user)
-                .join(shop.user, user)
-                .join(shop.imageGroup, imageGroup)
-                .join(image.imageGroup, imageGroup)
-                .where(user.id.eq(userId))
-                .fetch();
-        return fetch;
-    }
+    public UserAdminUpdateResponse findbyShopUpdate(Long userId) {
+        UserAdminUpdateResponse fetch =
 
-    @Override
-    public List<Shop> test(Long userId) {
-
-        List<Shop> fetch =
                 queryFactory
-                        .select(shop)
-                .from(user)
-                        .where(user.id.eq(userId)).fetch();
+                        .select(Projections.fields(UserAdminUpdateResponse.class,
+                                shop.user,
+                                shop.shopName,
+                                shop.imageGroup,
+                                shop.shopComment,
+                                shop.address.city.as("userCity"),
+                                shop.address.street.as("userStreet"),
+                                shop.address.zipcode.as("userZipcode"),
+                                image.originalFileName,
+                                image.storedFileName,
+                                image.storedFilePath))
+                        .from(shop,image)
+                        .innerJoin(shop.imageGroup).on(image.imageGroup.id.eq(shop.imageGroup.id))
+                        .where(shop.user.id.eq(45L)).fetchOne();
 
         return fetch;
     }
-
 
 }

@@ -49,4 +49,10 @@ public class FileService {
         int pos = originalFilename.lastIndexOf(".");
         return originalFilename.substring(pos + 1);
     }
+
+    public void deleteFile(String storedFileName){
+
+        File file = new File(dir + storedFileName);
+        file.delete();
+    }
 }
