@@ -31,9 +31,12 @@
 
                             <input type="file" name="file" id="file" onchange="returnImg(this);"
                                    style="margin-bottom: 10px; display: none;">
-                            <label for="file" id="file_label" class="btn-mint btn">파일 추가</label><span></span>
+                            <button type="button" id="file_btn" class="btn btn-mint" onclick="imgClick()">
+                                <i class="bi bi-card-image fs-7" style="color: white;">
+                                    파일 추가
+                                </i>
+                            </button>
                             <input type="text" id="imageTitle" value="${images.originalFileName}" disabled style="text-align: center;">
-
 
                             <img src="../img/${images.storedFileName}" id="preview" class="img-thumbnail" alt="..." style="">
 
@@ -91,9 +94,9 @@
         //실행될 코드
         errors();
         if (document.querySelector('#commentCheck').value) {
-            document.querySelector('#file_label').style.marginTop = '25px';
+            document.querySelector('#file_btn').style.marginTop = '25px';
         } else {
-            document.querySelector('#file_label').style.marginTop = '5px';
+            document.querySelector('#file_btn').style.marginTop = '5px';
         }
 
     }
@@ -135,6 +138,10 @@
         } else {
             document.getElementById('preview').src = "";
         }
+    }
+
+    function imgClick(){
+        document.querySelector('#file').click();
     }
 </script>
 

@@ -1,11 +1,8 @@
-package Qaru.Prj.service;
+package Qaru.Prj;
 
 import Qaru.Prj.domain.baseEntity.Address;
 import Qaru.Prj.domain.baseEntity.DateTime;
-import Qaru.Prj.domain.entity.Image;
-import Qaru.Prj.domain.entity.ImageGroup;
-import Qaru.Prj.domain.entity.Shop;
-import Qaru.Prj.domain.entity.User;
+import Qaru.Prj.domain.entity.*;
 import Qaru.Prj.domain.enums.RoleType;
 import Qaru.Prj.domain.enums.UserType;
 
@@ -51,6 +48,18 @@ public class CreateClass {
                 .originalFileName(fileName)
                 .storedFileName("storedFileName")
                 .storedFilePath("C:/file")
+                .build();
+    }
+
+    public Tour createTour(ImageGroup imageGroup, User user){
+
+        return Tour.builder()
+                .user(user)
+                .imageGroup(imageGroup)
+                .tourTitle("여행 타이틀")
+                .tourContent("여행 내용!!!")
+                .address(new Address("city", "street", "00000"))
+                .dateTime(new DateTime().createTime())
                 .build();
     }
 }

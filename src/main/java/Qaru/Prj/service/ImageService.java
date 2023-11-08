@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -33,6 +34,27 @@ public class ImageService {
                 .build();
 
         imageRepository.save(image);
+    }
+
+    public void imageSaveAll(List<MultipartFile> file, List<String> storedNames, ImageGroup imageGroup){
+
+        List<Image> list = new ArrayList<>();
+
+        for(int i = 0; i < file.size(); i++){
+
+            String originalName = file.get(i).getOriginalFilename();
+
+            Image image = Image.builder()
+                    .imageGroup(imageGroup)
+                    .originalFileName(originalName)
+                    .storedFilePath(dir)
+                    .storedFileName(storedNames.get(i))
+                    .build();
+
+            list.add(image);
+        }
+
+        imageRepository.saveAll(list);
     }
 
     public List<Image> imageSelectAll(Long imageGroupId){

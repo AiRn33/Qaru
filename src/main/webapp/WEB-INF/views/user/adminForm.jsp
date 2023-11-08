@@ -22,16 +22,21 @@
                             </div>
                             <div class="form-floating mb-1" style="height: 200px" id="shopCommentArea">
                                 <textarea class="form-control" id="shopComment" name="shopComment" placeholder=""
-                                          value="${shopData.shopComment}"
-                                          style="height: 200px; resize: none;"></textarea>
+                                          style="height: 200px; resize: none;">${shopData.shopComment}</textarea>
                                 <label for="shopComment">가게 설명 &nbsp;<i class="bi bi-mouse"></i></label>
                             </div>
 
+                            <div id="imgArea">
+
+                            </div>
                             <input type="file" name="file" id="file" onchange="returnImg(this);"
                                    style="margin-bottom: 10px; display: none;">
-                            <label for="file" id="file_label" class="btn-mint btn">파일 추가</label><span></span>
-                            <input type="text" id="imageTitle" value="선택 된 파일이 없습니다." disabled style="text-align: center;">
-
+                            <button type="button" id="file_btn" class="btn btn-mint" onclick="imgClick()">
+                                <i class="bi bi-card-image fs-7" style="color: white;">
+                                    파일 추가
+                                </i>
+                            </button>
+                            <input type="text" id="imageTitle" value="${images.originalFileName}" disabled style="text-align: center;">
                             <img src="" id="preview" class="img-thumbnail" alt="..." style="display: none;">
 
                             <div class="form-floating mb-1" id="userCityArea">
@@ -87,10 +92,12 @@
     window.onload = function () {
         //실행될 코드
         errors();
+        errorsImg();
+
         if (document.querySelector('#commentCheck').value) {
-            document.querySelector('#file_label').style.marginTop = '25px';
+            document.querySelector('#file_btn').style.marginTop = '2px';
         } else {
-            document.querySelector('#file_label').style.marginTop = '5px';
+            document.querySelector('#file_btn').style.marginTop = '5px';
         }
 
     }
@@ -122,11 +129,21 @@
             reader.onload = function (e) {
                 document.getElementById('preview').src = e.target.result;
                 document.querySelector('#preview').style.display = '';
+
+                let imgName = document.querySelector('#file').value.split('\\')[document.querySelector('#file').value.split('\\').length - 1];
+                document.querySelector('#imageTitle').value = imgName;
+
+                document.querySelector('#imageUpdateCheck').value = false;
             };
             reader.readAsDataURL(input.files[0]);
         } else {
             document.getElementById('preview').src = "";
         }
     }
+
+    function imgClick(){
+        document.querySelector('#file').click();
+    }
+
 </script>
 

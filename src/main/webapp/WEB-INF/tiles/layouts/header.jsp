@@ -3,6 +3,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <input type="hidden" id="errorScript" value="${errorScript}">
+<input type="hidden" id="errorScriptImg" value="${errorScriptImg}">
 
 <nav class="navbar navbar-expand-lg" style="left: 10px">
     <div class="container-fluid">

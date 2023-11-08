@@ -1,7 +1,7 @@
 package Qaru.Prj.service;
 
+import Qaru.Prj.CreateClass;
 import Qaru.Prj.domain.entity.Image;
-import Qaru.Prj.domain.entity.ImageGroup;
 import Qaru.Prj.domain.entity.Shop;
 import Qaru.Prj.repository.ImageRepository;
 import Qaru.Prj.repository.ShopRepository;
@@ -14,10 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @Slf4j
 @SpringBootTest

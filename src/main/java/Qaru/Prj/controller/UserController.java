@@ -106,7 +106,7 @@ public class UserController {
         userService.signup(new UserSignUpRequest(request));
 
         model.addAttribute("successAlert", 1);
-        return "/user/successAlert";
+        return "/successAlert";
     }
 
     @GetMapping("/user/mypage")
@@ -160,7 +160,6 @@ public class UserController {
     @GetMapping("/user/change-admin")
     public String changeRoleAdmin(@AuthenticationPrincipal PrincipalDetails request, Model model) throws Exception {
 
-        System.out.println("=============> : " + userService.getUserByUserId(request.getUsername()).getUserId());
         model.addAttribute("userData", new UserMypageRespose().userUpdate(userService.getUserByUserId(request.getUsername())));
 
         return "/user/adminForm";
@@ -171,23 +170,24 @@ public class UserController {
                                       @AuthenticationPrincipal PrincipalDetails request, Model model) throws Exception {
 
         // valid에 걸릴 시
-        if(bindingResult.hasErrors()){
+        if(bindingResult.hasErrors() || userRequest.getFile().getSize() < 1){
             List errors = new ScriptErrors().errors(bindingResult);
             model.addAttribute("errorScript", errors);
             model.addAttribute("shopData", userRequest);
             model.addAttribute("commentCheck", userRequest.getShopComment().length() < 1 ? true : false);
+            model.addAttribute("errorScriptImg", "[이미지가 등록되지 않았습니다., img]");
 
             return "/user/adminForm";
         }
 
-        model.addAttribute("changeSuccess", 2);
+        model.addAttribute("successAlert", 2);
 
         String storedName = fileService.serverUploadFile(userRequest.getFile());
 
         Long shopId = shopService.createAdmin(userRequest, storedName, request);
 
         if(shopId > 0L){
-            return "/user/successAlert";
+            return "/successAlert";
         }
 
         return "/error";
@@ -222,6 +222,17 @@ public class UserController {
             return "/user/adminUpdateForm";
         }
 
+        // valid에 걸릴 시
+        if(bindingResult.hasErrors() || userRequest.getFile().getSize() < 1){
+            List errors = new ScriptErrors().errors(bindingResult);
+            model.addAttribute("errorScript", errors);
+            model.addAttribute("shopData", userRequest);
+            model.addAttribute("commentCheck", userRequest.getShopComment().length() < 1 ? true : false);
+            model.addAttribute("errorScriptImg", "[이미지가 등록되지 않았습니다., img]");
+
+            return "/user/adminForm";
+        }
+
         if(!userRequest.getImageUpdateCheck()){
 
             // 기존 파일 삭제
@@ -235,7 +246,7 @@ public class UserController {
         shopService.updateShop(userRequest, request);
         model.addAttribute("successAlert", 3);
 
-        return "/user/successAlert";
+        return "/successAlert";
     }
 
     @GetMapping("/user/find-id")

@@ -1,13 +1,10 @@
 package Qaru.Prj.service;
 
-import Qaru.Prj.domain.baseEntity.Address;
-import Qaru.Prj.domain.baseEntity.DateTime;
+import Qaru.Prj.CreateClass;
 import Qaru.Prj.domain.entity.Image;
 import Qaru.Prj.domain.entity.ImageGroup;
 import Qaru.Prj.domain.entity.Shop;
 import Qaru.Prj.domain.entity.User;
-import Qaru.Prj.domain.enums.RoleType;
-import Qaru.Prj.domain.enums.UserType;
 import Qaru.Prj.repository.ImageRepository;
 import Qaru.Prj.repository.ShopRepository;
 import Qaru.Prj.repository.UserRepository;
@@ -16,12 +13,10 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Commit;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @SpringBootTest
 @Transactional

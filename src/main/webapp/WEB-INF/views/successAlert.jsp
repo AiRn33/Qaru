@@ -5,10 +5,13 @@
         alert("회원가입을 축하드립니다!");
         window.location.href="/";
     }else if(${successAlert == 2}){
-        alert("가게 등록 완료!");
-        window.location.href="/";
+        alert("가게 등록 완료! 다시 로그인 해주세요.");
+        window.location.href="/user/logout";
     }else if(${successAlert == 3}){
         alert("가게 수정 완료!");
         window.location.href="/";
+    }else if(${successAlert == 4}){
+        alert("게시글 등록 완료!");
+        window.location.href="/tour/tourList";
     }
 </script>

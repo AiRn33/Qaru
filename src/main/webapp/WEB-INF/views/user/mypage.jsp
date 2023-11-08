@@ -86,7 +86,8 @@
         //실행될 코드
         errors();
         if (${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.user.role == 'USER'}) {
-
+            document.querySelector('#userBtn').style.display = '';
+            document.querySelector('#adminBtn').style.display = 'none';
         } else {
             document.querySelector('#userBtn').style.display = 'none';
             document.querySelector('#adminBtn').style.display = '';
