@@ -23,6 +23,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
 
     @Override
     public UserAdminUpdateResponse findbyShopUpdate(Long userId) {
+
         UserAdminUpdateResponse fetch =
 
                 queryFactory
