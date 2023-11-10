@@ -17,6 +17,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Service
@@ -60,6 +61,16 @@ public class TourService {
     public TourViewResponse getTour(Long tourId) throws Exception {
 
         Tour tour = tourRepository.findById(tourId).orElseThrow(() -> new Exception("게시글이 존재하지 않습니다."));
+
+        TourViewResponse tourViewResponse = new TourViewResponse().createView(tour);
+
+        return tourViewResponse;
+    }
+
+    @Transactional
+    public TourViewResponse updateTour(TourCreateRequest request, Long tourId) {
+
+        Tour tour = tourRepository.findById(tourId).get().updateTour(request);
 
         TourViewResponse tourViewResponse = new TourViewResponse().createView(tour);
 

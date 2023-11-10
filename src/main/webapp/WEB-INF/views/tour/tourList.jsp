@@ -35,13 +35,15 @@
                 <c:forEach items="${tourList}" var="item" varStatus="status">
                     <div class="col-4">
                         <div class="card" style="padding:8px">
-                            <button type="button" class="btn btn-primary" onclick="location.href='/tour/${item.tour_id}'">
+                            <button type="button" class="btn btn-primary"
+                                    onclick="location.href='/tour/${item.tour_id}'">
                                 <i class="bi bi-${status.index + 1}-circle fs-4" style="color: white"></i>
                             </button>
                             <h8 style="padding-top: 10px;">${item.tour_title}</h8>
+                            <span style="font-size: 10px;">${fn:split(item.tour_date,'T')[0]} / ${item.user_nickname}</span>
                             <hr style="margin: 0.4rem;">
                             <label style="font-size: 12px; font-weight: lighter;">${fn:length(item.tour_content) > 40 ?
-                                                fn:substring(item.tour_content,0,40) : item.tour_content}
+                                    fn:substring(item.tour_content,0,40) : item.tour_content}
                                 <c:if test="${fn:length(item.tour_content) > 40}">
                                     <span style="color: #e74c3c; font-size: 10px; font-weight: bold;">...(생략)</span>
                                 </c:if>
@@ -49,30 +51,64 @@
                         </div>
                     </div>
                 </c:forEach>
-
+                <div class="row g-0">
+                    <div class="col-8"></div>
+                    <div class="col-4" style="text-align: right; margin-top: 10px;">
+                        <button class="btn btn-pink" onclick="location.href='/tour'"><span style="color: white;">등록</span></button>
+                    </div>
+                </div>
 
                 <%-- =============== paging ============== --%>
+                <c:if test="${tourListCount > 0}">
                 <div class="col-4"></div>
                 <div class="col-4" style="margin-top: 20px;">
                     <nav aria-label="Page navigation example">
                         <ul class="pagination" style="justify-content: center;">
-                            <li class="page-item">
-                                <a class="page-link" href="/tour/tourList" aria-label="Previous">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
+                            <c:choose>
+                                <c:when test="${pageNum < 4}">
+                                    <li class="page-item">
+                                        <a class="page-link" href="/tour/tourList?page=${pageNum}&size=9" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <c:forEach var="item" varStatus="status" begin="${pageNum}" end="${endPageNum}">
+                                        <li class="page-item">
+                                            <a class="page-link"
+                                               href="/tour/tourList?page=${status.index}&size=9">${status.index + 1}</a>
+                                        </li>
+                                    </c:forEach>
+                                    <li class="page-item">
+                                        <a class="page-link" href="/tour/tourList?page=${endPageNum}&size=9" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li class="page-item">
+                                        <a class="page-link" href="/tour/tourList?page=${pageNum}&size=9" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <c:forEach var="item" varStatus="status" begin="${pageNum}" end="${pageNum + 4}">
+                                        <li class="page-item">
+                                            <a class="page-link"
+                                               href="/tour/tourList?page=${status.index}&size=9">${status.index + 1}</a>
+                                        </li>
+                                    </c:forEach>
+                                    <li class="page-item">
+                                        <a class="page-link" href="/tour/tourList?page=${pageNum + 4}&size=9" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </c:otherwise>
+                            </c:choose>
                         </ul>
                     </nav>
                 </div>
+
                 <div class="col-4"></div>
+                </c:if>
+
             </div>
         </div>
     </div>

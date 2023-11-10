@@ -2,6 +2,8 @@ package Qaru.Prj.domain.entity;
 
 import Qaru.Prj.domain.baseEntity.Address;
 import Qaru.Prj.domain.baseEntity.DateTime;
+import Qaru.Prj.domain.request.TourCreateRequest;
+import Qaru.Prj.domain.request.UserUpdateRequest;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Getter;
@@ -52,6 +54,14 @@ public class Tour {
         this.tourContent = tourContent;
         this.dateTime = dateTime;
         this.address = address;
+    }
+
+    public Tour updateTour(TourCreateRequest request){
+        this.tourTitle = request.getTourTitle();
+        this.tourContent = request.getTourContent();
+        this.address = new Address(request.getCity(), request.getStreet(), request.getZipcode());
+        this.dateTime = new DateTime().tourUpdateTime(this);
+        return this;
     }
 
     protected Tour() {

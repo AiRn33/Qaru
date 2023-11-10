@@ -12,6 +12,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
 
 @SpringBootTest
 @Slf4j
@@ -25,8 +26,11 @@ public class TourServiceTest {
     private ImageGroupRepository imageGroupRepository;
 
     CreateClass createClass = new CreateClass();
+
     @Test
-    void 여행정보저장(){
+    @Commit
+    void 여행정보저장() {
+
 
         // given
         User user = createClass.createUser();
@@ -40,5 +44,4 @@ public class TourServiceTest {
         // when
         Assertions.assertThat(tour.getUser().getId()).isEqualTo(user.getId());
     }
-
 }

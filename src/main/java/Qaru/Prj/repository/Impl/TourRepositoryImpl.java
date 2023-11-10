@@ -27,7 +27,8 @@ public class TourRepositoryImpl implements TourRepositoryCustom{
                         tour.id.as("tour_id"),
                         tour.tourTitle.as("tour_title"),
                         tour.tourContent.as("tour_content"),
-                        tour.dateTime.updateDate.as("tour_date")
+                        tour.dateTime.updateDate.as("tour_date"),
+                        tour.user.userNickName.as("user_nickname")
                 ))
                 .from(tour)
                 .offset(pageable.getOffset())

@@ -26,4 +26,5 @@ public class TourListResponse {
 
     private LocalDateTime tour_date;
 
+    private String user_nickname;
 }

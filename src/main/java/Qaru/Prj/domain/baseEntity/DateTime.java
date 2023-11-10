@@ -2,6 +2,7 @@ package Qaru.Prj.domain.baseEntity;
 
 import Qaru.Prj.domain.entity.ImageGroup;
 import Qaru.Prj.domain.entity.Shop;
+import Qaru.Prj.domain.entity.Tour;
 import Qaru.Prj.domain.entity.User;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -45,6 +46,12 @@ public class DateTime {
 
     public DateTime ImageGroupUpdateTime(ImageGroup imageGroup){
         this.createDate = imageGroup.getDateTime().getCreateDate();
+        this.updateDate = LocalDateTime.now();
+        return this;
+    }
+
+    public DateTime tourUpdateTime(Tour tour){
+        this.createDate = tour.getDateTime().getCreateDate();
         this.updateDate = LocalDateTime.now();
         return this;
     }
