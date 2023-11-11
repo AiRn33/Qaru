@@ -1,5 +1,58 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="tiles"  uri="http://tiles.apache.org/tags-tiles" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="shortcut icon" href="#">
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/common.js"></script>
+    <title>Qaru</title>
+</head>
+<body>
+
+<input type="hidden" id="errorScript" value="${errorScript}">
+<input type="hidden" id="errorScriptImg" value="${errorScriptImg}">
+
+<nav class="navbar navbar-expand-lg" style="left: 10px">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            <i class="bi bi-qr-code-scan" style="color: black"></i>&nbsp;
+            Qaru
+        </a>
+        <div>
+            <c:choose>
+                <c:when test="${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.user.userNickName == null}">
+                    <button type="button" class="btn btn-outline-light_green"
+                            onclick="location.href='/user/login'" style="--bs-btn-padding-x: 2.75rem">
+                        <i class="bi bi-box-arrow-in-right fs-4"></i>
+                    </button>
+                    <button type="button" class="btn btn-outline-info"
+                            onclick="location.href='/user/signup'"
+                            style="--bs-btn-hover-color: white; --bs-btn-active-color: white; --bs-btn-padding-x: 2.75rem">
+                        <i class="bi bi-person-circle fs-4"></i>
+                    </button>
+                </c:when>
+                <c:otherwise>
+                    <button type="button" class="btn btn-outline-pink"
+                            onclick="location.href='/user/logout'" style="--bs-btn-padding-x: 2.75rem">
+                        <i class="bi bi-box-arrow-in-right fs-4"></i>
+                    </button>
+                    <button type="button" class="btn btn-outline-mint"
+                            onclick="location.href='/user/mypage'"
+                            style="--bs-btn-hover-color: white; --bs-btn-active-color: white; --bs-btn-padding-x: 2.75rem">
+                        <i class="bi bi-person-circle fs-4"></i>
+                    </button>
+                </c:otherwise>
+            </c:choose>
+
+        </div>
+    </div>
+</nav>
 
 <div class="container-md" style="height:     55%!important;">
     <div class="row d-flex justify-content-center align-items-center h-100">
@@ -110,3 +163,6 @@
         <div class="col-2"></div>
     </div>
 </div>
+</body>
+</html>
+

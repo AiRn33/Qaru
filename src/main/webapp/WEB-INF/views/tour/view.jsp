@@ -20,7 +20,7 @@
                             </div>
                             <div id="img_area">
                                 <c:forEach items="${images}" var="item">
-                                    <img src="../img/${item.storedFileName}" class="img-thumbnail" alt="..." style="width: 150px; height: 150px;" onclick="thumbnailImg(this)">
+                                    <img src="/img/${item.storedFileName}" class="img-thumbnail" alt="..." style="width: 150px; height: 150px;" onclick="thumbnailImg(this)">
                                 </c:forEach>
                             </div>
                         </div>
@@ -56,9 +56,3 @@
         <div class="col-2"></div>
     </div>
 </div>
-
-<script>
-    function thumbnailImg(input){
-
-    }
-</script>

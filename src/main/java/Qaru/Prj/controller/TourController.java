@@ -49,17 +49,17 @@ public class TourController {
             model.addAttribute("tourListCount", tourService.searchTourListAllCount());
 
             int pageNum = 0;
-            int searchPageAllNum = (int) (tourService.searchTourListAllCount() / pageable.getPageSize()) ;
-            if(tourService.searchTourListAllCount() % pageable.getPageSize() > 0){
+            int searchPageAllNum = (int) (tourService.searchTourListAllCount() / pageable.getPageSize());
+            if (tourService.searchTourListAllCount() % pageable.getPageSize() > 0) {
                 searchPageAllNum++;
             }
 
             // 페이지 num 이 3보다 작을 경우 1부터 시작하게 셋팅
             if (pageable.getPageNumber() < 3) {
                 pageNum = 0;
-            } else if(searchPageAllNum < 6){
+            } else if (searchPageAllNum < 6) {
                 pageNum = 0;
-            }else if (pageable.getPageNumber() + 3 > searchPageAllNum) {
+            } else if (pageable.getPageNumber() + 3 > searchPageAllNum) {
                 pageNum = (searchPageAllNum) - 5;
                 if (pageNum < 1) {
                     pageNum = 0;
@@ -183,12 +183,12 @@ public class TourController {
             model.addAttribute("commentCheck", request.getTourContent().length() < 1 ? true : false);
             model.addAttribute("errorScriptImg", "[이미지를 다시 등록해주세요., img]");
 
-            return "/tour/createTour";
+            return "/tour/modifyTour";
         }
 
         TourViewResponse tourViewResponse = tourService.updateTour(request, id);
 
-        if(request.getFile().get(0).getSize() > 0){
+        if (request.getFile().get(0).getSize() > 0) {
             List<String> storedNames = new ArrayList<>();
             for (int i = 0; i < request.getFile().size(); i++) {
                 String storedName = fileService.serverUploadFile(request.getFile().get(i));
@@ -208,8 +208,7 @@ public class TourController {
 
         model.addAttribute("tour", tourViewResponse);
         model.addAttribute("images", images);
-        model.addAttribute("successAlert", 5);
 
-        return "/successAlert";
+        return "redirect:/tour/" + id;
     }
 }

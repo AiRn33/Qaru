@@ -40,7 +40,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
                                 image.storedFilePath))
                         .from(shop,image)
                         .innerJoin(shop.imageGroup).on(image.imageGroup.id.eq(shop.imageGroup.id))
-                        .where(shop.user.id.eq(45L)).fetchOne();
+                        .where(shop.user.id.eq(userId)).fetchOne();
 
         return fetch;
     }

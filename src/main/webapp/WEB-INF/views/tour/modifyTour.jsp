@@ -64,7 +64,7 @@
                 <div class="row g-0">
                     <div class="col">
                         <div class="card" style="padding:8px">
-                            <button type="button" class="btn btn-primary" onclick="Submit()">
+                            <button type="submit" class="btn btn-primary" onclick="Submit()">
                                 <i class="bi bi-people-fill fs-5" style="color: white;">
                                     &nbsp;정보 수정
                                 </i>
@@ -73,7 +73,6 @@
                     </div>
                 </div>
             </form>
-
             <div class="row g-0">
                 <div class="col">
                     <div class="card" style="padding:8px">
@@ -115,7 +114,6 @@
 
 
     function Submit() {
-
         document.querySelector('#city').disabled = false;
         document.querySelector('#street').disabled = false;
         document.querySelector('#tourForm').submit();

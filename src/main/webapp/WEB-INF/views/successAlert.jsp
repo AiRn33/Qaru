@@ -13,8 +13,5 @@
     }else if(${successAlert == 4}){
         alert("게시글 등록 완료!");
         window.location.href="/tour/tourList?page=0&size=9";
-    }else if(${successAlert == 5}){
-        alert("게시글 수정 완료!");
-        window.location.href="/tour/tourList?page=0&size=9";
     }
 </script>
