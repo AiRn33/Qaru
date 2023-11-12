@@ -151,7 +151,7 @@
                 for(let i = 0; i < res.length; i++){
                     html += '<div class="col-4">';
                     html += '   <div class="card" style="padding:8px">';
-                    html += '   <button type="button" class="btn btn-primary onclick="location.href="/tour/'+ res[i].tour_id +'">';
+                    html += '   <button type="button" class="btn btn-primary" onclick="locationTour(' + res[i].tour_id +')">';
                     html += '       <i class="bi bi-'+ (i+1) +'-circle fs-4" style="color: white"></i>'
                     html += '   </button>';
                     html += '       <h8 style="padding-top: 10px;">' + res[i].tour_title + '</h8>';
@@ -177,4 +177,7 @@
         });
     }
 
+    function locationTour(id){
+        window.location.href = '/tour/' + id;
+    }
 </script>
