@@ -20,29 +20,45 @@
                             </div>
                             <div id="img_area">
                                 <c:forEach items="${images}" var="item">
-                                    <img src="/img/${item.storedFileName}" class="img-thumbnail" alt="..." style="width: 150px; height: 150px;" onclick="thumbnailImg(this)">
+                                    <img src="/img/${item.storedFileName}" class="img-thumbnail" alt="..."
+                                         style="width: 150px; height: 150px;" onclick="thumbnailImg(this)">
                                 </c:forEach>
                             </div>
                         </div>
                     </div>
                 </div>
             </form>
-
-            <div class="row g-0">
-                <div class="col">
-                    <div class="card" style="padding:8px">
-                        <button type="button" class="btn btn-primary" onclick="location.href='/tour/${tour.tour_id}/update'">
-                            <i class="bi bi-arrow-bar-right fs-5" style="color: white">
-                                &nbsp;수정하기
-                            </i>
-                        </button>
+            <c:if test="${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.user.userNickName == tour.userNickname}">
+                <div class="row g-0">
+                    <div class="col">
+                        <div class="card" style="padding:8px">
+                            <button type="button" class="btn btn-primary"
+                                    onclick="location.href='/tour/${tour.tour_id}/update'">
+                                <i class="bi bi-arrow-bar-right fs-5" style="color: white">
+                                    &nbsp;수정하기
+                                </i>
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
+                <div class="row g-0">
+                    <div class="col">
+                        <div class="card" style="padding:8px">
+                            <button type="button" class="btn btn-mint"
+                                    onclick="confirm('게시글을 삭제하시겠습니까?', location.href='/tour/${tour.tour_id}/delete')">
+                                <i class="bi bi-arrow-bar-right fs-5" style="color: white">
+                                    &nbsp;삭제하기
+                                </i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </c:if>
             <div class="row g-0">
                 <div class="col">
                     <div class="card" style="padding:8px">
-                        <button type="button" class="btn btn-pink" onclick="location.href='/tour/tourList?page=0&size=9'">
+                        <button type="button" class="btn btn-pink"
+                                onclick="location.href='/tour/tourList?page=0&size=9'">
                             <i class="bi bi-arrow-bar-right fs-5" style="color: white">
                                 &nbsp;뒤로가기
                             </i>

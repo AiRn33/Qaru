@@ -5,6 +5,7 @@ import Qaru.Prj.domain.entity.Image;
 import Qaru.Prj.domain.entity.ImageGroup;
 import Qaru.Prj.domain.entity.Tour;
 import Qaru.Prj.domain.request.TourCreateRequest;
+import Qaru.Prj.domain.request.TourSearchRequest;
 import Qaru.Prj.domain.response.ImageResponse;
 import Qaru.Prj.domain.response.TourListResponse;
 import Qaru.Prj.domain.response.TourViewResponse;
@@ -18,9 +19,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -170,7 +169,7 @@ public class TourController {
         return "/tour/modifyTour";
     }
 
-    @PostMapping("/tourUpdate/{id}")
+    @PostMapping("/tour/{id}/update")
     public String tourModifyPost(@Valid TourCreateRequest request, BindingResult bindingResult,
                                  @AuthenticationPrincipal PrincipalDetails principalDetails,
                                  @PathVariable Long id, Model model) throws Exception {
@@ -210,5 +209,21 @@ public class TourController {
         model.addAttribute("images", images);
 
         return "redirect:/tour/" + id;
+    }
+
+    @GetMapping("/tour/{id}/delete")
+    public String tourDelete(@PathVariable Long id){
+
+        tourService.deleteTour(id);
+
+        return "redirect:/tour/tourList";
+    }
+    @ResponseBody
+    @GetMapping("/tour/search")
+    public List<TourListResponse> tourSearch(@RequestParam("searchType") String type, @RequestParam("searchContent") String content){
+
+        List<TourListResponse> tourListResponses = tourService.searchData(type, content);
+
+        return tourListResponses;
     }
 }

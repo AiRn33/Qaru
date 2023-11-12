@@ -10,7 +10,7 @@
                 <h1>여행 소개 수정</h1>
             </div>
 
-            <form action="/tourUpdate/${tour.tour_id}" method="post" id="tourForm" enctype="multipart/form-data">
+            <form action="/tour/${tour.tour_id}/update" method="post" id="tourForm" enctype="multipart/form-data">
                 <input type="hidden" id="zipcode" name="zipcode" value="${tour.zipcode}">
                 <div class="row g-0">
                     <div class="col">

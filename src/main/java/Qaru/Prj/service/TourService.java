@@ -18,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -75,5 +76,17 @@ public class TourService {
         TourViewResponse tourViewResponse = new TourViewResponse().createView(tour);
 
         return tourViewResponse;
+    }
+
+    public void deleteTour(Long id) {
+
+        tourRepository.deleteById(id);
+    }
+
+    public List<TourListResponse> searchData(String type, String content) {
+
+        List<TourListResponse> tourListResponses = tourRepositoryImpl.searchData(type, content);
+
+        return tourListResponses;
     }
 }
