@@ -14,6 +14,7 @@ import Qaru.Prj.service.FileService;
 import Qaru.Prj.service.ImageService;
 import Qaru.Prj.service.TourService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -30,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@Slf4j
 @RequiredArgsConstructor
 public class TourController {
 
@@ -225,5 +227,13 @@ public class TourController {
         List<TourListResponse> tourListResponses = tourService.searchData(type, content);
 
         return tourListResponses;
+    }
+
+    @ResponseBody
+    @PostMapping("/tour/comment")
+    public String commentRegist(@RequestParam("comment") String comment, @RequestParam("tourId") String tourId){
+
+
+        return null;
     }
 }

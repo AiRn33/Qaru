@@ -62,4 +62,25 @@ public class CreateClass {
                 .dateTime(new DateTime().createTime())
                 .build();
     }
+
+    public Comment createComment(User user, Tour tour){
+
+        return Comment.builder()
+                .commentContent("댓글 내용!")
+                .tour(tour)
+                .user(user)
+                .dateTime(new DateTime().createTime())
+                .build();
+    }
+
+    public Comment createRecomment(User user, Tour tour, Comment comment){
+
+        return Comment.builder()
+                .commentContent("댓글 내용!")
+                .tour(tour)
+                .user(user)
+                .parent(comment)
+                .dateTime(new DateTime().createTime())
+                .build();
+    }
 }

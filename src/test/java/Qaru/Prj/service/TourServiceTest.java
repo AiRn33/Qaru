@@ -32,7 +32,6 @@ public class TourServiceTest {
     CreateClass createClass = new CreateClass();
 
     @Test
-    @Commit
     void 여행정보저장() {
 
         for(int i = 0; i < 100; i++){

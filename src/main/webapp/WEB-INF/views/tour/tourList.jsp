@@ -9,15 +9,15 @@
             <div class="col-12 row g-0">
                 <div class="col-6"></div>
                 <div class="col-6" style="justify-content: right; margin-bottom: 10px;">
-                    <form class="d-flex" role="search">
+                    <div class="d-flex">
                         <select class="form-select me-2" id="searchType" style="width: 100px;">
                             <option value="title">제목</option>
                             <option value="content">내용</option>
                         </select>
                         <input class="form-control me-1" type="search" id="searchContent" name="searchContent" placeholder="Search"
-                               aria-label="Search">
-                        <button class="btn btn-outline-success" type="button" style="width: 100px;" onclick="search()">검 색</button>
-                    </form>
+                               aria-label="Search" onkeyup="if(window.event.keyCode==13){search();}">
+                        <button class="btn btn-outline-success" id="searchBtn" type="button" style="width: 100px;" onclick="search()">검 색</button>
+                    </div>
                 </div>
             </div>
             <div class="card" style="padding:8px">
