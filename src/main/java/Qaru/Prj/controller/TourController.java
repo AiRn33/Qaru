@@ -6,10 +6,12 @@ import Qaru.Prj.domain.entity.ImageGroup;
 import Qaru.Prj.domain.entity.Tour;
 import Qaru.Prj.domain.request.TourCreateRequest;
 import Qaru.Prj.domain.request.TourSearchRequest;
+import Qaru.Prj.domain.response.CommentResponse;
 import Qaru.Prj.domain.response.ImageResponse;
 import Qaru.Prj.domain.response.TourListResponse;
 import Qaru.Prj.domain.response.TourViewResponse;
 import Qaru.Prj.error.ScriptErrors;
+import Qaru.Prj.service.CommentService;
 import Qaru.Prj.service.FileService;
 import Qaru.Prj.service.ImageService;
 import Qaru.Prj.service.TourService;
@@ -38,6 +40,7 @@ public class TourController {
     private final TourService tourService;
     private final ImageService imageService;
     private final FileService fileService;
+    private final CommentService commentService;
 
     @GetMapping("/tour/tourList")
     public String tourList(Pageable pageable, Model model) {
@@ -230,10 +233,33 @@ public class TourController {
     }
 
     @ResponseBody
-    @PostMapping("/tour/comment")
-    public String commentRegist(@RequestParam("comment") String comment, @RequestParam("tourId") String tourId){
+    @GetMapping("/tour/comment")
+    public List<CommentResponse> commentRegist(@AuthenticationPrincipal PrincipalDetails request, @RequestParam("tourId") String tourId){
 
+        List<CommentResponse> commentList = commentService.commentView(tourId);
 
-        return null;
+        return commentList;
     }
+
+    @ResponseBody
+    @PostMapping("/tour/comment")
+    public List<CommentResponse> commentView(@AuthenticationPrincipal PrincipalDetails request, @RequestParam("comment") String comment, @RequestParam("tourId") String tourId){
+
+        List<CommentResponse> commentList = commentService.createComment(comment, tourId, request);
+
+        return commentList;
+    }
+
+    @ResponseBody
+    @PostMapping("/tour/recomment")
+    public List<CommentResponse> recommentRegist(@AuthenticationPrincipal PrincipalDetails request,
+                                                 @RequestParam("comment") String comment,
+                                                 @RequestParam("tourId") String tourId,
+                                                 @RequestParam("commentId") String commentId){
+
+        List<CommentResponse> commentList = commentService.recreateComment(comment, tourId, commentId, request);
+
+        return commentList;
+    }
+
 }
