@@ -93,4 +93,29 @@ public class CommentRepositoryImplTest {
         Assertions.assertThat(commentRepository.findById(recomment.getId()).isPresent()).isEqualTo(false);
 
     }
+
+    @Test
+    void 댓글전체카운트(){
+        // given
+        User user = createClass.createUser();
+        userRepository.save(user);
+        ImageGroup imgGroup = createClass.createImgGroup();
+        Tour tour = createClass.createTour(imgGroup, user);
+        tourRepository.save(tour);
+
+        Comment comment = createClass.createComment(user, tour);
+        commentRepository.save(comment);
+
+        for(int i = 0; i < 3; i++){
+            Comment recomment = createClass.createRecomment(user, tour, comment);
+            commentRepository.save(recomment);
+        }
+
+        // when
+        Long count = commentRepositoryImpl.countCommentByTourId(tour.getId());
+
+
+        // then
+        Assertions.assertThat(count).isEqualTo(4);
+    }
 }

@@ -262,4 +262,26 @@ public class TourController {
         return commentList;
     }
 
+    @ResponseBody
+    @PutMapping("/tour/comment/{id}")
+    public List<CommentResponse> commentModify(@AuthenticationPrincipal PrincipalDetails request,
+                                                 @RequestParam("comment") String comment,
+                                                 @RequestParam("tourId") String tourId,
+                                                 @PathVariable Long id){
+
+        List<CommentResponse> commentResponses = commentService.commentUpdate(comment, id, tourId);
+
+        return commentResponses;
+    }
+
+    @ResponseBody
+    @DeleteMapping("/tour/comment/{id}")
+    public List<CommentResponse> commentDelete(@AuthenticationPrincipal PrincipalDetails request,
+                                               @RequestParam("tourId") String tourId,
+                                               @PathVariable Long id){
+
+        List<CommentResponse> commentResponses = commentService.commentDelete(id, tourId);
+
+        return commentResponses;
+    }
 }

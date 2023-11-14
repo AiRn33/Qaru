@@ -156,6 +156,7 @@
                 alert("통신 실패.");
             }
         });
+        document.querySelector('#comment_write').value = '';
     }
 
     function recomment_register(commentId){
@@ -172,13 +173,13 @@
             url: "/tour/recomment",      // 컨트롤러에서 대기중인 URL 주소이다.
             data: commentData,
             success: function (res) {// 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.
-                console.log(res);
                 createCommentForm(res);
             },
             error: function (XMLHttpRequest, textStatus, errorThrown) { // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
                 alert("통신 실패.");
             }
         });
+        document.querySelector('#recomment_write_' + commentId).value = '';
     }
 
     function recommentForm(commentId){
@@ -193,7 +194,7 @@
         html += '<button type="button" class="btn btn-outline-bluemint" style="float: left; color: #0984e3; height: 30px; font-size: 12px; margin-bottom: 7px;" onclick="recomment_register(' + commentId + ')">대댓글 등록 </button>';
         html += '</div>';
 
-        document.querySelector('#comment_' + commentId).innerHTML = html;
+        document.querySelector('#recomment_' + commentId).innerHTML = html;
     }
     function createCommentForm(res) {
 
@@ -209,7 +210,7 @@
                 html += '<div>';
                 html += '<div>';
                 html += '   <div class="form-floating mb-1" id="comment_div" style="float: left;">';
-                html += '   <input type="text" class="form-control"  id="comment" name="comment" ' +
+                html += '   <input type="text" class="form-control"  id="comment_'+ res[i].comment_id +'" name="comment" ' +
                     '               value="' + res[i].comment + ' " placeholder="" style="width: ' + width + 'px; background-color: #55efc4; color: white;" disabled>';
                 html += '   <label for="comment" style="font-size: 13px;"><i class="bi bi-person-fill"></i> &nbsp;' + res[i].userNickname + '</label>';
                 html += '   </div>';
@@ -218,31 +219,43 @@
                 html += '   <button class="btn btn-outline-light_green" onClick="recommentForm(' +res[i].comment_id + ')"><i class="bi bi-chat-dots"></i></button>';
                 html += '</div>';
                 if(userNickname == res[i].userNickname) {
-                    html += '<div style="float: left;">';
+                    html += '<div style="float: left;" id="comment_updateBtn_' + res[i].comment_id + '">';
                     html += '   <button class="btn btn-outline-bluemint" onClick="commentUpdate(' + res[i].comment_id + ')"><i class="bi bi-pencil-square"></i></button>';
                     html += '</div>';
-                    html += '<div style="float: left;">';
+                    html += '<div style="float: left;" id="comment_deleteBtn_' + res[i].comment_id + '">';
                     html += '   <button class="btn btn-outline-pink" onClick="commentDelete(' + res[i].comment_id + ')"><i class="bi bi-x-circle"></i></button>';
+                    html += '</div>';
+                    html += '<div style="float: left; display: none;" id="comment_successBtn_' + res[i].comment_id + '">';
+                    html += '   <button class="btn btn-outline-bluemint" onClick="commentSuccess(' + res[i].comment_id + ')"><i class="bi bi-check-all"></i></button>';
+                    html += '</div>';
+                    html += '<div style="float: left; display: none;" id="comment_cancelBtn_' + res[i].comment_id + '">';
+                    html += '   <button class="btn btn-outline-pink" onClick="commentCancel(' + res[i].comment_id + ', false)"><i class="bi bi-box-arrow-right"></i></button>';
                     html += '</div>';
                 }
                 html += '</div>';
-                html += '<div id="comment_' + res[i].comment_id + '">';
+                html += '<div id="recomment_' + res[i].comment_id + '">';
                 html += '</div>';
             } else {
                 html += '<div>';
                 html += '<div>';
                 html += '<div class="form-floating mb-1" id="recomment_div" style="margin-left: 30px; float: left;">';
-                html += '<input type="text" class="form-control" id="recomment" name="recomment" ' +
+                html += '<input type="text" class="form-control" id="comment_'+ res[i].comment_id +'" name="recomment" ' +
                             'value="' + res[i].comment + '" placeholder="" style="width: ' + width + 'px; background-color: skyblue; color: white;" disabled>';
                 html += '<label for="recomment" style="font-size: 13px;"><i class="bi bi-people-fill"></i> &nbsp;' + res[i].userNickname + '</label>';
                 html += '</div>';
                 html += '</div>';
                 if(userNickname == res[i].userNickname) {
-                    html += '<div style="float: left;">';
+                    html += '<div style="float: left;" id="comment_updateBtn_' + res[i].comment_id + '">';
                     html += '   <button class="btn btn-outline-bluemint" onClick="commentUpdate(' + res[i].comment_id + ')"><i class="bi bi-pencil-square"></i></button>';
                     html += '</div>';
-                    html += '<div style="float: left;">';
+                    html += '<div style="float: left;" id="comment_deleteBtn_' + res[i].comment_id + '">';
                     html += '   <button class="btn btn-outline-pink" onClick="commentDelete(' + res[i].comment_id + ')"><i class="bi bi-x-circle"></i></button>';
+                    html += '</div>';
+                    html += '<div style="float: left; display: none;" id="comment_successBtn_' + res[i].comment_id + '">';
+                    html += '   <button class="btn btn-outline-bluemint" onClick="commentSuccess(' + res[i].comment_id + ')"><i class="bi bi-check-all"></i></button>';
+                    html += '</div>';
+                    html += '<div style="float: left; display: none;" id="comment_cancelBtn_' + res[i].comment_id + '">';
+                    html += '   <button class="btn btn-outline-pink" onClick="commentCancel(' + res[i].comment_id + ', true)"><i class="bi bi-box-arrow-right"></i></button>';
                     html += '</div>';
                 }
                 html += '</div>';
@@ -255,9 +268,71 @@
 
     function commentUpdate(commentId){
 
+        document.querySelector('#comment_' + commentId).disabled = false;
+        document.querySelector('#comment_' + commentId).focus();
+        document.querySelector('#comment_' + commentId).style.backgroundColor = '#ff7675';
+        document.querySelector('#comment_updateBtn_' + commentId).style.display = 'none';
+        document.querySelector('#comment_deleteBtn_' + commentId).style.display = 'none';
+        document.querySelector('#comment_successBtn_' + commentId).style.display = '';
+        document.querySelector('#comment_cancelBtn_' + commentId).style.display = '';
     }
 
     function commentDelete(commentId){
 
+        if(!confirm("댓글을 삭제하시겠습니까 ?")){
+            return false;
+        }
+        // json 형식으로 데이터 set
+        var commentData = {
+            commentId: commentId
+            , tourId: ${tour.tour_id}
+        }
+
+        $.ajax({
+            type: "delete",            // HTTP method type(GET, POST) 형식이다.
+            url: "/tour/comment/" + commentId,      // 컨트롤러에서 대기중인 URL 주소이다.
+            data: commentData,
+            success: function (res) {// 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.
+                createCommentForm(res);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) { // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
+                alert("통신 실패.");
+            }
+        });
     }
+
+    function commentSuccess(commentId){
+
+        // json 형식으로 데이터 set
+        var commentData = {
+            comment: document.querySelector('#comment_' + commentId).value.trim()
+            , tourId: ${tour.tour_id}
+        }
+
+        $.ajax({
+            type: "put",            // HTTP method type(GET, POST) 형식이다.
+            url: "/tour/comment/" + commentId,      // 컨트롤러에서 대기중인 URL 주소이다.
+            data: commentData,
+            success: function (res) {// 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.
+                createCommentForm(res);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) { // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
+                alert("통신 실패.");
+            }
+        });
+    }
+
+    function commentCancel(commentId, recommentCheck){
+        document.querySelector('#comment_' + commentId).disabled = true;
+        if(recommentCheck){
+            document.querySelector('#comment_' + commentId).style.backgroundColor = 'skyblue';
+        }else{
+            document.querySelector('#comment_' + commentId).style.backgroundColor = '#55efc4';
+        }
+        document.querySelector('#comment_updateBtn_' + commentId).style.display = '';
+        document.querySelector('#comment_deleteBtn_' + commentId).style.display = '';
+        document.querySelector('#comment_successBtn_' + commentId).style.display = 'none';
+        document.querySelector('#comment_cancelBtn_' + commentId).style.display = 'none';
+    }
+
 </script>

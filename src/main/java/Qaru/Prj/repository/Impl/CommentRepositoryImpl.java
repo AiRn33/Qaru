@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 import static Qaru.Prj.domain.entity.QComment.comment;
+import static Qaru.Prj.domain.entity.QTour.tour;
 
 @RequiredArgsConstructor
 @Repository
@@ -24,7 +25,18 @@ public class CommentRepositoryImpl implements CommentRepositoryCustom {
                 .where(comment.tour.id.eq(tourId))
                 .orderBy(
                         comment.parent.id.asc().nullsFirst(),
-                        comment.dateTime.updateDate.asc()
+                        comment.dateTime.createDate.asc()
                 ).fetch();
     }
+
+    @Override
+    public Long countCommentByTourId(Long tourId) {
+        return queryFactory
+                .select(comment.count())
+                .from(comment, tour)
+                .where(tour.id.eq(tourId))
+                .fetchFirst();
+    }
+
+
 }

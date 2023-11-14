@@ -49,6 +49,12 @@ public class Comment {
         this.dateTime = dateTime;
     }
 
+    public Comment updateComment(String comment, Comment comments){
+        this.commentContent = comment;
+        this.dateTime = new DateTime().commentUpdateTime(comments);
+        return this;
+    }
+
     protected Comment() {
 
     }

@@ -1,9 +1,6 @@
 package Qaru.Prj.domain.baseEntity;
 
-import Qaru.Prj.domain.entity.ImageGroup;
-import Qaru.Prj.domain.entity.Shop;
-import Qaru.Prj.domain.entity.Tour;
-import Qaru.Prj.domain.entity.User;
+import Qaru.Prj.domain.entity.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
@@ -52,6 +49,12 @@ public class DateTime {
 
     public DateTime tourUpdateTime(Tour tour){
         this.createDate = tour.getDateTime().getCreateDate();
+        this.updateDate = LocalDateTime.now();
+        return this;
+    }
+
+    public DateTime commentUpdateTime(Comment comment){
+        this.createDate = comment.getDateTime().getCreateDate();
         this.updateDate = LocalDateTime.now();
         return this;
     }

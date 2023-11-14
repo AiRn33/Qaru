@@ -11,6 +11,7 @@ import Qaru.Prj.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -97,5 +98,26 @@ public class CommentService {
         }
 
         return result;
+    }
+
+    @Transactional
+    public List<CommentResponse> commentUpdate(String comment, Long id, String tourId) {
+
+        Comment comments = commentRepository.findById(id).get();
+
+        comments.updateComment(comment, comments);
+
+        List<CommentResponse> commentResponses = commentSort(tourId);
+
+        return commentResponses;
+    }
+
+    public List<CommentResponse> commentDelete(Long id, String tourId) {
+
+        commentRepository.deleteById(id);
+
+        List<CommentResponse> commentResponses = commentSort(tourId);
+
+        return commentResponses;
     }
 }
