@@ -11,6 +11,8 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -44,6 +46,9 @@ public class Tour {
 
     @Embedded
     private Address address;
+
+    @OneToMany(mappedBy = "tour", orphanRemoval = true)
+    private List<Likes> likesList = new ArrayList<>();
 
     @Builder
     public Tour(Long id, User user, ImageGroup imageGroup, String tourTitle, String tourContent, DateTime dateTime, Address address) {

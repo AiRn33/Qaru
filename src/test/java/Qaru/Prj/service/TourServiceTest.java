@@ -2,10 +2,12 @@ package Qaru.Prj.service;
 
 import Qaru.Prj.CreateClass;
 import Qaru.Prj.domain.entity.ImageGroup;
+import Qaru.Prj.domain.entity.Likes;
 import Qaru.Prj.domain.entity.Tour;
 import Qaru.Prj.domain.entity.User;
 import Qaru.Prj.domain.request.TourCreateRequest;
 import Qaru.Prj.repository.ImageGroupRepository;
+import Qaru.Prj.repository.LikesRepository;
 import Qaru.Prj.repository.TourRepository;
 import Qaru.Prj.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +30,8 @@ public class TourServiceTest {
     private UserRepository userRepository;
     @Autowired
     private ImageGroupRepository imageGroupRepository;
+    @Autowired
+    private LikesRepository likesRepository;
 
     CreateClass createClass = new CreateClass();
 
@@ -84,6 +88,26 @@ public class TourServiceTest {
 
         // then
         Assertions.assertThat(!findTour.isPresent()).isEqualTo(true);
+    }
+
+
+    @Test
+    void 여행좋아요추가(){
+
+        // given
+        User user = createClass.createUser();
+        userRepository.save(user);
+        ImageGroup imageGroup = createClass.createImgGroup();
+        Tour tour = tourRepository.save(createClass.createTour(imageGroup, user));
+
+        // when
+        Likes likesTour = createClass.createLikesTour(user, tour);
+        likesRepository.save(likesTour);
+
+        // then
+        Long count = likesRepository.countByTourAndUser(tour, user);
+        Assertions.assertThat(count).isEqualTo(1L);
+
     }
 
 }

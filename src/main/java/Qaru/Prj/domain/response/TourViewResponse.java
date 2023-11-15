@@ -26,6 +26,8 @@ public class TourViewResponse {
 
     private String userNickname;
 
+    private Long commentCount;
+
     public TourViewResponse createView(Tour tour){
         this.tour_id = tour.getId();
         this.tour_title = tour.getTourTitle();
@@ -35,6 +37,11 @@ public class TourViewResponse {
         this.street = tour.getAddress().getStreet();
         this.zipcode = tour.getAddress().getZipcode();
         this.userNickname = tour.getUser().getUserNickName();
+        return this;
+    }
+
+    public TourViewResponse setCommentCount(Long commentCount){
+        this.commentCount = commentCount;
         return this;
     }
 }

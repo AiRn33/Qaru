@@ -62,7 +62,7 @@
                         <div class="card" style="padding:8px">
                             <button type="button" class="btn btn-primary" onclick="Submit()">
                                 <i class="bi bi-people-fill fs-5" style="color: white;">
-                                    &nbsp;정보 수정
+                                    &nbsp;여행 등록
                                 </i>
                             </button>
                         </div>

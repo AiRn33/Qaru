@@ -39,6 +39,8 @@ public class Comment {
     @OneToMany(mappedBy = "parent", orphanRemoval = true)
     private List<Comment> children = new ArrayList<>();
 
+    @OneToMany(mappedBy = "comment", orphanRemoval = true)
+    private List<Likes> likesList = new ArrayList<>();
     @Builder
     public Comment(Long id, String commentContent, User user, Tour tour, Comment parent, DateTime dateTime) {
         this.id = id;

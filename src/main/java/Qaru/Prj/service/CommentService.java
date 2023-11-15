@@ -6,6 +6,8 @@ import Qaru.Prj.domain.entity.Comment;
 import Qaru.Prj.domain.response.CommentResponse;
 import Qaru.Prj.repository.CommentRepository;
 import Qaru.Prj.repository.Impl.CommentRepositoryImpl;
+import Qaru.Prj.repository.Impl.LikesRepositoryImpl;
+import Qaru.Prj.repository.LikesRepository;
 import Qaru.Prj.repository.TourRepository;
 import Qaru.Prj.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -26,11 +28,13 @@ public class CommentService {
     private final CommentRepositoryImpl commentRepositoryImpl;
     private final UserRepository userRepository;
     private final TourRepository tourRepository;
+    private final LikesRepositoryImpl likesRepositoryImpl;
+    private final LikesRepository likesRepository;
 
-    public List<CommentResponse> commentView(String tourId) {
+    public List<CommentResponse> commentView(String tourId, PrincipalDetails request) {
 
         // 댓글 정렬 후 반환
-        List<CommentResponse> commentResponses = commentSort(tourId);
+        List<CommentResponse> commentResponses = commentSort(tourId, request);
 
         return commentResponses;
     }
@@ -48,7 +52,7 @@ public class CommentService {
         commentRepository.save(commentData);
 
         // 댓글 정렬 후 반환
-        List<CommentResponse> commentResponses = commentSort(tourId);
+        List<CommentResponse> commentResponses = commentSort(tourId, request);
 
         return commentResponses;
     }
@@ -67,12 +71,34 @@ public class CommentService {
         commentRepository.save(commentData);
 
         // 댓글 정렬 후 반환
-        List<CommentResponse> commentResponses = commentSort(tourId);
+        List<CommentResponse> commentResponses = commentSort(tourId, request);
 
         return commentResponses;
     }
 
-    public List<CommentResponse> commentSort(String tourId){
+    @Transactional
+    public List<CommentResponse> commentUpdate(String comment, Long id, String tourId, PrincipalDetails request) {
+
+        Comment comments = commentRepository.findById(id).get();
+
+        comments.updateComment(comment, comments);
+
+        List<CommentResponse> commentResponses = commentSort(tourId, request);
+
+        return commentResponses;
+    }
+
+    public List<CommentResponse> commentDelete(Long id, String tourId, PrincipalDetails request) {
+        System.out.println(" ===== > 1: " + id);
+        commentRepository.deleteById(id);
+        System.out.println(" ===== > 2: " + id);
+        List<CommentResponse> commentResponses = commentSort(tourId, request);
+        System.out.println(" ===== > 3: " + id);
+
+        return commentResponses;
+    }
+
+    public List<CommentResponse> commentSort(String tourId, PrincipalDetails request){
 
         List<Comment> commentList = commentRepositoryImpl.findCommentByTourId(Long.valueOf(tourId));
         List<CommentResponse> result = new ArrayList<>();
@@ -91,33 +117,26 @@ public class CommentService {
 
         for(int i = 0; i < map.size(); i++){
             CommentResponse dto = new CommentResponse().createComment(commentList.get(i));
+            Long count = likesRepositoryImpl.countByCommentAndUser(dto.getComment_id(), request.getUser().getId());
+            dto.updateLikeCount(count);
             result.add(dto);
             for(int j = 0; j < map.get(dto.getComment_id()).getChildren().size(); j++){
+                Long recount = likesRepositoryImpl.countByCommentAndUser(map.get(dto.getComment_id()).getChildren().get(j).getComment_id(), request.getUser().getId());
+                map.get(dto.getComment_id()).getChildren().get(j).updateLikeCount(recount);
                 result.add(map.get(dto.getComment_id()).getChildren().get(j));
             }
         }
 
+        Long count = commentRepositoryImpl.countCommentByTourId(Long.valueOf(tourId));
+        Long likeCount = 0L;
+        if(commentList.size() > 0){
+            likeCount = likesRepository.countByTourAndUser(commentList.get(0).getTour(), request.getUser());
+        }
+
+        CommentResponse commentResponse = new CommentResponse().setCommentCount(count, likeCount);
+
+        result.add(commentResponse);
+
         return result;
-    }
-
-    @Transactional
-    public List<CommentResponse> commentUpdate(String comment, Long id, String tourId) {
-
-        Comment comments = commentRepository.findById(id).get();
-
-        comments.updateComment(comment, comments);
-
-        List<CommentResponse> commentResponses = commentSort(tourId);
-
-        return commentResponses;
-    }
-
-    public List<CommentResponse> commentDelete(Long id, String tourId) {
-
-        commentRepository.deleteById(id);
-
-        List<CommentResponse> commentResponses = commentSort(tourId);
-
-        return commentResponses;
     }
 }

@@ -1,15 +1,9 @@
 package Qaru.Prj.service;
 
 import Qaru.Prj.CreateClass;
-import Qaru.Prj.domain.entity.Comment;
-import Qaru.Prj.domain.entity.ImageGroup;
-import Qaru.Prj.domain.entity.Tour;
-import Qaru.Prj.domain.entity.User;
-import Qaru.Prj.repository.CommentRepository;
-import Qaru.Prj.repository.ImageGroupRepository;
+import Qaru.Prj.domain.entity.*;
+import Qaru.Prj.repository.*;
 import Qaru.Prj.repository.Impl.CommentRepositoryImpl;
-import Qaru.Prj.repository.TourRepository;
-import Qaru.Prj.repository.UserRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +29,9 @@ public class CommentServiceTest {
 
     @Autowired
     private ImageGroupRepository imageGroupRepository;
+
+    @Autowired
+    private LikesRepository likesRepository;
 
     CreateClass createClass = new CreateClass();
 
@@ -80,6 +77,26 @@ public class CommentServiceTest {
 
         // when
         Assertions.assertThat(findComment.getParent().getId()).isEqualTo(comment.getId());
+    }
+
+    @Test
+    void 댓글좋아요추가(){
+
+        // given
+        User user = createClass.createUser();
+        userRepository.save(user);
+        ImageGroup imageGroup = createClass.createImgGroup();
+        Tour tour = tourRepository.save(createClass.createTour(imageGroup, user));
+        Comment comment = createClass.createComment(user, tour);
+        commentRepository.save(comment);
+
+        // when
+        Likes likesComment = createClass.createLikesComment(user, comment);
+        likesRepository.save(likesComment);
+
+        // then
+
+
     }
 
 }

@@ -83,4 +83,20 @@ public class CreateClass {
                 .dateTime(new DateTime().createTime())
                 .build();
     }
+
+    public Likes createLikesTour(User user, Tour tour){
+
+        return Likes.builder()
+                .user(user)
+                .tour(tour)
+                .build();
+    }
+
+    public Likes createLikesComment(User user, Comment comment){
+
+        return Likes.builder()
+                .user(user)
+                .comment(comment)
+                .build();
+    }
 }

@@ -28,18 +28,49 @@
                         </div>
                     </div>
                 </div>
+
             </form>
             <div class="row g-0">
                 <div class="col">
                     <div class="card" style="padding:8px">
+                        <span style="text-align: left; font-size: 15px;">
+                            <input type="hidden" id="like_check" value="${like}">
+                            <c:if test="${like < 1}">
+                                <button type="button" class="btn btn-outline-pink-like" id="like_on_btn" style="color: red; height: 30px;
+                                    font-size: 12px; margin-bottom: 7px;" onclick="like_add_delete(0)">
+                                    <i class="bi bi-chat-heart" style="color: red; font-size: 13px; "></i>
+                                좋아요
+                                </button>
+                            </c:if>
+                            <c:if test="${like > 0}">
+                                <button type="button" class="btn btn-pink" id="like_on_btn" style="color: red; height: 30px;
+                                    font-size: 12px; margin-bottom: 7px;" onclick="like_add_delete(0)">
+                                    <i class="bi bi-chat-heart" style="color: red; font-size: 13px; "></i>
+                                <span>좋아요</span>
+                                </button>
+                            </c:if>
+                            <button type="button" class="btn btn-outline-bluemint-map" style="color: #74b9ff; height: 30px; font-size: 12px; margin-bottom: 7px;" onclick="comment_close()">
+                                <i class="bi bi-map-fill"style="color: #74b9ff; font-size: 13px;"></i>
+                                <span>지도 보기</span>
+                            </button>
+                        </span>
+                    </div>
+                    <div class="card" style="padding:8px; display: none;" id="map_div">
+
+                    </div>
+                    <div class="card" style="padding:8px">
                         <label style="font-size: 12px; text-align: left;">
-                            &nbsp;&nbsp;댓글 ( 3 )
+                            <span style="margin-top: 10px;" id="comment_count">
+                                &nbsp;&nbsp;댓글 ( ${tour.commentCount} )
+                            </span>
+
                             <br><br>
                             <div>
                                 <div class="form-floating mb-1" id="comment_write_div">
                                     <input type="text" class="form-control" id="comment_write" name="comment"
                                            value="" placeholder="">
-                                    <label for="comment_write" style="font-size: 13px;"><i class="bi bi-person-fill"></i>&nbsp;댓글 쓰기</label>
+                                    <label for="comment_write" style="font-size: 13px;"><i
+                                            class="bi bi-person-fill"></i>&nbsp;댓글 쓰기</label>
                                 </div>
                             </div>
                             <button type="button" class="btn btn-mint"
@@ -47,14 +78,16 @@
                                     onclick="comment_register()">댓글 등록
                             </button>
                             <button type="button" class="btn btn-bluemint" id="comment_open"
-                                    style="color: white; height: 30px; font-size: 12px; margin-bottom: 7px;" onclick="comment_view()">댓글 보기
+                                    style="color: white; height: 30px; font-size: 12px; margin-bottom: 7px;"
+                                    onclick="comment_view()">댓글 보기
                             </button>
                             <button type="button" class="btn btn-bluemint" id="comment_close"
-                                    style="color: white; height: 30px; font-size: 12px; margin-bottom: 7px; display: none;" onclick="comment_close()">댓글 닫기
+                                    style="color: white; height: 30px; font-size: 12px; margin-bottom: 7px; display: none;"
+                                    onclick="comment_close()">댓글 닫기
                             </button>
                         </label>
                     </div>
-                    <div class="card" style="padding:8px" id="comment_area">
+                    <div class="card" style="padding:8px; display: none;" id="comment_area">
 
                     </div>
                 </div>
@@ -112,7 +145,7 @@
 
     }
 
-    function comment_view(){
+    function comment_view() {
         var commentData = {
             tourId: ${tour.tour_id}
         }
@@ -127,12 +160,14 @@
                 alert("통신 실패.");
             }
         });
+        document.querySelector('#comment_area').style.display = '';
         document.querySelector('#comment_open').style.display = 'none';
         document.querySelector('#comment_close').style.display = '';
     }
 
-    function comment_close(){
-        document.querySelector('#comment_area').innerHTML = ''
+    function comment_close() {
+        document.querySelector('#comment_area').innerHTML = '';
+        document.querySelector('#comment_area').style.display = 'none';
         document.querySelector('#comment_open').style.display = '';
         document.querySelector('#comment_close').style.display = 'none';
     }
@@ -159,7 +194,7 @@
         document.querySelector('#comment_write').value = '';
     }
 
-    function recomment_register(commentId){
+    function recomment_register(commentId) {
 
         // json 형식으로 데이터 set
         var commentData = {
@@ -182,7 +217,7 @@
         document.querySelector('#recomment_write_' + commentId).value = '';
     }
 
-    function recommentForm(commentId){
+    function recommentForm(commentId) {
 
         let html = '';
 
@@ -196,29 +231,43 @@
 
         document.querySelector('#recomment_' + commentId).innerHTML = html;
     }
+
     function createCommentForm(res) {
 
         let html = '';
 
-        for (let i = 0; i < res.length; i++) {
+        if(res.length < 2){
+            html += '<span style="text-align: left; font-size: 12px;"> &nbsp; 댓글이 없습니다</span>';
+        }
+        for (let i = 0; i < res.length - 1; i++) {
             let width = 220;
 
-            if(res[i].comment.length > 15){
+            if (res[i].comment.length > 15) {
                 width = 220 + (7 * (res[i].comment.length - 14));
             }
             if (!res[i].recommentCheck) {
                 html += '<div>';
                 html += '<div>';
                 html += '   <div class="form-floating mb-1" id="comment_div" style="float: left;">';
-                html += '   <input type="text" class="form-control"  id="comment_'+ res[i].comment_id +'" name="comment" ' +
+                html += '   <input type="text" class="form-control"  id="comment_' + res[i].comment_id + '" name="comment" ' +
                     '               value="' + res[i].comment + ' " placeholder="" style="width: ' + width + 'px; background-color: #55efc4; color: white;" disabled>';
                 html += '   <label for="comment" style="font-size: 13px;"><i class="bi bi-person-fill"></i> &nbsp;' + res[i].userNickname + '</label>';
                 html += '   </div>';
                 html += '</div>';
                 html += '<div style="float: left;">';
-                html += '   <button class="btn btn-outline-light_green" onClick="recommentForm(' +res[i].comment_id + ')"><i class="bi bi-chat-dots"></i></button>';
+                html += '   <button class="btn btn-outline-light_green" onClick="recommentForm(' + res[i].comment_id + ')"><i class="bi bi-chat-dots"></i></button>';
                 html += '</div>';
-                if(userNickname == res[i].userNickname) {
+                html += '<input type="hidden" id="like_check_' + res[i].comment_id + '" value="' + res[i].like_count + '">';
+                html += '<div style="float: left;">';
+                if(res[i].like_count > 0){
+                    html += '   <button id="comment_like_btn_' + res[i].comment_id + '" class="btn btn-pink" ' +
+                        'onClick="like_add_delete(' + res[i].comment_id + ')"><i class="bi bi-chat-heart" style="color: red;"></i> </button>';
+                }else{
+                    html += '   <button id="comment_like_btn_' + res[i].comment_id + '" class="btn btn-outline-pink" ' +
+                        'onClick="like_add_delete(' + res[i].comment_id + ')"><i class="bi bi-chat-heart" style="color: red;"></i> </button>';
+                }
+                html += '</div>';
+                if (userNickname == res[i].userNickname) {
                     html += '<div style="float: left;" id="comment_updateBtn_' + res[i].comment_id + '">';
                     html += '   <button class="btn btn-outline-bluemint" onClick="commentUpdate(' + res[i].comment_id + ')"><i class="bi bi-pencil-square"></i></button>';
                     html += '</div>';
@@ -239,12 +288,22 @@
                 html += '<div>';
                 html += '<div>';
                 html += '<div class="form-floating mb-1" id="recomment_div" style="margin-left: 30px; float: left;">';
-                html += '<input type="text" class="form-control" id="comment_'+ res[i].comment_id +'" name="recomment" ' +
-                            'value="' + res[i].comment + '" placeholder="" style="width: ' + width + 'px; background-color: skyblue; color: white;" disabled>';
+                html += '<input type="text" class="form-control" id="comment_' + res[i].comment_id + '" name="recomment" ' +
+                    'value="' + res[i].comment + '" placeholder="" style="width: ' + width + 'px; background-color: skyblue; color: white;" disabled>';
                 html += '<label for="recomment" style="font-size: 13px;"><i class="bi bi-people-fill"></i> &nbsp;' + res[i].userNickname + '</label>';
                 html += '</div>';
                 html += '</div>';
-                if(userNickname == res[i].userNickname) {
+                html += '<input type="hidden" id="like_check_' + res[i].comment_id + '" value="' + res[i].like_count + '">';
+                html += '<div style="float: left;">';
+                if(res[i].like_count > 0){
+                    html += '   <button id="comment_like_btn_' + res[i].comment_id + '" class="btn btn-pink" ' +
+                        'onClick="like_add_delete(' + res[i].comment_id + ')"><i class="bi bi-chat-heart" style="color: red;"></i> </button>';
+                }else{
+                    html += '   <button id="comment_like_btn_' + res[i].comment_id + '" class="btn btn-outline-pink" ' +
+                        'onClick="like_add_delete(' + res[i].comment_id + ')"><i class="bi bi-chat-heart" style="color: red;"></i> </button>';
+                }
+                html += '</div>';
+                if (userNickname == res[i].userNickname) {
                     html += '<div style="float: left;" id="comment_updateBtn_' + res[i].comment_id + '">';
                     html += '   <button class="btn btn-outline-bluemint" onClick="commentUpdate(' + res[i].comment_id + ')"><i class="bi bi-pencil-square"></i></button>';
                     html += '</div>';
@@ -259,14 +318,15 @@
                     html += '</div>';
                 }
                 html += '</div>';
-
             }
         }
 
         document.querySelector('#comment_area').innerHTML = html;
+        document.querySelector('#comment_count').innerHTML = '댓글 ( ' + res[res.length - 1].commentCount + ')';
+        document.querySelector('#comment_area').style.display = '';
     }
 
-    function commentUpdate(commentId){
+    function commentUpdate(commentId) {
 
         document.querySelector('#comment_' + commentId).disabled = false;
         document.querySelector('#comment_' + commentId).focus();
@@ -277,9 +337,9 @@
         document.querySelector('#comment_cancelBtn_' + commentId).style.display = '';
     }
 
-    function commentDelete(commentId){
+    function commentDelete(commentId) {
 
-        if(!confirm("댓글을 삭제하시겠습니까 ?")){
+        if (!confirm("댓글을 삭제하시겠습니까 ?")) {
             return false;
         }
         // json 형식으로 데이터 set
@@ -301,7 +361,7 @@
         });
     }
 
-    function commentSuccess(commentId){
+    function commentSuccess(commentId) {
 
         // json 형식으로 데이터 set
         var commentData = {
@@ -322,17 +382,78 @@
         });
     }
 
-    function commentCancel(commentId, recommentCheck){
+    function commentCancel(commentId, recommentCheck) {
         document.querySelector('#comment_' + commentId).disabled = true;
-        if(recommentCheck){
+        if (recommentCheck) {
             document.querySelector('#comment_' + commentId).style.backgroundColor = 'skyblue';
-        }else{
+        } else {
             document.querySelector('#comment_' + commentId).style.backgroundColor = '#55efc4';
         }
         document.querySelector('#comment_updateBtn_' + commentId).style.display = '';
         document.querySelector('#comment_deleteBtn_' + commentId).style.display = '';
         document.querySelector('#comment_successBtn_' + commentId).style.display = 'none';
         document.querySelector('#comment_cancelBtn_' + commentId).style.display = 'none';
+    }
+
+    function like_add_delete(tour_comment_check){
+
+        let html = '';
+        let like_check = '';
+        let tourCommentCheck = '';
+        let id = '';
+
+        // tour
+        if(tour_comment_check < 1){
+            like_check = document.querySelector('#like_check').value;
+            tourCommentCheck = 'tour';
+            id = ${tour.tour_id};
+        }else{
+            // comment
+            like_check = document.querySelector('#like_check_' + tour_comment_check).value;
+            tourCommentCheck = 'comment';
+            id = tour_comment_check;
+        }
+
+        console.log(like_check);
+
+        var likeData = {
+            likeCheck : like_check,
+            tourCommentCheck : tourCommentCheck,
+            tourId : ${tour.tour_id}
+        }
+        $.ajax({
+            type: "post",            // HTTP method type(GET, POST) 형식이다.
+            url: "/tour/like/" + id,      // 컨트롤러에서 대기중인 URL 주소이다.
+            data: likeData,
+            success: function (res) {// 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.
+                if(tour_comment_check < 1){
+                    // tour
+                    document.querySelector('#like_check').value = res[res.length - 1].like_count;
+
+                    if(res[res.length - 1].like_count > 0){
+                        document.querySelector('#like_on_btn').classList.add("btn-pink");
+                        document.querySelector('#like_on_btn').classList.remove("btn-outline-pink-like");
+                    }else{
+                        document.querySelector('#like_on_btn').classList.remove("btn-pink");
+                        document.querySelector('#like_on_btn').classList.add("btn-outline-pink-like");
+                    }
+
+                }else{
+                    // comment
+                    createCommentForm(res);
+                    if(document.querySelector('#like_check_' + tour_comment_check).value > 0){
+                        document.querySelector('#comment_like_btn_' + tour_comment_check).classList.remove("btn-outline-pink");
+                        document.querySelector('#comment_like_btn_' + tour_comment_check).classList.add("btn-pink");
+                    }else{
+                        document.querySelector('#comment_like_btn_' + tour_comment_check).classList.add("btn-outline-pink");
+                        document.querySelector('#comment_like_btn_' + tour_comment_check).classList.remove("btn-pink");
+                    }
+                }
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) { // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
+                alert("통신 실패.");
+            }
+        });
     }
 
 </script>

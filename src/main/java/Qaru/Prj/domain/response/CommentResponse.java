@@ -17,6 +17,8 @@ public class CommentResponse {
 
     private Long parent_id;
 
+    private Long like_count;
+
     private Long comment_id;
 
 //  댓글이면 false, 대댓글이면 true
@@ -24,6 +26,7 @@ public class CommentResponse {
 
     private List<CommentResponse> children = new ArrayList<>();
 
+    private Long commentCount;
 
     public CommentResponse createComment(Comment comment){
         this.comment = comment.getCommentContent();
@@ -34,4 +37,14 @@ public class CommentResponse {
         return this;
     }
 
+    public CommentResponse setCommentCount(Long count, Long likeCount){
+        this.commentCount = count;
+        this.like_count = likeCount;
+        return this;
+    }
+
+    public CommentResponse updateLikeCount(Long count) {
+        this.like_count = count;
+        return this;
+    }
 }

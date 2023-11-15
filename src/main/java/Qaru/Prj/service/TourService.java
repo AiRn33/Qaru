@@ -9,6 +9,7 @@ import Qaru.Prj.domain.entity.User;
 import Qaru.Prj.domain.request.TourCreateRequest;
 import Qaru.Prj.domain.response.TourListResponse;
 import Qaru.Prj.domain.response.TourViewResponse;
+import Qaru.Prj.repository.Impl.CommentRepositoryImpl;
 import Qaru.Prj.repository.Impl.TourRepositoryImpl;
 import Qaru.Prj.repository.TourRepository;
 import Qaru.Prj.repository.UserRepository;
@@ -28,6 +29,7 @@ public class TourService {
     private final TourRepository tourRepository;
     private final UserRepository userRepository;
     private final TourRepositoryImpl tourRepositoryImpl;
+    private final CommentRepositoryImpl commentRepositoryImpl;
 
     public ImageGroup createTour(PrincipalDetails principalDetails, TourCreateRequest request){
 
@@ -63,9 +65,9 @@ public class TourService {
 
         Tour tour = tourRepository.findById(tourId).orElseThrow(() -> new Exception("게시글이 존재하지 않습니다."));
 
-
-
+        Long commentCount = commentRepositoryImpl.countCommentByTourId(tourId);
         TourViewResponse tourViewResponse = new TourViewResponse().createView(tour);
+        tourViewResponse.setCommentCount(commentCount);
 
         return tourViewResponse;
     }
@@ -75,7 +77,9 @@ public class TourService {
 
         Tour tour = tourRepository.findById(tourId).get().updateTour(request);
 
+        Long commentCount = commentRepositoryImpl.countCommentByTourId(tourId);
         TourViewResponse tourViewResponse = new TourViewResponse().createView(tour);
+        tourViewResponse.setCommentCount(commentCount);
 
         return tourViewResponse;
     }

@@ -11,10 +11,7 @@ import Qaru.Prj.domain.response.ImageResponse;
 import Qaru.Prj.domain.response.TourListResponse;
 import Qaru.Prj.domain.response.TourViewResponse;
 import Qaru.Prj.error.ScriptErrors;
-import Qaru.Prj.service.CommentService;
-import Qaru.Prj.service.FileService;
-import Qaru.Prj.service.ImageService;
-import Qaru.Prj.service.TourService;
+import Qaru.Prj.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -41,6 +38,7 @@ public class TourController {
     private final ImageService imageService;
     private final FileService fileService;
     private final CommentService commentService;
+    private final LikeService likeService;
 
     @GetMapping("/tour/tourList")
     public String tourList(Pageable pageable, Model model) {
@@ -152,12 +150,13 @@ public class TourController {
         model.addAttribute("myTourCheck", view.getUserNickname().equals(request.getUser().getUserNickName()));
         model.addAttribute("tour", view);
         model.addAttribute("images", images);
+        model.addAttribute("like", likeService.tourLikeCount(request, id));
 
         return "/tour/view";
     }
 
     @GetMapping("/tour/{id}/update")
-    public String tourModify(@PathVariable Long id, Model model) throws Exception {
+    public String tourModify(@PathVariable Long id, @AuthenticationPrincipal PrincipalDetails request, Model model) throws Exception {
 
         TourViewResponse view = tourService.getTour(id);
         List<Image> imagesList = imageService.imageSelectAll(view.getImageGroup().getId());
@@ -212,6 +211,7 @@ public class TourController {
 
         model.addAttribute("tour", tourViewResponse);
         model.addAttribute("images", images);
+        model.addAttribute("like", likeService.tourLikeCount(principalDetails, id));
 
         return "redirect:/tour/" + id;
     }
@@ -236,7 +236,7 @@ public class TourController {
     @GetMapping("/tour/comment")
     public List<CommentResponse> commentRegist(@AuthenticationPrincipal PrincipalDetails request, @RequestParam("tourId") String tourId){
 
-        List<CommentResponse> commentList = commentService.commentView(tourId);
+        List<CommentResponse> commentList = commentService.commentView(tourId, request);
 
         return commentList;
     }
@@ -269,7 +269,7 @@ public class TourController {
                                                  @RequestParam("tourId") String tourId,
                                                  @PathVariable Long id){
 
-        List<CommentResponse> commentResponses = commentService.commentUpdate(comment, id, tourId);
+        List<CommentResponse> commentResponses = commentService.commentUpdate(comment, id, tourId, request);
 
         return commentResponses;
     }
@@ -280,7 +280,39 @@ public class TourController {
                                                @RequestParam("tourId") String tourId,
                                                @PathVariable Long id){
 
-        List<CommentResponse> commentResponses = commentService.commentDelete(id, tourId);
+        List<CommentResponse> commentResponses = commentService.commentDelete(id, tourId, request);
+
+        return commentResponses;
+    }
+
+    @ResponseBody
+    @PostMapping("/tour/like/{id}")
+    public List<CommentResponse> tourLike(@AuthenticationPrincipal PrincipalDetails request,
+                           @PathVariable Long id,
+                         @RequestParam("likeCheck") Long likeCheck,
+                         @RequestParam("tourCommentCheck") String check,
+                         @RequestParam("tourId") Long tourId){
+        Long count = 0L;
+
+        if(check.equals("tour")){
+            if(likeCheck > 0){
+                System.out.println("===== > 투어 삭제");
+                count = likeService.tourLikeRemove(request, id);
+            }else{
+                System.out.println("===== > 투어 추가");
+                count = likeService.tourLikeAdd(request, id);
+            }
+        }else if(check.equals("comment")){
+
+            if(likeCheck > 0){
+                System.out.println("===== > 코멘트 삭제");
+                count = likeService.commentLikeRemove(request, id);
+            }else{
+                System.out.println("===== > 코멘트 추가");
+                count = likeService.commentLikeAdd(request, id);
+            }
+        }
+        List<CommentResponse> commentResponses = commentService.commentSort(String.valueOf(tourId), request);
 
         return commentResponses;
     }

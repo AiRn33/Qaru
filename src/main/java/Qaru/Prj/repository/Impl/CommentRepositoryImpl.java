@@ -33,8 +33,8 @@ public class CommentRepositoryImpl implements CommentRepositoryCustom {
     public Long countCommentByTourId(Long tourId) {
         return queryFactory
                 .select(comment.count())
-                .from(comment, tour)
-                .where(tour.id.eq(tourId))
+                .from(comment)
+                .where(comment.tour.id.eq(tourId))
                 .fetchFirst();
     }
 
