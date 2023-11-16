@@ -7,12 +7,17 @@ import Qaru.Prj.domain.entity.Shop;
 import Qaru.Prj.domain.entity.User;
 import Qaru.Prj.domain.request.ShopUpdateRequest;
 import Qaru.Prj.domain.request.UserAdminChangeRequest;
+import Qaru.Prj.domain.response.ShopListResponse;
+import Qaru.Prj.domain.response.TourListResponse;
 import Qaru.Prj.domain.response.UserAdminUpdateResponse;
 import Qaru.Prj.repository.ImageRepository;
+import Qaru.Prj.repository.Impl.ShopRepositoryImpl;
 import Qaru.Prj.repository.Impl.UserRepositoryImpl;
 import Qaru.Prj.repository.ShopRepository;
 import Qaru.Prj.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -29,6 +34,7 @@ public class ShopService {
     private final ImageService imageService;
     private final UserRepositoryImpl userRepositoryImpl;
     private final ImageGroupService imageGroupService;
+    private final ShopRepositoryImpl shopRepositoryImpl;
 
 
     public Long createAdmin(UserAdminChangeRequest userRequest, String storedName, PrincipalDetails request) {
@@ -52,5 +58,17 @@ public class ShopService {
         shop.updateShop(userRequest, shop);
 
         imageGroupService.imageGroupDateUpdate(shop.getImageGroup().getId());
+    }
+
+    public Page<ShopListResponse> searchShopListAll(Pageable pageable){
+
+        Page<ShopListResponse> shopListResponses = shopRepositoryImpl.searchPage(pageable);
+
+        return shopListResponses;
+    }
+
+    public Long searchTourListAllCount(){
+
+        return shopRepositoryImpl.searchPageCount();
     }
 }

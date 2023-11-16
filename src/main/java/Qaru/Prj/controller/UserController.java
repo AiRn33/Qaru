@@ -180,6 +180,16 @@ public class UserController {
             return "/user/adminForm";
         }
 
+        if(userRequest.getShopType().split(",").length > 3){
+            List errors = new ArrayList();
+            errors.add("가게 종류가 3개를 초과하였습니다., shopType");
+            model.addAttribute("errorScript", errors);
+            model.addAttribute("shopData", userRequest);
+            model.addAttribute("commentCheck", userRequest.getShopComment().length() < 1 ? true : false);
+
+            return "/user/adminForm";
+        }
+
         model.addAttribute("successAlert", 2);
 
         String storedName = fileService.serverUploadFile(userRequest.getFile());
@@ -208,6 +218,7 @@ public class UserController {
     @PostMapping("/user/change-admin-modify")
     public String changeRoleAdminModifyPost(@Valid ShopUpdateRequest userRequest, BindingResult bindingResult,
                                             @AuthenticationPrincipal PrincipalDetails request, Model model) throws Exception {
+
         UserAdminUpdateResponse response = userService.userAdminUpdate(request);
 
         // valid에 걸릴 시
@@ -230,7 +241,14 @@ public class UserController {
             model.addAttribute("commentCheck", userRequest.getShopComment().length() < 1 ? true : false);
             model.addAttribute("errorScriptImg", "[이미지가 등록되지 않았습니다., img]");
 
-            return "/user/adminForm";
+            return "/user/adminUpdateForm";
+        }
+
+        if(userRequest.getShopType().split(",").length > 3){
+            List errors = new ArrayList();
+            model.addAttribute("errorScript", errors.add("[가게 종류가 3개를 초과하였습니다., shopTypeArea]"));
+            model.addAttribute("shopData", userRequest);
+            model.addAttribute("commentCheck", userRequest.getShopComment().length() < 1 ? true : false);
         }
 
         if(!userRequest.getImageUpdateCheck()){
@@ -240,7 +258,6 @@ public class UserController {
             String storedName = fileService.serverUploadFile(userRequest.getFile());
             imageService.imageDelete(response.getImageGroup().getId());
             imageService.imageSave(userRequest.getFile(), storedName, response.getImageGroup());
-
         }
 
         shopService.updateShop(userRequest, request);

@@ -144,7 +144,8 @@
                 </div>
                 <div class="col-4">
                     <div class="card" style="padding:8px">
-                        <button type="button" class="btn btn-outline-pink">
+                        <button type="button" class="btn btn-outline-pink"
+                                onclick="location.href='/shop/shopList?page=0&size=6'">
                             <i class="bi bi-clipboard-heart fs-3"></i>
                         </button>
                         <h8 style="padding-top: 10px;">식당</h8>

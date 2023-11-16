@@ -25,10 +25,18 @@
                                           style="height: 200px; resize: none;">${shopData.shopComment}</textarea>
                                 <label for="shopComment">가게 설명 &nbsp;<i class="bi bi-mouse"></i></label>
                             </div>
+                            <div class="form-floating mb-1" id="shopTypeArea">
+                                <input type="text" class="form-control" id="shopType" name="shopType" placeholder=""
+                                       value="${shopData.shopType}">
+                                <label for="shopType">가게 종류 &nbsp <i class="bi bi-mouse"></i></label>
+                            </div>
+                            <span style="text-align: right; font-size: 11px; color: red;">최대 3개까지 등록 가능합니다(복수 등록시 [쉼표 ( , )] 로 구분)</span>
+                            <span style="text-align: right; font-size: 11px; color: red;">* 예 : 중식, 한식, 양식</span>
 
                             <div id="imgArea">
 
                             </div>
+                            <span style="text-align: left; font-size: 12px;">&nbsp;&nbsp;대표 사진</span>
                             <input type="file" name="file" id="file" onchange="returnImg(this);"
                                    style="margin-bottom: 10px; display: none;">
                             <button type="button" id="file_btn" class="btn btn-mint" onclick="imgClick()">
@@ -117,7 +125,7 @@
 
 
     function Submit() {
-
+        document.querySelector('#shopType').value = document.querySelector('#shopType').value.replace(/(\s*)/g, "");
         document.querySelector('#userCity').disabled = false;
         document.querySelector('#userStreet').disabled = false;
         document.querySelector('#signupForm').submit();

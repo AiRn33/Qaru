@@ -39,6 +39,12 @@ public class Shop {
     @Column(name = "shop_comment")
     private String shopComment;
 
+    @Column(name = "shop_type")
+    private String shopType;
+
+    @Column(name = "menu_check")
+    private Boolean menuCheck;
+
     @Embedded
     private DateTime dateTime;
 
@@ -46,18 +52,21 @@ public class Shop {
     private Address address;
 
     @Builder
-    public Shop(User user, ImageGroup imageGroup, String shopName, String shopComment, DateTime dateTime, Address address) {
+    public Shop(User user, ImageGroup imageGroup, String shopName, String shopComment, DateTime dateTime, String shopType,Address address) {
         this.user = user;
         this.imageGroup = imageGroup;
         this.shopName = shopName;
         this.shopComment = shopComment;
         this.dateTime = dateTime;
         this.address = address;
+        this.shopType = shopType;
+        this.menuCheck = false;
     }
 
     public Shop updateShop(ShopUpdateRequest request, Shop shop){
         this.shopName = request.getShopName();
         this.shopComment = request.getShopComment();
+        this.shopType = request.getShopType();
         this.dateTime = dateTime.shopUpdateTime(shop);
         this.address = new Address(request.getUserCity(), request.getUserStreet(), request.getUserZipcode());
         return this;

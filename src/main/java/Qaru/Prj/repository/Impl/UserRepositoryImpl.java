@@ -32,6 +32,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
                                 shop.shopName,
                                 shop.imageGroup,
                                 shop.shopComment,
+                                shop.shopType,
                                 shop.address.city.as("userCity"),
                                 shop.address.street.as("userStreet"),
                                 shop.address.zipcode.as("userZipcode"),

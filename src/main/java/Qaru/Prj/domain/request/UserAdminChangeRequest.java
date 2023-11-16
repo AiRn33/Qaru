@@ -26,6 +26,9 @@ public class UserAdminChangeRequest {
     @NotBlank(message = "주소를 입력해주세요.")
     private String userCity;
 
+    @NotBlank(message = "가게 종류를 입력해주세요.")
+    private String shopType;
+
     @NotBlank(message = "상세 주소를 입력해주세요.")
     private String userStreet;
 
@@ -41,6 +44,7 @@ public class UserAdminChangeRequest {
                 .dateTime(new DateTime().createTime())
                 .shopName(shopName)
                 .shopComment(shopComment)
+                .shopType(shopType)
                 .build();
     }
 }

@@ -15,6 +15,7 @@ public class UserAdminUpdateResponse {
     private User user;
     private String shopName;
     private String shopComment;
+    private String shopType;
     private String userCity;
     private String userStreet;
     private String userZipcode;

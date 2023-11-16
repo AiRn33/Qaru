@@ -23,6 +23,9 @@ public class ShopUpdateRequest {
     @NotBlank(message = "가게 설명을 입력해주세요.")
     private String shopComment;
 
+    @NotBlank(message = "가게 종류를 입력해주세요.")
+    private String shopType;
+
     @NotBlank(message = "주소를 입력해주세요.")
     private String userCity;
 
@@ -45,6 +48,7 @@ public class ShopUpdateRequest {
                 .dateTime(new DateTime().createTime())
                 .shopName(shopName)
                 .shopComment(shopComment)
+                .shopType(shopType)
                 .build();
     }
 }

@@ -9,6 +9,8 @@ function errors(){
         for(let i = 0; i < errorArr.length; i++){
             if(i % 2 > 0){
                 // field
+                console.log('=========');
+                console.log(errorArr[i].trim());
                 document.querySelector('#' + errorArr[i].trim() + 'Area').innerHTML += html;
                 html = '';
             }else{
