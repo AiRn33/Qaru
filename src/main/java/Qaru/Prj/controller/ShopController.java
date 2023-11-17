@@ -1,17 +1,22 @@
 package Qaru.Prj.controller;
 
+import Qaru.Prj.config.customSecurity.PrincipalDetails;
+import Qaru.Prj.domain.request.MenuCreateRequest;
 import Qaru.Prj.domain.response.ShopListResponse;
 import Qaru.Prj.domain.response.TourListResponse;
 import Qaru.Prj.repository.Impl.ShopRepositoryImpl;
 import Qaru.Prj.service.ShopService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @Slf4j
@@ -77,5 +82,37 @@ public class ShopController {
             model.addAttribute("shopListCount", shopService.searchTourListAllCount());
         }
         return "/shop/shopList";
+    }
+
+    @GetMapping("/shop/menu")
+    public String createMenu(@AuthenticationPrincipal PrincipalDetails request, Model model){
+
+        ShopListResponse shopResponse = shopService.shopData(request.getUser().getId());
+
+        model.addAttribute("shopData", shopResponse);
+
+        return "/shop/createMenu";
+    }
+
+    @ResponseBody
+    @PostMapping("/shop/menuImage")
+    public Boolean createMenuImg(List<MultipartFile> file){
+
+        for(int i = 0 ; i < file.size(); i++){
+            System.out.println("file : " + file.get(i).getOriginalFilename());
+        }
+
+        return true;
+    }
+
+    @ResponseBody
+    @PostMapping("/shop/menuData")
+    public Boolean createMenuData(@RequestBody List<MenuCreateRequest> menuData){
+
+        for(int i = 0; i < menuData.size(); i++){
+            System.out.println("====== > : " + menuData.get(i));
+        }
+
+        return true;
     }
 }

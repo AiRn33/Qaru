@@ -71,4 +71,9 @@ public class ShopService {
 
         return shopRepositoryImpl.searchPageCount();
     }
+
+    public ShopListResponse shopData(Long id) {
+
+        return shopRepositoryImpl.shopData(id);
+    }
 }

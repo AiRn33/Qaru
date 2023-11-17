@@ -2,6 +2,7 @@ package Qaru.Prj.repository.Impl;
 
 import Qaru.Prj.domain.entity.Comment;
 import Qaru.Prj.domain.entity.QShop;
+import Qaru.Prj.domain.entity.QUser;
 import Qaru.Prj.domain.response.ShopListResponse;
 import Qaru.Prj.domain.response.TourListResponse;
 import com.querydsl.core.types.Projections;
@@ -17,6 +18,7 @@ import java.util.List;
 import static Qaru.Prj.domain.entity.QComment.comment;
 import static Qaru.Prj.domain.entity.QShop.*;
 import static Qaru.Prj.domain.entity.QTour.tour;
+import static Qaru.Prj.domain.entity.QUser.user;
 
 @RequiredArgsConstructor
 @Repository
@@ -60,5 +62,17 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
     @Override
     public List<ShopListResponse> searchData(String type, String content) {
         return null;
+    }
+
+    @Override
+    public ShopListResponse shopData(Long userId) {
+        return queryFactory.select(Projections.fields(ShopListResponse.class,
+                shop.id.as("shop_id"),
+                shop.shopName.as("shop_name"),
+                shop.shopComment.as("shop_comment"),
+                shop.shopType.as("shop_type")))
+                .from(shop)
+                .innerJoin(user).on(user.id.eq(userId))
+                .fetchOne();
     }
 }

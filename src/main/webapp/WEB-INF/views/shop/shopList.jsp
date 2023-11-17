@@ -52,21 +52,17 @@
                             </div>
                         </div>
                     </c:forEach>
-                <div class="row g-0">
-                    <div class="col-8"></div>
-                    <div class="col-4" style="text-align: right; margin-top: 10px;">
-                        <button class="btn btn-pink" onclick="location.href='/tour'"><span
-                                style="color: white;">등록</span></button>
+                <c:if test="${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.user.role == 'ADMIN'}">
+                    <div class="row g-0">
+                        <div class="col-8"></div>
+                        <div class="col-4" style="text-align: right; margin-top: 10px;">
+                            <button class="btn btn-pink" onclick="location.href='/shop/menu'"><span
+                                    style="color: white;">등록</span></button>
+                        </div>
                     </div>
-                </div>
-
+                </c:if>
                 <%-- =============== paging ============== --%>
             </div>
         </div>
     </div>
 </div>
-
-<script>
-    console.log('${shopList}');
-    console.log('${shopListCount}');
-</script>
