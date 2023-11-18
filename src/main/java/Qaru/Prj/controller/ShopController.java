@@ -1,10 +1,16 @@
 package Qaru.Prj.controller;
 
 import Qaru.Prj.config.customSecurity.PrincipalDetails;
+import Qaru.Prj.domain.baseEntity.DateTime;
+import Qaru.Prj.domain.entity.ImageGroup;
+import Qaru.Prj.domain.entity.Menu;
 import Qaru.Prj.domain.request.MenuCreateRequest;
 import Qaru.Prj.domain.response.ShopListResponse;
 import Qaru.Prj.domain.response.TourListResponse;
 import Qaru.Prj.repository.Impl.ShopRepositoryImpl;
+import Qaru.Prj.service.FileService;
+import Qaru.Prj.service.ImageService;
+import Qaru.Prj.service.MenuService;
 import Qaru.Prj.service.ShopService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +21,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +32,9 @@ import java.util.Map;
 public class ShopController {
 
     private final ShopService shopService;
+    private final ImageService imageService;
+    private final FileService fileService;
+    private final MenuService menuService;
 
     @GetMapping("/shop/shopList")
     public String shopList(Pageable pageable, Model model){
@@ -96,23 +107,26 @@ public class ShopController {
 
     @ResponseBody
     @PostMapping("/shop/menuImage")
-    public Boolean createMenuImg(List<MultipartFile> file){
+    public List<Long> createMenuImg(List<MultipartFile> file) throws IOException {
 
-        for(int i = 0 ; i < file.size(); i++){
-            System.out.println("file : " + file.get(i).getOriginalFilename());
+        List<Long> groupIdList = new ArrayList<>();
+        for(int i = 0; i < file.size(); i++){
+
+            String storedName = fileService.serverUploadFile(file.get(i));
+            Long ImageGroupId = imageService.imageSave(file.get(i), storedName, new ImageGroup(new DateTime().createTime()));
+            groupIdList.add(ImageGroupId);
         }
 
-        return true;
+        return groupIdList;
     }
 
     @ResponseBody
     @PostMapping("/shop/menuData")
-    public Boolean createMenuData(@RequestBody List<MenuCreateRequest> menuData){
+    public List<Menu> createMenuData(@AuthenticationPrincipal PrincipalDetails request,
+                                  @RequestBody List<MenuCreateRequest> menuData){
 
-        for(int i = 0; i < menuData.size(); i++){
-            System.out.println("====== > : " + menuData.get(i));
-        }
+        List<Menu> menuAll = menuService.createMenuAll(request, menuData);
 
-        return true;
+        return menuAll;
     }
 }

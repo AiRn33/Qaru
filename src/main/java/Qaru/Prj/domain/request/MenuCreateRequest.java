@@ -10,9 +10,10 @@ import java.io.Serializable;
 @Getter
 @Setter
 @ToString
-public class MenuCreateRequest implements Serializable {
+public class MenuCreateRequest {
 
     private String menuName;
     private String menuComment;
     private String menuPrice;
+    private String imageGroupId;
 }

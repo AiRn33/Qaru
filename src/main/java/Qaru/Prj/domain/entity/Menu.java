@@ -1,6 +1,7 @@
 package Qaru.Prj.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Builder;
 import lombok.Getter;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -35,6 +36,20 @@ public class Menu {
 
     @Column(name = "menu_comment")
     private String menuComment;
+
+    protected Menu() {
+
+    }
+
+    @Builder
+    public Menu(Long id, ImageGroup imageGroup, MenuGroup menuGroup, String menuName, String menuComment, Long menuPrice) {
+        this.id = id;
+        this.imageGroup = imageGroup;
+        this.menuGroup = menuGroup;
+        this.menuName = menuName;
+        this.menuComment = menuComment;
+        this.menuPrice = menuPrice;
+    }
 
     @Column(name = "menu_price")
     private Long menuPrice;

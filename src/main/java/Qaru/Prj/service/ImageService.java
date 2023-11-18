@@ -3,6 +3,7 @@ package Qaru.Prj.service;
 import Qaru.Prj.domain.entity.Image;
 import Qaru.Prj.domain.entity.ImageGroup;
 import Qaru.Prj.domain.entity.Shop;
+import Qaru.Prj.repository.ImageGroupRepository;
 import Qaru.Prj.repository.ImageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,10 +22,12 @@ public class ImageService {
     private String dir;
 
     private final ImageRepository imageRepository;
+    private final ImageGroupRepository imageGroupRepository;
 
-    public void imageSave(MultipartFile file, String storedName, ImageGroup imageGroup){
+    public Long imageSave(MultipartFile file, String storedName, ImageGroup imageGroup){
 
         String originalName = file.getOriginalFilename();
+        imageGroupRepository.save(imageGroup);
 
         Image image = Image.builder()
                 .imageGroup(imageGroup)
@@ -33,7 +36,7 @@ public class ImageService {
                 .storedFileName(storedName)
                 .build();
 
-        imageRepository.save(image);
+        return imageRepository.save(image).getImageGroup().getId();
     }
 
     public void imageSaveAll(List<MultipartFile> file, List<String> storedNames, ImageGroup imageGroup){

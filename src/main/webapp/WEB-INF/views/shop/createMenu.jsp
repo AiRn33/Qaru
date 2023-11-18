@@ -132,14 +132,7 @@
         let menuData = [];
         let fileData = new FormData();
 
-        for(let i = 1; i <= document.querySelector('#menu_count').value; i++){
-             menuData.push(
-                {
-                menuName : document.querySelector('#menuName_' + i).value,
-                menuComment : document.querySelector('#menuComment_' + i).value,
-                menuPrice : document.querySelector('#menuPrice_' + i).value
-                });
-
+        for(let i = 1; i <= document.querySelector('#menu_count').value; i++) {
             fileData.append('file', document.querySelector('#file_' + i).files[0]);
         }
 
@@ -151,10 +144,18 @@
             processData: false,               // * 중요 *
             enctype : 'multipart/form-data',  // * 중요 *
             success: function (res) { // 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.
-                if(res){
-                    menuDataSubmit(menuData);
-                }
 
+                    for(let i = 1; i <= document.querySelector('#menu_count').value; i++){
+
+                        menuData.push(
+                            {
+                                menuName : document.querySelector('#menuName_' + i).value,
+                                menuComment : document.querySelector('#menuComment_' + i).value,
+                                menuPrice : document.querySelector('#menuPrice_' + i).value,
+                                imageGroupId : (String(res[i - 1]))
+                            });
+                    }
+                    menuDataSubmit(menuData);
             },
             error: function () { // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
 
@@ -164,6 +165,8 @@
 
     function menuDataSubmit(input){
 
+        console.log(input);
+
         $.ajax({
             type: "POST",            // HTTP method type(GET, POST) 형식이다.
             url: "/shop/menuData",      // 컨트롤러에서 대기중인 URL 주소이다.
@@ -171,10 +174,7 @@
             contentType: false,               // * 중요 *
             processData: false,               // * 중요 *
             success: function (res) { // 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.
-                if(res){
-
-                }
-
+                console.log(res);
             },
             error: function () { // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
 

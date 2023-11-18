@@ -3,6 +3,7 @@ package Qaru.Prj.domain.entity;
 
 import Qaru.Prj.domain.baseEntity.DateTime;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Builder;
 import lombok.Getter;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -25,4 +26,14 @@ public class MenuGroup {
 
     @Embedded
     private DateTime dateTime;
+
+    protected MenuGroup() {
+    }
+
+    @Builder
+    public MenuGroup(Long id, Shop shop, DateTime dateTime) {
+        this.id = id;
+        this.shop = shop;
+        this.dateTime = dateTime;
+    }
 }
