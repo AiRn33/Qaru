@@ -1,4 +1,5 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 
@@ -32,53 +33,60 @@
                 <div id="menuArea">
                     <input type="hidden" id="menu_count" value="1">
                     <input type="hidden" id="img_count" value="">
-                    <input type="file" name="file" id="file_1" onchange="returnImg(this);" style="display: none;">
-                    <div class="col">
-                        <div class="card" style="padding:8px; margin-top: 10px; height: auto;">
-                            <span>1번 메뉴</span>
+                    <c:forEach items="${menuList}" varStatus="status" var="item" begin="0">
+                        <input type="file" name="file" id="file_${status.index + 1}" onchange="returnImg(this);"
+                               style="display: none;">
+                        <div class="col">
+                            <div class="card" style="padding:8px; margin-top: 10px; height: auto;">
+                                <span>${status.index + 1}번 메뉴</span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row g-0">
-                        <div class="col-4">
-                            <div class="card" style="padding:8px; height: 271px;">
-                                <span>이미지</span>
-                                <hr style="margin: 0.4rem;">
-                                <div id="img_area_1">
+                        <div class="row g-0">
+                            <div class="col-4">
+                                <div class="card" style="padding:8px; height: 271px;">
+                                    <span>이미지</span>
+                                    <hr style="margin: 0.4rem;">
+                                    <div id="img_area_${status.index + 1}">
+                                        <img src="/img/${item.storedFileName}" id="preview_${status.index + 1}_0'" class="img-thumbnail" alt="..." style="width: 150px; height: 150px;">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-8">
+                                <div class="card" style="padding:8px">
+                                    <div class="form-floating mb-1" id="menuName_${status.index + 1}Area">
+                                        <input type="text" class="form-control" id="menuName_${status.index + 1}" name="menuName_${status.index + 1}"
+                                               placeholder=""
+                                               value="${item.menuName}">
+                                        <label for="menuName_${status.index + 1}">메뉴 이름 <i class="bi bi-mouse"></i></label>
+                                    </div>
+                                    <div class="form-floating mb-1" id="menuComment_${status.index + 1}Area">
+                                        <input type="text" class="form-control" id="menuComment_${status.index + 1}" name="menuComment_${status.index + 1}"
+                                               placeholder=""
+                                               value="${item.menuComment}">
+                                        <label for="menuComment_${status.index + 1}">메뉴 설명 &nbsp;<i class="bi bi-mouse"></i></label>
+                                    </div>
+                                    <div class="form-floating mb-1" id="menuPrice_${status.index + 1}Area">
+                                        <input type="number" class="form-control" id="menuPrice_${status.index + 1}" name="menuPrice_${status.index + 1}"
+                                               placeholder=""
+                                               value="${item.menuPrice}">
+                                        <label for="menuPrice_${status.index + 1}">메뉴 가격 &nbsp;<i class="bi bi-mouse"></i></label>
+                                    </div>
+
+                                    <div id="imgArea">
+
+                                    </div>
+
+                                    <button type="button" id="file_btn" class="btn btn-mint" onclick="imgClick(${status.index + 1})">
+                                        <i class="bi bi-card-image fs-7" style="color: white;">
+                                            파일 추가
+                                        </i>
+                                    </button>
+                                    <div style="text-align: right; margin-right: 10px; margin-bottom: 5px;"><label
+                                            style="font-size: 12px; color: red;">파일은 하나만 등록 가능합니다.</label></div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-8">
-                            <div class="card" style="padding:8px">
-                                <div class="form-floating mb-1" id="menuName_1Area">
-                                    <input type="text" class="form-control" id="menuName_1" name="menuName_1"
-                                           placeholder=""
-                                           value="">
-                                    <label for="menuName_1">메뉴 이름 <i class="bi bi-mouse"></i></label>
-                                </div>
-                                <div class="form-floating mb-1" id="menuComment_1Area">
-                                    <input type="text" class="form-control" id="menuComment_1" name="menuComment_1"
-                                           placeholder=""
-                                           value="">
-                                    <label for="menuComment_1">메뉴 설명 &nbsp;<i class="bi bi-mouse"></i></label>
-                                </div>
-                                <div class="form-floating mb-1" id="menuPrice_1Area">
-                                    <input type="number" class="form-control" id="menuPrice_1" name="menuPrice_1"
-                                           placeholder=""
-                                           value="">
-                                    <label for="menuPrice_1">메뉴 가격 &nbsp;<i class="bi bi-mouse"></i></label>
-                                </div>
-
-                                <div id="imgArea"></div>
-
-                                <button type="button" id="file_btn" class="btn btn-mint" onclick="imgClick(1)">
-                                    <i class="bi bi-card-image fs-7" style="color: white;">
-                                        파일 추가
-                                    </i>
-                                </button>
-                                <div style="text-align: right; margin-right: 10px; margin-bottom: 5px;"><label style="font-size: 12px; color: red;">파일은 하나만 등록 가능합니다.</label></div>
-                            </div>
-                        </div>
-                    </div>
+                    </c:forEach>
                 </div>
             </form>
             <div class="row g-0">
@@ -144,8 +152,15 @@
         let fileData = new FormData();
 
         for(let i = 1; i <= document.querySelector('#menu_count').value; i++) {
+
+            console.log(document.querySelector('#menuName_' + i).value);
+            console.log(document.querySelector('#menuComment_' + i).value);
+            console.log(document.querySelector('#menuPrice_' + i).value);
+
             fileData.append('file', document.querySelector('#file_' + i).files[0]);
         }
+
+        return false;
 
         $.ajax({
             type: "POST",            // HTTP method type(GET, POST) 형식이다.
@@ -269,8 +284,6 @@
         document.querySelector('#menuForm').insertAdjacentHTML('beforeend', html);
         return false;
     }
-
-
 
 </script>
 

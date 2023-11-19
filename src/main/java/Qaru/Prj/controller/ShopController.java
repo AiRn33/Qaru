@@ -5,6 +5,7 @@ import Qaru.Prj.domain.baseEntity.DateTime;
 import Qaru.Prj.domain.entity.ImageGroup;
 import Qaru.Prj.domain.entity.Menu;
 import Qaru.Prj.domain.request.MenuCreateRequest;
+import Qaru.Prj.domain.response.MenuListResponse;
 import Qaru.Prj.domain.response.ShopListResponse;
 import Qaru.Prj.domain.response.TourListResponse;
 import Qaru.Prj.repository.Impl.ShopRepositoryImpl;
@@ -122,11 +123,27 @@ public class ShopController {
 
     @ResponseBody
     @PostMapping("/shop/menuData")
-    public List<Menu> createMenuData(@AuthenticationPrincipal PrincipalDetails request,
+    public int createMenuData(@AuthenticationPrincipal PrincipalDetails request,
                                   @RequestBody List<MenuCreateRequest> menuData){
 
         List<Menu> menuAll = menuService.createMenuAll(request, menuData);
 
-        return menuAll;
+        return menuAll.size();
+    }
+
+    @GetMapping("/shop/createMenuAlert")
+    public String createMenuAlert(Model model){
+
+        model.addAttribute("successAlert", 5);
+        return "/successAlert";
+    }
+
+    @GetMapping("/shop/menu/{id}")
+    public String menuModifyForm(Model model, @PathVariable Long id, @AuthenticationPrincipal PrincipalDetails request){
+
+        List<MenuListResponse> menuList = menuService.getMenuList(id, request);
+
+        model.addAttribute("menuList", menuList);
+        return "/shop/modifyMenu";
     }
 }

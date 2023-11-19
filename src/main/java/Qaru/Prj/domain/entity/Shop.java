@@ -3,6 +3,7 @@ package Qaru.Prj.domain.entity;
 import Qaru.Prj.domain.baseEntity.Address;
 import Qaru.Prj.domain.baseEntity.DateTime;
 import Qaru.Prj.domain.request.ShopUpdateRequest;
+import Qaru.Prj.domain.response.MypageShopResponse;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Getter;
@@ -45,6 +46,9 @@ public class Shop {
     @Column(name = "menu_check")
     private Boolean menuCheck;
 
+    @Column(name = "menu_view")
+    private Boolean menuView;
+
     @Embedded
     private DateTime dateTime;
 
@@ -61,6 +65,7 @@ public class Shop {
         this.address = address;
         this.shopType = shopType;
         this.menuCheck = false;
+        this.menuView = false;
     }
 
     public Shop updateShop(ShopUpdateRequest request, Shop shop){
@@ -71,6 +76,18 @@ public class Shop {
         this.address = new Address(request.getUserCity(), request.getUserStreet(), request.getUserZipcode());
         return this;
     }
+
+    public Shop updateMenuCheck(){
+        this.menuCheck = true;
+        return this;
+    }
+
+    public Shop updateMenuView(){
+        this.menuView = true;
+        return this;
+    }
+
+
 
     protected Shop() {
 

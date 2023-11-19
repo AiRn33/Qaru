@@ -16,4 +16,5 @@ public class MenuCreateRequest {
     private String menuComment;
     private String menuPrice;
     private String imageGroupId;
+    private String menuViewCheck;
 }

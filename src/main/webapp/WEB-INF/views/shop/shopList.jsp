@@ -39,7 +39,7 @@
                     <c:forEach items="${shopList}" var="item">
                         <div class="col-4">
                             <div class="card" style="padding:8px">
-                                <button type="button" class="btn btn-outline-skyblue">
+                                <button type="button" class="btn btn-outline-skyblue" onclick="location.href='/menu/${item.shop_id}'">
                                     <img src="../img/test.jpg" alt="..." style="width:200px; height: 200px;">
                                 </button>
                                 <h8 style="padding-top: 10px;">${item.shop_name}</h8>
@@ -52,15 +52,6 @@
                             </div>
                         </div>
                     </c:forEach>
-                <c:if test="${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.user.role == 'ADMIN'}">
-                    <div class="row g-0">
-                        <div class="col-8"></div>
-                        <div class="col-4" style="text-align: right; margin-top: 10px;">
-                            <button class="btn btn-pink" onclick="location.href='/shop/menu'"><span
-                                    style="color: white;">등록</span></button>
-                        </div>
-                    </div>
-                </c:if>
                 <%-- =============== paging ============== --%>
             </div>
         </div>

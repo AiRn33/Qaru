@@ -5,6 +5,7 @@ import Qaru.Prj.domain.entity.Image;
 import Qaru.Prj.domain.entity.User;
 import Qaru.Prj.domain.request.*;
 import Qaru.Prj.domain.response.ImageResponse;
+import Qaru.Prj.domain.response.MypageShopResponse;
 import Qaru.Prj.domain.response.UserAdminUpdateResponse;
 import Qaru.Prj.domain.response.UserMypageRespose;
 import Qaru.Prj.error.ScriptErrors;
@@ -116,6 +117,7 @@ public class UserController {
 
         model.addAttribute("userData", new UserMypageRespose().userUpdate(user));
         model.addAttribute("adminCheck", userService.userSignupAdminCheck(request));
+        model.addAttribute("shopData", new MypageShopResponse().mypageShop(shopService.getShop(request)));
 
         return "/user/mypage";
     }

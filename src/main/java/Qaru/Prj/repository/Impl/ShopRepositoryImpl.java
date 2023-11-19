@@ -39,7 +39,7 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
                         shop.address.street.as("shop_street")
                 ))
                 .from(shop)
-                .where(shop.menuCheck.eq(true))
+                .where(shop.menuCheck.eq(true).and(shop.menuView.eq(true)))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .orderBy(shop.id.desc())
@@ -54,6 +54,7 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
         Long count = queryFactory
                 .select(shop)
                 .from(shop)
+                .where(shop.menuCheck.eq(true).and(shop.menuView.eq(true)))
                 .fetchCount();
 
         return count;
@@ -70,9 +71,10 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
                 shop.id.as("shop_id"),
                 shop.shopName.as("shop_name"),
                 shop.shopComment.as("shop_comment"),
-                shop.shopType.as("shop_type")))
-                .from(shop)
-                .innerJoin(user).on(user.id.eq(userId))
+                shop.shopType.as("shop_type")
+                )).from(user)
+                .innerJoin(shop).on(shop.user.id.eq(user.id))
+                .where(user.id.eq(userId))
                 .fetchOne();
     }
 }

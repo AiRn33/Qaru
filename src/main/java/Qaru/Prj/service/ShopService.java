@@ -76,4 +76,13 @@ public class ShopService {
 
         return shopRepositoryImpl.shopData(id);
     }
+
+    public Shop getShop(PrincipalDetails request) {
+
+        if(!shopRepository.findByUserId(request.getUser().getId()).isPresent()){
+            return null;
+        }
+
+        return shopRepository.findByUserId(request.getUser().getId()).get();
+    }
 }
