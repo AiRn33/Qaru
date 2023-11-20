@@ -9,12 +9,11 @@ function errors(){
         for(let i = 0; i < errorArr.length; i++){
             if(i % 2 > 0){
                 // field
-                console.log('=========');
-                console.log(errorArr[i].trim());
                 document.querySelector('#' + errorArr[i].trim() + 'Area').innerHTML += html;
                 html = '';
             }else{
                 // msg
+                html += '<div>';
                 html += '<div class="input-group has-validation">';
                 html += '<div class="form-floating is-invalid">';
                 html += '</div>';
@@ -22,7 +21,7 @@ function errors(){
                 html += '</div>';
                 html += '<div class="invalid-feedback-common">';
                 html += '&nbsp;&nbsp; ' + errorArr[i].trim();
-                html += '</div></div>';
+                html += '</div></div></div>';
             }
         }
     }

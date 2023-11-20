@@ -7,6 +7,8 @@ import lombok.Getter;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -20,6 +22,9 @@ public class ImageGroup {
 
     @Embedded
     private DateTime dateTime;
+
+    @OneToMany(mappedBy = "imageGroup", cascade = CascadeType.ALL)
+    private List<Image> imageList = new ArrayList<>();
 
     protected ImageGroup() {
 

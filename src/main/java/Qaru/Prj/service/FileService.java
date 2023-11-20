@@ -37,6 +37,20 @@ public class FileService {
         return serverUploadFileName;
     }
 
+    public String serverUploadFileModify(MultipartFile multipartFile) throws IOException {
+        if (multipartFile.isEmpty()) { //파일 없으면 null 반환
+            return null;
+        }
+
+        String originalFilename = multipartFile.getOriginalFilename().split("/")[0]; //원래 파일명
+
+        String serverUploadFileName = createServerFileName(originalFilename); //uuid 생성해서 뒤에 원래파일명의 확장자명 붙이기
+
+        multipartFile.transferTo(new File(getFullPath(serverUploadFileName)));//저장: (서버에 업로드되는 파일명, 업로드 되는 경로)
+
+        return serverUploadFileName;
+    }
+
     //uuid 생성해서 뒤에 원래파일명의 확장자명 붙이기
     private String createServerFileName(String originalFilename) {
         String uuid = UUID.randomUUID().toString();

@@ -142,8 +142,35 @@ public class ShopController {
     public String menuModifyForm(Model model, @PathVariable Long id, @AuthenticationPrincipal PrincipalDetails request){
 
         List<MenuListResponse> menuList = menuService.getMenuList(id, request);
+        ShopListResponse shopListResponse = shopService.shopData(request.getUser().getId());
 
+        model.addAttribute("shopData", shopListResponse);
         model.addAttribute("menuList", menuList);
+        model.addAttribute("menuListCount   ", menuList.size());
         return "/shop/modifyMenu";
     }
+
+    @ResponseBody
+    @PostMapping("/shop/menuImage/{id}")
+    public List<Long> modifyMenuImg(@PathVariable Long id, List<MultipartFile> file) throws IOException {
+
+        List<Long> imageGroupIdList = menuService.modifyMenuImages(file, id);
+
+        return imageGroupIdList;
+    }
+
+    @ResponseBody
+    @PostMapping("/shop/menuData/{id}")
+    public int modifyMenuData(@AuthenticationPrincipal PrincipalDetails request,
+                                  @PathVariable Long id,
+                                  @RequestBody List<MenuCreateRequest> menuData){
+
+        for (MenuCreateRequest menuDatum : menuData) {
+            System.out.println("=========== > : " + menuDatum);
+        };
+
+        return 0;
+    }
+
+
 }

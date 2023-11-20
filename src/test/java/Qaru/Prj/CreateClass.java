@@ -29,6 +29,7 @@ public class CreateClass {
                 .shopComment("shopComment")
                 .address(new Address("city", "street", "00000"))
                 .dateTime(new DateTime().createTime())
+                .shopType("양식")
                 .build();
     }
 
@@ -97,6 +98,25 @@ public class CreateClass {
         return Likes.builder()
                 .user(user)
                 .comment(comment)
+                .build();
+    }
+
+    public MenuGroup createMenuGroup(Shop shop){
+
+        return MenuGroup.builder()
+                .shop(shop)
+                .dateTime(new DateTime().createTime())
+                .build();
+    }
+
+    public Menu createMenu(MenuGroup menuGroup, ImageGroup imageGroup){
+
+        return Menu.builder()
+                .menuGroup(menuGroup)
+                .imageGroup(imageGroup)
+                .menuName("테스트 메뉴")
+                .menuComment("테스트 메뉴 설명")
+                .menuPrice(11111L)
                 .build();
     }
 }

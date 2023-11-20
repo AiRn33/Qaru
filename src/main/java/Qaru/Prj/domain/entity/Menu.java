@@ -11,7 +11,6 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-@DynamicUpdate //변경된 필드만 적용
 public class Menu {
 
     @Id

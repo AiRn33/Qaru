@@ -3,9 +3,12 @@ package Qaru.Prj.domain.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Getter;
-import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.CascadeType;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+
 @Entity
 @Getter
 @DynamicUpdate //변경된 필드만 적용
@@ -39,5 +42,13 @@ public class Image {
         this.originalFileName = originalFileName;
         this.storedFileName = storedFileName;
         this.storedFilePath = storedFilePath;
+    }
+
+    public Image modifyImage(Image image,ImageGroup imageGroup){
+        this.imageGroup = imageGroup;
+        this.originalFileName = originalFileName;
+        this.storedFileName = storedFileName;
+        this.storedFilePath = storedFilePath;
+        return this;
     }
 }
