@@ -21,7 +21,6 @@ public class Menu {
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "img_group_id")
-    @Cascade(CascadeType.ALL)
     private ImageGroup imageGroup;
 
     @JsonIgnore

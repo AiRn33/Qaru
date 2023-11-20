@@ -138,6 +138,13 @@ public class ShopController {
         return "/successAlert";
     }
 
+    @GetMapping("/shop/modifyMenuAlert")
+    public String modifyMenuAlert(Model model){
+
+        model.addAttribute("successAlert", 6);
+        return "/successAlert";
+    }
+
     @GetMapping("/shop/menu/{id}")
     public String menuModifyForm(Model model, @PathVariable Long id, @AuthenticationPrincipal PrincipalDetails request){
 
@@ -146,7 +153,7 @@ public class ShopController {
 
         model.addAttribute("shopData", shopListResponse);
         model.addAttribute("menuList", menuList);
-        model.addAttribute("menuListCount   ", menuList.size());
+        model.addAttribute("menuListCount", menuList.size());
         return "/shop/modifyMenu";
     }
 
@@ -165,11 +172,8 @@ public class ShopController {
                                   @PathVariable Long id,
                                   @RequestBody List<MenuCreateRequest> menuData){
 
-        for (MenuCreateRequest menuDatum : menuData) {
-            System.out.println("=========== > : " + menuDatum);
-        };
-
-        return 0;
+        List<Menu> menus = menuService.modifyMenuAll(id, menuData);
+        return menus.size();
     }
 
 

@@ -43,12 +43,4 @@ public class Image {
         this.storedFileName = storedFileName;
         this.storedFilePath = storedFilePath;
     }
-
-    public Image modifyImage(Image image,ImageGroup imageGroup){
-        this.imageGroup = imageGroup;
-        this.originalFileName = originalFileName;
-        this.storedFileName = storedFileName;
-        this.storedFilePath = storedFilePath;
-        return this;
-    }
 }

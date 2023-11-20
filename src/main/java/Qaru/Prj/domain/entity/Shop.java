@@ -31,7 +31,6 @@ public class Shop {
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "img_group_id")
-    @Cascade(CascadeType.ALL)
     private ImageGroup imageGroup;
 
     @Column(name = "shop_name")

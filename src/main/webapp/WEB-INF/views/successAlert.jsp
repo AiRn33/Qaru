@@ -16,5 +16,8 @@
     }else if(${successAlert == 5}){
         alert("메뉴 등록 완료!");
         window.location.href="/user/mypage";
+    }else if(${successAlert == 6}){
+        alert("메뉴 수정 완료!");
+        window.location.href="/user/mypage";
     }
 </script>

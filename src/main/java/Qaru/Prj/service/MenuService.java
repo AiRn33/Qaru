@@ -103,23 +103,31 @@ public class MenuService {
         for (int i = 0; i < fileSize; i++) {
             String fileOriginalName = file.get(i).getOriginalFilename().split("/")[0];
             Long fileGroupId = Long.valueOf(file.get(i).getOriginalFilename().split("/")[1]);
-
+            System.out.println(" ======== > : " + i + " - " + file.get(i).getOriginalFilename());
             if (fileGroupId < 1) {
                 // 새로운 파일
+                System.out.println("===완전새로운 파일");
                 ImageGroup newImageGroup = createImageGroup();
                 Long imageGroupId = saveImage(file.get(i), newImageGroup);
                 imageGroupIdList.add(imageGroupId);
             } else if (fileOriginalName.equals(" ")) {
                 // 기존 파일 가져가기
+                System.out.println("===기존파일 파일");
                 ImageGroup newImageGroup = createImageGroup();
                 Image image = getImage(fileGroupId);
 
-                image.modifyImage(image, newImageGroup);
+                Image newImage = Image.builder()
+                        .imageGroup(newImageGroup)
+                        .originalFileName(image.getOriginalFileName())
+                        .storedFileName(image.getStoredFileName())
+                        .storedFilePath(image.getStoredFilePath())
+                        .build();
 
-                Image saveImage = imageRepository.save(image);
+                Image saveImage = imageRepository.save(newImage);
                 imageGroupIdList.add(saveImage.getImageGroup().getId());
             } else {
                 // 새로운 파일
+                System.out.println("===기존삭제새로운 파일");
                 ImageGroup newImageGroup = createImageGroup();
                 Image image = getImage(fileGroupId);
 
@@ -152,12 +160,49 @@ public class MenuService {
             imageGroupRepository.deleteById(imageGroupId);
         });
     }
-    
+
+    public void deleteMenus(Long menuGroupId){
+
+        menuRepository.deleteByMenuGroupId(menuGroupId);
+    }
+
     public ImageGroup createImageGroup(){
         return imageGroupRepository.save(ImageGroup.builder().dateTime(new DateTime().createTime()).build());
     }
     
     public Image getImage(Long imageGroupId){
         return imageRepository.findByImageGroupId(imageGroupId).get(0);
+    }
+
+    @Transactional
+    public List<Menu> modifyMenuAll(Long shopId, List<MenuCreateRequest> menuData) {
+
+        List<Menu> list = new ArrayList<>();
+
+        Shop shop = shopRepository.findById(shopId).get();
+
+        MenuGroup menuGroup = menuGroupRepository.findByShop(shop);
+
+        deleteMenus(menuGroup.getId());
+
+        for (int i = 0; i < menuData.size(); i++) {
+            Menu menu = Menu.builder()
+                    .menuName(menuData.get(i).getMenuName())
+                    .menuComment(menuData.get(i).getMenuComment())
+                    .menuPrice(Long.valueOf(menuData.get(i).getMenuPrice()))
+                    .menuGroup(menuGroup)
+                    .imageGroup(imageGroupRepository.findById(Long.valueOf(menuData.get(i).getImageGroupId())).get())
+                    .build();
+
+            list.add(menu);
+        }
+
+        List<Menu> menus = menuRepository.saveAll(list);
+
+        if (menuData.get(0).getMenuViewCheck().equals("true")) {
+            shop.updateMenuView();
+        }
+
+        return menus;
     }
 }
