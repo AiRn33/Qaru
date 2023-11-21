@@ -22,4 +22,6 @@ public class ShopListResponse {
     private String shop_city;
 
     private String shop_street;
+
+    private Boolean menu_view;
 }

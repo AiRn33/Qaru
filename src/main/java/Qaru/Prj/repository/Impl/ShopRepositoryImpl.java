@@ -66,15 +66,30 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
     }
 
     @Override
-    public ShopListResponse shopData(Long userId) {
+    public ShopListResponse shopDataByUserId(Long userId) {
         return queryFactory.select(Projections.fields(ShopListResponse.class,
                 shop.id.as("shop_id"),
                 shop.shopName.as("shop_name"),
                 shop.shopComment.as("shop_comment"),
-                shop.shopType.as("shop_type")
+                shop.shopType.as("shop_type"),
+                shop.menuView.as("menu_view")
                 )).from(user)
                 .innerJoin(shop).on(shop.user.id.eq(user.id))
                 .where(user.id.eq(userId))
+                .fetchOne();
+    }
+
+    @Override
+    public ShopListResponse shopDataByShopId(Long shopId) {
+        return queryFactory.select(Projections.fields(ShopListResponse.class,
+                        shop.id.as("shop_id"),
+                        shop.shopName.as("shop_name"),
+                        shop.shopComment.as("shop_comment"),
+                        shop.shopType.as("shop_type"),
+                        shop.menuView.as("menu_view")
+                )).from(user)
+                .innerJoin(shop).on(shop.user.id.eq(user.id))
+                .where(shop.id.eq(shopId))
                 .fetchOne();
     }
 }

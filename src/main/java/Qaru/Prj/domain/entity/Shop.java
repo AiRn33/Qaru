@@ -81,8 +81,8 @@ public class Shop {
         return this;
     }
 
-    public Shop updateMenuView(){
-        this.menuView = true;
+    public Shop updateMenuView(Boolean check){
+        this.menuView = check;
         return this;
     }
 

@@ -89,11 +89,9 @@ public class CommentService {
     }
 
     public List<CommentResponse> commentDelete(Long id, String tourId, PrincipalDetails request) {
-        System.out.println(" ===== > 1: " + id);
+
         commentRepository.deleteById(id);
-        System.out.println(" ===== > 2: " + id);
         List<CommentResponse> commentResponses = commentSort(tourId, request);
-        System.out.println(" ===== > 3: " + id);
 
         return commentResponses;
     }

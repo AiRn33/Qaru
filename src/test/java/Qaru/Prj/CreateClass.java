@@ -4,6 +4,7 @@ import Qaru.Prj.domain.baseEntity.Address;
 import Qaru.Prj.domain.baseEntity.DateTime;
 import Qaru.Prj.domain.entity.*;
 import Qaru.Prj.domain.enums.RoleType;
+import Qaru.Prj.domain.enums.StatusType;
 import Qaru.Prj.domain.enums.UserType;
 
 public class CreateClass {
@@ -117,6 +118,34 @@ public class CreateClass {
                 .menuName("테스트 메뉴")
                 .menuComment("테스트 메뉴 설명")
                 .menuPrice(11111L)
+                .build();
+    }
+
+    public Menu createOrderMenu(MenuGroup menuGroup, ImageGroup imageGroup, String menuName){
+
+        return Menu.builder()
+                .menuGroup(menuGroup)
+                .imageGroup(imageGroup)
+                .menuName(menuName)
+                .menuComment("테스트 메뉴 설명")
+                .menuPrice(11111L)
+                .build();
+    }
+
+    public Order createOrder(OrderMenu orderMenu, User user){
+        return Order.builder()
+                .orderMenu(orderMenu)
+                .user(user)
+                .statusType(StatusType.INCOMPLETE)
+                .build();
+    }
+
+    public OrderMenu createOrderMenu(Menu menu, Order order){
+        return OrderMenu.builder()
+                .menu(menu)
+                .order(order)
+                .orderCount(5L)
+                .orderPrice(100000L)
                 .build();
     }
 }

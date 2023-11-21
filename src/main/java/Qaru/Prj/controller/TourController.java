@@ -296,19 +296,15 @@ public class TourController {
 
         if(check.equals("tour")){
             if(likeCheck > 0){
-                System.out.println("===== > 투어 삭제");
                 count = likeService.tourLikeRemove(request, id);
             }else{
-                System.out.println("===== > 투어 추가");
                 count = likeService.tourLikeAdd(request, id);
             }
         }else if(check.equals("comment")){
 
             if(likeCheck > 0){
-                System.out.println("===== > 코멘트 삭제");
                 count = likeService.commentLikeRemove(request, id);
             }else{
-                System.out.println("===== > 코멘트 추가");
                 count = likeService.commentLikeAdd(request, id);
             }
         }

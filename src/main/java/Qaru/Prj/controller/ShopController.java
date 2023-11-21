@@ -99,7 +99,7 @@ public class ShopController {
     @GetMapping("/shop/menu")
     public String createMenu(@AuthenticationPrincipal PrincipalDetails request, Model model){
 
-        ShopListResponse shopResponse = shopService.shopData(request.getUser().getId());
+        ShopListResponse shopResponse = shopService.shopDataByUserId(request.getUser().getId());
 
         model.addAttribute("shopData", shopResponse);
 
@@ -148,8 +148,8 @@ public class ShopController {
     @GetMapping("/shop/menu/{id}")
     public String menuModifyForm(Model model, @PathVariable Long id, @AuthenticationPrincipal PrincipalDetails request){
 
-        List<MenuListResponse> menuList = menuService.getMenuList(id, request);
-        ShopListResponse shopListResponse = shopService.shopData(request.getUser().getId());
+        List<MenuListResponse> menuList = menuService.getMenuList(id);
+        ShopListResponse shopListResponse = shopService.shopDataByUserId(request.getUser().getId());
 
         model.addAttribute("shopData", shopListResponse);
         model.addAttribute("menuList", menuList);
@@ -175,6 +175,4 @@ public class ShopController {
         List<Menu> menus = menuService.modifyMenuAll(id, menuData);
         return menus.size();
     }
-
-
 }

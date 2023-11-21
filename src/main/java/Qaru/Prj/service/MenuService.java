@@ -64,14 +64,16 @@ public class MenuService {
             shop.updateMenuCheck();
 
             if (menuData.get(0).getMenuViewCheck().equals("true")) {
-                shop.updateMenuView();
+                shop.updateMenuView(true);
+            }else{
+                shop.updateMenuView(false);
             }
         }
 
         return menus;
     }
 
-    public List<MenuListResponse> getMenuList(Long id, PrincipalDetails request) {
+    public List<MenuListResponse> getMenuList(Long id) {
 
         List<MenuListResponse> menuList = menuRepositoryImpl.findByshopId(id);
 
@@ -103,16 +105,13 @@ public class MenuService {
         for (int i = 0; i < fileSize; i++) {
             String fileOriginalName = file.get(i).getOriginalFilename().split("/")[0];
             Long fileGroupId = Long.valueOf(file.get(i).getOriginalFilename().split("/")[1]);
-            System.out.println(" ======== > : " + i + " - " + file.get(i).getOriginalFilename());
             if (fileGroupId < 1) {
                 // 새로운 파일
-                System.out.println("===완전새로운 파일");
                 ImageGroup newImageGroup = createImageGroup();
                 Long imageGroupId = saveImage(file.get(i), newImageGroup);
                 imageGroupIdList.add(imageGroupId);
             } else if (fileOriginalName.equals(" ")) {
                 // 기존 파일 가져가기
-                System.out.println("===기존파일 파일");
                 ImageGroup newImageGroup = createImageGroup();
                 Image image = getImage(fileGroupId);
 
@@ -127,7 +126,6 @@ public class MenuService {
                 imageGroupIdList.add(saveImage.getImageGroup().getId());
             } else {
                 // 새로운 파일
-                System.out.println("===기존삭제새로운 파일");
                 ImageGroup newImageGroup = createImageGroup();
                 Image image = getImage(fileGroupId);
 
@@ -200,7 +198,9 @@ public class MenuService {
         List<Menu> menus = menuRepository.saveAll(list);
 
         if (menuData.get(0).getMenuViewCheck().equals("true")) {
-            shop.updateMenuView();
+            shop.updateMenuView(true);
+        }else{
+            shop.updateMenuView(false);
         }
 
         return menus;

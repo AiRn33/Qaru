@@ -106,7 +106,7 @@
                 <div class="col-8"></div>
                 <div class="col-4" style="text-align: right; margin-bottom: 10px;  margin-top: 5px;">
                     <div class="form-check" style="float: right;">
-                        <input class="form-check-input" type="checkbox" value="" id="menuViewCheck">
+                        <input class="form-check-input" type="checkbox" id="menuViewCheck" <c:if test="${shopData.menu_view}">checked</c:if>>
                         <label class="form-check-label" for="menuViewCheck" style="color: red; font-size: 14px;">
                             가게를 리스트에 출력하겠습니까 ?
                         </label>
@@ -143,7 +143,6 @@
 </div>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-
     window.onload = function () {
         //실행될 코드
         errors();
