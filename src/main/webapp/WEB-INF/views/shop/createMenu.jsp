@@ -137,7 +137,6 @@
         <div class="col-2"></div>
     </div>
 </div>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 
     window.onload = function () {

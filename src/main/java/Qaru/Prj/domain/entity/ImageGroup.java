@@ -23,8 +23,6 @@ public class ImageGroup {
     @Embedded
     private DateTime dateTime;
 
-    @OneToMany(mappedBy = "imageGroup", cascade = CascadeType.ALL)
-    private List<Image> imageList = new ArrayList<>();
 
     protected ImageGroup() {
 

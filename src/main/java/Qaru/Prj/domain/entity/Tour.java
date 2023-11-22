@@ -15,6 +15,8 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static javax.persistence.CascadeType.*;
+
 @Entity
 @Getter
 @DynamicUpdate //변경된 필드만 적용
@@ -33,7 +35,6 @@ public class Tour {
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "img_group_id")
-    @Cascade(CascadeType.ALL)
     private ImageGroup imageGroup;
 
     @Column(name = "tour_title")
@@ -47,9 +48,6 @@ public class Tour {
 
     @Embedded
     private Address address;
-
-    @OneToMany(mappedBy = "tour", orphanRemoval = true)
-    private List<Likes> likesList = new ArrayList<>();
 
     @Builder
     public Tour(Long id, User user, ImageGroup imageGroup, String tourTitle, String tourContent, DateTime dateTime, Address address) {

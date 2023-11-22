@@ -397,7 +397,6 @@
 
     function like_add_delete(tour_comment_check){
 
-        let html = '';
         let like_check = '';
         let tourCommentCheck = '';
         let id = '';
@@ -414,8 +413,6 @@
             id = tour_comment_check;
         }
 
-        console.log(like_check);
-
         var likeData = {
             likeCheck : like_check,
             tourCommentCheck : tourCommentCheck,
@@ -426,11 +423,13 @@
             url: "/tour/like/" + id,      // 컨트롤러에서 대기중인 URL 주소이다.
             data: likeData,
             success: function (res) {// 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.
+
+                console.log(res);
                 if(tour_comment_check < 1){
                     // tour
                     document.querySelector('#like_check').value = res[res.length - 1].like_count;
 
-                    if(res[res.length - 1].like_count > 0){
+                    if(res[0].tourCount > 0){
                         document.querySelector('#like_on_btn').classList.add("btn-pink");
                         document.querySelector('#like_on_btn').classList.remove("btn-outline-pink-like");
                     }else{

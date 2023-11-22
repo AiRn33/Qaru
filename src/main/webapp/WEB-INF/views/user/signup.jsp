@@ -52,7 +52,7 @@
                 <div class="row g-0">
                     <div class="col">
                         <div class="card" style="padding:8px">
-                            <button type="submit" class="btn btn-primary">
+                            <button type="button" class="btn btn-primary" id="submitBtn" onclick="Submit()">
                                 <i class="bi bi-people-fill fs-5" style="color: white;">
                                     &nbsp;회원가입
                                 </i>
@@ -82,5 +82,17 @@
     window.onload = function(){
         //실행될 코드
         errors();
+    }
+
+    document.getElementById('body').addEventListener('keydown', (e) => {
+        if (e.key == "Enter" || e.keyCode == "13") {
+            // 실행할 코드
+            Submit();
+        }
+    });
+
+    function Submit(){
+        document.querySelector('#submitBtn').disabled = true;
+        document.querySelector('#signupForm').submit();
     }
 </script>

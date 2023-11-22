@@ -30,6 +30,7 @@ public class MenuService {
     private final FileService fileService;
     private final ImageGroupRepository imageGroupRepository;
     private final ImageRepository imageRepository;
+    private final MenuGroupService menuGroupService;
 
     @Value("${app.upload.dir}")
     private String dir;
@@ -41,10 +42,8 @@ public class MenuService {
 
         Shop shop = shopRepository.findByUserId(request.getUser().getId()).get();
 
-        MenuGroup menuGroup = MenuGroup.builder()
-                .shop(shop)
-                .dateTime(new DateTime().createTime())
-                .build();
+        MenuGroup menuGroup = menuGroupService.createMenuGroup(shop);
+
 
         for (int i = 0; i < menuData.size(); i++) {
             Menu menu = Menu.builder()
@@ -204,5 +203,14 @@ public class MenuService {
         }
 
         return menus;
+    }
+
+    public List<Menu> selectMenuAll(List<Long> menuId) {
+
+        List<Menu> menuList = new ArrayList<>();
+        for(int i = 0; i < menuId.size(); i++){
+            menuList.add(menuRepository.findById(menuId.get(i)).get());
+        }
+        return menuList;
     }
 }

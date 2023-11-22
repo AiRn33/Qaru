@@ -26,6 +26,15 @@ html,body {
     color: #ff6b81;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
 /* bootstrap color */
 .btn-light_red{
     --bs-btn-color: #fff;

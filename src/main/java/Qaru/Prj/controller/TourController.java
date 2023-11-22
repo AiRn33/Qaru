@@ -294,6 +294,8 @@ public class TourController {
                          @RequestParam("tourId") Long tourId){
         Long count = 0L;
 
+        List<CommentResponse> commentResponses = null;
+
         if(check.equals("tour")){
             if(likeCheck > 0){
                 count = likeService.tourLikeRemove(request, id);
@@ -308,8 +310,8 @@ public class TourController {
                 count = likeService.commentLikeAdd(request, id);
             }
         }
-        List<CommentResponse> commentResponses = commentService.commentSort(String.valueOf(tourId), request);
-
+        commentResponses = commentService.commentSort(String.valueOf(tourId), request);
+        commentResponses.get(0).updateTourLikeCount(count);
         return commentResponses;
     }
 }

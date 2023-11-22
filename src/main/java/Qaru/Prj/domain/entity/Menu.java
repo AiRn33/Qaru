@@ -9,6 +9,8 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
+import static javax.persistence.CascadeType.*;
+
 @Entity
 @Getter
 public class Menu {
@@ -26,7 +28,6 @@ public class Menu {
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "menu_group_id")
-    @Cascade(CascadeType.ALL)
     private MenuGroup menuGroup;
 
     @Column(name = "menu_name")

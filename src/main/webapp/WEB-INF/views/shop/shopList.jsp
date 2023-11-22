@@ -40,7 +40,7 @@
                         <div class="col-4">
                             <div class="card" style="padding:8px">
                                 <button type="button" class="btn btn-outline-skyblue" onclick="location.href='/menu/${item.shop_id}'">
-                                    <img src="../img/test.jpg" alt="..." style="width:200px; height: 200px;">
+                                    <img src="../img/${item.stored_file_name}" alt="..." style="width:200px; height: 200px;">
                                 </button>
                                 <h8 style="padding-top: 10px;">${item.shop_name}</h8>
                                 <span style="font-size: 10px;">${item.shop_city}&nbsp;${item.shop_street}</span>

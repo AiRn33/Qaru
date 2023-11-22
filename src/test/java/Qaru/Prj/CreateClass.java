@@ -121,7 +121,7 @@ public class CreateClass {
                 .build();
     }
 
-    public Menu createOrderMenu(MenuGroup menuGroup, ImageGroup imageGroup, String menuName){
+    public Menu createOrderMenuName(MenuGroup menuGroup, ImageGroup imageGroup, String menuName){
 
         return Menu.builder()
                 .menuGroup(menuGroup)
@@ -132,20 +132,20 @@ public class CreateClass {
                 .build();
     }
 
-    public Order createOrder(OrderMenu orderMenu, User user){
+    public Order createOrder(Menu menu, OrderMenu orderMenu){
         return Order.builder()
+                .menu(menu)
                 .orderMenu(orderMenu)
-                .user(user)
+                .orderCount(3L)
                 .statusType(StatusType.INCOMPLETE)
                 .build();
     }
 
-    public OrderMenu createOrderMenu(Menu menu, Order order){
+    public OrderMenu createOrderMenu(User user){
         return OrderMenu.builder()
-                .menu(menu)
-                .order(order)
-                .orderCount(5L)
-                .orderPrice(100000L)
+                .orderMenuCount(0L)
+                .orderMenuPrice(0L)
+                .user(user)
                 .build();
     }
 }

@@ -12,13 +12,12 @@
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/slide.css">
     <script src="/js/common.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
     <title>Qaru</title>
 </head>
-<body>
+<body id="body">
     <tiles:insertAttribute name="header" />
     <tiles:insertAttribute name="body" />
 </body>

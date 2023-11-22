@@ -72,7 +72,7 @@
                 <div class="col-4"></div>
                 <div class="col-4" style="margin-top: 10px;">
                     <div class="card">
-                        <button class="btn btn-outline-bluemint">
+                        <button class="btn btn-outline-bluemint" onclick="location.href='/order/menu/${shopData.shop_id}'">
                             <i class="bi bi-basket"></i>
                             &nbsp;&nbsp;주문 하기
                         </button>

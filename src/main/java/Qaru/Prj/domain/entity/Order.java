@@ -18,28 +18,31 @@ public class Order {
     private Long id;
 
     @JsonIgnore
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    @JsonIgnore
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_menu_id")
-    private OrderMenu orderMenu;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "menu_id")
+    private Menu menu;
 
     @Column(name = "order_status")
     @Enumerated(EnumType.STRING)
     private StatusType statusType;
 
+    @JoinColumn(name = "order_count")
+    private Long orderCount;
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_menu_id")
+    private OrderMenu orderMenu;
+
     protected Order(){
 
     }
-
     @Builder
-    public Order(Long id, User user, OrderMenu orderMenu, StatusType statusType) {
+    public Order(Long id, Menu menu, StatusType statusType, Long orderCount, OrderMenu orderMenu) {
         this.id = id;
-        this.user = user;
-        this.orderMenu = orderMenu;
+        this.menu = menu;
         this.statusType = statusType;
+        this.orderCount = orderCount;
+        this.orderMenu = orderMenu;
     }
 }

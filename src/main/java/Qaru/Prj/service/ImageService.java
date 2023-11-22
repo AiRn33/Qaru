@@ -27,7 +27,6 @@ public class ImageService {
     public Long imageSave(MultipartFile file, String storedName, ImageGroup imageGroup){
 
         String originalName = file.getOriginalFilename();
-        imageGroupRepository.save(imageGroup);
 
         Image image = Image.builder()
                 .imageGroup(imageGroup)

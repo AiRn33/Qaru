@@ -9,10 +9,7 @@ import Qaru.Prj.domain.response.MenuListResponse;
 import Qaru.Prj.domain.response.ShopListResponse;
 import Qaru.Prj.domain.response.TourListResponse;
 import Qaru.Prj.repository.Impl.ShopRepositoryImpl;
-import Qaru.Prj.service.FileService;
-import Qaru.Prj.service.ImageService;
-import Qaru.Prj.service.MenuService;
-import Qaru.Prj.service.ShopService;
+import Qaru.Prj.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -36,6 +33,7 @@ public class ShopController {
     private final ImageService imageService;
     private final FileService fileService;
     private final MenuService menuService;
+    private final ImageGroupService imageGroupService;
 
     @GetMapping("/shop/shopList")
     public String shopList(Pageable pageable, Model model){
@@ -114,7 +112,7 @@ public class ShopController {
         for(int i = 0; i < file.size(); i++){
 
             String storedName = fileService.serverUploadFile(file.get(i));
-            Long ImageGroupId = imageService.imageSave(file.get(i), storedName, new ImageGroup(new DateTime().createTime()));
+            Long ImageGroupId = imageService.imageSave(file.get(i), storedName, imageGroupService.createImageGroup());
             groupIdList.add(ImageGroupId);
         }
 

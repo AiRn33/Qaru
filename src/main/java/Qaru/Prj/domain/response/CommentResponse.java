@@ -28,6 +28,8 @@ public class CommentResponse {
 
     private Long commentCount;
 
+    private Long tourCount;
+
     public CommentResponse createComment(Comment comment){
         this.comment = comment.getCommentContent();
         this.userNickname = comment.getUser().getUserNickName();
@@ -45,6 +47,11 @@ public class CommentResponse {
 
     public CommentResponse updateLikeCount(Long count) {
         this.like_count = count;
+        return this;
+    }
+
+    public CommentResponse updateTourLikeCount(Long count) {
+        this.tourCount = count;
         return this;
     }
 }

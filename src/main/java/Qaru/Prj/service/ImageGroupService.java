@@ -1,5 +1,6 @@
 package Qaru.Prj.service;
 
+import Qaru.Prj.domain.baseEntity.DateTime;
 import Qaru.Prj.domain.entity.ImageGroup;
 import Qaru.Prj.repository.ImageGroupRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,5 +16,9 @@ public class ImageGroupService {
         ImageGroup imageGroup = imageGroupRepository.findById(imageGroupId).get();
         imageGroup.updateImageGroup(imageGroup);
 
+    }
+
+    public ImageGroup createImageGroup(){
+        return imageGroupRepository.save(new ImageGroup(new DateTime().createTime()));
     }
 }

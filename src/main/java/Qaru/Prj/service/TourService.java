@@ -9,6 +9,7 @@ import Qaru.Prj.domain.entity.User;
 import Qaru.Prj.domain.request.TourCreateRequest;
 import Qaru.Prj.domain.response.TourListResponse;
 import Qaru.Prj.domain.response.TourViewResponse;
+import Qaru.Prj.repository.ImageGroupRepository;
 import Qaru.Prj.repository.Impl.CommentRepositoryImpl;
 import Qaru.Prj.repository.Impl.TourRepositoryImpl;
 import Qaru.Prj.repository.TourRepository;
@@ -30,13 +31,15 @@ public class TourService {
     private final UserRepository userRepository;
     private final TourRepositoryImpl tourRepositoryImpl;
     private final CommentRepositoryImpl commentRepositoryImpl;
+    private final ImageGroupService imageGroupService;
+
 
     public ImageGroup createTour(PrincipalDetails principalDetails, TourCreateRequest request){
 
         User user = userRepository.findByUserId(principalDetails.getUsername()).get();
 
         Tour tour = Tour.builder()
-                .imageGroup(new ImageGroup(new DateTime().createTime()))
+                .imageGroup(imageGroupService.createImageGroup())
                 .user(user)
                 .tourTitle(request.getTourTitle())
                 .tourContent(request.getTourContent())

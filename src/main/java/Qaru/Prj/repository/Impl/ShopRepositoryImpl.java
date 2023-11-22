@@ -1,8 +1,6 @@
 package Qaru.Prj.repository.Impl;
 
-import Qaru.Prj.domain.entity.Comment;
-import Qaru.Prj.domain.entity.QShop;
-import Qaru.Prj.domain.entity.QUser;
+import Qaru.Prj.domain.entity.*;
 import Qaru.Prj.domain.response.ShopListResponse;
 import Qaru.Prj.domain.response.TourListResponse;
 import com.querydsl.core.types.Projections;
@@ -16,6 +14,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 import static Qaru.Prj.domain.entity.QComment.comment;
+import static Qaru.Prj.domain.entity.QImage.image;
+import static Qaru.Prj.domain.entity.QImageGroup.imageGroup;
 import static Qaru.Prj.domain.entity.QShop.*;
 import static Qaru.Prj.domain.entity.QTour.tour;
 import static Qaru.Prj.domain.entity.QUser.user;
@@ -36,9 +36,12 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
                         shop.shopComment.as("shop_comment"),
                         shop.shopType.as("shop_type"),
                         shop.address.city.as("shop_city"),
-                        shop.address.street.as("shop_street")
+                        shop.address.street.as("shop_street"),
+                        image.storedFileName.as("stored_file_name")
                 ))
                 .from(shop)
+                .innerJoin(imageGroup).on(imageGroup.id.eq(shop.imageGroup.id))
+                .innerJoin(image).on(image.imageGroup.id.eq(imageGroup.id))
                 .where(shop.menuCheck.eq(true).and(shop.menuView.eq(true)))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())

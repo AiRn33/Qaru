@@ -41,7 +41,7 @@ public class ShopService {
 
         Optional<User> user = userRepository.findByUserId(request.getUsername());
 
-        Shop shop = shopRepository.save(userRequest.toEntity(user.get(), new ImageGroup(new DateTime().createTime())));
+        Shop shop = shopRepository.save(userRequest.toEntity(user.get(), imageGroupService.createImageGroup()));
 
         user.get().updateRole();
 
