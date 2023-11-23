@@ -39,15 +39,15 @@
                     <c:forEach items="${shopList}" var="item">
                         <div class="col-4">
                             <div class="card" style="padding:8px">
-                                <button type="button" class="btn btn-outline-skyblue" onclick="location.href='/menu/${item.shop_id}'">
-                                    <img src="../img/${item.stored_file_name}" alt="..." style="width:200px; height: 200px;">
+                                <button type="button" class="btn btn-outline-skyblue" onclick="location.href='/menu/${item.shopId}'">
+                                    <img src="../img/${item.storedFileName}" alt="..." style="width:200px; height: 200px;">
                                 </button>
-                                <h8 style="padding-top: 10px;">${item.shop_name}</h8>
-                                <span style="font-size: 10px;">${item.shop_city}&nbsp;${item.shop_street}</span>
-                                <span style="font-size: 10px;">${item.shop_type}</span>
+                                <h8 style="padding-top: 10px;">${item.shopName}</h8>
+                                <span style="font-size: 10px;">${item.shopCity}&nbsp;${item.shopStreet}</span>
+                                <span style="font-size: 10px;">${item.shopType}</span>
                                 <hr style="margin: 0.4rem;">
                                 <label style="font-size: 12px; font-weight: lighter;">
-                                    <span style="color: #e74c3c; font-size: 10px; font-weight: bold;">${item.shop_comment}</span>
+                                    <span style="color: #e74c3c; font-size: 10px; font-weight: bold;">${item.shopComment}</span>
                                 </label>
                             </div>
                         </div>

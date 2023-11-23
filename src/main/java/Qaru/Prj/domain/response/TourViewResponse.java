@@ -10,11 +10,11 @@ import lombok.ToString;
 @ToString
 public class TourViewResponse {
 
-    private Long tour_id;
+    private Long tourId;
 
-    private String tour_title;
+    private String tourTitle;
 
-    private String tour_content;
+    private String tourContent;
 
     private ImageGroup imageGroup;
 
@@ -29,9 +29,9 @@ public class TourViewResponse {
     private Long commentCount;
 
     public TourViewResponse createView(Tour tour){
-        this.tour_id = tour.getId();
-        this.tour_title = tour.getTourTitle();
-        this.tour_content = tour.getTourContent();
+        this.tourId = tour.getId();
+        this.tourTitle = tour.getTourTitle();
+        this.tourContent = tour.getTourContent();
         this.imageGroup = tour.getImageGroup();
         this.city = tour.getAddress().getCity();
         this.street = tour.getAddress().getStreet();

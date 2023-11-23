@@ -18,13 +18,13 @@ import java.time.format.DateTimeFormatter;
 @AllArgsConstructor
 public class TourListResponse {
 
-    private Long tour_id;
+    private Long tourId;
 
-    private String tour_title;
+    private String tourTitle;
 
-    private String tour_content;
+    private String tourContent;
 
-    private LocalDateTime tour_date;
+    private LocalDateTime tourDate;
 
-    private String user_nickname;
+    private String userNickname;
 }

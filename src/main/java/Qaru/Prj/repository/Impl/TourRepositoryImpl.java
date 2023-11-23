@@ -25,11 +25,11 @@ public class TourRepositoryImpl implements TourRepositoryCustom{
 
         List<TourListResponse> tourList = queryFactory	// (1)
                 .select(Projections.fields(TourListResponse.class,
-                        tour.id.as("tour_id"),
-                        tour.tourTitle.as("tour_title"),
-                        tour.tourContent.as("tour_content"),
-                        tour.dateTime.updateDate.as("tour_date"),
-                        tour.user.userNickName.as("user_nickname")
+                        tour.id.as("tourId"),
+                        tour.tourTitle.as("tourTitle"),
+                        tour.tourContent.as("tourContent"),
+                        tour.dateTime.updateDate.as("tourDate"),
+                        tour.user.userNickName.as("userNickname")
                 ))
                 .from(tour)
                 .offset(pageable.getOffset())
@@ -64,11 +64,11 @@ public class TourRepositoryImpl implements TourRepositoryCustom{
         List<TourListResponse> list =
                 queryFactory
                         .select(Projections.fields(TourListResponse.class,
-                                tour.id.as("tour_id"),
-                                tour.tourTitle.as("tour_title"),
-                                tour.tourContent.as("tour_content"),
-                                tour.dateTime.updateDate.as("tour_date"),
-                                tour.user.userNickName.as("user_nickname")
+                                tour.id.as("tourId"),
+                                tour.tourTitle.as("tourTitle"),
+                                tour.tourContent.as("tourContent"),
+                                tour.dateTime.updateDate.as("tourDate"),
+                                tour.user.userNickName.as("userNickname")
                         ))
                         .from(tour)
                         .where(bulider)

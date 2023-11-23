@@ -22,10 +22,6 @@ public class Order {
     @JoinColumn(name = "menu_id")
     private Menu menu;
 
-    @Column(name = "order_status")
-    @Enumerated(EnumType.STRING)
-    private StatusType statusType;
-
     @JoinColumn(name = "order_count")
     private Long orderCount;
 
@@ -38,10 +34,9 @@ public class Order {
 
     }
     @Builder
-    public Order(Long id, Menu menu, StatusType statusType, Long orderCount, OrderMenu orderMenu) {
+    public Order(Long id, Menu menu, Long orderCount, OrderMenu orderMenu) {
         this.id = id;
         this.menu = menu;
-        this.statusType = statusType;
         this.orderCount = orderCount;
         this.orderMenu = orderMenu;
     }

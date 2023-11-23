@@ -11,19 +11,19 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class ShopListResponse {
 
-    private Long shop_id;
+    private Long shopId;
 
-    private String shop_name;
+    private String shopName;
 
-    private String shop_comment;
+    private String shopComment;
 
-    private String shop_type;
+    private String shopType;
 
-    private String shop_city;
+    private String shopCity;
 
-    private String shop_street;
+    private String shopStreet;
 
-    private Boolean menu_view;
+    private Boolean menuView;
 
-    private String stored_file_name;
+    private String storedFileName;
 }

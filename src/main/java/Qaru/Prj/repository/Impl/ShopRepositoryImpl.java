@@ -31,13 +31,13 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
 
         List<ShopListResponse> shopList = queryFactory	// (1)
                 .select(Projections.fields(ShopListResponse.class,
-                        shop.id.as("shop_id"),
-                        shop.shopName.as("shop_name"),
-                        shop.shopComment.as("shop_comment"),
-                        shop.shopType.as("shop_type"),
-                        shop.address.city.as("shop_city"),
-                        shop.address.street.as("shop_street"),
-                        image.storedFileName.as("stored_file_name")
+                        shop.id.as("shopId"),
+                        shop.shopName.as("shopName"),
+                        shop.shopComment.as("shopComment"),
+                        shop.shopType.as("shopType"),
+                        shop.address.city.as("shopCity"),
+                        shop.address.street.as("shopStreet"),
+                        image.storedFileName.as("storedFileName")
                 ))
                 .from(shop)
                 .innerJoin(imageGroup).on(imageGroup.id.eq(shop.imageGroup.id))
@@ -71,11 +71,11 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
     @Override
     public ShopListResponse shopDataByUserId(Long userId) {
         return queryFactory.select(Projections.fields(ShopListResponse.class,
-                shop.id.as("shop_id"),
-                shop.shopName.as("shop_name"),
-                shop.shopComment.as("shop_comment"),
-                shop.shopType.as("shop_type"),
-                shop.menuView.as("menu_view")
+                shop.id.as("shopId"),
+                shop.shopName.as("shopName"),
+                shop.shopComment.as("shopComment"),
+                shop.shopType.as("shopType"),
+                shop.menuView.as("menuView")
                 )).from(user)
                 .innerJoin(shop).on(shop.user.id.eq(user.id))
                 .where(user.id.eq(userId))
@@ -85,13 +85,12 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
     @Override
     public ShopListResponse shopDataByShopId(Long shopId) {
         return queryFactory.select(Projections.fields(ShopListResponse.class,
-                        shop.id.as("shop_id"),
-                        shop.shopName.as("shop_name"),
-                        shop.shopComment.as("shop_comment"),
-                        shop.shopType.as("shop_type"),
-                        shop.menuView.as("menu_view")
-                )).from(user)
-                .innerJoin(shop).on(shop.user.id.eq(user.id))
+                        shop.id.as("shopId"),
+                        shop.shopName.as("shopName"),
+                        shop.shopComment.as("shopComment"),
+                        shop.shopType.as("shopType"),
+                        shop.menuView.as("menuView")
+                )).from(shop)
                 .where(shop.id.eq(shopId))
                 .fetchOne();
     }

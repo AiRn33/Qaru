@@ -28,19 +28,19 @@
         <%--        <div class="col-2"></div>--%>
         <div class="col-8 text-center">
             <div class="card" style="padding:8px">
-                <h2><i class="bi bi-cart"></i>&nbsp;&nbsp;${shopData.shop_name}</h2>
+                <h2><i class="bi bi-cart"></i>&nbsp;&nbsp;${shopData.shopName}</h2>
                 <hr style="margin: 0.4rem;">
                 <div class="card" style="padding:8px">
                     <div class="row g-0">
                         <div class="col-6">
                             <span>가게 설명</span>
                             <hr style="margin: 0.4rem;">
-                            <span>${shopData.shop_comment}</span>
+                            <span>${shopData.shopComment}</span>
                         </div>
                         <div class="col-6">
                             <span>가게 종류</span>
                             <hr style="margin: 0.4rem;">
-                            <span>${shopData.shop_type}</span>
+                            <span>${shopData.shopType}</span>
                         </div>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
                 <div class="col-4"></div>
                 <div class="col-4" style="margin-top: 10px;">
                     <div class="card">
-                        <button class="btn btn-outline-bluemint" onclick="location.href='/order/menu/${shopData.shop_id}'">
+                        <button class="btn btn-outline-bluemint" onclick="location.href='/order/menu/${shopData.shopId}'">
                             <i class="bi bi-basket"></i>
                             &nbsp;&nbsp;주문 하기
                         </button>

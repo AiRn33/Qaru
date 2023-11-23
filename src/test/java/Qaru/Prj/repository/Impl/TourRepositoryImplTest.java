@@ -66,11 +66,11 @@ class TourRepositoryImplTest {
         List<TourListResponse> list =
                 queryFactory
                         .select(Projections.fields(TourListResponse.class,
-                                QTour.tour.id.as("tour_id"),
-                                QTour.tour.tourTitle.as("tour_title"),
-                                QTour.tour.tourContent.as("tour_content"),
-                                QTour.tour.dateTime.updateDate.as("tour_date"),
-                                QTour.tour.user.userNickName.as("user_nickname")
+                                QTour.tour.id.as("tourId"),
+                                QTour.tour.tourTitle.as("tourTitle"),
+                                QTour.tour.tourContent.as("tourContent"),
+                                QTour.tour.dateTime.updateDate.as("tourDate"),
+                                QTour.tour.user.userNickName.as("userNickname")
                         ))
                         .from(QTour.tour)
                         .where(bulider)

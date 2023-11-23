@@ -63,7 +63,6 @@ class ImageServiceTest {
         }
         imageRepository.saveAll(list);
         List<Image> byImageGroupId2 = imageRepository.findByImageGroupId(shop.getImageGroup().getId());
-        log.info("========> : " + byImageGroupId2.size());
 
         // when
         imageRepository.deleteByImageGroupId(shop.getImageGroup().getId());

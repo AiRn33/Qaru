@@ -15,17 +15,17 @@
                     <div class="col-4">
                         <span>가게 이름</span>
                         <hr style="margin: 0.4rem;">
-                        <span>${shopData.shop_name}</span>
+                        <span>${shopData.shopName}</span>
                     </div>
                     <div class="col-4">
                         <span>가게 설명</span>
                         <hr style="margin: 0.4rem;">
-                        <span>${shopData.shop_comment}</span>
+                        <span>${shopData.shopComment}</span>
                     </div>
                     <div class="col-4">
                         <span>가게 종류</span>
                         <hr style="margin: 0.4rem;">
-                        <span>${shopData.shop_type}</span>
+                        <span>${shopData.shopType}</span>
                     </div>
                 </div>
             </div>
@@ -106,7 +106,7 @@
                 <div class="col-8"></div>
                 <div class="col-4" style="text-align: right; margin-bottom: 10px;  margin-top: 5px;">
                     <div class="form-check" style="float: right;">
-                        <input class="form-check-input" type="checkbox" id="menuViewCheck" <c:if test="${shopData.menu_view}">checked</c:if>>
+                        <input class="form-check-input" type="checkbox" id="menuViewCheck" <c:if test="${shopData.menuView}">checked</c:if>>
                         <label class="form-check-label" for="menuViewCheck" style="color: red; font-size: 14px;">
                             가게를 리스트에 출력하겠습니까 ?
                         </label>
@@ -207,7 +207,7 @@
 
         $.ajax({
             type: "POST",            // HTTP method type(GET, POST) 형식이다.
-            url: "/shop/menuImage/${shopData.shop_id}",      // 컨트롤러에서 대기중인 URL 주소이다.
+            url: "/shop/menuImage/${shopData.shopId}",      // 컨트롤러에서 대기중인 URL 주소이다.
             data: fileData,
             contentType: false,               // * 중요 *
             processData: false,               // * 중요 *
@@ -239,7 +239,7 @@
     function menuDataSubmit(input) {
         $.ajax({
             type: "POST",            // HTTP method type(GET, POST) 형식이다.
-            url: "/shop/menuData/${shopData.shop_id}",      // 컨트롤러에서 대기중인 URL 주소이다.
+            url: "/shop/menuData/${shopData.shopId}",      // 컨트롤러에서 대기중인 URL 주소이다.
             data: new Blob([JSON.stringify(input)], {type: "application/json"}),
             contentType: false,               // * 중요 *
             processData: false,               // * 중요 *

@@ -137,15 +137,15 @@ public class CreateClass {
                 .menu(menu)
                 .orderMenu(orderMenu)
                 .orderCount(3L)
-                .statusType(StatusType.INCOMPLETE)
                 .build();
     }
 
-    public OrderMenu createOrderMenu(User user){
+    public OrderMenu createOrderMenu(User user, Shop shop){
         return OrderMenu.builder()
                 .orderMenuCount(0L)
                 .orderMenuPrice(0L)
                 .user(user)
+                .shop(shop)
                 .build();
     }
 }

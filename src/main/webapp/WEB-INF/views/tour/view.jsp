@@ -8,7 +8,7 @@
         <div class="col-2"></div>
         <div class="col-8 text-center">
             <div class="card" style="padding:8px">
-                <h1>${tour.tour_title}</h1>
+                <h1>${tour.tourTitle}</h1>
             </div>
             <form action="/tour" method="post" id="tourForm" enctype="multipart/form-data">
                 <div class="row g-0">
@@ -17,7 +17,7 @@
                             <div class="form-floating mb-1" style="height: 200px" id="tourContentArea">
 
                                 <textarea class="form-control" id="tourContent" name="tourContent" placeholder=""
-                                          style="height: 200px; resize: none;" disabled>${tour.tour_content}</textarea>
+                                          style="height: 200px; resize: none;" disabled>${tour.tourContent}</textarea>
                             </div>
                             <div id="img_area">
                                 <c:forEach items="${images}" var="item">
@@ -97,7 +97,7 @@
                     <div class="col">
                         <div class="card" style="padding:8px">
                             <button type="button" class="btn btn-primary"
-                                    onclick="location.href='/tour/${tour.tour_id}/update'">
+                                    onclick="location.href='/tour/${tour.tourId}/update'">
                                 <i class="bi bi-arrow-bar-right fs-5" style="color: white">
                                     &nbsp;수정하기
                                 </i>
@@ -109,7 +109,7 @@
                     <div class="col">
                         <div class="card" style="padding:8px">
                             <button type="button" class="btn btn-mint"
-                                    onclick="confirm('게시글을 삭제하시겠습니까?', location.href='/tour/${tour.tour_id}/delete')">
+                                    onclick="confirm('게시글을 삭제하시겠습니까?', location.href='/tour/${tour.tourId}/delete')">
                                 <i class="bi bi-arrow-bar-right fs-5" style="color: white">
                                     &nbsp;삭제하기
                                 </i>
@@ -147,7 +147,7 @@
 
     function comment_view() {
         var commentData = {
-            tourId: ${tour.tour_id}
+            tourId: ${tour.tourId}
         }
         $.ajax({
             type: "get",            // HTTP method type(GET, POST) 형식이다.
@@ -177,7 +177,7 @@
         // json 형식으로 데이터 set
         var commentData = {
             comment: document.querySelector('#comment_write').value.trim()
-            , tourId: ${tour.tour_id}
+            , tourId: ${tour.tourId}
         }
 
         $.ajax({
@@ -199,7 +199,7 @@
         // json 형식으로 데이터 set
         var commentData = {
             comment: document.querySelector('#recomment_write_' + commentId).value.trim()
-            , tourId: ${tour.tour_id}
+            , tourId: ${tour.tourId}
             , commentId: commentId
         }
 
@@ -249,72 +249,72 @@
                 html += '<div>';
                 html += '<div>';
                 html += '   <div class="form-floating mb-1" id="comment_div" style="float: left;">';
-                html += '   <input type="text" class="form-control"  id="comment_' + res[i].comment_id + '" name="comment" ' +
+                html += '   <input type="text" class="form-control"  id="comment_' + res[i].commentId + '" name="comment" ' +
                     '               value="' + res[i].comment + ' " placeholder="" style="width: ' + width + 'px; background-color: #55efc4; color: white;" disabled>';
                 html += '   <label for="comment" style="font-size: 13px;"><i class="bi bi-person-fill"></i> &nbsp;' + res[i].userNickname + '</label>';
                 html += '   </div>';
                 html += '</div>';
                 html += '<div style="float: left;">';
-                html += '   <button class="btn btn-outline-light_green" onClick="recommentForm(' + res[i].comment_id + ')"><i class="bi bi-chat-dots"></i></button>';
+                html += '   <button class="btn btn-outline-light_green" onClick="recommentForm(' + res[i].commentId + ')"><i class="bi bi-chat-dots"></i></button>';
                 html += '</div>';
-                html += '<input type="hidden" id="like_check_' + res[i].comment_id + '" value="' + res[i].like_count + '">';
+                html += '<input type="hidden" id="like_check_' + res[i].commentId + '" value="' + res[i].likeCount + '">';
                 html += '<div style="float: left;">';
-                if(res[i].like_count > 0){
-                    html += '   <button id="comment_like_btn_' + res[i].comment_id + '" class="btn btn-pink" ' +
-                        'onClick="like_add_delete(' + res[i].comment_id + ')"><i class="bi bi-chat-heart" style="color: red;"></i> </button>';
+                if(res[i].likeCount > 0){
+                    html += '   <button id="comment_like_btn_' + res[i].commentId + '" class="btn btn-pink" ' +
+                        'onClick="like_add_delete(' + res[i].commentId + ')"><i class="bi bi-chat-heart" style="color: red;"></i> </button>';
                 }else{
-                    html += '   <button id="comment_like_btn_' + res[i].comment_id + '" class="btn btn-outline-pink" ' +
-                        'onClick="like_add_delete(' + res[i].comment_id + ')"><i class="bi bi-chat-heart" style="color: red;"></i> </button>';
+                    html += '   <button id="comment_like_btn_' + res[i].commentId + '" class="btn btn-outline-pink" ' +
+                        'onClick="like_add_delete(' + res[i].commentId + ')"><i class="bi bi-chat-heart" style="color: red;"></i> </button>';
                 }
                 html += '</div>';
                 if (userNickname == res[i].userNickname) {
-                    html += '<div style="float: left;" id="comment_updateBtn_' + res[i].comment_id + '">';
-                    html += '   <button class="btn btn-outline-bluemint" onClick="commentUpdate(' + res[i].comment_id + ')"><i class="bi bi-pencil-square"></i></button>';
+                    html += '<div style="float: left;" id="comment_updateBtn_' + res[i].commentId + '">';
+                    html += '   <button class="btn btn-outline-bluemint" onClick="commentUpdate(' + res[i].commentId + ')"><i class="bi bi-pencil-square"></i></button>';
                     html += '</div>';
-                    html += '<div style="float: left;" id="comment_deleteBtn_' + res[i].comment_id + '">';
-                    html += '   <button class="btn btn-outline-pink" onClick="commentDelete(' + res[i].comment_id + ')"><i class="bi bi-x-circle"></i></button>';
+                    html += '<div style="float: left;" id="comment_deleteBtn_' + res[i].commentId + '">';
+                    html += '   <button class="btn btn-outline-pink" onClick="commentDelete(' + res[i].commentId + ')"><i class="bi bi-x-circle"></i></button>';
                     html += '</div>';
-                    html += '<div style="float: left; display: none;" id="comment_successBtn_' + res[i].comment_id + '">';
-                    html += '   <button class="btn btn-outline-bluemint" onClick="commentSuccess(' + res[i].comment_id + ')"><i class="bi bi-check-all"></i></button>';
+                    html += '<div style="float: left; display: none;" id="comment_successBtn_' + res[i].commentId + '">';
+                    html += '   <button class="btn btn-outline-bluemint" onClick="commentSuccess(' + res[i].commentId + ')"><i class="bi bi-check-all"></i></button>';
                     html += '</div>';
-                    html += '<div style="float: left; display: none;" id="comment_cancelBtn_' + res[i].comment_id + '">';
-                    html += '   <button class="btn btn-outline-pink" onClick="commentCancel(' + res[i].comment_id + ', false)"><i class="bi bi-box-arrow-right"></i></button>';
+                    html += '<div style="float: left; display: none;" id="comment_cancelBtn_' + res[i].commentId + '">';
+                    html += '   <button class="btn btn-outline-pink" onClick="commentCancel(' + res[i].commentId + ', false)"><i class="bi bi-box-arrow-right"></i></button>';
                     html += '</div>';
                 }
                 html += '</div>';
-                html += '<div id="recomment_' + res[i].comment_id + '">';
+                html += '<div id="recomment_' + res[i].commentId + '">';
                 html += '</div>';
             } else {
                 html += '<div>';
                 html += '<div>';
                 html += '<div class="form-floating mb-1" id="recomment_div" style="margin-left: 30px; float: left;">';
-                html += '<input type="text" class="form-control" id="comment_' + res[i].comment_id + '" name="recomment" ' +
+                html += '<input type="text" class="form-control" id="comment_' + res[i].commentId + '" name="recomment" ' +
                     'value="' + res[i].comment + '" placeholder="" style="width: ' + width + 'px; background-color: skyblue; color: white;" disabled>';
                 html += '<label for="recomment" style="font-size: 13px;"><i class="bi bi-people-fill"></i> &nbsp;' + res[i].userNickname + '</label>';
                 html += '</div>';
                 html += '</div>';
-                html += '<input type="hidden" id="like_check_' + res[i].comment_id + '" value="' + res[i].like_count + '">';
+                html += '<input type="hidden" id="like_check_' + res[i].commentId + '" value="' + res[i].likeCount + '">';
                 html += '<div style="float: left;">';
-                if(res[i].like_count > 0){
-                    html += '   <button id="comment_like_btn_' + res[i].comment_id + '" class="btn btn-pink" ' +
-                        'onClick="like_add_delete(' + res[i].comment_id + ')"><i class="bi bi-chat-heart" style="color: red;"></i> </button>';
+                if(res[i].likeCount > 0){
+                    html += '   <button id="comment_like_btn_' + res[i].commentId + '" class="btn btn-pink" ' +
+                        'onClick="like_add_delete(' + res[i].commentId + ')"><i class="bi bi-chat-heart" style="color: red;"></i> </button>';
                 }else{
-                    html += '   <button id="comment_like_btn_' + res[i].comment_id + '" class="btn btn-outline-pink" ' +
-                        'onClick="like_add_delete(' + res[i].comment_id + ')"><i class="bi bi-chat-heart" style="color: red;"></i> </button>';
+                    html += '   <button id="comment_like_btn_' + res[i].commentId + '" class="btn btn-outline-pink" ' +
+                        'onClick="like_add_delete(' + res[i].commentId + ')"><i class="bi bi-chat-heart" style="color: red;"></i> </button>';
                 }
                 html += '</div>';
                 if (userNickname == res[i].userNickname) {
-                    html += '<div style="float: left;" id="comment_updateBtn_' + res[i].comment_id + '">';
-                    html += '   <button class="btn btn-outline-bluemint" onClick="commentUpdate(' + res[i].comment_id + ')"><i class="bi bi-pencil-square"></i></button>';
+                    html += '<div style="float: left;" id="comment_updateBtn_' + res[i].commentId + '">';
+                    html += '   <button class="btn btn-outline-bluemint" onClick="commentUpdate(' + res[i].commentId + ')"><i class="bi bi-pencil-square"></i></button>';
                     html += '</div>';
-                    html += '<div style="float: left;" id="comment_deleteBtn_' + res[i].comment_id + '">';
-                    html += '   <button class="btn btn-outline-pink" onClick="commentDelete(' + res[i].comment_id + ')"><i class="bi bi-x-circle"></i></button>';
+                    html += '<div style="float: left;" id="comment_deleteBtn_' + res[i].commentId + '">';
+                    html += '   <button class="btn btn-outline-pink" onClick="commentDelete(' + res[i].commentId + ')"><i class="bi bi-x-circle"></i></button>';
                     html += '</div>';
-                    html += '<div style="float: left; display: none;" id="comment_successBtn_' + res[i].comment_id + '">';
-                    html += '   <button class="btn btn-outline-bluemint" onClick="commentSuccess(' + res[i].comment_id + ')"><i class="bi bi-check-all"></i></button>';
+                    html += '<div style="float: left; display: none;" id="comment_successBtn_' + res[i].commentId + '">';
+                    html += '   <button class="btn btn-outline-bluemint" onClick="commentSuccess(' + res[i].commentId + ')"><i class="bi bi-check-all"></i></button>';
                     html += '</div>';
-                    html += '<div style="float: left; display: none;" id="comment_cancelBtn_' + res[i].comment_id + '">';
-                    html += '   <button class="btn btn-outline-pink" onClick="commentCancel(' + res[i].comment_id + ', true)"><i class="bi bi-box-arrow-right"></i></button>';
+                    html += '<div style="float: left; display: none;" id="comment_cancelBtn_' + res[i].commentId + '">';
+                    html += '   <button class="btn btn-outline-pink" onClick="commentCancel(' + res[i].commentId + ', true)"><i class="bi bi-box-arrow-right"></i></button>';
                     html += '</div>';
                 }
                 html += '</div>';
@@ -345,7 +345,7 @@
         // json 형식으로 데이터 set
         var commentData = {
             commentId: commentId
-            , tourId: ${tour.tour_id}
+            , tourId: ${tour.tourId}
         }
 
         $.ajax({
@@ -366,7 +366,7 @@
         // json 형식으로 데이터 set
         var commentData = {
             comment: document.querySelector('#comment_' + commentId).value.trim()
-            , tourId: ${tour.tour_id}
+            , tourId: ${tour.tourId}
         }
 
         $.ajax({
@@ -405,7 +405,7 @@
         if(tour_comment_check < 1){
             like_check = document.querySelector('#like_check').value;
             tourCommentCheck = 'tour';
-            id = ${tour.tour_id};
+            id = ${tour.tourId};
         }else{
             // comment
             like_check = document.querySelector('#like_check_' + tour_comment_check).value;
@@ -416,7 +416,7 @@
         var likeData = {
             likeCheck : like_check,
             tourCommentCheck : tourCommentCheck,
-            tourId : ${tour.tour_id}
+            tourId : ${tour.tourId}
         }
         $.ajax({
             type: "post",            // HTTP method type(GET, POST) 형식이다.
@@ -427,7 +427,7 @@
                 console.log(res);
                 if(tour_comment_check < 1){
                     // tour
-                    document.querySelector('#like_check').value = res[res.length - 1].like_count;
+                    document.querySelector('#like_check').value = res[res.length - 1].likeCount;
 
                     if(res[0].tourCount > 0){
                         document.querySelector('#like_on_btn').classList.add("btn-pink");

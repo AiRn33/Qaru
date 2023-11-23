@@ -2,10 +2,12 @@ package Qaru.Prj.controller;
 
 import Qaru.Prj.config.customSecurity.PrincipalDetails;
 import Qaru.Prj.domain.entity.Menu;
+import Qaru.Prj.domain.entity.Order;
 import Qaru.Prj.domain.request.OrderRequest;
 import Qaru.Prj.domain.response.MenuListResponse;
+import Qaru.Prj.domain.response.OrdersResponse;
 import Qaru.Prj.domain.response.ShopListResponse;
-import Qaru.Prj.domain.response.orderMenuCheckResponse;
+import Qaru.Prj.domain.response.OrderMenuCheckResponse;
 import Qaru.Prj.service.MenuService;
 import Qaru.Prj.service.OrderService;
 import Qaru.Prj.service.ShopService;
@@ -30,7 +32,7 @@ public class OrderController {
     public String orderMenuForm(Model model, @PathVariable Long id, @AuthenticationPrincipal PrincipalDetails request){
 
         List<MenuListResponse> menuList = menuService.getMenuList(id);
-        ShopListResponse shopListResponse = shopService.shopDataByUserId(request.getUser().getId());
+        ShopListResponse shopListResponse = shopService.shopDataByShopId(id);
 
         model.addAttribute("shopData", shopListResponse);
         model.addAttribute("menuList", menuList);
@@ -40,22 +42,24 @@ public class OrderController {
 
     @PostMapping("/order/menu/{id}")
     public String orderMenuCheckList(Model model,
+                                     @PathVariable Long id,
                                      @RequestParam List<Long> inputCount,
                                      @RequestParam List<Long> menuId){
 
         List<Menu> menuList = menuService.selectMenuAll(menuId);
 
-        List<orderMenuCheckResponse> orderMenuCheckList = new ArrayList<>();
+        List<OrderMenuCheckResponse> orderMenuCheckList = new ArrayList<>();
         int orderAllPrice = 0;
 
         for(int i = 0; i < menuList.size(); i++){
             if(inputCount.get(i) > 0){
-                orderMenuCheckResponse orderMenuCheckResponse = new orderMenuCheckResponse().orderMenuSet(menuList.get(i), inputCount.get(i));
+                OrderMenuCheckResponse orderMenuCheckResponse = new OrderMenuCheckResponse().orderMenuSet(menuList.get(i), inputCount.get(i));
                 orderMenuCheckList.add(orderMenuCheckResponse);
                 orderAllPrice += orderMenuCheckResponse.getMenuAllPrice();
             }
         }
 
+        model.addAttribute("shopId", id);
         model.addAttribute("orderData", orderMenuCheckList);
         model.addAttribute("orderAllPrice", orderAllPrice);
         model.addAttribute("orderMenuCount", orderMenuCheckList.size());
@@ -63,12 +67,23 @@ public class OrderController {
     }
 
     @ResponseBody
-    @PostMapping("/order")
-    public void createOrder(@RequestBody List<OrderRequest> orderRequest, @AuthenticationPrincipal PrincipalDetails request){
+    @PostMapping("/order/{id}")
+    public Long createOrder(@PathVariable Long id ,@RequestBody List<OrderRequest> orderRequest, @AuthenticationPrincipal PrincipalDetails request){
 
-        orderService.createOrder(orderRequest, request);
+        List<Order> orderList = orderService.createOrder(orderRequest, request, id);
 
+        return (long) orderList.size();
     }
 
+    @GetMapping("/user/orders")
+    public String myOrders(@AuthenticationPrincipal PrincipalDetails request, Model model){
+
+        List<OrdersResponse> ordersResponses = orderService.myOrders(request);
+
+        model.addAttribute("orders", ordersResponses);
+        model.addAttribute("ordersCount", ordersResponses.size());
+
+        return "/user/orders";
+    }
 
 }

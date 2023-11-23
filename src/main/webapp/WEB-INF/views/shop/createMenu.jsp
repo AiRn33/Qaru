@@ -14,17 +14,17 @@
                     <div class="col-4">
                         <span>가게 이름</span>
                         <hr style="margin: 0.4rem;">
-                        <span>${shopData.shop_name}</span>
+                        <span>${shopData.shopName}</span>
                     </div>
                     <div class="col-4">
                         <span>가게 설명</span>
                         <hr style="margin: 0.4rem;">
-                        <span>${shopData.shop_comment}</span>
+                        <span>${shopData.shopComment}</span>
                     </div>
                     <div class="col-4">
                         <span>가게 종류</span>
                         <hr style="margin: 0.4rem;">
-                        <span>${shopData.shop_type}</span>
+                        <span>${shopData.shopType}</span>
                     </div>
                 </div>
             </div>

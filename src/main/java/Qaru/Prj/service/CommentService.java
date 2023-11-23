@@ -108,20 +108,20 @@ public class CommentService {
             if(c.getParent() != null){
                 map.get(c.getParent().getId()).getChildren().add(dto);
             }else{
-                map.put(dto.getComment_id(), dto);
+                map.put(dto.getCommentId(), dto);
             }
         });
 
 
         for(int i = 0; i < map.size(); i++){
             CommentResponse dto = new CommentResponse().createComment(commentList.get(i));
-            Long count = likesRepositoryImpl.countByCommentAndUser(dto.getComment_id(), request.getUser().getId());
+            Long count = likesRepositoryImpl.countByCommentAndUser(dto.getCommentId(), request.getUser().getId());
             dto.updateLikeCount(count);
             result.add(dto);
-            for(int j = 0; j < map.get(dto.getComment_id()).getChildren().size(); j++){
-                Long recount = likesRepositoryImpl.countByCommentAndUser(map.get(dto.getComment_id()).getChildren().get(j).getComment_id(), request.getUser().getId());
-                map.get(dto.getComment_id()).getChildren().get(j).updateLikeCount(recount);
-                result.add(map.get(dto.getComment_id()).getChildren().get(j));
+            for(int j = 0; j < map.get(dto.getCommentId()).getChildren().size(); j++){
+                Long recount = likesRepositoryImpl.countByCommentAndUser(map.get(dto.getCommentId()).getChildren().get(j).getCommentId(), request.getUser().getId());
+                map.get(dto.getCommentId()).getChildren().get(j).updateLikeCount(recount);
+                result.add(map.get(dto.getCommentId()).getChildren().get(j));
             }
         }
 

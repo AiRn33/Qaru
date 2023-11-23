@@ -1,7 +1,7 @@
 package Qaru.Prj.repository.Impl;
 
-import Qaru.Prj.domain.entity.Shop;
-import Qaru.Prj.domain.entity.User;
+import Qaru.Prj.domain.entity.*;
+import Qaru.Prj.domain.response.OrdersResponse;
 import Qaru.Prj.domain.response.UserAdminUpdateResponse;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -12,6 +12,10 @@ import java.util.List;
 
 import static Qaru.Prj.domain.entity.QImage.*;
 import static Qaru.Prj.domain.entity.QImageGroup.*;
+import static Qaru.Prj.domain.entity.QMenu.menu;
+import static Qaru.Prj.domain.entity.QMenuGroup.menuGroup;
+import static Qaru.Prj.domain.entity.QOrder.order;
+import static Qaru.Prj.domain.entity.QOrderMenu.orderMenu;
 import static Qaru.Prj.domain.entity.QShop.*;
 import static Qaru.Prj.domain.entity.QUser.*;
 
@@ -44,6 +48,28 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
                         .where(shop.user.id.eq(userId)).fetchOne();
 
         return fetch;
+    }
+
+    @Override
+    public List<OrdersResponse> ordersList(Long userId) {
+        return queryFactory
+                .select(Projections.fields(OrdersResponse.class,
+                        shop.id.as("shopId"),
+                        shop.shopName.as("shopName"),
+                        menu.menuName.as("menuName"),
+                        orderMenu.orderMenuCount.as("orderMenuCount"),
+                        orderMenu.orderMenuPrice.as("orderMenuPrice"),
+                        orderMenu.statusType.as("statusType"),
+                        orderMenu.id.as("orderMenuId")
+                        ))
+                .from(user)
+                .innerJoin(orderMenu).on(user.id.eq(orderMenu.user.id))
+                .innerJoin(order).on(orderMenu.id.eq(order.orderMenu.id))
+                .innerJoin(menu).on(order.menu.id.eq(menu.id))
+                .innerJoin(shop).on(orderMenu.shop.id.eq(shop.id))
+                .where(user.id.eq(userId))
+                .orderBy(orderMenu.id.desc())
+                        .fetch();
     }
 
 }

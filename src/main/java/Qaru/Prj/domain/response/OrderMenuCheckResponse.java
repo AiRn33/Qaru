@@ -5,12 +5,10 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.List;
-
 @Setter
 @Getter
 @ToString
-public class orderMenuCheckResponse {
+public class OrderMenuCheckResponse {
 
     private Long menuId;
 
@@ -22,7 +20,7 @@ public class orderMenuCheckResponse {
 
     private Long menuAllPrice;
 
-    public orderMenuCheckResponse orderMenuSet(Menu menu, Long inputCount) {
+    public OrderMenuCheckResponse orderMenuSet(Menu menu, Long inputCount) {
         this.menuId = menu.getId();
         this.menuName = menu.getMenuName();
         this.menuPrice = menu.getMenuPrice();

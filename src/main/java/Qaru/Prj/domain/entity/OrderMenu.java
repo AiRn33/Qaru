@@ -31,14 +31,25 @@ public class OrderMenu {
     @JoinColumn(name = "order_menu_price")
     private Long orderMenuPrice;
 
+    @Column(name = "order_status")
+    @Enumerated(EnumType.STRING)
+    private StatusType statusType;
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "shop_id")
+    private Shop shop;
+
     protected OrderMenu(){
 
     }
 
     @Builder
-    public OrderMenu(Long id, User user, Long orderMenuCount, Long orderMenuPrice) {
+    public OrderMenu(Long id, Shop shop, User user, Long orderMenuCount, Long orderMenuPrice) {
         this.id = id;
         this.user = user;
+        this.shop = shop;
+        this.statusType = StatusType.INCOMPLETE;
         this.orderMenuCount = orderMenuCount;
         this.orderMenuPrice = orderMenuPrice;
     }

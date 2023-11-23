@@ -37,15 +37,15 @@
                     <div class="col-4">
                         <div class="card" style="padding:8px">
                             <button type="button" class="btn btn-primary"
-                                    onclick="location.href='/tour/${item.tour_id}'">
+                                    onclick="location.href='/tour/${item.tourId}'">
                                 <i class="bi bi-${status.index + 1}-circle fs-4" style="color: white"></i>
                             </button>
-                            <h8 style="padding-top: 10px;">${item.tour_title}</h8>
-                            <span style="font-size: 10px;">${fn:split(item.tour_date,'T')[0]} / ${item.user_nickname}</span>
+                            <h8 style="padding-top: 10px;">${item.tourTitle}</h8>
+                            <span style="font-size: 10px;">${fn:split(item.tourDate,'T')[0]} / ${item.userNickname}</span>
                             <hr style="margin: 0.4rem;">
-                            <label style="font-size: 12px; font-weight: lighter;">${fn:length(item.tour_content) > 40 ?
-                                    fn:substring(item.tour_content,0,40) : item.tour_content}
-                                <c:if test="${fn:length(item.tour_content) > 40}">
+                            <label style="font-size: 12px; font-weight: lighter;">${fn:length(item.tourContent) > 40 ?
+                                    fn:substring(item.tourContent,0,40) : item.tourContent}
+                                <c:if test="${fn:length(item.tourContent) > 40}">
                                     <span style="color: #e74c3c; font-size: 10px; font-weight: bold;">...(생략)</span>
                                 </c:if>
                             </label>
@@ -151,14 +151,14 @@
                 for(let i = 0; i < res.length; i++){
                     html += '<div class="col-4">';
                     html += '   <div class="card" style="padding:8px">';
-                    html += '   <button type="button" class="btn btn-primary" onclick="locationTour(' + res[i].tour_id +')">';
+                    html += '   <button type="button" class="btn btn-primary" onclick="locationTour(' + res[i].tourId +')">';
                     html += '       <i class="bi bi-'+ (i+1) +'-circle fs-4" style="color: white"></i>'
                     html += '   </button>';
-                    html += '       <h8 style="padding-top: 10px;">' + res[i].tour_title + '</h8>';
-                    html += '       <span style="font-size: 10px;">' + res[i].tour_date.split('T')[0] + '/' + res[i].user_nickname +'</span>';
+                    html += '       <h8 style="padding-top: 10px;">' + res[i].tourTitle + '</h8>';
+                    html += '       <span style="font-size: 10px;">' + res[i].tourDate.split('T')[0] + '/' + res[i].userNickname +'</span>';
                     html += '       <hr style="margin: 0.4rem;">'
-                    html += '       <label style="font-size: 12px; font-weight: lighter;">' + res[i].tour_content.length > 40 ? res[i].tour_content.substring(0, 40) : res[i].tour_content;
-                    if(res[i].tour_content.length > 40){
+                    html += '       <label style="font-size: 12px; font-weight: lighter;">' + res[i].tourContent.length > 40 ? res[i].tourContent.substring(0, 40) : res[i].tourContent;
+                    if(res[i].tourContent.length > 40){
                         html += '<span style="color: #e74c3c; font-size: 10px; font-weight: bold;">...(생략)</span>';
                     }
                     html += '       </label>'

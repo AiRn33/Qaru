@@ -82,7 +82,7 @@ public class OrderServiceTest {
         List<Menu> menuList = menuRepository.findByMenuGroupId(menuGroup.getId());
 
         // when
-        OrderMenu orderMenu = create.createOrderMenu(user);
+        OrderMenu orderMenu = create.createOrderMenu(user, shop);
         orderMenuRepository.save(orderMenu);
         List<Order> orderList = new ArrayList<>();
         for (Menu menu : menuList) {

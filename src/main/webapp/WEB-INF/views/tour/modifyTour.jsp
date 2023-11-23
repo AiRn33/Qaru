@@ -10,19 +10,19 @@
                 <h1>여행 소개 수정</h1>
             </div>
 
-            <form action="/tour/${tour.tour_id}/update" method="post" id="tourForm" enctype="multipart/form-data">
+            <form action="/tour/${tour.tourId}/update" method="post" id="tourForm" enctype="multipart/form-data">
                 <input type="hidden" id="zipcode" name="zipcode" value="${tour.zipcode}">
                 <div class="row g-0">
                     <div class="col">
                         <div class="card" style="padding:8px">
                             <div class="form-floating mb-1" id="tourTitleArea">
                                 <input type="text" class="form-control" id="tourTitle" name="tourTitle" placeholder=""
-                                       value="${tour.tour_title}">
+                                       value="${tour.tourTitle}">
                                 <label for="tourTitle">타이틀 &nbsp <i class="bi bi-mouse"></i></label>
                             </div>
                             <div class="form-floating mb-1" style="height: 200px" id="tourContentArea">
                                 <textarea class="form-control" id="tourContent" name="tourContent" placeholder=""
-                                          style="height: 200px; resize: none;">${tour.tour_content}</textarea>
+                                          style="height: 200px; resize: none;">${tour.tourContent}</textarea>
                                 <label for="tourContent">내용 &nbsp;<i class="bi bi-mouse"></i></label>
                             </div>
 

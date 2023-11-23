@@ -15,11 +15,11 @@ public class CommentResponse {
 
     private String userNickname;
 
-    private Long parent_id;
+    private Long parentId;
 
-    private Long like_count;
+    private Long likeCount;
 
-    private Long comment_id;
+    private Long commentId;
 
 //  댓글이면 false, 대댓글이면 true
     private Boolean recommentCheck;
@@ -33,20 +33,20 @@ public class CommentResponse {
     public CommentResponse createComment(Comment comment){
         this.comment = comment.getCommentContent();
         this.userNickname = comment.getUser().getUserNickName();
-        this.parent_id = comment.getParent() != null ? comment.getParent().getId() : null;
-        this.comment_id = comment.getId();
+        this.parentId = comment.getParent() != null ? comment.getParent().getId() : null;
+        this.commentId = comment.getId();
         this.recommentCheck = comment.getParent() != null ? true : false;
         return this;
     }
 
     public CommentResponse setCommentCount(Long count, Long likeCount){
         this.commentCount = count;
-        this.like_count = likeCount;
+        this.likeCount = likeCount;
         return this;
     }
 
     public CommentResponse updateLikeCount(Long count) {
-        this.like_count = count;
+        this.likeCount = count;
         return this;
     }
 

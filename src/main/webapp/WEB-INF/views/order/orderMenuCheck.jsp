@@ -10,6 +10,12 @@
             <form id="menuForm" method="post" action="">
                 <div>
                     <div class="row g-0">
+                        <div class="col-12">
+                            <span style="font-size: 30px;">주문 내역</span>
+                            <hr style="margin: 0.4rem;">
+                        </div>
+                    </div>
+                    <div class="row g-0">
                         <div class="col-2 align-self-center">
                             <div class="card" style="padding:8px; height: 50px;">
                                 <div class="form-floating mb-1 align-middle">
@@ -152,7 +158,6 @@
             }
         });
     }
-
     function createOrder(input){
         let orderData = [];
         let orderMenuCount = ${orderMenuCount};
@@ -170,18 +175,18 @@
 
         $.ajax({
             type: "POST",            // HTTP method type(GET, POST) 형식이다.
-            url: "/order",      // 컨트롤러에서 대기중인 URL 주소이다.
+            url: "/order/${shopId}",      // 컨트롤러에서 대기중인 URL 주소이다.
             data: new Blob([JSON.stringify(orderData)], {type: "application/json"}),
             contentType: false,               // * 중요 *
             processData: false,               // * 중요 *
             success: function (res) { // 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.
-
-                // if (res > 0) {
-                //     location.href = '/shop/createMenuAlert';
-                // }
+                if (res > 0) {
+                    alert("주문 완료. 주문 메뉴로 이동합니다.");
+                    location.href = '/user/orders';
+                }
             },
             error: function () { // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
-
+                alert('결제 실패.');
             }
         });
     }
