@@ -1,5 +1,6 @@
 package Qaru.Prj.domain.response;
 
+import Qaru.Prj.domain.entity.Tour;
 import com.querydsl.core.types.dsl.DateTimeExpression;
 import com.querydsl.core.types.dsl.NumberExpression;
 import com.querydsl.core.types.dsl.StringExpression;
@@ -27,4 +28,5 @@ public class TourListResponse {
     private LocalDateTime tourDate;
 
     private String userNickname;
+
 }

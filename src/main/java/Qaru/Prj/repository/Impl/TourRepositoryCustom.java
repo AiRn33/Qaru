@@ -13,4 +13,6 @@ public interface TourRepositoryCustom {
     Long searchPageCount();
 
     List<TourListResponse> searchData(String type, String content);
+
+    List<TourListResponse> qrTourListByUser(Long userId);
 }

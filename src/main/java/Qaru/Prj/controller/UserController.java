@@ -17,9 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
@@ -271,7 +269,45 @@ public class UserController {
     @GetMapping("/user/find-id")
     public String findUserId(){ return "/user/findId";}
 
+    @ResponseBody
+    @PostMapping("/user/find-id")
+    public String findUserIdPost(@RequestParam String email){
+
+        String userId = userService.findUserId(email);
+
+        return userId;
+    }
+
     @GetMapping("/user/find-password")
     public String findUserPassword(){ return "/user/findPassword";}
+
+    @ResponseBody
+    @PostMapping("/user/find-password")
+    public Long findUserIdPost(@RequestParam String email, @RequestParam String userId){
+
+        Long id = userService.findUserByEamilAndId(email, userId);
+
+        return id;
+    }
+
+    @GetMapping("/user/password/{id}")
+    public String changeUserPassword(@PathVariable Long id, Model model){
+
+        model.addAttribute("userId", id);
+
+        return "/user/passwordChangeForm";
+    }
+
+    @ResponseBody
+    @PostMapping("/user/password/{id}")
+    public Long changeUserPasswordPost(@PathVariable Long id,
+                                      @RequestParam String password,
+                                      Model model){
+
+        Long result = userService.changePassword(id, password);
+
+        return result;
+    }
+
 
 }

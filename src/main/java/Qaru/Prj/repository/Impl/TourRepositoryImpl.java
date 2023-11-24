@@ -77,4 +77,20 @@ public class TourRepositoryImpl implements TourRepositoryCustom{
         return list;
     }
 
+    @Override
+    public List<TourListResponse> qrTourListByUser(Long userId) {
+
+        List<TourListResponse> list =
+                queryFactory
+                        .select(Projections.fields(TourListResponse.class,
+                                tour.id.as("tourId"),
+                                tour.tourTitle.as("tourTitle")
+                        ))
+                        .from(tour)
+                        .where(tour.user.id.eq(userId))
+                        .fetch();
+
+        return list;
+    }
+
 }

@@ -70,7 +70,7 @@
             <div class="row g-0">
                 <div class="col-6">
                     <div class="card" style="padding:8px">
-                        <button type="button" class="btn btn-primary">
+                        <button type="button" class="btn btn-primary" onclick="location.href='/qr/createQr'">
                             <i class="bi bi-qr-code fs-4" style="color: white"></i>
                         </button>
                         <h8 style="padding-top: 10px;">QR 코드 생성</h8>

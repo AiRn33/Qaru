@@ -20,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -97,5 +98,12 @@ public class TourService {
         List<TourListResponse> tourListResponses = tourRepositoryImpl.searchData(type, content);
 
         return tourListResponses;
+    }
+
+    public List<TourListResponse> qrTourList(PrincipalDetails request) {
+
+        List<TourListResponse> findTourList = tourRepositoryImpl.qrTourListByUser(request.getUser().getId());
+
+        return findTourList;
     }
 }

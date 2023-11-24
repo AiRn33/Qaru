@@ -28,6 +28,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserService {
 
+    private final BCryptPasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final RedisUtil redisUtil;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -101,5 +102,40 @@ public class UserService {
     public UserAdminUpdateResponse userAdminUpdate(PrincipalDetails request){
 
         return userRepositoryImpl.findbyShopUpdate(request.getUser().getId());
+    }
+
+    public String findUserId(String email) {
+
+        Optional<User> findUser = userRepository.findByUserEmail(email);
+
+        if(findUser.isPresent()){
+            return findUser.get().getUserId();
+        }else{
+            return null;
+        }
+    }
+
+    public Long findUserByEamilAndId(String email, String userId) {
+
+        Optional<User> findUser = userRepository.findByUserEmailAndUserId(email, userId);
+
+        if(findUser.isPresent()){
+            return findUser.get().getId();
+        }else{
+            return null;
+        }
+    }
+
+    @Transactional
+    public Long changePassword(Long id, String password) {
+
+        Optional<User> findUser = userRepository.findById(id);
+
+        if(!findUser.isPresent()){
+            return 0L;
+        }else{
+            findUser.get().updatePassword(passwordEncoder.encode(password));
+            return findUser.get().getId();
+        }
     }
 }

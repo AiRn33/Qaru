@@ -12,13 +12,13 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 
 import javax.transaction.Transactional;
 
 import java.util.Optional;
 
 @SpringBootTest
-@Transactional
 @Slf4j
 class UserServiceTest {
 
@@ -114,5 +114,33 @@ class UserServiceTest {
 
         // when
         Assertions.assertThat(shop.getShopName()).isEqualTo(shopRepository.findByUserId(user.getId()).get().getShopName());
+    }
+
+    @Test
+    void 유저아이디찾기(){
+
+        // given
+        User user = create.createUser();
+        userRepository.save(user);
+
+        // then
+        Optional<User> byUserEmail = userRepository.findByUserEmail(user.getUserEmail());
+
+        //when
+        Assertions.assertThat(byUserEmail.isPresent()).isEqualTo(true);
+    }
+
+    @Test
+    void 유저비밀번호변경(){
+
+        // given
+        User user = create.createUser();
+        userRepository.save(user);
+
+        // then
+        Optional<User> byUserEmail = userRepository.findByUserEmailAndUserId(user.getUserEmail(), user.getUserId());
+
+        //when
+        Assertions.assertThat(byUserEmail.isPresent()).isEqualTo(true);
     }
 }

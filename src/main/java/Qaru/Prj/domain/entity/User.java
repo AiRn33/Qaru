@@ -82,4 +82,9 @@ public class User {
         this.role = RoleType.ADMIN;
         return this;
     }
+
+    public User updatePassword(String password){
+        this.userPw = password;
+        return this;
+    }
 }
