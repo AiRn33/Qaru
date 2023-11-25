@@ -35,11 +35,11 @@
                                 </i>
                             </button>
                             <div style="text-align: right; margin-right: 10px; margin-bottom: 5px;"><label
-                                    style="font-size: 12px; color: red;">파일은 5개까지 등록 가능합니다. / 파일을 재등록시 전부 다시 등록해주세요.</label></div>
+                                    style="font-size: 12px; color: red;">파일은 5개까지 등록 가능합니다. / 파일을 재등록시 전부 다시 등록해주세요. / 썸네일은 첫번째사진으로 등록됩니다.</label></div>
 
                             <div id="img_area">
                                 <c:forEach items="${images}" var="item">
-                                    <img src="/img/${item.storedFileName}" class="img-thumbnail" alt="..." style="width: 150px; height: 150px;" onclick="thumbnailImg(this)">
+                                    <img src="/img/${item.storedFileName}" class="img-thumbnail" alt="..." style="width: 120px; height: 120px;" onclick="thumbnailImg(this)">
                                 </c:forEach>
                             </div>
 

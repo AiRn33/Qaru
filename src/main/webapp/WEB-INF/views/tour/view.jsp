@@ -22,7 +22,7 @@
                             <div id="img_area">
                                 <c:forEach items="${images}" var="item">
                                     <img src="/img/${item.storedFileName}" class="img-thumbnail" alt="..."
-                                         style="width: 150px; height: 150px;" onclick="thumbnailImg(this)">
+                                         style="width: 130px; height: 130px;" onclick="thumbnailImg(this)">
                                 </c:forEach>
                             </div>
                         </div>

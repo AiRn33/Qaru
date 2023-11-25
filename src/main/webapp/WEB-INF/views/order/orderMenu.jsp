@@ -8,7 +8,7 @@
         <div class="col-2"></div>
         <div class="col-8 text-center">
             <div class="card" style="padding:8px">
-                <h1>메뉴 등록</h1>
+                <h1>메뉴 주문</h1>
             </div>
             <div class="card" style="padding:8px">
                 <div class="row g-0">

@@ -80,7 +80,7 @@
                                 <div class="col-4 align-self-center">
                                     <div class="card" style="padding:8px; height: 50px;">
                                         <div>
-                                            <span style="font-size: 17px;">${item.menuNameAll}</span>
+                                            <span style="font-size: 10px;">${item.menuNameAll}</span>
                                         </div>
                                     </div>
                                 </div>

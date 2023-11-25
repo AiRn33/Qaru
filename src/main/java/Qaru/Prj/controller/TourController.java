@@ -47,6 +47,11 @@ public class TourController {
                 tourService.searchTourListAll(pageable).toList();
 
         if (tourListResponses.size() > 0) {
+
+            for(int i = 0; i < tourListResponses.size(); i++){
+                tourListResponses.get(i).setImageFileName(imageService.imageSelectAll(Long.valueOf(tourListResponses.get(i).getImageGroupId())).get(0).getStoredFileName());
+            }
+
             model.addAttribute("tourList", tourListResponses);
             model.addAttribute("tourListCount", tourService.searchTourListAllCount());
 
@@ -228,6 +233,10 @@ public class TourController {
     public List<TourListResponse> tourSearch(@RequestParam("searchType") String type, @RequestParam("searchContent") String content){
 
         List<TourListResponse> tourListResponses = tourService.searchData(type, content);
+
+        for(int i = 0; i < tourListResponses.size(); i++){
+            tourListResponses.get(i).setImageFileName(imageService.imageSelectAll(Long.valueOf(tourListResponses.get(i).getImageGroupId())).get(0).getStoredFileName());
+        }
 
         return tourListResponses;
     }

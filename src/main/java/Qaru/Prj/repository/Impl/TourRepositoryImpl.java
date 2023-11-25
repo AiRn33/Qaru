@@ -29,7 +29,8 @@ public class TourRepositoryImpl implements TourRepositoryCustom{
                         tour.tourTitle.as("tourTitle"),
                         tour.tourContent.as("tourContent"),
                         tour.dateTime.updateDate.as("tourDate"),
-                        tour.user.userNickName.as("userNickname")
+                        tour.user.userNickName.as("userNickname"),
+                        tour.imageGroup.id.as("imageGroupId")
                 ))
                 .from(tour)
                 .offset(pageable.getOffset())
@@ -68,7 +69,8 @@ public class TourRepositoryImpl implements TourRepositoryCustom{
                                 tour.tourTitle.as("tourTitle"),
                                 tour.tourContent.as("tourContent"),
                                 tour.dateTime.updateDate.as("tourDate"),
-                                tour.user.userNickName.as("userNickname")
+                                tour.user.userNickName.as("userNickname"),
+                                tour.imageGroup.id.as("imageGroupId")
                         ))
                         .from(tour)
                         .where(bulider)

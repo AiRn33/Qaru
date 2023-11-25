@@ -29,4 +29,12 @@ public class TourListResponse {
 
     private String userNickname;
 
+    private Long imageGroupId;
+
+    private String storedFileName;
+
+    public TourListResponse setImageFileName(String storedFileName){
+        this.storedFileName = storedFileName;
+        return this;
+    }
 }

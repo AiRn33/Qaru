@@ -36,9 +36,9 @@
                 <c:forEach items="${tourList}" var="item" varStatus="status">
                     <div class="col-4">
                         <div class="card" style="padding:8px">
-                            <button type="button" class="btn btn-primary"
+                            <button type="button" class="btn btn-outline-bluemint"
                                     onclick="location.href='/tour/${item.tourId}'">
-                                <i class="bi bi-${status.index + 1}-circle fs-4" style="color: white"></i>
+                                <img src="/img/${item.storedFileName}" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;"">
                             </button>
                             <h8 style="padding-top: 10px;">${item.tourTitle}</h8>
                             <span style="font-size: 10px;">${fn:split(item.tourDate,'T')[0]} / ${item.userNickname}</span>
@@ -151,8 +151,8 @@
                 for(let i = 0; i < res.length; i++){
                     html += '<div class="col-4">';
                     html += '   <div class="card" style="padding:8px">';
-                    html += '   <button type="button" class="btn btn-primary" onclick="locationTour(' + res[i].tourId +')">';
-                    html += '       <i class="bi bi-'+ (i+1) +'-circle fs-4" style="color: white"></i>'
+                    html += '   <button type="button" class="btn btn-outline-bluemint" onclick="locationTour(' + res[i].tourId +')">';
+                    html += '       <img src="/img/' + res[i].storedFileName + '" className="img-thumbnail" alt="..." style="width: 200px; height: 200px;"">';
                     html += '   </button>';
                     html += '       <h8 style="padding-top: 10px;">' + res[i].tourTitle + '</h8>';
                     html += '       <span style="font-size: 10px;">' + res[i].tourDate.split('T')[0] + '/' + res[i].userNickname +'</span>';

@@ -8,7 +8,6 @@
             <div class="card" style="padding:8px">
                 <h1>QR 코드 생성</h1>
             </div>
-            <form action="none" method="get">
                 <div class="row g-0">
                     <div class="col">
                         <div class="card" style="padding:8px">
@@ -44,6 +43,9 @@
                                     </c:when>
                                     <c:otherwise>
                                         <div class="row g-0">
+                                            <div class="card" style="padding:8px">
+                                                <h3>작성 여행 목록</h3>
+                                            </div>
                                             <div class="col-8 align-self-center">
                                                 <div class="card" style="padding:8px; height: 50px;">
                                                     <div class="form-floating mb-1 align-middle">
@@ -79,7 +81,6 @@
                         </div>
                     </div>
                 </div>
-            </form>
             <div class="row g-0">
             </div>
         </div>
@@ -166,7 +167,7 @@
                     html +=     '<div class="col-8 align-self-center">';
                     html += '<div class="card" style="padding:8px; height: 50px;">';
                     html += '<div class="form-floating mb-1 align-middle">';
-                    html += '<span style="color: dimgray; font-size: 18px;">' + res[i].tourTitle + '</span>';
+                    html += '<span style="color: dimgray; font-size: 12px;">' + res[i].tourTitle + '</span>';
                     html += '</div></div></div>';
                     html += '<div class="col-4 align-self-center">';
                     html += '<div class="card" style="padding:8px; height: 50px;">';
