@@ -49,13 +49,19 @@
                                 <span>좋아요</span>
                                 </button>
                             </c:if>
-                            <button type="button" class="btn btn-outline-bluemint-map" style="color: #74b9ff; height: 30px; font-size: 12px; margin-bottom: 7px;" onclick="comment_close()">
+                            <button type="button" class="btn btn-outline-bluemint-map" style="color: #74b9ff; height: 30px; font-size: 12px; margin-bottom: 7px;" onclick="kakao_map()">
                                 <i class="bi bi-map-fill"style="color: #74b9ff; font-size: 13px;"></i>
                                 <span>지도 보기</span>
                             </button>
                         </span>
                     </div>
-                    <div class="card" style="padding:8px; display: none;" id="map_div">
+                    <div class="input-group has-validation" id="map_address" style="display: none;">
+                        <div class="form-floating is-invalid"></div>
+                        <div class="invalid-feedback" style="text-align: right; font-size: 11px; color: #ff6b81">
+                            여행지 주소 : ${tour.city} : ${tour.street}
+                        </div>
+                    </div>
+                    <div class="card" style="padding:8px; width:736px;height:400px; display: none;" id="map">
 
                     </div>
                     <div class="card" style="padding:8px">
@@ -136,8 +142,56 @@
         <div class="col-2"></div>
     </div>
 </div>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ffd8231a733ced626bd8084d26ebae3c&libraries=services"></script>
 
 <script>
+
+    function kakao_map(){
+
+        if(document.querySelector('#map').style.display == 'none'){
+            document.querySelector('#map').style.display = '';
+            document.querySelector('#map_address').style.display = '';
+            var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+                mapOption = {
+                    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+                    level: 3 // 지도의 확대 레벨
+                };
+
+            // 지도를 생성합니다
+            var map = new kakao.maps.Map(mapContainer, mapOption);
+
+            // 주소-좌표 변환 객체를 생성합니다
+            var geocoder = new kakao.maps.services.Geocoder();
+
+            // 주소로 좌표를 검색합니다
+            geocoder.addressSearch('${tour.city}', function(result, status) {
+
+                // 정상적으로 검색이 완료됐으면
+                if (status === kakao.maps.services.Status.OK) {
+
+                    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+                    // 결과값으로 받은 위치를 마커로 표시합니다
+                    var marker = new kakao.maps.Marker({
+                        map: map,
+                        position: coords
+                    });
+
+                    // 인포윈도우로 장소에 대한 설명을 표시합니다
+                    var infowindow = new kakao.maps.InfoWindow({
+                        content: '<div style="width:150px;text-align:center;padding:6px 0;">여행지</div>'
+                    });
+                    infowindow.open(map, marker);
+
+                    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                    map.setCenter(coords);
+                }
+            });
+        }else{
+            document.querySelector('#map').style.display = 'none'
+            document.querySelector('#map_address').style.display = 'none'
+        }
+    }
 
     let userNickname = '${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.user.userNickName}';
 

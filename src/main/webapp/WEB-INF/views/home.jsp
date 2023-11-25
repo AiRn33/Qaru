@@ -138,7 +138,7 @@
                 </div>
             </div>
             <div class="row g-0">
-                <div class="col-4">
+                <div class="col-6">
                     <div class="card" style="padding:8px">
                         <button type="button" class="btn btn-pink"
                                 onclick="location.href='/tour/tourList?page=0&size=9'">
@@ -147,21 +147,13 @@
                         <h8 style="padding-top: 10px;">여행</h8>
                     </div>
                 </div>
-                <div class="col-4">
+                <div class="col-6">
                     <div class="card" style="padding:8px">
                         <button type="button" class="btn btn-outline-pink"
                                 onclick="location.href='/shop/shopList?page=0&size=6'">
                             <i class="bi bi-clipboard-heart fs-3"></i>
                         </button>
                         <h8 style="padding-top: 10px;">식당</h8>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="card" style="padding:8px">
-                        <button type="button" class="btn btn-pink">
-                            <i class="bi bi-card-checklist fs-3" style="color: white"></i>
-                        </button>
-                        <h8 style="padding-top: 10px;">일정</h8>
                     </div>
                 </div>
             </div>
