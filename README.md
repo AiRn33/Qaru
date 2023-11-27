@@ -178,14 +178,67 @@
 <br><br>
 
 
-- **여행 메뉴**
+- **여행 메뉴**<br><br>
 
-- **QR 코드**
-
-
+여행 메뉴에서는 사용자들이 자신이 소개하고 싶은 여행지에 대한 게시글을 작성할 수 있습니다. 또한 해당 게시글에 다른 유저들은 댓글과 대댓글을 작성하며 의견을 나눌 수 있고, 게시글/댓글/대댓글에 좋아요를 눌러줄 수 있습니다. 작성자가 등록한 여행지의 주소를 토대로 지도를 확인할 수 있습니다.
 
 
+<br>
+<div align="center">
+  <img src="https://github.com/AiRn33/Qaru/assets/106871053/a543ce1d-0de7-4b7b-8155-83d4745a6f12">
+    <br><br>
+➡️ 여행 생성  <br><br>
+<hr>
+  <img src="https://github.com/AiRn33/Qaru/assets/106871053/abf59e2f-8561-49da-8dad-a0a2067de33f">
+  <img src="https://github.com/AiRn33/Qaru/assets/106871053/b666f5b6-f411-40f5-859f-3600cb1dffb8">
+    <br><br>
+➡️ 여행 수정 <br><br>
+<hr>
+    <img src="https://github.com/AiRn33/Qaru/assets/106871053/93849eb8-26d9-4c16-85c5-44944f1e9f81">
+    <br><br>
+➡️ 여행 목록 확인 <br><br>
+<hr>
+    <img src="https://github.com/AiRn33/Qaru/assets/106871053/5e793be4-df34-42e9-bce2-cc71a4b3ac2b">
+    <br><br>
+➡️ 좋아요  <br><br>
+<hr>
+  <img src="https://github.com/AiRn33/Qaru/assets/106871053/e122291c-264f-4847-90d6-47e47228c0c1">
+  <img src="https://github.com/AiRn33/Qaru/assets/106871053/34663d5f-8cb2-4c67-a334-22a316556faa">
+    <br><br>
+➡️ 댓글, 대댓글 작성  <br><br>
+<hr>
+  <img src="https://github.com/AiRn33/Qaru/assets/106871053/0de3c95b-0135-437e-9ee2-b32fef1e7d8e">
+    <br><br>
+➡️ 여행 지도  <br><br>
+<hr>
+  <img src="https://github.com/AiRn33/Qaru/assets/106871053/dcc606a6-b291-45e5-8541-33b74b79e95b">
+    <br><br>
+➡️ 여행 검색  <br><br>
+<hr>
+  <img src="https://github.com/AiRn33/Qaru/assets/106871053/6b338ed6-809d-4990-9ed4-825daa59273a">
+    <br><br>
+➡️ 여행 삭제  <br><br>
+<hr>
+</div>
 
+<br><br>
+
+
+
+- **QR 코드**<br><br>
+QR 코드 메뉴에서는 자신이 원하는 URL로 QR 코드를 생성하거나, 작성한 여행 게시글이 있다면, 해당 페이지로 이동할 수 있는 QR 코드를 생성할 수 있습니다
+
+
+<br>
+<div align="center">
+  <img src="https://github.com/AiRn33/Qaru/assets/106871053/88562ba6-0055-494e-aee5-e1866f8d92ab">
+    <br><br>
+➡️ QR 코드 생성 <br><br>
+<hr>
+</div>
+
+
+<br><br>
 
 
 
