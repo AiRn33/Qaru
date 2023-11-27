@@ -19,5 +19,8 @@
     }else if(${successAlert == 6}){
         alert("메뉴 수정 완료!");
         window.location.href="/user/mypage";
+    }else if(${successAlert == 7}){
+        alert("내정보 수정 완료! 다시 로그인 해주세요.!");
+        window.location.href="/user/logout";
     }
 </script>

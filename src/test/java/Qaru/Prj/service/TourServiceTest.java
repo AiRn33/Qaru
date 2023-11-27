@@ -36,6 +36,7 @@ public class TourServiceTest {
     CreateClass createClass = new CreateClass();
 
     @Test
+    @Commit
     void 여행정보저장() {
 
         for(int i = 0; i < 100; i++){
@@ -43,11 +44,10 @@ public class TourServiceTest {
             User user = createClass.createUser();
             userRepository.save(user);
 
-            ImageGroup imageGroup = createClass.createImgGroup();
-
+            ImageGroup imageGroup = imageGroupRepository.findById(Long.valueOf(2594)).get();
+            imageGroupRepository.save(imageGroup);
             // then
             Tour tour = tourRepository.save(createClass.createTour(imageGroup, user));
-
         }
 
         // when

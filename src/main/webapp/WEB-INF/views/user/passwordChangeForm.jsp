@@ -59,6 +59,7 @@
 
         let pw = document.querySelector('#userPassword').value;
         let pwCheck = document.querySelector('#userPasswordCheck').value;
+        let pwTest = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{6,15}$/;
 
         if(pw == '' || pwCheck == ''){
             alert('비밀번호를 입력되지 않았습니다.');
@@ -66,6 +67,10 @@
         }
         if(pw != pwCheck){
             alert('비밀번호가 일치하지 않습니다.');
+            return false;
+        }
+        if(!pwTest.test(pw)){
+            alert('비밀번호는 영문자와 숫자/특수기호가 적어도 1개 이상 포함된 6 ~ 15글자까지의 비밀번호여야 합니다.');
             return false;
         }
 

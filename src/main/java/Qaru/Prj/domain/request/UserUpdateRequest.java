@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Getter
 @Setter
@@ -17,6 +18,7 @@ public class UserUpdateRequest {
     private String userId;
 
     @NotBlank(message = "닉네임을 입력해주세요.")
+    @Size(min = 2, max = 15, message = "닉네임은 2 ~ 15글자까지 입력가능합니다.")
     private String userNickname;
 
     private String userEmail;

@@ -152,9 +152,9 @@ public class UserController {
 
         User user = userService.getUserByUserId(request.getUsername());
 
-        model.addAttribute("userData", new UserMypageRespose().userUpdate(user));
+        model.addAttribute("successAlert", 7);
 
-        return "/user/mypage";
+        return "/successAlert";
     }
 
     @GetMapping("/user/change-admin")
