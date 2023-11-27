@@ -147,7 +147,36 @@
 </div>
 
 
-- **상점 메뉴**
+<br><br>
+
+
+- **상점 메뉴**<br><br>
+
+상점에서는 가게 등록을 한 유저들의 가게 정보를 볼 수 있습니다. 또한 해당 가게에 주문을 하고 결제를 할 수 있습니다.
+
+<br>
+<div align="center">
+  <img src="https://github.com/AiRn33/Qaru/assets/106871053/99941de1-8d8e-4c36-842d-2a27e0007d2a">
+    <br><br>
+➡️ 상점 메뉴 및 상세보기  <br><br>
+<hr>
+  <img src="https://github.com/AiRn33/Qaru/assets/106871053/bca2db10-76bb-4777-969d-1a2af16fb410">
+    <br><br>
+➡️ 상점 주문 <br><br>
+<hr>
+    <img src="https://github.com/AiRn33/Qaru/assets/106871053/a523f64b-4c93-4048-8cdd-44501b883d03">
+    <img src="https://github.com/AiRn33/Qaru/assets/106871053/ba9fc5fa-544b-4cbf-b3b3-ebd67789b600">
+    <br><br>
+➡️ 카카오 결제 <br><br>
+<hr>
+    <img src="https://github.com/AiRn33/Qaru/assets/106871053/fd98bb6e-516b-419a-8c47-9051af961f9f">
+    <br><br>
+➡️ 주문 내역 확인  <br><br>
+<hr>
+</div>
+
+<br><br>
+
 
 - **여행 메뉴**
 
