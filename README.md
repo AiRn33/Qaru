@@ -1,7 +1,7 @@
 # Qaru(큐아루)
 <br><br>
 - **노션** : https://relieved-centaur-19d.notion.site/Qaru-f0937ebd2fc7479985f41987dd64dc45?pvs=4
-  <br> 사이드 프로젝트의 정보를 정리해두었습니다.
+  <br><br> 사이드 프로젝트의 정보를 정리해두었습니다.
 
 <br><br>
 <hr>
@@ -13,22 +13,128 @@
 <br><br>
 
 # 주요 기능
-- 회원관련 기능<br><br>
+<br>
+
+- **회원관련 기능**<br><br>
  spring security를 통해 로그인을 처리하였고, 각 페이지별 권한이 없으면 접근을 못하도록 막아 뒀으며, 일반유저, 어드민(사장) 유저로 유저를 구분하여 상점을 등록할 수 있게 지정해두었습니다.
  <br><br>
  
-- 여행(게시판)<br><br>
+- **여행(게시판)**<br><br>
   여행 메뉴에서는 게시판 형태의 유저가 등록한 여행 소개글을 볼 수 있습니다. 여행 게시글에 유저는 좋아요 표시를 할 수 있고, 댓글을 달 수 있습니다. 또한 등록된 여행 게시글의 주소를 바탕으로 지도를 확인과 등록된 여행지의 사진도 확인이 가능합니다.
  <br><br>
 
-- 상점(결제)<br><br>
+- **상점(결제)**<br><br>
   상점 메뉴에서는 어드민(사장) 유저가 자신의 가게를 등록하고, 가게의 메뉴를 등록할 수 있습니다. 메뉴 등록 시 상점 메뉴에 노출 허용을 선택하면, 리스트에 출력이 됩니다. 상점 메뉴에서 유저들은 해당 가게의 상품들을 확인할 수 있으며, 해당 가게에 주문을 할 수 있습니다. 수량을 선택 후 주문을 하면, 카카오페이로 결제를 진행할 수 있고, 결제 후 주문내역에서 결제 된 상품을 확인할 수 있습니다.
   <br><br>
 
-- QR코드 생성<br><br>
+- **QR코드 생성**<br><br>
   유저는 자신이 원하는 URL의 QR코드를 생성할 수 있습니다. 또한 작성한 여행 게시글이 있다면, 해당 여행 게시글로 연결되는 QR코드를 생성할 수 있습니다.
   <br><br>
 
-  
 
-<img src="">
+# 기술 스택
+
+- **JAVA 11**<br>
+- **SpringBoot 2.7**<br>
+- **MySql**<br>
+- **JPA**<br>
+- **BootStrap**<br>
+
+<br><br>
+
+# 기능 소개
+
+<br>
+
+- **메인페이지**
+
+  메인페이지에서는 각 메뉴들로 진입할 수 있는 버튼들이 존재합니다
+
+<br>
+<div align="center">
+  <img src="https://github.com/AiRn33/Qaru/assets/106871053/26e16b2b-7fed-414e-8b02-b3595f288cdd">
+  ➡️ 메인페이지
+</div>
+<br>
+<hr>
+
+- **회원가입**
+
+  회원가입에 필요한 정보로는 아이디, 비밀번호, 닉네임, 이메일이 필요하며 그 중 아이디, 닉네임, 이메일은 중복될 수 없습니다. 회원가입 시 입력한 이메일로 메일이 전송되며, 해당 메일의 인증번호를 입력하면 회원가입이 완료됩니다. 해당 인증번호는 **Redis**로 구현하였으며, 유효시간은 3분입니다.
+
+  <br>
+<div align="center">
+  <img src="https://github.com/AiRn33/Qaru/assets/106871053/0b6de9e9-0d42-4248-ae05-5487ff133e36">
+  <img src="https://github.com/AiRn33/Qaru/assets/106871053/df9dba58-f8d2-4866-8420-50e84163d9f4">
+  <br><br>
+➡️ 회원가입 중복 처리 및 공백 처리
+</div>
+<hr>
+<br><br>
+<div align="center">
+  <img src="https://github.com/AiRn33/Qaru/assets/106871053/df8ebbad-fbd7-4239-85c1-b3ae4f294ba6">
+  <br><br>
+➡️ 이메일 유효시간이 지나거나, 인증번호가 틀린 경우
+</div>
+<hr>
+<br><br>
+<div align="center">
+  <img src="https://github.com/AiRn33/Qaru/assets/106871053/5725b851-1643-4248-b1fe-deefc522602a">
+  <br><br>
+➡️ 회원가입 성공
+</div>
+<hr>
+
+<br><br>
+
+- **로그인** <br><br>
+  아이디와 비밀번호가 정상입력 됬을 시 로그인을 할 수 있습니다. 또한 아이디나 비밀번호를 잊어버렸을 시 가입시 입력한 이메일 정보로 아이디, 비밀번호를 찾을 수 있습니다.
+
+<br>
+<div align="center">
+  <img src="https://github.com/AiRn33/Qaru/assets/106871053/bb2c1b4a-f760-4bbf-9f5b-41ae09f77530">
+    <br><br>
+➡️ 로그인 실패  <br><br>
+<hr>
+  <img src="https://github.com/AiRn33/Qaru/assets/106871053/d7bb6f67-7772-4c20-b3d8-34cedc0a7cc5">
+  <br><br>
+➡️ 로그인 성공  <br><br>
+<hr>
+  <img src="https://github.com/AiRn33/Qaru/assets/106871053/b68e96ab-d550-4ce3-87a8-290d41b4ae2d">
+  <img src="https://github.com/AiRn33/Qaru/assets/106871053/e756fceb-f599-4ce7-95ec-f40dc5cb79b3">
+  <br><br>
+➡️ 아이디 찾기  <br><br>
+<hr>
+  <img src="https://github.com/AiRn33/Qaru/assets/106871053/cd41d4eb-e362-450e-ae90-cf4d830037f9">
+  <img src="https://github.com/AiRn33/Qaru/assets/106871053/d125be2e-d6ba-4479-b206-f840235acce3">
+    <br><br>
+➡️ 비밀번호 찾기 실패 <br><br>
+  <hr>
+  <img src="https://github.com/AiRn33/Qaru/assets/106871053/941a7252-f868-41d6-a370-dec09330b60d">
+    <br><br>
+➡️ 비밀번호 변경 실패  <br><br>
+  <hr>
+  <img src="https://github.com/AiRn33/Qaru/assets/106871053/9f5a8493-6e4b-4515-96dd-43238b49ebfd">
+  <br><br>
+➡️ 비밀번호 찾기 성공<br><br>
+<hr>
+</div>
+
+  
+- **마이페이지**
+
+- **상점 메뉴**
+
+- **여행 메뉴**
+
+- **QR 코드**
+
+
+
+
+
+
+
+
+
+
