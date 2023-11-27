@@ -10,6 +10,6 @@ Qaru 프로젝트
 
 
 <div>
-  ![111](https://github.com/AiRn33/Qaru/assets/106871053/0ed41143-49e2-4970-99b8-776c978cee66)
+  <img src="https://github.com/AiRn33/Qaru/assets/106871053/0ed41143-49e2-4970-99b8-776c978cee66">
 </div>
 
