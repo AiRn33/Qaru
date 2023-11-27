@@ -121,7 +121,31 @@
 </div>
 
   
-- **마이페이지**
+- **마이페이지**<br><br>
+
+마이페이지에서는 회원 정보 수정이 가능하며, 일반 회원은 어드민 회원(사장 등록)이 가능합니다. 사장으로 전환 시 자신의 상점 정보를 입력해야합니다. 상점 정보 입력 후 상점의 상품을 입력할 수 있습니다.
+
+<br>
+<div align="center">
+  <img src="https://github.com/AiRn33/Qaru/assets/106871053/dda54463-51f7-415d-b5f3-fcc4dfedd012">
+    <br><br>
+➡️ 내 정보 수정 실패  <br><br>
+<hr>
+  <img src="https://github.com/AiRn33/Qaru/assets/106871053/1128546c-97cf-41e5-952e-e11c7ecf5f43">
+    <br><br>
+➡️ 내 정보 수정 성공  <br><br>
+<hr>
+    <img src="https://github.com/AiRn33/Qaru/assets/106871053/15900070-fac9-4224-857a-249f9ff7f8d9">
+    <img src="https://github.com/AiRn33/Qaru/assets/106871053/6b47994d-e7dd-4919-b3e6-70d02dc0f424">
+    <br><br>
+➡️ 사장 등록 <br><br>
+<hr>
+    <img src="https://github.com/AiRn33/Qaru/assets/106871053/f0d33844-7247-47b9-b3e2-45bdbe3617e7">
+    <br><br>
+➡️ 상점 메뉴 등록  <br><br>
+<hr>
+</div>
+
 
 - **상점 메뉴**
 
