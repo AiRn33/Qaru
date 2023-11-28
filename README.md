@@ -12,6 +12,13 @@
 
 <br><br>
 
+# DB 다이어그램
+
+![111](https://github.com/AiRn33/Qaru/assets/106871053/aab44596-2b8c-4f90-a85e-a628ba175085)
+
+<br><br>
+
+
 # 주요 기능
 <br>
 
