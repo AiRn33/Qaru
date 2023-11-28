@@ -66,7 +66,7 @@
   <br>
 <div align="center">
   <img src="https://github.com/AiRn33/Qaru/assets/106871053/26e16b2b-7fed-414e-8b02-b3595f288cdd">
-  ➡️ 메인페이지
+  ➡️ 메인페이지 <br><br>
 </div>
 <br>
 </div>
@@ -87,20 +87,20 @@
   <img src="https://github.com/AiRn33/Qaru/assets/106871053/0b6de9e9-0d42-4248-ae05-5487ff133e36">
   <img src="https://github.com/AiRn33/Qaru/assets/106871053/df9dba58-f8d2-4866-8420-50e84163d9f4">
   <br><br>
-➡️ 회원가입 중복 처리 및 공백 처리
+➡️ 회원가입 중복 처리 및 공백 처리 <br><br>
 </div>
 <hr>
 <div align="center">
   <img src="https://github.com/AiRn33/Qaru/assets/106871053/df8ebbad-fbd7-4239-85c1-b3ae4f294ba6">
   <br><br>
-➡️ 이메일 유효시간이 지나거나, 인증번호가 틀린 경우
+➡️ 이메일 유효시간이 지나거나, 인증번호가 틀린 경우 <br><br>
 </div>
 <hr>
 <br><br>
 <div align="center">
   <img src="https://github.com/AiRn33/Qaru/assets/106871053/5725b851-1643-4248-b1fe-deefc522602a">
   <br><br>
-➡️ 회원가입 성공
+➡️ 회원가입 성공 <br><br>
 </div>
 </div>
 </details>
