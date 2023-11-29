@@ -128,7 +128,7 @@
                 <div class="col">
                     <div class="card" style="padding:8px">
                         <button type="button" class="btn btn-pink"
-                                onclick="location.href='/tour/tourList?page=0&size=9'">
+                                onclick="location.href='/tour/tourList?page=0&size=9&order=none'">
                             <i class="bi bi-arrow-bar-right fs-5" style="color: white">
                                 &nbsp;뒤로가기
                             </i>

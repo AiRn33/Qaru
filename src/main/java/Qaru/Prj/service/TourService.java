@@ -53,9 +53,17 @@ public class TourService {
         return tour.getImageGroup();
     }
 
-    public Page<TourListResponse> searchTourListAll(Pageable pageable){
+    public Page<TourListResponse> searchTourListAll(Pageable pageable, String order){
 
-        Page<TourListResponse> tourListResponses = tourRepositoryImpl.searchPage(pageable);
+        Page<TourListResponse> tourListResponses = null;
+
+        if(order.equals("none")){
+            tourListResponses = tourRepositoryImpl.searchPage(pageable);
+        }else if(order.equals("likes")){
+            tourListResponses = tourRepositoryImpl.searchPageLikes(pageable);
+        }else if(order.equals("comments")){
+            tourListResponses = tourRepositoryImpl.searchPageComments(pageable);
+        }
 
         return tourListResponses;
     }
@@ -93,9 +101,21 @@ public class TourService {
         tourRepository.deleteById(id);
     }
 
-    public List<TourListResponse> searchData(String type, String content) {
+    public List<TourListResponse> searchData(String type, String content, String order) {
 
-        List<TourListResponse> tourListResponses = tourRepositoryImpl.searchData(type, content);
+        List<TourListResponse> tourListResponses = null;
+
+        if(order.equals("none")){
+            tourListResponses = tourRepositoryImpl.searchData(type, content);
+        }else if(order.equals("likes")){
+            tourListResponses = tourRepositoryImpl.searchDataLikes(type, content);
+        }else if(order.equals("comments")){
+            tourListResponses = tourRepositoryImpl.searchDataComments(type, content);
+        }
+
+        if(tourListResponses.size() > 0){
+            tourListResponses.get(0).setOrderType(order);
+        }
 
         return tourListResponses;
     }

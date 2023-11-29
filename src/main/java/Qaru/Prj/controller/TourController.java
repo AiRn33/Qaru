@@ -41,10 +41,10 @@ public class TourController {
     private final LikeService likeService;
 
     @GetMapping("/tour/tourList")
-    public String tourList(Pageable pageable, Model model) {
+    public String tourList(Pageable pageable, Model model, @RequestParam("order") String order) {
 
         List<TourListResponse> tourListResponses =
-                tourService.searchTourListAll(pageable).toList();
+                tourService.searchTourListAll(pageable, order).toList();
 
         if (tourListResponses.size() > 0) {
 
@@ -96,7 +96,9 @@ public class TourController {
             }
 
             model.addAttribute("pageNum", pageNum);
+            model.addAttribute("pages", pageable.getPageNumber());
             model.addAttribute("endPageNum", endPageNum);
+            model.addAttribute("order", order);
 
         } else {
             model.addAttribute("tourListCount", tourService.searchTourListAllCount());
@@ -230,13 +232,16 @@ public class TourController {
     }
     @ResponseBody
     @GetMapping("/tour/search")
-    public List<TourListResponse> tourSearch(@RequestParam("searchType") String type, @RequestParam("searchContent") String content){
+    public List<TourListResponse> tourSearch(@RequestParam("searchType") String type,
+                                             @RequestParam("searchContent") String content,
+                                             @RequestParam("order") String order){
 
-        List<TourListResponse> tourListResponses = tourService.searchData(type, content);
+        List<TourListResponse> tourListResponses = tourService.searchData(type, content, order);
 
         for(int i = 0; i < tourListResponses.size(); i++){
             tourListResponses.get(i).setImageFileName(imageService.imageSelectAll(Long.valueOf(tourListResponses.get(i).getImageGroupId())).get(0).getStoredFileName());
         }
+
 
         return tourListResponses;
     }

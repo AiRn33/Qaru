@@ -141,7 +141,7 @@
                 <div class="col-6">
                     <div class="card" style="padding:8px">
                         <button type="button" class="btn btn-pink"
-                                onclick="location.href='/tour/tourList?page=0&size=9'">
+                                onclick="location.href='/tour/tourList?page=0&size=9&order=none'">
                             <i class="bi bi-bus-front-fill fs-3" style="color: white"></i>
                         </button>
                         <h8 style="padding-top: 10px;">여행</h8>

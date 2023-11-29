@@ -33,6 +33,12 @@ public class TourListResponse {
 
     private String storedFileName;
 
+    private Long likesCount;
+
+    private Long commentCount;
+
+    private String orderType;
+
     public TourListResponse setImageFileName(String storedFileName){
         this.storedFileName = storedFileName;
         return this;
