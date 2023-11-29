@@ -1,6 +1,6 @@
 # Qaru(큐아루)
 <br><br>
-- **노션** : https://relieved-centaur-19d.notion.site/Qaru-f0937ebd2fc7479985f41987dd64dc45?pvs=4
+- **노션** : [https://relieved-centaur-19d.notion.site/Qaru-f0937ebd2fc7479985f41987dd64dc45?pvs=4](https://relieved-centaur-19d.notion.site/Qaru-f0937ebd2fc7479985f41987dd64dc45?pvs=4)
   <br><br> 사이드 프로젝트의 정보를 정리해두었습니다.
 
 <br><br>
@@ -11,6 +11,13 @@
 이 프로젝트는 해외여행을 하던 중 우리나라에 관광을 하러 오는 외국인을 위한 편리한 페이지가 있다면 좋겠다고 생각하게되었습니다. QR코드를 찍으면 해당 가게의 정보 혹은 관광지의 정보를 표시할 수 있는 서비스를 만들어 보고자 합니다
 
 <br><br>
+
+# DB 다이어그램
+
+![111](https://github.com/AiRn33/Qaru/assets/106871053/aab44596-2b8c-4f90-a85e-a628ba175085)
+
+<br><br>
+
 
 # 주요 기능
 <br>
@@ -31,13 +38,16 @@
   유저는 자신이 원하는 URL의 QR코드를 생성할 수 있습니다. 또한 작성한 여행 게시글이 있다면, 해당 여행 게시글로 연결되는 QR코드를 생성할 수 있습니다.
   <br><br>
 
+- **에러 처리 및 유효성검사**<br><br>
+통합적인 에러가 발생시에는 에러페이지로 이동하도록 설정되어있으며, 유효성검사의 경우 공통적으로 동기의 경우, 백단에서 errorScript를 만들어서 model로 넘길 수 있도록 공통화 해두었고, 비동기방식의 경우 프론트 단에서 에러메시지를 전송할 수 있도록 공통화 처리해두었습니다.
+<br><br>
 
 # 기술 스택
-
+<br>
 - **JAVA 11**<br>
 - **SpringBoot 2.7**<br>
 - **MySql**<br>
-- **JPA**<br>
+- **JPA & QueryDSL**<br>
 - **BootStrap**<br>
 
 <br><br>
@@ -49,47 +59,60 @@
 - **메인페이지**
 
   메인페이지에서는 각 메뉴들로 진입할 수 있는 버튼들이 존재합니다
-
 <br>
+<details>
+<summary><b>메인페이지 확인하기(🖱️)</b></summary>
+<div markdown="1">
+  <br>
 <div align="center">
   <img src="https://github.com/AiRn33/Qaru/assets/106871053/26e16b2b-7fed-414e-8b02-b3595f288cdd">
-  ➡️ 메인페이지
+  ➡️ 메인페이지 <br><br>
 </div>
 <br>
+</div>
+</details>
+
 <hr>
+<br>
 
 - **회원가입**
 
   회원가입에 필요한 정보로는 아이디, 비밀번호, 닉네임, 이메일이 필요하며 그 중 아이디, 닉네임, 이메일은 중복될 수 없습니다. 회원가입 시 입력한 이메일로 메일이 전송되며, 해당 메일의 인증번호를 입력하면 회원가입이 완료됩니다. 해당 인증번호는 **Redis**로 구현하였으며, 유효시간은 3분입니다.
-
+<br>
+<details>
+<summary><b>회원가입 확인하기(🖱️)</b></summary>
+<div markdown="1">
   <br>
 <div align="center">
   <img src="https://github.com/AiRn33/Qaru/assets/106871053/0b6de9e9-0d42-4248-ae05-5487ff133e36">
   <img src="https://github.com/AiRn33/Qaru/assets/106871053/df9dba58-f8d2-4866-8420-50e84163d9f4">
   <br><br>
-➡️ 회원가입 중복 처리 및 공백 처리
+➡️ 회원가입 중복 처리 및 공백 처리 <br><br>
 </div>
 <hr>
-<br><br>
 <div align="center">
   <img src="https://github.com/AiRn33/Qaru/assets/106871053/df8ebbad-fbd7-4239-85c1-b3ae4f294ba6">
   <br><br>
-➡️ 이메일 유효시간이 지나거나, 인증번호가 틀린 경우
+➡️ 이메일 유효시간이 지나거나, 인증번호가 틀린 경우 <br><br>
 </div>
 <hr>
 <br><br>
 <div align="center">
   <img src="https://github.com/AiRn33/Qaru/assets/106871053/5725b851-1643-4248-b1fe-deefc522602a">
   <br><br>
-➡️ 회원가입 성공
+➡️ 회원가입 성공 <br><br>
 </div>
+</div>
+</details>
 <hr>
-
-<br><br>
+<br>
 
 - **로그인** <br><br>
   아이디와 비밀번호가 정상입력 됬을 시 로그인을 할 수 있습니다. 또한 아이디나 비밀번호를 잊어버렸을 시 가입시 입력한 이메일 정보로 아이디, 비밀번호를 찾을 수 있습니다.
+<br><br>
 
+<details>
+<summary><b>로그인 확인하기(🖱️)</b></summary>
 <br>
 <div align="center">
   <img src="https://github.com/AiRn33/Qaru/assets/106871053/bb2c1b4a-f760-4bbf-9f5b-41ae09f77530">
@@ -117,14 +140,18 @@
   <img src="https://github.com/AiRn33/Qaru/assets/106871053/9f5a8493-6e4b-4515-96dd-43238b49ebfd">
   <br><br>
 ➡️ 비밀번호 찾기 성공<br><br>
-<hr>
 </div>
-
+</details>
+<hr>
+<br>
   
 - **마이페이지**<br><br>
 
 마이페이지에서는 회원 정보 수정이 가능하며, 일반 회원은 어드민 회원(사장 등록)이 가능합니다. 사장으로 전환 시 자신의 상점 정보를 입력해야합니다. 상점 정보 입력 후 상점의 상품을 입력할 수 있습니다.
+<br><br>
 
+<details>
+<summary><b>마이페이지 확인하기(🖱️)</b></summary>
 <br>
 <div align="center">
   <img src="https://github.com/AiRn33/Qaru/assets/106871053/dda54463-51f7-415d-b5f3-fcc4dfedd012">
@@ -143,17 +170,20 @@
     <img src="https://github.com/AiRn33/Qaru/assets/106871053/f0d33844-7247-47b9-b3e2-45bdbe3617e7">
     <br><br>
 ➡️ 상점 메뉴 등록  <br><br>
-<hr>
 </div>
+</details>
 
-
-<br><br>
+<hr>
+<br>
 
 
 - **상점 메뉴**<br><br>
 
 상점에서는 가게 등록을 한 유저들의 가게 정보를 볼 수 있습니다. 또한 해당 가게에 주문을 하고 결제를 할 수 있습니다.
+<br><br>
 
+<details>
+<summary><b>상점 메뉴 확인하기(🖱️)</b></summary>
 <br>
 <div align="center">
   <img src="https://github.com/AiRn33/Qaru/assets/106871053/99941de1-8d8e-4c36-842d-2a27e0007d2a">
@@ -172,17 +202,19 @@
     <img src="https://github.com/AiRn33/Qaru/assets/106871053/fd98bb6e-516b-419a-8c47-9051af961f9f">
     <br><br>
 ➡️ 주문 내역 확인  <br><br>
-<hr>
 </div>
-
-<br><br>
+</details>
+<hr>
+<br>
 
 
 - **여행 메뉴**<br><br>
 
 여행 메뉴에서는 사용자들이 자신이 소개하고 싶은 여행지에 대한 게시글을 작성할 수 있습니다. 또한 해당 게시글에 다른 유저들은 댓글과 대댓글을 작성하며 의견을 나눌 수 있고, 게시글/댓글/대댓글에 좋아요를 눌러줄 수 있습니다. 작성자가 등록한 여행지의 주소를 토대로 지도를 확인할 수 있습니다.
+<br><br>
 
-
+<details>
+<summary><b>여행 메뉴 확인하기(🖱️)</b></summary>
 <br>
 <div align="center">
   <img src="https://github.com/AiRn33/Qaru/assets/106871053/a543ce1d-0de7-4b7b-8155-83d4745a6f12">
@@ -218,26 +250,25 @@
   <img src="https://github.com/AiRn33/Qaru/assets/106871053/6b338ed6-809d-4990-9ed4-825daa59273a">
     <br><br>
 ➡️ 여행 삭제  <br><br>
-<hr>
 </div>
+</details>
+<hr>
+<br>
 
-<br><br>
 
-
-
-- **QR 코드**<br><br>
+- **QR 코드 메뉴**<br><br>
 QR 코드 메뉴에서는 자신이 원하는 URL로 QR 코드를 생성하거나, 작성한 여행 게시글이 있다면, 해당 페이지로 이동할 수 있는 QR 코드를 생성할 수 있습니다
-
-
+<br>
+<details>
+<summary><b>QR 코드 메뉴 확인하기(🖱️)</b></summary>
 <br>
 <div align="center">
   <img src="https://github.com/AiRn33/Qaru/assets/106871053/88562ba6-0055-494e-aee5-e1866f8d92ab">
     <br><br>
 ➡️ QR 코드 생성 <br><br>
-<hr>
 </div>
-
-
+</details>
+<hr>
 <br><br>
 
 
