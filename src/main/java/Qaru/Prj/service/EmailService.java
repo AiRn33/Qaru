@@ -46,8 +46,8 @@ public class EmailService {
         code = "";
         try {
             code = createCode();
-            // 60 * 1L = 1분
-            redisUtil.setDataExpire(code, email, 60 * 1L);
+            // 60 * 3L = 3분
+            redisUtil.setDataExpire(code, email, 60 * 3L);
         } catch (Exception e) {
             e.printStackTrace();
         }
