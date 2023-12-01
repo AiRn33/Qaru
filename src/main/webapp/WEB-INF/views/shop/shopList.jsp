@@ -9,18 +9,18 @@
             <div class="col-12 row g-0">
                 <div class="col-6"></div>
                 <div class="col-6" style="justify-content: right; margin-bottom: 10px;">
-<%--                    <div class="d-flex">--%>
-<%--                        <select class="form-select me-2" id="searchType" style="width: 100px;">--%>
-<%--                            <option value="name">이름</option>--%>
-<%--                            <option value="city">지역</option>--%>
-<%--                        </select>--%>
-<%--                        <input class="form-control me-1" type="search" id="searchContent" name="searchContent"--%>
-<%--                               placeholder="Search"--%>
-<%--                               aria-label="Search" onkeyup="if(window.event.keyCode==13){search();}">--%>
-<%--                        <button class="btn btn-outline-success" id="searchBtn" type="button" style="width: 100px;"--%>
-<%--                                onclick="search()">검 색--%>
-<%--                        </button>--%>
-<%--                    </div>--%>
+                    <%--                    <div class="d-flex">--%>
+                    <%--                        <select class="form-select me-2" id="searchType" style="width: 100px;">--%>
+                    <%--                            <option value="name">이름</option>--%>
+                    <%--                            <option value="city">지역</option>--%>
+                    <%--                        </select>--%>
+                    <%--                        <input class="form-control me-1" type="search" id="searchContent" name="searchContent"--%>
+                    <%--                               placeholder="Search"--%>
+                    <%--                               aria-label="Search" onkeyup="if(window.event.keyCode==13){search();}">--%>
+                    <%--                        <button class="btn btn-outline-success" id="searchBtn" type="button" style="width: 100px;"--%>
+                    <%--                                onclick="search()">검 색--%>
+                    <%--                        </button>--%>
+                    <%--                    </div>--%>
                 </div>
             </div>
             <div class="card" style="padding:8px">
@@ -63,46 +63,91 @@
                         <nav aria-label="Page navigation example">
                             <ul class="pagination" style="justify-content: center;">
                                 <c:choose>
-                                    <c:when test="${pageNum < 4}">
-                                        <li class="page-item">
-                                            <a class="page-link" href="/shop/shopList?page=${pageNum}&size=6"
-                                               aria-label="Previous">
-                                                <span aria-hidden="true">&laquo;</span>
-                                            </a>
-                                        </li>
-                                        <c:forEach var="item" varStatus="status" begin="${pageNum}" end="${endPageNum}">
+                                    <c:when test="${getPageNum < 4}">
+                                        <c:choose>
+                                            <c:when test="${getPageNum - 2 > 0}">
+                                                <li class="page-item">
+                                                    <a class="page-link" href="/shop/shopList?page=${getPageNum-2}&size=6"
+                                                       aria-label="Previous">
+                                                        <span aria-hidden="true">&laquo;</span>
+                                                    </a>
+                                                </li>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="/shop/shopList?page=0&size=6"
+                                                       aria-label="Previous">
+                                                        <span aria-hidden="true">&laquo;</span>
+                                                    </a>
+                                                </li>
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <c:forEach var="item" varStatus="status" begin="${pageNum}"
+                                                   end="${endPageNum}">
                                             <li class="page-item">
                                                 <a class="page-link"
                                                    href="/shop/shopList?page=${status.index}&size=6">${status.index + 1}</a>
                                             </li>
                                         </c:forEach>
-                                        <li class="page-item">
-                                            <a class="page-link" href="/shop/shopList?page=${endPageNum}&size=6"
-                                               aria-label="Next">
-                                                <span aria-hidden="true">&raquo;</span>
-                                            </a>
-                                        </li>
+                                        <c:choose>
+                                            <c:when test="${getPageNum + 2 > endPageNum}">
+                                                <li class="page-item">
+                                                    <a class="page-link" href="/shop/shopList?page=${endPageNum}&size=6"
+                                                       aria-label="Next">
+                                                        <span aria-hidden="true">&raquo;</span>
+                                                    </a>
+                                                </li>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="/shop/shopList?page=${getPageNum + 2}&size=6"
+                                                       aria-label="Next">
+                                                        <span aria-hidden="true">&raquo;</span>
+                                                    </a>
+                                                </li>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </c:when>
                                     <c:otherwise>
                                         <li class="page-item">
-                                            <a class="page-link" href="/shop/shopList?page=${pageNum}&size=6"
+                                            <a class="page-link" href="/shop/shopList?page=${getPageNum - 2}&size=6"
                                                aria-label="Previous">
                                                 <span aria-hidden="true">&laquo;</span>
                                             </a>
                                         </li>
-                                        <c:forEach var="item" varStatus="status" begin="${pageNum}"
-                                                   end="${pageNum + 4}">
-                                            <li class="page-item">
-                                                <a class="page-link"
-                                                   href="/shop/shopList?page=${status.index}&size=6">${status.index + 1}</a>
-                                            </li>
-                                        </c:forEach>
-                                        <li class="page-item">
-                                            <a class="page-link" href="/shop/shopList?page=${pageNum + 4}&size=6"
-                                               aria-label="Next">
-                                                <span aria-hidden="true">&raquo;</span>
-                                            </a>
-                                        </li>
+                                        <c:choose>
+                                            <c:when test="${pageNum + 4 > endPageNum}">
+                                                <c:forEach var="item" varStatus="status" begin="${endPageNum - 4}"
+                                                           end="${endPageNum}">
+                                                    <li class="page-item">
+                                                        <a class="page-link"
+                                                           href="/shop/shopList?page=${status.index}&size=6">${status.index + 1}</a>
+                                                    </li>
+                                                </c:forEach>
+                                                <li class="page-item">
+                                                    <a class="page-link" href="/shop/shopList?page=${endPageNum}&size=6"
+                                                       aria-label="Next">
+                                                        <span aria-hidden="true">&raquo;</span>
+                                                    </a>
+                                                </li>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <c:forEach var="item" varStatus="status" begin="${pageNum}"
+                                                           end="${pageNum + 4}">
+                                                    <li class="page-item">
+                                                        <a class="page-link"
+                                                           href="/shop/shopList?page=${status.index}&size=6">${status.index + 1}</a>
+                                                    </li>
+                                                </c:forEach>
+                                                <li class="page-item">
+                                                    <a class="page-link"
+                                                       href="/shop/shopList?page=${pageNum + 4}&size=6"
+                                                       aria-label="Next">
+                                                        <span aria-hidden="true">&raquo;</span>
+                                                    </a>
+                                                </li>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </c:otherwise>
                                 </c:choose>
                             </ul>
@@ -115,3 +160,8 @@
         </div>
     </div>
 </div>
+<script>
+    console.log('pageNum : ' + ${pageNum});
+    console.log('endPageNum : ' + ${endPageNum});
+    console.log('getPageNum : ' + ${getPageNum});
+</script>

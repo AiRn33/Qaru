@@ -24,7 +24,9 @@ public class FileService {
     }
 
     public String serverUploadFile(MultipartFile multipartFile) throws IOException {
-        if (multipartFile.isEmpty()) { //파일 없으면 null 반환
+
+        //파일 없으면 null 반환
+        if (multipartFile.isEmpty()) {
             return null;
         }
 
@@ -38,7 +40,9 @@ public class FileService {
     }
 
     public String serverUploadFileModify(MultipartFile multipartFile) throws IOException {
-        if (multipartFile.isEmpty()) { //파일 없으면 null 반환
+
+        //파일 없으면 null 반환
+        if (multipartFile.isEmpty()) {
             return null;
         }
 

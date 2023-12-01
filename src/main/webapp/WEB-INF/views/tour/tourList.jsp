@@ -291,7 +291,6 @@
                     html += '</div>';
                 }
                 for (let i = 0; i < res.length; i++) {
-                    console.log(res[i]);
                     html += '<div class="col-4">';
                     html += '   <div class="card" style="padding:8px">';
                     html += '   <button type="button" class="btn btn-outline-bluemint" onclick="locationTour(' + res[i].tourId + ')">';
