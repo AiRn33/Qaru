@@ -41,7 +41,9 @@ public class TourController {
     private final LikeService likeService;
 
     @GetMapping("/tour/tourList")
-    public String tourList(Pageable pageable, Model model, @RequestParam("order") String order) {
+    public String tourList(Pageable pageable, Model model,
+                           @RequestParam("order") String order) {
+
 
         List<TourListResponse> tourListResponses =
                 tourService.searchTourListAll(pageable, order).toList();

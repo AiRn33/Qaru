@@ -39,6 +39,7 @@ public class TourListResponse {
 
     private String orderType;
 
+
     public TourListResponse setImageFileName(String storedFileName){
         this.storedFileName = storedFileName;
         return this;

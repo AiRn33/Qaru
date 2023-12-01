@@ -32,12 +32,12 @@ public class Comment {
     @JoinColumn(name = "parent_id")
     private Comment parent;
 
-    @Embedded
-    private DateTime dateTime;
-
     @Builder.Default
     @OneToMany(mappedBy = "parent", orphanRemoval = true)
     private List<Comment> children = new ArrayList<>();
+
+    @Embedded
+    private DateTime dateTime;
 
     @OneToMany(mappedBy = "comment", orphanRemoval = true)
     private List<Likes> likesList = new ArrayList<>();
