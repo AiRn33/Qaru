@@ -1,6 +1,6 @@
 # Qaru(큐아루)
 <br><br>
-- **노션** : [https://relieved-centaur-19d.notion.site/Qaru-f0937ebd2fc7479985f41987dd64dc45?pvs=4](https://relieved-centaur-19d.notion.site/Qaru-f0937ebd2fc7479985f41987dd64dc45?pvs=4)
+- **노션** : [[https://relieved-centaur-19d.notion.site/Qaru-f0937ebd2fc7479985f41987dd64dc45?pvs=4](https://relieved-centaur-19d.notion.site/Qaru-f0937ebd2fc7479985f41987dd64dc45?pvs=4)](https://relieved-centaur-19d.notion.site/Qaru-f0937ebd2fc7479985f41987dd64dc45?pvs=4)
   <br><br> 사이드 프로젝트의 정보를 정리해두었습니다.
 
 <br><br>
