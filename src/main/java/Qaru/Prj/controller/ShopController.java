@@ -178,6 +178,7 @@ public class ShopController {
                                   @RequestBody List<MenuCreateRequest> menuData){
 
         List<Menu> menus = menuService.modifyMenuAll(id, menuData);
+
         return menus.size();
     }
 }

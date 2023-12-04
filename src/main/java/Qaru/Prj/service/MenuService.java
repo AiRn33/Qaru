@@ -36,11 +36,11 @@ public class MenuService {
     private String dir;
     
     @Transactional
-    public List<Menu> createMenuAll(PrincipalDetails request, List<MenuCreateRequest> menuData) {
+    public List<Menu> createMenuAll(PrincipalDetails request, List<MenuCreateRequest> menuData){
 
         List<Menu> list = new ArrayList<>();
 
-        Shop shop = shopRepository.findByUserId(request.getUser().getId()).get();
+        Shop shop = shopRepository.findByUserId(request.getUser().getId()).orElseThrow(() -> new NoSuchElementException("상점의 유저를 찾을 수 없습니다."));
 
         MenuGroup menuGroup = menuGroupService.createMenuGroup(shop);
 
