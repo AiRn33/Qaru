@@ -40,7 +40,7 @@ public class MenuService {
 
         List<Menu> list = new ArrayList<>();
 
-        Shop shop = shopRepository.findByUserId(request.getUser().getId()).orElseThrow(() -> new NoSuchElementException("상점의 유저를 찾을 수 없습니다."));
+        Shop shop = shopRepository.findByUserId(request.getUser().getId()).get();
 
         MenuGroup menuGroup = menuGroupService.createMenuGroup(shop);
 
