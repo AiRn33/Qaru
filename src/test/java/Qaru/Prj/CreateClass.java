@@ -6,6 +6,9 @@ import Qaru.Prj.domain.entity.*;
 import Qaru.Prj.domain.enums.RoleType;
 import Qaru.Prj.domain.enums.StatusType;
 import Qaru.Prj.domain.enums.UserType;
+import org.junit.jupiter.api.Test;
+
+import java.util.Scanner;
 
 public class CreateClass {
     public User createUser() {

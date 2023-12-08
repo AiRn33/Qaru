@@ -22,11 +22,20 @@
                     </div>
                 </div>
                 <div class="row g-0">
-                    <div class="col">
+                    <div class="col-6">
                         <div class="card" style="padding:8px">
                             <button type="submit" class="btn btn-light_green">
                                 <i class="bi bi-box-arrow-in-right fs-5" style="color: white;">
                                     &nbsp;로그인
+                                </i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card" style="padding:8px; height: 62px;">
+                            <button type="button" class="btn btn-warning" onclick="kakao_login()">
+                                <i class="bi bi-chat-fill fs-5"style="color: white;">
+                                    &nbsp;카카오 로그인
                                 </i>
                             </button>
                         </div>
@@ -67,9 +76,13 @@
     </div>
 </div>
 <script>
-    window.onload = function(){
+    window.onload = function () {
         document.querySelector('#errorScript').value = '${param.errorMsg}';
         //실행될 코드
         errors();
+    }
+
+    function kakao_login(){
+        location.href='https://kauth.kakao.com/oauth/authorize?client_id=285edf31cf273aca2e93002d8b046c66&redirect_uri=http://localhost:8080/kakao/login&response_type=code';
     }
 </script>
