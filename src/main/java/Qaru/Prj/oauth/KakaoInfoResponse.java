@@ -15,6 +15,8 @@ public class KakaoInfoResponse implements OAuthInfoResponse {
     @JsonProperty("id")
     private String id;
 
+    private Boolean signupCheck;
+
     @Getter
     @JsonIgnoreProperties(ignoreUnknown = true)
     static class KakaoAccount {
@@ -39,6 +41,17 @@ public class KakaoInfoResponse implements OAuthInfoResponse {
     public String getNickname() {
         return kakaoAccount.profile.nickname;
     }
+
+    @Override
+    public Boolean getSignUpCheck() {
+        return signupCheck;
+    }
+
+    @Override
+    public void setSingUpCheck(Boolean signupCheck) {
+        this.signupCheck = signupCheck;
+    }
+
 
     @Override
     public UserType getOAuthProvider() {

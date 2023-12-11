@@ -4,6 +4,7 @@ import Qaru.Prj.config.customSecurity.PrincipalDetails;
 import Qaru.Prj.domain.baseEntity.Address;
 import Qaru.Prj.domain.entity.Shop;
 import Qaru.Prj.domain.entity.User;
+import Qaru.Prj.domain.request.KakaoSignUpRequest;
 import Qaru.Prj.domain.request.UserAuthRequest;
 import Qaru.Prj.domain.request.UserSignUpRequest;
 import Qaru.Prj.domain.request.UserUpdateRequest;
@@ -19,10 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.transaction.Transactional;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -63,6 +61,21 @@ public class UserService {
         if(userRepository.findByUserId(request.getUserId()).isPresent()){
             msg.add("중복 된 유저 아이디가 있습니다.,userId");
         }
+
+        if(userRepository.findByUserEmail(request.getUserEmail()).isPresent()){
+            msg.add("중복 된 유저 이메일이 있습니다.,userEmail");
+        }
+
+        if(userRepository.findByUserNickName(request.getUserNickname()).isPresent()){
+            msg.add("중복 된 유저 닉네임이 있습니다.,userNickname");
+        }
+
+        return msg;
+    }
+
+    public List duplicateCheck(KakaoSignUpRequest request) {
+
+        List msg = new ArrayList();
 
         if(userRepository.findByUserEmail(request.getUserEmail()).isPresent()){
             msg.add("중복 된 유저 이메일이 있습니다.,userEmail");

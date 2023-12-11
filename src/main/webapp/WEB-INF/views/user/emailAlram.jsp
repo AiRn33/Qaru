@@ -14,6 +14,7 @@
                 <input type="hidden" name="email" id="email" value="${userData.userEmail}">
                 <input type="hidden" name="userId" id="userId" value="${userData.userId}">
                 <input type="hidden" name="userPw" id="userPw" value="${userData.userPw}">
+                <input type="hidden" name="socialType" id="socialType" value="${userData.socialType}">
                 <input type="hidden" name="userNickname" id="userNickname" value="${userData.userNickname}">
                 <input type="hidden" name="userEmail" id="userEmail" value="${userData.userEmail}">
                 <div class="row g-0">
@@ -37,7 +38,7 @@
                 <div class="row g-0">
                     <div class="col">
                         <div class="card" style="padding:8px">
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-primary" onclick="Submit()">
                                 <i class="bi bi-people-fill fs-5" style="color: white;">
                                     &nbsp;인증하기
                                 </i>
@@ -67,5 +68,6 @@
     window.onload = function () {
         //실행될 코드
         errors();
+
     }
 </script>

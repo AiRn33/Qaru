@@ -12,22 +12,32 @@ import java.util.Optional;
 
 public class OAuthLoginService {
     private final UserRepository userRepository;
-    private final AuthTokensGenerator authTokensGenerator;
     private final RequestOAuthInfoService requestOAuthInfoService;
 
-    public AuthTokens login(OAuthLoginParams params) {
+    public OAuthInfoResponse login(OAuthLoginParams params) {
+
         OAuthInfoResponse oAuthInfoResponse = requestOAuthInfoService.request(params);
 
         Long memberId = findUser(oAuthInfoResponse);
-        return authTokensGenerator.generate(memberId);
+
+        if(memberId < 1L){
+            // 회원가입 된 유저 없음
+            oAuthInfoResponse.setSingUpCheck(true);
+            return oAuthInfoResponse;
+        }else{
+            // 회원가입 된 유저 있음
+            oAuthInfoResponse.setSingUpCheck(false);
+            return oAuthInfoResponse;
+        }
     }
 
     private Long findUser(OAuthInfoResponse oAuthInfoResponse) {
 
-        Optional<User> findUser = userRepository.findByUserId(oAuthInfoResponse.getId());
+        Optional<User> findUser = userRepository.findByUserId(oAuthInfoResponse.getId() + "_kakao");
 
-        // 로그인시 id 체크
-        if(findUser.isPresent()){
+//      로그인시 id 체크
+        if(!findUser.isPresent()){
+            // 회원가입 된 유저가 없음
             return 0L;
         }else{
             return findUser.get().getId();

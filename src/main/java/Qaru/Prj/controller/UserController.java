@@ -82,6 +82,45 @@ public class UserController {
         }
 
         // 성공 -> 이메일 인증 진행
+        request.setSocialType();
+        model.addAttribute("userData", request);
+        emailService.sendMail(request.getUserEmail());
+        return "/user/emailAlram";
+    }
+
+    @PostMapping("/user/signup-kakao")
+    public String userSignupKakaoPost(@Valid KakaoSignUpRequest request, BindingResult result, Model model) throws MessagingException, UnsupportedEncodingException {
+
+        // valid에 걸릴 시
+        if(result.hasErrors()){
+            List errors = new ScriptErrors().errors(result);
+            model.addAttribute("errorScript", errors);
+            model.addAttribute("userData", request);
+            model.addAttribute("validCk", true);
+            model.addAttribute("kakaoId", request.getKakaoId());
+            return "/user/signupKakao";
+        }
+
+        // 아이디, 이메일, 닉네임 중복 체크
+        List duplicateMsg = userService.duplicateCheck(request);
+
+
+        Boolean duplicateCheck = false;
+        if(duplicateMsg.size() > 0){
+            duplicateCheck = true;
+        }
+
+        if(duplicateCheck){
+            model.addAttribute("errorScript", duplicateMsg);
+            model.addAttribute("userData", request);
+            model.addAttribute("validCk", true);
+            model.addAttribute("kakaoId", request.getKakaoId());
+
+            return "/user/signupKakao";
+        }
+
+        // 성공 -> 이메일 인증 진행
+        request.setEmailAlram();
         model.addAttribute("userData", request);
         emailService.sendMail(request.getUserEmail());
         return "/user/emailAlram";

@@ -16,6 +16,7 @@ public class UserSignUpRequest {
 
     @NotBlank(message = "아이디를 입력해주세요.")
     @Size(min = 6, max = 15, message = "아이디는 6 ~ 15글자까지 입력가능합니다.")
+    @Pattern(regexp = "^[a-z0-9]*$", message = "알파벳 소문자(a~z) / 숫자(0~9)만 입력 가능합니다.")
     private String userId;
 
     @NotBlank(message = "패스워드를 입력해주세요.")
@@ -32,6 +33,8 @@ public class UserSignUpRequest {
     @Email(message = "이메일 형식에 맞지 않습니다.")
     private String userEmail;
 
+    private UserType socialType;
+
     public UserSignUpRequest(String userId, String userPw, String userPwCk, String userNickname, String userEmail) {
         this.userId = userId;
         this.userPw = userPw;
@@ -45,8 +48,12 @@ public class UserSignUpRequest {
         this.userPw = request.getUserPw();
         this.userNickname = request.getUserNickname();
         this.userEmail = request.getUserEmail();
+        this.socialType = request.getSocialType();
     }
 
+    public void setSocialType(){
+        this.socialType = UserType.NOMAL;
+    }
     public User toEntity(){
         return User.builder()
                 .userId(userId)
@@ -55,7 +62,7 @@ public class UserSignUpRequest {
                 .userEmail(userEmail)
                 .dateTime(new DateTime().createTime())
                 .role(RoleType.USER)
-                .userSocialType(UserType.NOMAL)
+                .userSocialType(socialType)
                 .build();
     }
 

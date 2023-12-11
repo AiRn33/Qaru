@@ -7,25 +7,18 @@
         <div class="col-4"></div>
         <div class="col-4 text-center">
             <div class="card" style="padding:8px">
-                <h1>회원가입</h1>
+                <h1>카카오 회원가입</h1>
             </div>
-            <form action="/user/signup" method="post" id="signupForm">
-                <input type="hidden" id="kakao_id" value="${kakaoId}">
+            <input type="hidden" id="validCk" value="${validCk}">
+
+            <form action="/user/signup-kakao" method="post" id="signupForm">
+                <input type="hidden" id="kakaoId" name="kakaoId" value="${kakaoId}">
                 <div class="row g-0">
                     <div class="col">
                         <div class="card" style="padding:8px">
                             <div class="form-floating mb-1" id="userIdArea">
-                                <input type="text" class="form-control" id="userId" name="userId" placeholder="" value="${userData.userId}">
+                                <input type="text" class="form-control" id="userId" name="userId" placeholder="" value="카카오" disabled>
                                 <label for="userId">아이디 &nbsp <i class="bi bi-mouse"></i></label>
-                            </div>
-                            <div class="form-floating mb-1">
-                                <input type="password" class="form-control" id="userPw" name="userPw" placeholder="" value="${userData.userPw}">
-                                <label for="userPw">비밀번호 &nbsp;<i class="bi bi-mouse"></i></label>
-                            </div>
-                            <div class="form-floating mb-1" id="userPwArea">
-                                <input type="password" class="form-control" id="userPwCk" name="userPwCk"
-                                       placeholder="">
-                                <label for="userPwCk">비밀번호 확인 &nbsp;<i class="bi bi-mouse"></i></label>
                             </div>
                             <div class="form-floating mb-1" id="userNicknameArea" >
                                 <input type="text" class="form-control" id="userNickname" name="userNickname" value="${userData.userNickname}"
@@ -83,6 +76,9 @@
     window.onload = function(){
         //실행될 코드
         errors();
+        if(document.querySelector('#validCk').value == ''){
+            alert('등록 된 회원이 없습니다. 회원가입을 진행합니다.');
+        }
     }
 
     document.getElementById('body').addEventListener('keydown', (e) => {
@@ -96,4 +92,5 @@
         document.querySelector('#submitBtn').disabled = true;
         document.querySelector('#signupForm').submit();
     }
+
 </script>

@@ -1,5 +1,6 @@
 package Qaru.Prj.domain.request;
 
+import Qaru.Prj.domain.enums.UserType;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -19,5 +20,6 @@ public class UserAuthRequest {
     private String userPw;
     private String userNickname;
     private String userEmail;
+    private UserType socialType;
 
 }
