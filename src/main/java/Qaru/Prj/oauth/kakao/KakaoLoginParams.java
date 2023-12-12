@@ -1,10 +1,11 @@
-package Qaru.Prj.oauth;
+package Qaru.Prj.oauth.kakao;
 
 import Qaru.Prj.domain.enums.UserType;
+import Qaru.Prj.oauth.OAuthLoginParams;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-public class KakaoLoginParams implements OAuthLoginParams{
+public class KakaoLoginParams implements OAuthLoginParams {
 
     private String authorizationCode;
 

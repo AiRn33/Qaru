@@ -1,4 +1,4 @@
-package Qaru.Prj.oauth;
+package Qaru.Prj.oauth.kakao;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;

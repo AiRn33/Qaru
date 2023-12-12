@@ -1,6 +1,7 @@
-package Qaru.Prj.oauth;
+package Qaru.Prj.oauth.kakao;
 
 import Qaru.Prj.domain.enums.UserType;
+import Qaru.Prj.oauth.OAuthInfoResponse;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;

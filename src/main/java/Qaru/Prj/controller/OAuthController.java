@@ -1,13 +1,14 @@
 package Qaru.Prj.controller;
 
+import Qaru.Prj.jwt.JwtTokenProvider;
 import Qaru.Prj.oauth.*;
+import Qaru.Prj.jwt.JwtToken;
+import Qaru.Prj.jwt.AuthTokensGenerator;
+import Qaru.Prj.oauth.kakao.KakaoLoginParams;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -16,7 +17,7 @@ public class OAuthController {
 
     private final OAuthLoginService oAuthLoginService;
     private final AuthTokensGenerator authTokensGenerator;
-
+    private final JwtTokenProvider jwtTokenProvider;
 
     @GetMapping("/kakao/login")
     public String kakaoLogin(@RequestParam("code") String code, Model model){
@@ -31,8 +32,11 @@ public class OAuthController {
             return "/user/signupKakao";
         }else{
             // 로그인 된 유저
-            AuthTokens generate = authTokensGenerator.generate(Long.valueOf(loginResponse.getId()));
-            System.out.println("======== > : " + generate);
+            JwtToken generate = authTokensGenerator.generate(Long.valueOf(loginResponse.getId()));
+            System.out.println("============= > : " + jwtTokenProvider.extractSubject(generate.getAccessToken()));
+            System.out.println("============= > : " + jwtTokenProvider.isExpired(generate.getAccessToken()));
+            System.out.println("============= > : " + jwtTokenProvider.extractSubject(generate.getRefreshToken()));
+            System.out.println("============= > : " + jwtTokenProvider.isExpired(generate.getRefreshToken()));
         }
 
         return "/user/login";

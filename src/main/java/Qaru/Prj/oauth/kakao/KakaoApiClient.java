@@ -1,6 +1,9 @@
-package Qaru.Prj.oauth;
+package Qaru.Prj.oauth.kakao;
 
 import Qaru.Prj.domain.enums.UserType;
+import Qaru.Prj.oauth.OAuthApiClient;
+import Qaru.Prj.oauth.OAuthInfoResponse;
+import Qaru.Prj.oauth.OAuthLoginParams;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
