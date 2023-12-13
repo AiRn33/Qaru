@@ -32,6 +32,7 @@ public class ControllerExceptionAdvice {
     @ExceptionHandler(Exception.class)
     public String AllException(Model model, Exception e) {
         log.info("=======> " + e.getMessage());
+        log.info("=======> " + e.getLocalizedMessage());
         e.printStackTrace();
         model.addAttribute("exception", "알 수 없는 에러가 발생하였습니다.");
         return "/error";

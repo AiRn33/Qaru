@@ -12,6 +12,9 @@ import Qaru.Prj.error.ScriptErrors;
 import Qaru.Prj.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -30,12 +33,12 @@ import java.util.*;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final BCryptPasswordEncoder passwordEncoder;
     private final UserService userService;
     private final ShopService shopService;
     private final EmailService emailService;
     private final FileService fileService;
     private final ImageService imageService;
+    private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
     @GetMapping("/user/login")
     public String userLogin(){
@@ -43,6 +46,23 @@ public class UserController {
         return "/user/login";
     }
 
+    @PostMapping("/login")
+    public String login(UserLoginRequest request, Model model){
+
+        System.out.println("======== > : 1 : " + request.toString());
+
+//        userService.signin(request);
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(request.getUserId(), request.getUserPw());
+
+        try{
+            Authentication authentication = authenticationManagerBuilder.getObject().authenticate(token);
+        }catch (Exception e){
+            model.addAttribute("errorScript", "[아이디 또는 비밀번호가 맞지않습니다. 다시확인해주세요, userPw]");
+
+            return "/user/login";
+        }
+        return "home";
+    }
     @GetMapping("/user/signup")
     public String userSignup(){
         return "/user/signup";

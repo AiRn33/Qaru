@@ -1,6 +1,6 @@
 package Qaru.Prj.config;
 
-import Qaru.Prj.config.customSecurity.CustomAuthFailureHandler;
+//import Qaru.Prj.config.customSecurity.CustomAuthFailureHandler;
 import Qaru.Prj.jwt.JwtAuthenticationFilter;
 import Qaru.Prj.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
@@ -37,22 +37,22 @@ public class SecurityConfig{
                 .csrf().disable()
                 // JWT를 사용하기 때문에 세션을 사용하지 않음
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                .and()
+//                .authorizeHttpRequests()
+//                // 해당 API에 대해서는 모든 요청을 허가
+//                .requestMatchers(new AntPathRequestMatcher("/tour/*")).authenticated()
+//                .requestMatchers(new AntPathRequestMatcher("/order/*")).authenticated()
+//                .requestMatchers(new AntPathRequestMatcher("/order/*/*")).authenticated()
+//                .anyRequest().permitAll() //
                 .and()
-                .authorizeHttpRequests()
-                // 해당 API에 대해서는 모든 요청을 허가
-                .requestMatchers(new AntPathRequestMatcher("/tour/*")).authenticated()
-                .requestMatchers(new AntPathRequestMatcher("/order/*")).authenticated()
-                .requestMatchers(new AntPathRequestMatcher("/order/*/*")).authenticated()
-                .anyRequest().permitAll() //
-                .and()
-                .formLogin()
-                    .usernameParameter("userId")
-                    .passwordParameter("userPw")
-                    .loginPage("/user/login")
-                    .loginProcessingUrl("/login") // /login 주소가 호출이 되면 시큐리티가 낚아채서 대신 로그인을 진행해준다.
-                    .failureHandler(new CustomAuthFailureHandler())
-                    .defaultSuccessUrl("/")
-                .and()
+//                .formLogin()
+//                    .usernameParameter("userId")
+//                    .passwordParameter("userPw")
+//                    .loginPage("/user/login")
+//                    .loginProcessingUrl("/login") // /login 주소가 호출이 되면 시큐리티가 낚아채서 대신 로그인을 진행해준다.
+//                    .failureHandler(new CustomAuthFailureHandler())
+//                    .defaultSuccessUrl("/")
+//                .and()
                     .logout()
                     .logoutUrl("/user/logout")
                 .logoutSuccessUrl("/")

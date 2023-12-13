@@ -8,13 +8,20 @@ import Qaru.Prj.domain.request.UserUpdateRequest;
 import lombok.Builder;
 import lombok.Getter;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter
 @DynamicUpdate //변경된 필드만 적용
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue
@@ -86,5 +93,49 @@ public class User {
     public User updatePassword(String password){
         this.userPw = password;
         return this;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+
+        Collection<GrantedAuthority> collectors = new ArrayList<>();
+        collectors.add(new GrantedAuthority() {
+
+            @Override
+            public String getAuthority() {
+                return "ROLE_"+ role;   // ROLE_USER
+            }
+        });
+
+        return collectors;    }
+
+    @Override
+    public String getPassword() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }
