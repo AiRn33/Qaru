@@ -33,10 +33,7 @@ public class OAuthController {
         }else{
             // 로그인 된 유저
             JwtToken generate = authTokensGenerator.generate(Long.valueOf(loginResponse.getId()));
-            System.out.println("============= > : " + jwtTokenProvider.extractSubject(generate.getAccessToken()));
-            System.out.println("============= > : " + jwtTokenProvider.isExpired(generate.getAccessToken()));
-            System.out.println("============= > : " + jwtTokenProvider.extractSubject(generate.getRefreshToken()));
-            System.out.println("============= > : " + jwtTokenProvider.isExpired(generate.getRefreshToken()));
+
         }
 
         return "/user/login";

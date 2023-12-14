@@ -31,9 +31,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         if(!userEntity.isPresent()){
             throw new UsernameNotFoundException(username);
         }
-
-        System.out.println("=========== > : " + userEntity.get().getUserId());
-        System.out.println("=========== > : " + userEntity.get().getUserPw());
         return new PrincipalDetails(userEntity.get());
     }
 

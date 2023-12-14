@@ -137,9 +137,6 @@ class UserRepositoryImplTest {
 
         List<OrdersResponse> ordersResponses = userRepositoryImpl.ordersList(user.getId());
 
-        for (OrdersResponse ordersRespons : ordersResponses) {
-            System.out.println("====== > : " + ordersRespons);
-        }
     }
 
 }

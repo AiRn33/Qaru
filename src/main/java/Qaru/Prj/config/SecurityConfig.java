@@ -37,28 +37,31 @@ public class SecurityConfig{
                 .csrf().disable()
                 // JWT를 사용하기 때문에 세션을 사용하지 않음
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//                .and()
+                .and()
 //                .authorizeHttpRequests()
+                .authorizeRequests()
+                .antMatchers("/tour/*").authenticated()
 //                // 해당 API에 대해서는 모든 요청을 허가
 //                .requestMatchers(new AntPathRequestMatcher("/tour/*")).authenticated()
 //                .requestMatchers(new AntPathRequestMatcher("/order/*")).authenticated()
 //                .requestMatchers(new AntPathRequestMatcher("/order/*/*")).authenticated()
-//                .anyRequest().permitAll() //
+                .anyRequest().permitAll()
                 .and()
-//                .formLogin()
+                .formLogin()
 //                    .usernameParameter("userId")
 //                    .passwordParameter("userPw")
-//                    .loginPage("/user/login")
+                    .loginPage("/user/login")
 //                    .loginProcessingUrl("/login") // /login 주소가 호출이 되면 시큐리티가 낚아채서 대신 로그인을 진행해준다.
 //                    .failureHandler(new CustomAuthFailureHandler())
 //                    .defaultSuccessUrl("/")
 //                .and()
-                    .logout()
-                    .logoutUrl("/user/logout")
-                .logoutSuccessUrl("/")
+//                    .logout()
+//                    .logoutUrl("/user/logout")
+//                .logoutSuccessUrl("/")
                 // JWT 인증을 위하여 직접 구현한 필터를 UsernamePasswordAuthenticationFilter 전에 실행
                 .and()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class).build();
+
     }
 
 //    protected void configure(HttpSecurity http) throws Exception {

@@ -9,13 +9,18 @@ import Qaru.Prj.domain.response.MypageShopResponse;
 import Qaru.Prj.domain.response.UserAdminUpdateResponse;
 import Qaru.Prj.domain.response.UserMypageRespose;
 import Qaru.Prj.error.ScriptErrors;
+import Qaru.Prj.jwt.AuthTokensGenerator;
+import Qaru.Prj.jwt.JwtToken;
+import Qaru.Prj.jwt.JwtTokenProvider;
 import Qaru.Prj.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +29,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
@@ -39,6 +45,7 @@ public class UserController {
     private final FileService fileService;
     private final ImageService imageService;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
+    private final AuthTokensGenerator generator;
 
     @GetMapping("/user/login")
     public String userLogin(){
@@ -49,19 +56,22 @@ public class UserController {
     @PostMapping("/login")
     public String login(UserLoginRequest request, Model model){
 
-        System.out.println("======== > : 1 : " + request.toString());
-
-//        userService.signin(request);
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(request.getUserId(), request.getUserPw());
-
+        Authentication authentication = null;
         try{
-            Authentication authentication = authenticationManagerBuilder.getObject().authenticate(token);
+            authentication = authenticationManagerBuilder.getObject().authenticate(token);
         }catch (Exception e){
             model.addAttribute("errorScript", "[아이디 또는 비밀번호가 맞지않습니다. 다시확인해주세요, userPw]");
 
             return "/user/login";
         }
-        return "home";
+        PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
+        JwtToken generate = generator.generate(principalDetails.getUser().getId());
+
+        model.addAttribute("accessToken", generate.getAccessToken());
+        model.addAttribute("refreshToken", generate.getRefreshToken());
+
+        return "/tokenSave";
     }
     @GetMapping("/user/signup")
     public String userSignup(){
