@@ -40,6 +40,9 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
         if (!url.equals("http://localhost:8080/dummy")) {
             chain.doFilter(request, response);
         } else {
+
+            // 현재 filter 처리 할 때 SecurityContextHolder 처리가 안됌.
+            // filter 처리를 할 대 context set 이 필요한 것으로 보임
             System.out.println("========== > : filter : " + SecurityContextHolder.getContext().getAuthentication());
             String token = resolveToken((HttpServletRequest) request);
 

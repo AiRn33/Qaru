@@ -49,6 +49,8 @@ public class UserController {
 
     @GetMapping("/user/login")
     public String userLogin(){
+        
+        // 이쪽은 SpringSecurity 저장이 되어있음
         System.out.println("============== > loginGet : " + SecurityContextHolder.getContext().getAuthentication());
 
         return "/user/login";
