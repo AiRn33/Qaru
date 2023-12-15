@@ -24,7 +24,7 @@
             <div class="row g-0">
                 <div class="col">
                     <div class="card" style="padding:8px">
-                        <button type="button" class="btn btn-primary" onclick="location.href='/user/logout'">
+                        <button type="button" class="btn btn-primary" onclick="location.href='/'">
                             <i class="bi bi-arrow-bar-right fs-5" style="color: white">
                                 &nbsp;홈으로 돌아가기
                             </i>

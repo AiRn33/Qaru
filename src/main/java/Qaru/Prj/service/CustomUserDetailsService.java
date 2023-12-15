@@ -25,12 +25,12 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
         Optional<Qaru.Prj.domain.entity.User> userEntity = userRepository.findByUserId(username);
 
         if(!userEntity.isPresent()){
             throw new UsernameNotFoundException(username);
         }
+
         return new PrincipalDetails(userEntity.get());
     }
 

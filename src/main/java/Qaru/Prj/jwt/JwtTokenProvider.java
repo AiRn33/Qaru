@@ -7,14 +7,18 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.Key;
-import java.util.Arrays;
-import java.util.Date;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 @Slf4j
@@ -22,14 +26,22 @@ public class JwtTokenProvider {
 
     private final Key key;
 
+
+
     public JwtTokenProvider(@Value("${jwt.secret-key}") String secretKey) {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public String generate(String subject, Date expiredAt) {
+    public String generate(Qaru.Prj.domain.entity.User user, Date expiredAt) {
+
+        String authorities = user.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(","));
+
         return Jwts.builder()
-                .setSubject(subject)
+                .setSubject(String.valueOf(user.getId()))
+                .claim("auth", authorities)
                 .setExpiration(expiredAt)
                 .signWith(key, SignatureAlgorithm.HS512)
                 .compact();
@@ -42,6 +54,7 @@ public class JwtTokenProvider {
     }
 
     private Claims parseClaims(String accessToken) {
+
         try {
             return Jwts.parserBuilder()
                     .setSigningKey(key)
@@ -57,28 +70,29 @@ public class JwtTokenProvider {
     public Long extractUserId(String accessToken) {
         return Long.valueOf(extractSubject(accessToken));
     }
+
     public Boolean isExpired(String accessToken) {
         Date expiredDate = parseClaims(accessToken).getExpiration();
         // Token의 만료 날짜가 지금보다 이전인지 check
 
-        return expiredDate.before(new Date());
+        return expiredDate.after(new Date());
     }
 
 
     // Jwt 토큰을 복호화하여 토큰에 들어있는 정보를 꺼내는 메서드
-    public Authentication getAuthentication(String accessToken) {
+    public Authentication getAuthentication(String accessToken, HttpServletRequest request) {
         // Jwt 토큰 복호화
         Claims claims = parseClaims(accessToken);
 
-        if (claims.get("auth") == null) {
-            throw new RuntimeException("권한 정보가 없는 토큰입니다.");
-        }
+        // 클레임에서 권한 정보 가져오기
+        Collection<? extends GrantedAuthority> authorities = Arrays.stream(claims.get("auth").toString().split(","))
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+        UserDetails principal = new User(claims.getSubject(), "", authorities);
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(principal, "", authorities);
+        token.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
-
-        // UserDetails 객체를 만들어서 Authentication return
-        // UserDetails: interface, User: UserDetails를 구현한 class
-        UserDetails principal = new User(claims.getSubject(), "", null);
-        return new UsernamePasswordAuthenticationToken(principal, "", null);
+        return token;
     }
 
     // 토큰 정보를 검증하는 메서드

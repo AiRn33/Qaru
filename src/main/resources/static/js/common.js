@@ -62,6 +62,15 @@ function email_check( email ) {
 function jwtCheck(){
     let accessToken = localStorage.getItem("accessToken");
     let refreshToken = localStorage.getItem("refreshToken");
-    console.log(accessToken);
-    console.log(refreshToken);
+    let Authorization = localStorage.getItem("Authorization");
+
+    $.ajax({
+        headers: {
+            "Content-Type": "application/json",
+            "accessToken" : accessToken,
+            "refreshToken" : refreshToken,
+            "Authorization" : Authorization
+        },
+        url:"/dummy"
+    });
 }

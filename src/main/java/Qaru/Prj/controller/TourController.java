@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -43,7 +44,6 @@ public class TourController {
     @GetMapping("/tour/tourList")
     public String tourList(Pageable pageable, Model model,
                            @RequestParam("order") String order) {
-
 
         List<TourListResponse> tourListResponses =
                 tourService.searchTourListAll(pageable, order).toList();

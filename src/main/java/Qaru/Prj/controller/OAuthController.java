@@ -32,7 +32,7 @@ public class OAuthController {
             return "/user/signupKakao";
         }else{
             // 로그인 된 유저
-            JwtToken generate = authTokensGenerator.generate(Long.valueOf(loginResponse.getId()));
+//            JwtToken generate = authTokensGenerator.generate();
 
         }
 

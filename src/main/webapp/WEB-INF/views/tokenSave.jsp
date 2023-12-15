@@ -1,5 +1,6 @@
 <script>
+    window.localStorage.setItem('Authorization', 'Bearer ${accessToken}');
     window.localStorage.setItem('accessToken', '${accessToken}');
     window.localStorage.setItem('refreshToken', '${refreshToken}');
-    window.location.href = '/';
+    location.href = '/';
 </script>

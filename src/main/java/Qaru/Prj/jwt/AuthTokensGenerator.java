@@ -1,5 +1,7 @@
 package Qaru.Prj.jwt;
 
+import Qaru.Prj.domain.entity.User;
+import Qaru.Prj.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -14,15 +16,14 @@ public class AuthTokensGenerator {
 
     private final JwtTokenProvider jwtTokenProvider;
 
-    public JwtToken generate(Long memberId) {
+    public JwtToken generate(User user) {
 
         long now = (new Date()).getTime();
         Date accessTokenExpiredAt = new Date(now + ACCESS_TOKEN_EXPIRE_TIME);
         Date refreshTokenExpiredAt = new Date(now + REFRESH_TOKEN_EXPIRE_TIME);
 
-        String subject = memberId.toString();
-        String accessToken = jwtTokenProvider.generate(subject, accessTokenExpiredAt);
-        String refreshToken = jwtTokenProvider.generate(subject, refreshTokenExpiredAt);
+        String accessToken = jwtTokenProvider.generate(user, accessTokenExpiredAt);
+        String refreshToken = jwtTokenProvider.generate(user, refreshTokenExpiredAt);
 
         return JwtToken.of(accessToken, refreshToken, BEARER_TYPE, ACCESS_TOKEN_EXPIRE_TIME / 1000L);
     }

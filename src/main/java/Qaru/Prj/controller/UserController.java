@@ -49,6 +49,7 @@ public class UserController {
 
     @GetMapping("/user/login")
     public String userLogin(){
+        System.out.println("============== > loginGet : " + SecurityContextHolder.getContext().getAuthentication());
 
         return "/user/login";
     }
@@ -66,7 +67,7 @@ public class UserController {
             return "/user/login";
         }
         PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
-        JwtToken generate = generator.generate(principalDetails.getUser().getId());
+        JwtToken generate = generator.generate(principalDetails.getUser());
 
         model.addAttribute("accessToken", generate.getAccessToken());
         model.addAttribute("refreshToken", generate.getRefreshToken());

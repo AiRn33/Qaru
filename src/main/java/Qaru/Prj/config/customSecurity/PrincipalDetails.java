@@ -3,6 +3,7 @@ package Qaru.Prj.config.customSecurity;
 import Qaru.Prj.domain.entity.User;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
@@ -21,14 +22,9 @@ public class PrincipalDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() { // User 권한을 리턴하는 메서드
-        Collection<GrantedAuthority> collect = new ArrayList<>();
-        collect.add(new GrantedAuthority() {
-            @Override
-            public String getAuthority() {
-                return String.valueOf(user.getRole());
-            }
-        });
-        return collect;
+        Collection<GrantedAuthority> collection = new ArrayList<>();
+        collection.add(new SimpleGrantedAuthority("ROLE_" + user.getRole().toString()));
+        return collection;
     }
 
     @Override
