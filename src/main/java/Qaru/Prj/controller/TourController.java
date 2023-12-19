@@ -191,7 +191,7 @@ public class TourController {
         if (bindingResult.hasErrors()) {
             List errors = new ScriptErrors().errors(bindingResult);
             model.addAttribute("errorScript", errors);
-            model.addAttribute("tourData", request);
+            model.addAttribute("tourDa  ta", request);
             model.addAttribute("commentCheck", request.getTourContent().length() < 1 ? true : false);
             model.addAttribute("errorScriptImg", "[이미지를 다시 등록해주세요., img]");
 
@@ -230,7 +230,7 @@ public class TourController {
 
         tourService.deleteTour(id);
 
-        return "redirect:/tour/tourList";
+        return "redirect:/tour/tourList?page=0&size=9&order=none";
     }
     @ResponseBody
     @GetMapping("/tour/search")

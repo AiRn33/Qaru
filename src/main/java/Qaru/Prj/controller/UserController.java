@@ -49,9 +49,6 @@ public class UserController {
 
     @GetMapping("/user/login")
     public String userLogin(){
-        
-        // 이쪽은 SpringSecurity 저장이 되어있음
-        System.out.println("============== > loginGet : " + SecurityContextHolder.getContext().getAuthentication());
 
         return "/user/login";
     }
@@ -61,8 +58,10 @@ public class UserController {
 
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(request.getUserId(), request.getUserPw());
         Authentication authentication = null;
+        SecurityContextHolder.getContext().setAuthentication(authentication);
         try{
             authentication = authenticationManagerBuilder.getObject().authenticate(token);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
         }catch (Exception e){
             model.addAttribute("errorScript", "[아이디 또는 비밀번호가 맞지않습니다. 다시확인해주세요, userPw]");
 
@@ -167,7 +166,9 @@ public class UserController {
             model.addAttribute("userData", request);
             return "/user/emailAlram";
         }
+
         Boolean check = userService.authNumCheck(request);
+
         if(!check){
             model.addAttribute("errorScript", "[인증번호가 일치하지 않습니다.,authNum]");
             model.addAttribute("userData", request);
@@ -175,8 +176,8 @@ public class UserController {
         }
 
         userService.signup(new UserSignUpRequest(request));
-
         model.addAttribute("successAlert", 1);
+
         return "/successAlert";
     }
 

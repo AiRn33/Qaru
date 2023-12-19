@@ -1,5 +1,6 @@
 package Qaru.Prj.jwt;
 
+import Qaru.Prj.config.customSecurity.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -12,13 +13,13 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends GenericFilterBean {
 
     private final JwtTokenProvider jwtTokenProvider;
-
 
     // Request Header에서 토큰 정보 추출
     private String resolveToken(HttpServletRequest request) {
@@ -27,31 +28,23 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
         String refreshToken = request.getHeader("refreshToken");
 
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer")) {
+
             return bearerToken.substring(7);
         }
-        return null;
+
+        return "noToken";
     }
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
-        String url = String.valueOf(((HttpServletRequest) request).getRequestURL());
+        String token = resolveToken((HttpServletRequest) request);
 
-        if (!url.equals("http://localhost:8080/dummy")) {
-            chain.doFilter(request, response);
-        } else {
-
-            // 현재 filter 처리 할 때 SecurityContextHolder 처리가 안됌.
-            // filter 처리를 할 대 context set 이 필요한 것으로 보임
-            System.out.println("========== > : filter : " + SecurityContextHolder.getContext().getAuthentication());
-            String token = resolveToken((HttpServletRequest) request);
-
-            if (!token.equals("null") && jwtTokenProvider.isExpired(token)) {// 토큰이 유효할 경우 토큰에서 Authentication 객체를 가지고 와서 SecurityContext에 저장
-                Authentication authentication = jwtTokenProvider.getAuthentication(token, (HttpServletRequest) request);
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-            }
-
-            chain.doFilter(request, response);
+        if (!token.equals("noToken") && jwtTokenProvider.isExpired(token)) {
+            Authentication authentication = jwtTokenProvider.getAuthentication(token, (HttpServletRequest) request);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
         }
+
+        chain.doFilter(request, response);
     }
 }

@@ -8,79 +8,79 @@
             <div class="card" style="padding:8px">
                 <h1>QR 코드 생성</h1>
             </div>
-                <div class="row g-0">
-                    <div class="col">
-                        <div class="card" style="padding:8px">
-                            <div class="input-group has-validation">
-                                <div class="form-floating is-invalid"></div>
-                                <div class="invalid-feedback"
-                                     style="text-align: right; font-size: 11px; color: #ff6b81">
-                                    QR 코드에 담을 URL을 입력해주세요. / 예 : www.naver.com
-                                </div>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="textInput" name="userId">
-                                <label for="textInput">URL 입력칸 &nbsp;<i class="bi bi-mouse"></i></label>
-                                <button type="button" class="btn btn-bluemint" id="gobtn"
-                                        style="float: right; margin-top: 5px;">
-                                    <span style="color : white;">QR 생성</span>
-                                </button>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <hr style="margin: 0.4rem;">
-                                <div id="qrout"><span id="noQr" style="font-weight: bold;">생성된 QR 코드가 없습니다.</span></div>
+            <div class="row g-0">
+                <div class="col">
+                    <div class="card" style="padding:8px">
+                        <div class="input-group has-validation">
+                            <div class="form-floating is-invalid"></div>
+                            <div class="invalid-feedback"
+                                 style="text-align: right; font-size: 11px; color: #ff6b81">
+                                QR 코드에 담을 URL을 입력해주세요. / 예 : www.naver.com
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="row g-0">
-                    <div class="col">
-                        <div class="card" style="padding:8px; margin-top: 10px;">
-                            <div class="form-floating mb-3">
-                                <c:choose>
-                                    <c:when test="${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.user == null}">
-                                        <span style="font-size: 12px;"><a href="/user/login">로그인</a> 하시면 작성한 여행 목록을 QR코드로 만들 수 있습니다.</span>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <div class="row g-0">
-                                            <div class="card" style="padding:8px">
-                                                <h3>작성 여행 목록</h3>
-                                            </div>
-                                            <div class="col-8 align-self-center">
-                                                <div class="card" style="padding:8px; height: 50px;">
-                                                    <div class="form-floating mb-1 align-middle">
-                                                        <span style="color: dimgray; font-size: 18px;">제목</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-4 align-self-center">
-                                                <div class="card" style="padding:8px; height: 50px;">
-                                                    <div class="form-floating mb-1 align-middle">
-                                                        <span style="color: dimgray; font-size: 18px;">생성</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div id="tourList">
-
-                                        </div>
-                                    </c:otherwise>
-                                </c:choose>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row g-0">
-                    <div class="col">
-                        <div class="card" style="padding:8px">
-                            <button type="button" class="btn btn-pink" onclick="location.href='/'">
-                                <i class="bi bi-box-arrow-in-right fs-5" style="color: white;">
-                                    &nbsp;뒤로 가기
-                                </i>
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="textInput" name="userId">
+                            <label for="textInput">URL 입력칸 &nbsp;<i class="bi bi-mouse"></i></label>
+                            <button type="button" class="btn btn-bluemint" id="gobtn"
+                                    style="float: right; margin-top: 5px;">
+                                <span style="color : white;">QR 생성</span>
                             </button>
                         </div>
+                        <div class="form-floating mb-3">
+                            <hr style="margin: 0.4rem;">
+                            <div id="qrout"><span id="noQr" style="font-weight: bold;">생성된 QR 코드가 없습니다.</span></div>
+                        </div>
                     </div>
                 </div>
+            </div>
+            <div class="row g-0">
+                <div class="col">
+                    <div class="card" style="padding:8px; margin-top: 10px;">
+                        <div class="form-floating mb-3">
+                            <c:choose>
+                                <c:when test="${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.user == null}">
+                                    <span style="font-size: 12px;"><a href="/user/login">로그인</a> 하시면 작성한 여행 목록을 QR코드로 만들 수 있습니다.</span>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="row g-0">
+                                        <div class="card" style="padding:8px">
+                                            <h3>작성 여행 목록</h3>
+                                        </div>
+                                        <div class="col-8 align-self-center">
+                                            <div class="card" style="padding:8px; height: 50px;">
+                                                <div class="form-floating mb-1 align-middle">
+                                                    <span style="color: dimgray; font-size: 18px;">제목</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4 align-self-center">
+                                            <div class="card" style="padding:8px; height: 50px;">
+                                                <div class="form-floating mb-1 align-middle">
+                                                    <span style="color: dimgray; font-size: 18px;">생성</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="tourList">
+
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-0">
+                <div class="col">
+                    <div class="card" style="padding:8px">
+                        <button type="button" class="btn btn-pink" onclick="location.href='/'">
+                            <i class="bi bi-box-arrow-in-right fs-5" style="color: white;">
+                                &nbsp;뒤로 가기
+                            </i>
+                        </button>
+                    </div>
+                </div>
+            </div>
             <div class="row g-0">
             </div>
         </div>
@@ -98,14 +98,13 @@
         if (${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.user != null}) {
             tourList();
         }
-        //구글API URL
 
         $("#gobtn").click(function () {
             createQr();
         });
     });
 
-    function createQr(){
+    function createQr() {
         $text = $("#textInput").val();
 
         //입력한 내용 있는지 체크
@@ -129,7 +128,7 @@
         }
     }
 
-    function createQrTour(input){
+    function createQrTour(input) {
 
         let url = 'http://localhost:8080/tour/' + input;
         $text = url;
@@ -156,26 +155,34 @@
     }
 
     function tourList() {
+
         $.ajax({
             type: "GET",
             url: "/qr/tour",
             dataType: "json",
             success: function (res) {
                 let html = '';
-                for(let i = 0; i < res.length; i++){
-                    html += '<div class="row g-0">';
-                    html +=     '<div class="col-8 align-self-center">';
-                    html += '<div class="card" style="padding:8px; height: 50px;">';
-                    html += '<div class="form-floating mb-1 align-middle">';
-                    html += '<span style="color: dimgray; font-size: 12px;">' + res[i].tourTitle + '</span>';
-                    html += '</div></div></div>';
-                    html += '<div class="col-4 align-self-center">';
-                    html += '<div class="card" style="padding:8px; height: 50px;">';
-                    html += '<div>';
-                    html += '<button type="button" class="btn" style="position: relative;bottom: 3px;" onclick="createQrTour('+res[i].tourId+')">';
-                    html += '<span style="color: dimgray; font-size: 18px; height: 50px;">';
-                    html += '<i class="bi bi-box2-heart" style="color: black;"></i>';
-                    html += '</span></button></div></div></div></div>';
+                if(res.length > 0){
+                    for (let i = 0; i < res.length; i++) {
+                        html += '<div class="row g-0">';
+                        html += '<div class="col-8 align-self-center">';
+                        html += '<div class="card" style="padding:8px; height: 50px;">';
+                        html += '<div class="form-floating mb-1 align-middle">';
+                        html += '<span style="color: dimgray; font-size: 12px;">' + res[i].tourTitle + '</span>';
+                        html += '</div></div></div>';
+                        html += '<div class="col-4 align-self-center">';
+                        html += '<div class="card" style="padding:8px; height: 50px;">';
+                        html += '<div>';
+                        html += '<button type="button" class="btn" style="position: relative;bottom: 3px;" onclick="createQrTour(' + res[i].tourId + ')">';
+                        html += '<span style="color: dimgray; font-size: 18px; height: 50px;">';
+                        html += '<i class="bi bi-box2-heart" style="color: black;"></i>';
+                        html += '</span></button></div></div></div></div>';
+                    }
+                }else{
+                    html += '<div class="row g-0" style="padding-top: 15px;">';
+                    html += '<span>등록 된 여행 게시글이 없습니다.</span>'
+                    html += '</div>';
+
                 }
 
                 document.querySelector('#tourList').innerHTML = html;
@@ -184,6 +191,7 @@
 
             }
         });
+
     }
 
 </script>

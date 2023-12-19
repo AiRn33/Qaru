@@ -58,19 +58,3 @@ function email_check( email ) {
     var regex=/([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
     return (email != '' && email != 'undefined' && regex.test(email));
 }
-
-function jwtCheck(){
-    let accessToken = localStorage.getItem("accessToken");
-    let refreshToken = localStorage.getItem("refreshToken");
-    let Authorization = localStorage.getItem("Authorization");
-
-    $.ajax({
-        headers: {
-            "Content-Type": "application/json",
-            "accessToken" : accessToken,
-            "refreshToken" : refreshToken,
-            "Authorization" : Authorization
-        },
-        url:"/dummy"
-    });
-}

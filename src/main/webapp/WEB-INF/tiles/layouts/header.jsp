@@ -46,6 +46,3 @@
         </div>
     </div>
 </nav>
-<script>
-    jwtCheck();
-</script>

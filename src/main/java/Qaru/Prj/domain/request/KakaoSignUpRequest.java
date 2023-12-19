@@ -46,7 +46,7 @@ public class KakaoSignUpRequest {
 
     public void setEmailAlram(){
         this.userId = kakaoId + "_kakao";
-        this.userPw = "";
+        this.userPw = "kakao_1230";
         this.socialType = UserType.KAKAO;
     }
 

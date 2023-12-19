@@ -6,6 +6,10 @@ import Qaru.Prj.jwt.JwtToken;
 import Qaru.Prj.jwt.AuthTokensGenerator;
 import Qaru.Prj.oauth.kakao.KakaoLoginParams;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,9 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class OAuthController {
 
     private final OAuthLoginService oAuthLoginService;
-    private final AuthTokensGenerator authTokensGenerator;
-    private final JwtTokenProvider jwtTokenProvider;
-
     @GetMapping("/kakao/login")
     public String kakaoLogin(@RequestParam("code") String code, Model model){
 
@@ -31,12 +32,8 @@ public class OAuthController {
             model.addAttribute("kakaoId", loginResponse.getId());
             return "/user/signupKakao";
         }else{
-            // 로그인 된 유저
-//            JwtToken generate = authTokensGenerator.generate();
-
+            return "redirect:/";
         }
-
-        return "/user/login";
     }
 
 }

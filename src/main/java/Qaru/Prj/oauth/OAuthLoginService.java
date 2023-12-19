@@ -1,18 +1,27 @@
 package Qaru.Prj.oauth;
 
+import Qaru.Prj.config.customSecurity.PrincipalDetails;
 import Qaru.Prj.domain.entity.User;
 import Qaru.Prj.repository.UserRepository;
+import Qaru.Prj.service.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-
 public class OAuthLoginService {
+
     private final UserRepository userRepository;
     private final RequestOAuthInfoService requestOAuthInfoService;
+    private final AuthenticationManagerBuilder authenticationManagerBuilder;
 
     public OAuthInfoResponse login(OAuthLoginParams params) {
 
@@ -27,6 +36,9 @@ public class OAuthLoginService {
         }else{
             // 회원가입 된 유저 있음
             oAuthInfoResponse.setSingUpCheck(false);
+            UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(oAuthInfoResponse.getId() + "_kakao", "kakao_1230");
+            Authentication authentication = authenticationManagerBuilder.getObject().authenticate(token);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
             return oAuthInfoResponse;
         }
     }

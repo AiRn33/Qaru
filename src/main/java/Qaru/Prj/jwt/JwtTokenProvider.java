@@ -1,5 +1,7 @@
 package Qaru.Prj.jwt;
 
+import Qaru.Prj.config.customSecurity.PrincipalDetails;
+import Qaru.Prj.repository.UserRepository;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -25,10 +27,9 @@ import java.util.stream.Collectors;
 public class JwtTokenProvider {
 
     private final Key key;
-
-
-
-    public JwtTokenProvider(@Value("${jwt.secret-key}") String secretKey) {
+    private final UserRepository userRepository;
+    public JwtTokenProvider(@Value("${jwt.secret-key}") String secretKey, UserRepository userRepository) {
+        this.userRepository = userRepository;
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
@@ -72,10 +73,14 @@ public class JwtTokenProvider {
     }
 
     public Boolean isExpired(String accessToken) {
-        Date expiredDate = parseClaims(accessToken).getExpiration();
-        // Token의 만료 날짜가 지금보다 이전인지 check
 
-        return expiredDate.after(new Date());
+        if(!accessToken.equals("noToken")){
+            Date expiredDate = parseClaims(accessToken).getExpiration();
+
+            // Token의 만료 날짜가 지금보다 이전인지 check
+            return expiredDate.after(new Date());
+        }
+        return false;
     }
 
 
@@ -88,8 +93,8 @@ public class JwtTokenProvider {
         Collection<? extends GrantedAuthority> authorities = Arrays.stream(claims.get("auth").toString().split(","))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
-        UserDetails principal = new User(claims.getSubject(), "", authorities);
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(principal, "", authorities);
+
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(userRepository.findById(Long.valueOf(claims.getSubject())).get(), "", authorities);
         token.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
         return token;
