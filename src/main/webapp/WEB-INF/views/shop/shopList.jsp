@@ -160,8 +160,3 @@
         </div>
     </div>
 </div>
-<script>
-    console.log('pageNum : ' + ${pageNum});
-    console.log('endPageNum : ' + ${endPageNum});
-    console.log('getPageNum : ' + ${getPageNum});
-</script>

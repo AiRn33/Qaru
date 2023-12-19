@@ -164,21 +164,3 @@
 </body>
 </html>
 
-<script>
-    function moveTourList(){
-        let accessToken = localStorage.getItem("accessToken");
-        let refreshToken = localStorage.getItem("refreshToken");
-        let Authorization = localStorage.getItem("Authorization");
-
-        if(accessToken != null){
-            $.ajax({
-                type: "POST",
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader("Content-type","application/json");//header추가
-                    xhr.setRequestHeader("Authorization","Bearer " + accessToken);//header추가
-                },
-                url:"/tour/tourList?page=0&size=9&order=none"
-            });
-        }
-    }
-</script>

@@ -478,7 +478,6 @@
             data: likeData,
             success: function (res) {// 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.
 
-                console.log(res);
                 if(tour_comment_check < 1){
                     // tour
                     document.querySelector('#like_check').value = res[res.length - 1].likeCount;

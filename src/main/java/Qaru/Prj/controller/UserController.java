@@ -61,7 +61,6 @@ public class UserController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         try{
             authentication = authenticationManagerBuilder.getObject().authenticate(token);
-            SecurityContextHolder.getContext().setAuthentication(authentication);
         }catch (Exception e){
             model.addAttribute("errorScript", "[아이디 또는 비밀번호가 맞지않습니다. 다시확인해주세요, userPw]");
 

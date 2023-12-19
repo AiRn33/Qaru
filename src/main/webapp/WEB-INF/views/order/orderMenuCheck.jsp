@@ -162,8 +162,6 @@
         let orderData = [];
         let orderMenuCount = ${orderMenuCount};
         for(let i = 0; i < orderMenuCount; i++){
-            console.log(input.paid_amount);
-
             orderData.push(
                 {
                     orderPriceAll: input.paid_amount,
