@@ -22,7 +22,7 @@
                                        value="${shopData.shopName}">
                                 <label for="shopName">가게 이름 &nbsp <i class="bi bi-mouse"></i></label>
                             </div>
-                            <div class="form-floating mb-1" style="height: 200px" id="shopCommentArea">
+                            <div class="form-floating mb-1" id="shopCommentArea">
                                 <textarea class="form-control" id="shopComment" name="shopComment" placeholder=""
                                           style="height: 200px; resize: none;">${shopData.shopComment}</textarea>
                                 <label for="shopComment">가게 설명 &nbsp;<i class="bi bi-mouse"></i></label>

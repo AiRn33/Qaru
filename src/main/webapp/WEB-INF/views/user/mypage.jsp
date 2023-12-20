@@ -52,55 +52,15 @@
             <div class="row g-0" id="adminChange">
                 <div class="col">
                     <div class="card" style="padding:8px">
-                        <c:choose>
-                            <c:when test="${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.user.role == 'USER'}">
-                                <button type="submit" id="userBtn" class="btn btn-mint"
-                                        onclick="location.href='/user/change-admin'">
-                                    <i class="bi bi-people-fill fs-5" style="color: white;">
-                                        &nbsp;사장으로 전환하기
-                                    </i>
-                                </button>
-                            </c:when>
-                            <c:otherwise>
-                                <button type="submit" id="adminBtn" class="btn btn-mint"
-                                        onclick="location.href='/user/change-admin-modify'">
-                                    <i class="bi bi-people-fill fs-5" style="color: white;">
-                                        가게정보 수정하기
-                                    </i>
-                                </button>
-                            </c:otherwise>
-                        </c:choose>
+                        <button type="submit" id="userBtn" class="btn btn-mint"
+                                onclick="location.href='/admin/home'">
+                            <i class="bi bi-person-square fs-5" style="color: white;">
+                                &nbsp;사장 페이지 이동
+                            </i>
+                        </button>
                     </div>
                 </div>
             </div>
-            <c:if test="${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.user.role == 'ADMIN'}">
-
-                <div class="row g-0" id="menuCheck">
-                    <div class="col">
-                        <div class="card" style="padding:8px">
-                            <c:choose>
-                                <c:when test="${shopData.menuViewCheck}">
-                                    <button type="submit" id="menuBtn" class="btn btn-bluemint"
-                                            onclick="location.href='/shop/menu/${shopData.shopId}'">
-                                        <i class="bi bi-people-fill fs-5" style="color: white;">
-                                            가게메뉴 수정하기
-                                        </i>
-                                    </button>
-                                </c:when>
-                                <c:otherwise>
-                                    <button type="submit" id="menuBtn" class="btn btn-bluemint"
-                                            onclick="location.href='/shop/menu'">
-                                        <i class="bi bi-people-fill fs-5" style="color: white;">
-                                            가게메뉴 등록하기
-                                        </i>
-                                    </button>
-                                </c:otherwise>
-                            </c:choose>
-                        </div>
-                    </div>
-                </div>
-            </c:if>
-
             <div class="row g-0">
                 <div class="col">
                     <div class="card" style="padding:8px">

@@ -240,7 +240,6 @@ public class UserController {
     @PostMapping("/user/change-admin")
     public String changeRoleAdminPost(@Valid UserAdminChangeRequest userRequest, BindingResult bindingResult,
                                       @AuthenticationPrincipal PrincipalDetails request, Model model) throws Exception {
-
         // valid에 걸릴 시
         if(bindingResult.hasErrors() || userRequest.getFile().getSize() < 1){
             List errors = new ScriptErrors().errors(bindingResult);
@@ -301,17 +300,6 @@ public class UserController {
             model.addAttribute("shopData", userRequest);
             model.addAttribute("images", new ImageResponse().selectImage(imageService.imageSelectAll(response.getImageGroup().getId()).get(0)));
             model.addAttribute("commentCheck", userRequest.getShopComment().length() < 1 ? true : false);
-
-            return "/user/adminUpdateForm";
-        }
-
-        // valid에 걸릴 시
-        if(bindingResult.hasErrors() || userRequest.getFile().getSize() < 1){
-            List errors = new ScriptErrors().errors(bindingResult);
-            model.addAttribute("errorScript", errors);
-            model.addAttribute("shopData", userRequest);
-            model.addAttribute("commentCheck", userRequest.getShopComment().length() < 1 ? true : false);
-            model.addAttribute("errorScriptImg", "[이미지가 등록되지 않았습니다., img]");
 
             return "/user/adminUpdateForm";
         }
