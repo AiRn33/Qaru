@@ -77,6 +77,7 @@
 </div>
 <script>
     window.onload = function () {
+        document.querySelector('#errorScript').value = '${param.errorMsg}';
 
         //실행될 코드
         errors();

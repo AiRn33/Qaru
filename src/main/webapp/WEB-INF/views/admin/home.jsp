@@ -36,7 +36,7 @@
                         <button type="submit"  class="btn btn-outline-bluemint" onclick="location.href='/user/change-admin-modify'"
                                 style="height: 300px;">
                             <i class="bi bi-person-square fs-5">
-                                &nbsp;사장정보 수정하기
+                                &nbsp;가게정보 수정하기
                             </i>
                         </button>
                     </div>
