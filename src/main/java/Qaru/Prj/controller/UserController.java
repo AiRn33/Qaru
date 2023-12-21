@@ -4,10 +4,7 @@ import Qaru.Prj.config.customSecurity.PrincipalDetails;
 import Qaru.Prj.domain.entity.Image;
 import Qaru.Prj.domain.entity.User;
 import Qaru.Prj.domain.request.*;
-import Qaru.Prj.domain.response.ImageResponse;
-import Qaru.Prj.domain.response.MypageShopResponse;
-import Qaru.Prj.domain.response.UserAdminUpdateResponse;
-import Qaru.Prj.domain.response.UserMypageRespose;
+import Qaru.Prj.domain.response.*;
 import Qaru.Prj.error.ScriptErrors;
 import Qaru.Prj.jwt.AuthTokensGenerator;
 import Qaru.Prj.jwt.JwtToken;
@@ -46,6 +43,7 @@ public class UserController {
     private final ImageService imageService;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final AuthTokensGenerator generator;
+    private final OrderService orderService;
 
     @GetMapping("/user/login")
     public String userLogin(){
@@ -229,103 +227,6 @@ public class UserController {
         return "/successAlert";
     }
 
-    @GetMapping("/user/change-admin")
-    public String changeRoleAdmin(@AuthenticationPrincipal PrincipalDetails request, Model model) throws Exception {
-
-        model.addAttribute("userData", new UserMypageRespose().userUpdate(userService.getUserByUserId(request.getUsername())));
-
-        return "/user/adminForm";
-    }
-
-    @PostMapping("/user/change-admin")
-    public String changeRoleAdminPost(@Valid UserAdminChangeRequest userRequest, BindingResult bindingResult,
-                                      @AuthenticationPrincipal PrincipalDetails request, Model model) throws Exception {
-        // valid에 걸릴 시
-        if(bindingResult.hasErrors() || userRequest.getFile().getSize() < 1){
-            List errors = new ScriptErrors().errors(bindingResult);
-            model.addAttribute("errorScript", errors);
-            model.addAttribute("shopData", userRequest);
-            model.addAttribute("commentCheck", userRequest.getShopComment().length() < 1 ? true : false);
-            model.addAttribute("errorScriptImg", "[이미지가 등록되지 않았습니다., img]");
-
-            return "/user/adminForm";
-        }
-
-        if(userRequest.getShopType().split(",").length > 3){
-            List errors = new ArrayList();
-            errors.add("가게 종류가 3개를 초과하였습니다., shopType");
-            model.addAttribute("errorScript", errors);
-            model.addAttribute("shopData", userRequest);
-            model.addAttribute("commentCheck", userRequest.getShopComment().length() < 1 ? true : false);
-
-            return "/user/adminForm";
-        }
-
-        model.addAttribute("successAlert", 2);
-
-        String storedName = fileService.serverUploadFile(userRequest.getFile());
-
-        Long shopId = shopService.createAdmin(userRequest, storedName, request);
-
-        if(shopId > 0L){
-            return "/successAlert";
-        }
-
-        return "/error";
-    }
-
-    @GetMapping("/user/change-admin-modify")
-    public String changeRoleAdminModify(@AuthenticationPrincipal PrincipalDetails request, Model model) throws Exception {
-
-        UserAdminUpdateResponse response = userService.userAdminUpdate(request);
-
-        ImageResponse imageResponse = new ImageResponse().selectImage(imageService.imageSelectAll(response.getImageGroup().getId()).get(0));
-
-        model.addAttribute("shopData", response);
-        model.addAttribute("images", imageResponse);
-
-        return "/user/adminUpdateForm";
-    }
-    @PostMapping("/user/change-admin-modify")
-    public String changeRoleAdminModifyPost(@Valid ShopUpdateRequest userRequest, BindingResult bindingResult,
-                                            @AuthenticationPrincipal PrincipalDetails request, Model model) throws Exception {
-
-        UserAdminUpdateResponse response = userService.userAdminUpdate(request);
-
-        // valid에 걸릴 시
-        if(bindingResult.hasErrors()){
-
-            List errors = new ScriptErrors().errors(bindingResult);
-            model.addAttribute("errorScript", errors);
-            model.addAttribute("shopData", userRequest);
-            model.addAttribute("images", new ImageResponse().selectImage(imageService.imageSelectAll(response.getImageGroup().getId()).get(0)));
-            model.addAttribute("commentCheck", userRequest.getShopComment().length() < 1 ? true : false);
-
-            return "/user/adminUpdateForm";
-        }
-
-        if(userRequest.getShopType().split(",").length > 3){
-            List errors = new ArrayList();
-            model.addAttribute("errorScript", errors.add("[가게 종류가 3개를 초과하였습니다., shopTypeArea]"));
-            model.addAttribute("shopData", userRequest);
-            model.addAttribute("commentCheck", userRequest.getShopComment().length() < 1 ? true : false);
-        }
-
-        if(!userRequest.getImageUpdateCheck()){
-
-            // 기존 파일 삭제
-            fileService.deleteFile(response.getStoredFileName());
-            String storedName = fileService.serverUploadFile(userRequest.getFile());
-            imageService.imageDelete(response.getImageGroup().getId());
-            imageService.imageSave(userRequest.getFile(), storedName, response.getImageGroup());
-        }
-
-        shopService.updateShop(userRequest, request);
-        model.addAttribute("successAlert", 3);
-
-        return "/successAlert";
-    }
-
     @GetMapping("/user/find-id")
     public String findUserId(){ return "/user/findId";}
 
@@ -369,5 +270,15 @@ public class UserController {
         return result;
     }
 
+    @GetMapping("/user/orders")
+    public String myOrders(@AuthenticationPrincipal PrincipalDetails request, Model model){
+
+        List<OrdersResponse> ordersResponses = orderService.myOrders(request);
+
+        model.addAttribute("orders", ordersResponses);
+        model.addAttribute("ordersCount", ordersResponses.size());
+
+        return "/user/orders";
+    }
 
 }

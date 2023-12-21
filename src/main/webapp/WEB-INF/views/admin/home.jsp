@@ -20,7 +20,7 @@
                         <span>아직 사장 유저로 등록되지 않았습니다.</span>
                     </div>
                     <div class="card" style="--bs-card-border-color: none;">
-                        <button type="submit" class="btn btn-outline-bluemint" onclick="location.href='/user/change-admin'"
+                        <button type="submit" class="btn btn-outline-bluemint" onclick="location.href='/admin/change-admin'"
                                 style="height: 300px;">
                             <i class="bi bi-person-square fs-5">
                                 &nbsp;사장 전환하기
@@ -33,7 +33,7 @@
             <c:otherwise>
                 <div class="col-3" style="margin-top: 50px;">
                     <div class="card" style="--bs-card-border-color: none;">
-                        <button type="submit"  class="btn btn-outline-bluemint" onclick="location.href='/user/change-admin-modify'"
+                        <button type="submit"  class="btn btn-outline-bluemint" onclick="location.href='/admin/change-admin-modify'"
                                 style="height: 300px;">
                             <i class="bi bi-person-square fs-5">
                                 &nbsp;가게정보 수정하기
@@ -66,7 +66,7 @@
                 <div class="col-3" style="margin-top: 50px;">
                     <div class="card" style="--bs-card-border-color: none;">
                         <button type="submit" class="btn btn-outline-pink"
-                                style="height: 300px;">
+                                style="height: 300px;" onclick="location.href='/admin/orders'">
                             <i class="bi bi-shop fs-5">
                                 &nbsp;주문 확인하기
                             </i>

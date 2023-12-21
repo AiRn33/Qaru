@@ -59,4 +59,13 @@ public class OrderMenu {
         this.orderMenuPrice += updatePrice * updateCount;
         return this;
     }
+
+    public OrderMenu updateOrderStatus(String value){
+        if(value.equals("1")){
+            this.statusType = StatusType.INCOMPLETE;
+        }else if(value.equals("2")){
+            this.statusType = StatusType.COMPLETE;
+        }
+        return this;
+    }
 }

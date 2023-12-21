@@ -8,7 +8,8 @@
         <div class="col-1"></div>
         <div class="col-10 text-center">
             <div class="card" style="padding:8px;">
-                <h1 style="margin-top: 10px;">주문 내역</h1>
+                <h1 style="margin-top: 10px;">주문 내역 확인</h1>
+                <span style="color: dimgray; font-size: 15px;">가게 이름 : ${orders[0].shopName}</span>
             </div>
             <div>
                 <div class="row g-0">
@@ -22,7 +23,7 @@
                     <div class="col-2 align-self-center">
                         <div class="card" style="padding:8px; height: 50px;">
                             <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">가게 이름</span>
+                                <span style="color: dimgray; font-size: 18px;">주문 유저</span>
                             </div>
                         </div>
                     </div>
@@ -75,7 +76,7 @@
                                 <div class="col-2 align-self-center">
                                     <div class="card" style="padding:8px; height: 50px; line-height:180%;">
                                         <div class="form-floating mb-1 align-middle">
-                                            <span style="font-size: 14px; font-weight: bold">${item.shopName}</span>
+                                            <span style="color: dimgray; font-size: 18px;">${item.userNickName}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -115,17 +116,13 @@
                                 </div>
                                 <div class="col-2 align-self-center">
                                     <div class="card" style="padding: 6px 5px 7px 5px; height: 50px;">
-                                        <div style="margin-top: 3px;">
-                                            <c:if test="${item.statusType == 'INCOMPLETE'}">
+                                        <div>
                                                 <span style="font-size: 15px; font-weight: bold;">
-                                                    🫕 메뉴 조리 중
+                                                    <select class="form-select" onchange="orderStatusUpdate(this.value, '${item.orderMenuId}')">
+                                                        <option value="1"<c:if test="${item.statusType == 'INCOMPLETE'}">selected</c:if>>✔️주문 대기</option>
+                                                          <option value="2"<c:if test="${item.statusType == 'COMPLETE'}">selected</c:if>>⭕주문 완료</option>
+                                                    </select>
                                                 </span>
-                                            </c:if>
-                                            <c:if test="${item.statusType == 'COMPLETE'}">
-                                                <span style="font-size: 15px; font-weight: bold;">
-                                                    🥘 메뉴 조리 완료
-                                                </span>
-                                            </c:if>
                                         </div>
                                     </div>
                                 </div>
@@ -146,7 +143,7 @@
             <div class="row g-0" style="margin-top: 10px;">
                 <div class="col">
                     <div class="card" style="padding:8px">
-                        <button type="button" class="btn btn-pink" onclick="location.href='/'">
+                        <button type="button" class="btn btn-pink" onclick="location.href='/admin/home'">
                             <i class="bi bi-arrow-bar-right fs-5" style="color: white">
                                 &nbsp;뒤로가기
                             </i>
@@ -251,7 +248,7 @@
         document.querySelector('#orderDataArea').innerHTML += html;
 
         if(data.length > 4){
-            let heightLength = data.length * 100;
+            let heightLength = data.length * 85;
             document.querySelector('#modal-wrap').style.height = heightLength + "px";
         }else{
             document.querySelector('#modal-wrap').style.height = "500px";
@@ -269,5 +266,18 @@
     }
 
 
+    function orderStatusUpdate(value, menuId){
+        $.ajax({
+            type: "post",            // HTTP method type(GET, POST) 형식이다.
+            url: "/admin/order/" + menuId,      // 컨트롤러에서 대기중인 URL 주소이다.
+            data: {value : value},
+            success: function (res) { // 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.
+                console.log(res);
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) { // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
+                alert("통신 실패.");
+            }
+        });
+    }
 </script>
 

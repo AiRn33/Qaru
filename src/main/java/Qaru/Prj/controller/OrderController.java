@@ -74,16 +74,4 @@ public class OrderController {
 
         return (long) orderList.size();
     }
-
-    @GetMapping("/user/orders")
-    public String myOrders(@AuthenticationPrincipal PrincipalDetails request, Model model){
-
-        List<OrdersResponse> ordersResponses = orderService.myOrders(request);
-
-        model.addAttribute("orders", ordersResponses);
-        model.addAttribute("ordersCount", ordersResponses.size());
-
-        return "/user/orders";
-    }
-
 }

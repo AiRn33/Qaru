@@ -12,4 +12,6 @@ public interface UserRepositoryCustom {
     UserAdminUpdateResponse findbyShopUpdate(Long userId);
 
     List<OrdersResponse> ordersList(Long userId);
+
+    List<OrdersResponse> adminOrdersList(Long userId);
 }

@@ -60,7 +60,9 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
                         orderMenu.orderMenuCount.as("orderMenuCount"),
                         orderMenu.orderMenuPrice.as("orderMenuPrice"),
                         orderMenu.statusType.as("statusType"),
-                        orderMenu.id.as("orderMenuId")
+                        orderMenu.id.as("orderMenuId"),
+                        order.orderCount.as("orderCount"),
+                        user.userNickName.as("userNickName")
                         ))
                 .from(user)
                 .innerJoin(orderMenu).on(user.id.eq(orderMenu.user.id))
@@ -70,6 +72,30 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
                 .where(user.id.eq(userId))
                 .orderBy(orderMenu.id.desc())
                         .fetch();
+    }
+
+    @Override
+    public List<OrdersResponse> adminOrdersList(Long userId) {
+        return queryFactory
+                .select(Projections.fields(OrdersResponse.class,
+                        shop.id.as("shopId"),
+                        shop.shopName.as("shopName"),
+                        menu.menuName.as("menuName"),
+                        orderMenu.orderMenuCount.as("orderMenuCount"),
+                        orderMenu.orderMenuPrice.as("orderMenuPrice"),
+                        orderMenu.statusType.as("statusType"),
+                        orderMenu.id.as("orderMenuId"),
+                        order.orderCount.as("orderCount"),
+                        user.userNickName.as("userNickName")
+                ))
+                .from(user)
+                .innerJoin(orderMenu).on(user.id.eq(orderMenu.user.id))
+                .innerJoin(order).on(orderMenu.id.eq(order.orderMenu.id))
+                .innerJoin(menu).on(order.menu.id.eq(menu.id))
+                .innerJoin(shop).on(orderMenu.shop.id.eq(shop.id))
+                .where(shop.user.id.eq(userId))
+                .orderBy(orderMenu.id.desc())
+                .fetch();
     }
 
 }

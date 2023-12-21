@@ -22,7 +22,7 @@
                             <div id="img_area">
                                 <c:forEach items="${images}" var="item">
                                     <img src="/img/${item.storedFileName}" class="img-thumbnail" alt="..."
-                                         style="width: 130px; height: 130px;" onclick="thumbnailImg(this)">
+                                         style="width: 130px; height: 130px;" onclick="thumbnailImg('${item.storedFileName}')">
                                 </c:forEach>
                             </div>
                         </div>
@@ -142,6 +142,36 @@
         <div class="col-2"></div>
     </div>
 </div>
+
+
+
+<div id="modal-bg" class="modal-bg" style="display: none;">
+</div>
+<div id="modal-wrap" class="modal-wrap" style="display: none;">
+    <div class="container-md" style="height: 110%!important;">
+        <div class="row d-flex justify-content-center align-items-center h-100"  style="margin-right: 12px;">
+            <div class="col-1"></div>
+            <div class="col-10 text-center">
+                <img src="" class="img-thumbnail" alt="..."
+                         id="popup_img" style="width: 380px; height: 330px;">
+                <div class="row g-0" style="margin-top: 15px;">
+                    <div class="col-12 align-self-center">
+                        <button type="button" class="btn btn-pink" onclick="popup_close()">
+                            <i class="bi bi-x-circle fs-5" style="color: white">
+                                &nbsp;팝업 닫기
+                            </i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-1"></div>
+    </div>
+</div>
+</div>
+
+
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ffd8231a733ced626bd8084d26ebae3c&libraries=services"></script>
 
 <script>
@@ -197,6 +227,15 @@
 
     function thumbnailImg(input) {
 
+        document.querySelector('#popup_img').src = '/img/' + input;
+        document.querySelector('#modal-bg').style.display = '';
+        document.querySelector('#modal-wrap').style.display = '';
+    }
+
+    function popup_close(){
+
+        document.querySelector('#modal-bg').style.display = 'none';
+        document.querySelector('#modal-wrap').style.display = 'none';
     }
 
     function comment_view() {

@@ -1,4 +1,4 @@
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+    <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
@@ -180,7 +180,7 @@
             success: function (res) { // 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.
                 if (res > 0) {
                     alert("주문 완료. 주문 메뉴로 이동합니다.");
-                    location.href = '/user/orders';
+                    location.href = '/admin/orders';
                 }
             },
             error: function () { // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.

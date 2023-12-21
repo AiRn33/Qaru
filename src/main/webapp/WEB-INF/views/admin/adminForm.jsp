@@ -9,7 +9,7 @@
             <div class="card" style="padding:8px">
                 <h1>가게 정보 입력</h1>
             </div>
-            <form action="/user/change-admin" method="post" id="signupForm" enctype="multipart/form-data">
+            <form action="/admin/change-admin" method="post" id="signupForm" enctype="multipart/form-data">
                 <input type="hidden" id="userZipcode" name="userZipcode" value="${shopData.userZipcode}">
                 <input type="hidden" id="commentCheck" value="${commentCheck}">
                 <div class="row g-0">
@@ -81,7 +81,7 @@
             <div class="row g-0">
                 <div class="col">
                     <div class="card" style="padding:8px">
-                        <button type="button" class="btn btn-pink" onclick="location.href='/'">
+                        <button type="button" class="btn btn-pink" onclick="location.href='/admin/home'">
                             <i class="bi bi-arrow-bar-right fs-5" style="color: white">
                                 &nbsp;뒤로가기
                             </i>

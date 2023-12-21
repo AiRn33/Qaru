@@ -9,7 +9,7 @@
         window.location.href="/user/logout";
     }else if(${successAlert == 3}){
         alert("가게 수정 완료!");
-        window.location.href="/";
+        window.location.href="/admin/home";
     }else if(${successAlert == 4}){
         alert("게시글 등록 완료!");
         window.location.href="/tour/tourList?page=0&size=9&order=none";
