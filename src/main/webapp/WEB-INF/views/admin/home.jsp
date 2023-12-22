@@ -76,8 +76,8 @@
                 <div class="col-3" style="margin-top: 50px;">
                     <div class="card" style="--bs-card-border-color: none;">
                         <button type="submit" class="btn btn-outline-yellow"
-                                style="height: 300px;">
-                            <i class="bi bi-shop fs-5">
+                                style="height: 300px;" onclick="location.href='/admin/statistics'">
+                            <i class="bi bi-bar-chart-fill fs-5">
                                 &nbsp;가게 통계보기
                             </i>
                         </button>
@@ -87,7 +87,3 @@
         </c:choose>
     </div>
 </div>
-
-<script>
-    console.log('${shopData}');
-</script>

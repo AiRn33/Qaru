@@ -158,4 +158,20 @@ public class AdminController {
 
         return result;
     }
+
+    @GetMapping("/admin/statistics")
+    public String statisticsPage(){
+        return "/admin/statistics";
+    }
+
+    @GetMapping("/admin/city-statistics")
+    public String cityStatisticsPage(){
+
+        return "/admin/cityStatistics";
+    }
+    @GetMapping("/admin/order-statistics")
+    public String shopStatisticsPage(){
+
+        return "/admin/orderStatistics";
+    }
 }
