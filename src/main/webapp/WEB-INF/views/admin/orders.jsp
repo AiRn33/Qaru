@@ -8,8 +8,9 @@
         <div class="col-1"></div>
         <div class="col-10 text-center">
             <div class="card" style="padding:8px;">
-                <h1 style="margin-top: 10px;">주문 내역 확인</h1>
+                <h1 style="margin-top: 10px;">주문 내역 확인 </h1>
                 <span style="color: dimgray; font-size: 15px;">가게 이름 : ${orders[0].shopName}</span>
+                <span style="color: red; font-size: 12px;"> 주문 내역은 당일 내역만 확인가능합니다</span>
             </div>
             <div>
                 <div class="row g-0">
@@ -216,10 +217,10 @@
     function popup_on(input) {
         let data = document.getElementsByName(input);
         let html = '';
-
         for (let i = 0; i < data.length; i++) {
 
             let value = data[i].value.split('/');
+            let name = (value[0] == ''?'단종 된 메뉴':value[0]);
 
             html += '<div class="row g-0">'
             html += '   <div class="col-2 align-self-center">'
@@ -232,7 +233,7 @@
             html += '       <div class="col-6 align-self-center">'
             html += '           <div class="card" style="padding:8px; height: 50px;">'
             html += '               <div class="form-floating mb-1 align-middle">'
-            html += '                   <span style="color: dimgray; font-size: 18px;">' + value[0] + '</span>'
+            html += '                   <span style="color: dimgray; font-size: 18px;">' + name + '</span>'
             html += '               </div>'
             html += '           </div>'
             html += '       </div>'

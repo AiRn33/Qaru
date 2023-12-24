@@ -1,5 +1,6 @@
 package Qaru.Prj.domain.entity;
 
+import Qaru.Prj.domain.baseEntity.DateTime;
 import Qaru.Prj.domain.enums.StatusType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
@@ -40,18 +41,22 @@ public class OrderMenu {
     @JoinColumn(name = "shop_id")
     private Shop shop;
 
+    @Embedded
+    private DateTime dateTime;
+
     protected OrderMenu(){
 
     }
 
     @Builder
-    public OrderMenu(Long id, Shop shop, User user, Long orderMenuCount, Long orderMenuPrice) {
+    public OrderMenu(Long id, Shop shop, User user, Long orderMenuCount, Long orderMenuPrice, DateTime dateTime) {
         this.id = id;
         this.user = user;
         this.shop = shop;
         this.statusType = StatusType.INCOMPLETE;
         this.orderMenuCount = orderMenuCount;
         this.orderMenuPrice = orderMenuPrice;
+        this.dateTime = dateTime;
     }
 
     public OrderMenu updateOrderMenu(Long updateCount, Long updatePrice){
@@ -60,11 +65,13 @@ public class OrderMenu {
         return this;
     }
 
-    public OrderMenu updateOrderStatus(String value){
+    public OrderMenu updateOrderStatus(String value, OrderMenu orderMenu){
         if(value.equals("1")){
             this.statusType = StatusType.INCOMPLETE;
+            this.dateTime.orderMenuUpdateTime(orderMenu);
         }else if(value.equals("2")){
             this.statusType = StatusType.COMPLETE;
+            this.dateTime.orderMenuUpdateTime(orderMenu);
         }
         return this;
     }

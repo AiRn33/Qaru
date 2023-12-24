@@ -223,6 +223,7 @@
         for (let i = 0; i < data.length; i++) {
 
             let value = data[i].value.split('/');
+            let name = (value[0] == ''?'단종 된 메뉴':value[0]);
 
             html += '<div class="row g-0">'
             html += '   <div class="col-2 align-self-center">'
@@ -235,7 +236,7 @@
             html += '       <div class="col-6 align-self-center">'
             html += '           <div class="card" style="padding:8px; height: 50px;">'
             html += '               <div class="form-floating mb-1 align-middle">'
-            html += '                   <span style="color: dimgray; font-size: 18px;">' + value[0] + '</span>'
+            html += '                   <span style="color: dimgray; font-size: 18px;">' + name + '</span>'
             html += '               </div>'
             html += '           </div>'
             html += '       </div>'

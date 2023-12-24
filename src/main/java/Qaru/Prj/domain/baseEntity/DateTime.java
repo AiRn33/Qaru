@@ -58,4 +58,10 @@ public class DateTime {
         this.updateDate = LocalDateTime.now();
         return this;
     }
+
+    public DateTime orderMenuUpdateTime(OrderMenu orderMenu){
+        this.createDate = orderMenu.getDateTime().getCreateDate();
+        this.updateDate = LocalDateTime.now();
+        return this;
+    }
 }

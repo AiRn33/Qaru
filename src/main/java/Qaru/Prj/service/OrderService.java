@@ -1,6 +1,7 @@
 package Qaru.Prj.service;
 
 import Qaru.Prj.config.customSecurity.PrincipalDetails;
+import Qaru.Prj.domain.baseEntity.DateTime;
 import Qaru.Prj.domain.entity.Menu;
 import Qaru.Prj.domain.entity.Order;
 import Qaru.Prj.domain.entity.OrderMenu;
@@ -43,6 +44,7 @@ public class OrderService {
                 .orderMenuPrice(0L)
                 .orderMenuCount(0L)
                 .shop(shop)
+                .dateTime(new DateTime().createTime())
                 .build();
 
         orderMenuRepository.save(orderMenu);
@@ -95,7 +97,7 @@ public class OrderService {
 
             }else if(i == responseOrders.size() - 1){
 
-                ordersMenuName += responseOrders.get(i).getMenuName() + ", ";
+                ordersMenuName += menuNameSet(responseOrders.get(i).getMenuName());
                 OrdersResponse ordersResponse = responseOrders.get(i);
                 ordersMenuName = ordersMenuName.substring(0, ordersMenuName.length() - 2);
 
@@ -105,7 +107,7 @@ public class OrderService {
                 ordersList.add(ordersResponse);
             }
 
-            ordersMenuName += responseOrders.get(i).getMenuName() + ", ";
+            ordersMenuName += menuNameSet(responseOrders.get(i).getMenuName());
             orderDatas.add(new OrderMenuCheckResponse().orderDataSet(responseOrders.get(i)));
             afterId = responseOrders.get(i).getOrderMenuId();
         }
@@ -142,7 +144,7 @@ public class OrderService {
 
             }else if(i == responseOrders.size() - 1){
 
-                ordersMenuName += responseOrders.get(i).getMenuName() + ", ";
+                ordersMenuName += menuNameSet(responseOrders.get(i).getMenuName());
                 OrdersResponse ordersResponse = responseOrders.get(i);
                 ordersMenuName = ordersMenuName.substring(0, ordersMenuName.length() - 2);
 
@@ -152,7 +154,7 @@ public class OrderService {
                 ordersList.add(ordersResponse);
             }
 
-            ordersMenuName += responseOrders.get(i).getMenuName() + ", ";
+            ordersMenuName += menuNameSet(responseOrders.get(i).getMenuName());
             orderDatas.add(new OrderMenuCheckResponse().orderDataSet(responseOrders.get(i)));
             afterId = responseOrders.get(i).getOrderMenuId();
         }
@@ -161,12 +163,25 @@ public class OrderService {
         return ordersList;
     }
 
+    public String menuNameSet(String menuName){
+
+        String ordersMenuName = "";
+
+        if(menuName == null){
+            ordersMenuName += "단종 된 메뉴, ";
+        }else{
+            ordersMenuName += menuName + ", ";
+        }
+
+        return ordersMenuName;
+    }
+
     @Transactional
     public StatusType updateOrderStatus(Long id, String value) {
 
         Optional<OrderMenu> findOrderMenu = orderMenuRepository.findById(id);
         if(findOrderMenu.isPresent()){
-            return findOrderMenu.get().updateOrderStatus(value).getStatusType();
+            return findOrderMenu.get().updateOrderStatus(value, findOrderMenu.get()).getStatusType();
         }else{
             return null;
         }

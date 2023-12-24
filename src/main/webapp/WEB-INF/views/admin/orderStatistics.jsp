@@ -2,281 +2,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
-<div class="container-md" style="height: 100px;!important;">
-    <div class="row d-flex justify-content-center align-items-center h-100" style="margin-top: 40px;">
-        <div class="col-2"></div>
-        <div class="col-8 text-center">
-            <div class="row g-0">
-                <div class="col-12" style="line-height:150%;">
-                    <span style="font-size: 30px;">주문별 통계 조회</span>
-                    <br>
-                    <span style="font-size: 12px; color: red;">초기 데이터는 현재 기준 1년 전 데이터까지 조회됩니다.</span>
-                    <hr style="margin: 0.4rem;">
-                </div>
-            </div>
-            <div>
-                <div class="row g-0">
-                    <div class="col-1 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">서울</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-1 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">인천</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-1 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">광주</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-1 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">대구</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-1 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">대전</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-1 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">울산</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-1 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">부산</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-1 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">제주</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-1 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">세종</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3 align-self-center">
-                    </div>
-                    <div class="col-1 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">0</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-1 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">0</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-1 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">0</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-1 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">0</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-1 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">0</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-1 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">0</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-1 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">0</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-1 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">0</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-1 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">0</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6 align-self-center">
-                    </div>
-                </div>
-                <div class="row g-0">
-                    <div class="col-1 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">경기</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-1 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">강원</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-1 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">충북</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-1 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">충남</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-1 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">전북</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-1 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">전남</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-1 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">경북</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-1 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">경남</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4 align-self-center">
-                    </div>
-                    <div class="col-1 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">0</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-1 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">0</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-1 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">0</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-1 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">0</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-1 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">0</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-1 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">0</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-1 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">0</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-1 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">0</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row g-0">
-            </div>
-        </div>
-        <div class="col-2"></div>
-    </div>
-</div>
-
 <div class="container-md" style="height: 110%!important;">
     <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-2"></div>
-        <div class="col-8 text-center" style="margin-top: 180px;">
+        <div class="col-8 text-center" >
             <div>
+                <div class="row g-0">
+                    <div class="col-12" style="line-height:150%;">
+                        <span style="font-size: 30px;">주문별 통계 조회</span>
+                        <br>
+                        <span style="font-size: 12px; color: red;">초기 데이터는 현재 기준 1년 전 데이터까지 조회됩니다.</span>
+                        <hr style="margin: 0.4rem;">
+                    </div>
+                </div>
                 <div class="row g-0">
                     <div class="col-5"></div>
                     <div class="col-7" style="margin-bottom: 10px;">
@@ -306,7 +44,7 @@
             </div>
             <div>
                 <div class="row g-0">
-                    <div class="col-2 align-self-center">
+                    <div class="col-1 align-self-center">
                         <div class="card" style="padding:8px; height: 50px;">
                             <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
                                 <span style="color: dimgray; font-size: 18px;">순번</span>
@@ -316,28 +54,28 @@
                     <div class="col-2 align-self-center">
                         <div class="card" style="padding:8px; height: 50px;">
                             <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">조회 유저</span>
+                                <span style="color: dimgray; font-size: 18px;">주문 유저</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-5 align-self-center">
+                        <div class="card" style="padding:8px; height: 50px;">
+                            <div style="margin-top: 3px;">
+                                <span style="color: dimgray; font-size: 18px;">주문 내역</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-2 align-self-center">
                         <div class="card" style="padding:8px; height: 50px;">
                             <div style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">유저 지역</span>
+                                <span style="color: dimgray; font-size: 18px;">주문 날짜</span>
                             </div>
                         </div>
                     </div>
-                    <div class="col-3 align-self-center">
+                    <div class="col-2 align-self-center">
                         <div class="card" style="padding:8px; height: 50px;">
                             <div style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">조회 날짜</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">조회 시간</span>
+                                <span style="color: dimgray; font-size: 18px;">비고</span>
                             </div>
                         </div>
                     </div>
@@ -345,233 +83,40 @@
             </div>
             <div>
                 <div class="row g-0">
-                    <div class="col-2 align-self-center">
+                    <div class="col-1 align-self-center">
                         <div class="card" style="padding:8px; height: 50px;">
                             <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">순번</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-2 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">조회 유저</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-2 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">유저 지역</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">조회 날짜</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">조회 시간</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="row g-0">
-                    <div class="col-2 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">순번</span>
+                                <span style="color: dimgray; font-size: 14px;">1</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-2 align-self-center">
                         <div class="card" style="padding:8px; height: 50px;">
                             <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">조회 유저</span>
+                                <span style="color: dimgray; font-size: 14px;">주문 유저</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-5 align-self-center">
+                        <div class="card" style="padding:8px; height: 50px;">
+                            <div style="margin-top: 3px;">
+                                <span style="color: dimgray; font-size: 14px;">주문 내역</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-2 align-self-center">
                         <div class="card" style="padding:8px; height: 50px;">
                             <div style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">유저 지역</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">조회 날짜</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">조회 시간</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="row g-0">
-                    <div class="col-2 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">순번</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-2 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">조회 유저</span>
+                                <span style="color: dimgray; font-size: 14px;">2023년 11월 12일</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-2 align-self-center">
                         <div class="card" style="padding:8px; height: 50px;">
                             <div style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">유저 지역</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">조회 날짜</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">조회 시간</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="row g-0">
-                    <div class="col-2 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">순번</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-2 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">조회 유저</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-2 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">유저 지역</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">조회 날짜</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">조회 시간</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="row g-0">
-                    <div class="col-2 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">순번</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-2 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">조회 유저</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-2 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">유저 지역</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">조회 날짜</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">조회 시간</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="row g-0">
-                    <div class="col-2 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">순번</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-2 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">조회 유저</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-2 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">유저 지역</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">조회 날짜</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">조회 시간</span>
+                                <span style="color: dimgray; font-size: 14px;">
+                                    ✔️주문 대기
+                                </span>
                             </div>
                         </div>
                     </div>
