@@ -10,7 +10,7 @@
             <div class="card" style="padding:8px;">
                 <h1 style="margin-top: 10px;">주문 내역 확인 </h1>
                 <span style="color: dimgray; font-size: 15px;">가게 이름 : ${orders[0].shopName}</span>
-                <span style="color: red; font-size: 12px;"> 주문 내역은 당일 내역만 확인가능합니다</span>
+                <span style="color: red; font-size: 12px;"> 주문 내역은 3일 전 내역까지 확인가능합니다</span>
             </div>
             <div>
                 <div class="row g-0">

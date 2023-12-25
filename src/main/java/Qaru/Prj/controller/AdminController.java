@@ -9,6 +9,7 @@ import Qaru.Prj.domain.response.*;
 import Qaru.Prj.error.ScriptErrors;
 import Qaru.Prj.service.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -170,7 +172,10 @@ public class AdminController {
         return "/admin/cityStatistics";
     }
     @GetMapping("/admin/order-statistics")
-    public String shopStatisticsPage(){
+    public String shopStatisticsPage(Pageable pageable){
+
+        System.out.println("============ > : " + pageable.getPageSize());
+        System.out.println("============ > : " + pageable.getPageNumber());
 
         return "/admin/orderStatistics";
     }

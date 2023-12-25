@@ -8,6 +8,8 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static Qaru.Prj.domain.entity.QImage.*;
@@ -52,6 +54,11 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
 
     @Override
     public List<OrdersResponse> ordersList(Long userId) {
+
+        LocalDateTime date = LocalDateTime.now();
+        LocalDateTime startToday = LocalDateTime.of(date.minusDays(3).getYear(), date.minusDays(3).getMonth(), date.minusDays(3).getDayOfMonth(), 0, 0);
+        LocalDateTime endTodaty = LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), 23, 59);
+
         return queryFactory
                 .select(Projections.fields(OrdersResponse.class,
                         shop.id.as("shopId"),
@@ -69,13 +76,19 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
                 .innerJoin(order).on(orderMenu.id.eq(order.orderMenu.id))
                 .leftJoin(menu).on(order.menu.id.eq(menu.id))
                 .innerJoin(shop).on(orderMenu.shop.id.eq(shop.id))
-                .where(user.id.eq(userId))
+                .where(user.id.eq(userId).and(orderMenu.dateTime.updateDate.between(startToday, endTodaty)))
                 .orderBy(orderMenu.id.desc())
                         .fetch();
     }
 
     @Override
     public List<OrdersResponse> adminOrdersList(Long userId) {
+
+        LocalDateTime date = LocalDateTime.now();
+        LocalDateTime startToday = LocalDateTime.of(date.minusDays(3).getYear(), date.minusDays(3).getMonth(), date.minusDays(3).getDayOfMonth(), 0, 0);
+        LocalDateTime endTodaty = LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), 23, 59);
+        System.out.println("======= > : " + startToday);
+        System.out.println("======= > : " + endTodaty);
         return queryFactory
                 .select(Projections.fields(OrdersResponse.class,
                         shop.id.as("shopId"),
@@ -93,9 +106,10 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
                 .innerJoin(order).on(orderMenu.id.eq(order.orderMenu.id))
                 .leftJoin(menu).on(order.menu.id.eq(menu.id))
                 .innerJoin(shop).on(orderMenu.shop.id.eq(shop.id))
-                .where(shop.user.id.eq(userId))
+                .where(shop.user.id.eq(userId).and(orderMenu.dateTime.updateDate.between(startToday, endTodaty)))
                 .orderBy(orderMenu.id.desc())
                 .fetch();
+
     }
 
 }

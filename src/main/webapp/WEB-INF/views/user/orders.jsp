@@ -9,6 +9,7 @@
         <div class="col-10 text-center">
             <div class="card" style="padding:8px;">
                 <h1 style="margin-top: 10px;">주문 내역</h1>
+                <span style="color: red; font-size: 12px;"> 주문 내역은 3일 전 내역까지 확인가능합니다</span>
             </div>
             <div>
                 <div class="row g-0">

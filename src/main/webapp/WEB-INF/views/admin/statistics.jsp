@@ -23,7 +23,7 @@
         <div class="col-3" style="margin-top: 50px;">
             <div class="card" style="--bs-card-border-color: none;">
                 <button type="submit" class="btn btn-outline-light_green"
-                        style="height: 300px;" onclick="location.href='/admin/order-statistics'">
+                        style="height: 300px;" onclick="location.href='/admin/order-statistics?page=0&size=7&order=none'">
                     <i class="bi bi-list fs-5">
                         &nbsp;주문 통계보기
                     </i>
@@ -33,7 +33,7 @@
         <div class="col-3" style="margin-top: 50px;">
             <div class="card" style="--bs-card-border-color: none;">
                 <button type="submit" class="btn btn-outline-bluemint"
-                        style="height: 300px;" onclick="location.href='/admin/city-statistics'">
+                        style="height: 300px;" onclick="location.href='/admin/city-statistics?page=0&size=7&order=none'">
                     <i class="bi bi-map-fill fs-5">
                         &nbsp;지역 통계보기
                     </i>
