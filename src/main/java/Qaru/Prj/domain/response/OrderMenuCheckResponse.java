@@ -1,6 +1,7 @@
 package Qaru.Prj.domain.response;
 
 import Qaru.Prj.domain.entity.Menu;
+import Qaru.Prj.domain.entity.Order;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -35,6 +36,22 @@ public class OrderMenuCheckResponse {
         this.orderMenuId = response.getOrderMenuId();
         this.menuName = response.getMenuName();
         this.menuCount = response.getOrderCount();
+        return this;
+    }
+    public OrderMenuCheckResponse orderDataSet(OrderStatisticsResponse response){
+        this.orderMenuId = response.getOrderMenuId();
+        this.menuName = response.getMenuName();
+        this.menuCount = response.getOrderCount();
+        return this;
+    }
+
+    public OrderMenuCheckResponse orderDataSet(OrderMenuCheckResponse order){
+        if(order.menuName == null){
+            this.menuName = "단종 된 메뉴";
+        }else{
+            this.menuName = order.menuName;
+        }
+        this.menuCount = order.getMenuCount();
         return this;
     }
 }

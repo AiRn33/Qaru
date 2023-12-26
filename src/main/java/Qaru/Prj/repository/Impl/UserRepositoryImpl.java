@@ -87,8 +87,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
         LocalDateTime date = LocalDateTime.now();
         LocalDateTime startToday = LocalDateTime.of(date.minusDays(3).getYear(), date.minusDays(3).getMonth(), date.minusDays(3).getDayOfMonth(), 0, 0);
         LocalDateTime endTodaty = LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), 23, 59);
-        System.out.println("======= > : " + startToday);
-        System.out.println("======= > : " + endTodaty);
+
         return queryFactory
                 .select(Projections.fields(OrdersResponse.class,
                         shop.id.as("shopId"),

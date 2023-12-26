@@ -636,10 +636,108 @@
     </div>
 </div>
 <script>
+    window.onload = function () {
+
+        //실행될 코드
+        document.querySelector('#startDate').value = '${startDate}';
+        document.querySelector('#endDate').value = '${endDate}';
+
+        document.querySelector('#container').style.height = '90%';
+    }
+
+    function searchOrderList() {
+        let start = document.querySelector('#startDate').value;
+        let end = document.querySelector('#endDate').value;
+
+        location.href = '/admin/order-statistics?page=0&size=7&startDate=' + start + '&endDate=' + end;
+    }
+
+    function popup_on(input) {
+        let html = '';
+
+        $.ajax({
+            type: "POST",            // HTTP method type(GET, POST) 형식이다.
+            url: "/admin/order-statistics",      // 컨트롤러에서 대기중인 URL 주소이다.
+            data: {id: input},
+            success: function (res) { // 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.
+                for (let i = 0; i < res.length; i++) {
+
+                    html += '<div class="row g-0">'
+                    html += '   <div class="col-2 align-self-center">'
+                    html += '       <div class="card" style="padding:8px; height: 50px;">'
+                    html += '           <div class="form-floating mb-1 align-middle" style="height: 170%;">'
+                    html += '               <span style="color: dimgray; font-size: 15px;">' + (i + 1) + '</span>'
+                    html += '           </div>'
+                    html += '       </div>'
+                    html += '   </div>'
+                    html += '       <div class="col-6 align-self-center">'
+                    html += '           <div class="card" style="padding:8px; height: 50px;">'
+                    html += '               <div class="form-floating mb-1 align-middle">'
+                    html += '                   <span style="color: dimgray; font-size: 15px;">' + res[i].menuName + '</span>'
+                    html += '               </div>'
+                    html += '           </div>'
+                    html += '       </div>'
+                    html += '       <div class="col-4 align-self-center">'
+                    html += '           <div class="card" style="padding:8px; height: 50px;">'
+                    html += '               <div class="form-floating mb-1 align-middle">'
+                    html += '                   <span style="color: dimgray; font-size: 15px;">' + res[i].menuCount + '개</span>'
+                    html += '               </div>'
+                    html += '           </div>'
+                    html += '       </div>'
+                    html += '</div>'
+                }
+                document.querySelector('#orderDataArea').innerHTML += html;
+
+                if (res.length > 4) {
+                    let heightLength = res.length * 100;
+                    document.querySelector('#modal-wrap').style.height = heightLength + "px";
+                } else {
+                    document.querySelector('#modal-wrap').style.height = "500px";
+                }
+
+                document.querySelector('#modal-bg').style.display = '';
+                document.querySelector('#modal-wrap').style.display = '';
+            },
+            error: function () { // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
+
+            }
+        });
+    }
+
+    function popup_close() {
+        document.querySelector('#orderDataArea').innerHTML = '';
+
+        document.querySelector('#modal-bg').style.display = 'none';
+        document.querySelector('#modal-wrap').style.display = 'none';
+    }
+
+    var maxDate = new Date();
+
     /* cursor: pointer; */
     $(function () {
         //input을 datepicker로 선언
-        $("#datepicker1").datepicker({
+        $("#startDate").datepicker(
+            {
+                dateFormat: 'yy-mm-dd' //Input Display Format 변경
+                , showOtherMonths: false //빈 공간에 현재월의 앞뒤월의 날짜를 표시
+                , showMonthAfterYear: false //년도 먼저 나오고, 뒤에 월 표시
+                , changeYear: true //콤보박스에서 년 선택 가능
+                , maxDate: maxDate
+                , changeMonth: true //콤보박스에서 월 선택 가능
+                , buttonText: "선택" //버튼에 마우스 갖다 댔을 때 표시되는 텍스트
+                , yearSuffix: "년" //달력의 년도 부분 뒤에 붙는 텍스트
+                , monthNamesShort: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'] //달력의 월 부분 텍스트
+                , monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'] //달력의 월 부분 Tooltip 텍스트
+                , dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'] //달력의 요일 부분 텍스트
+                , dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'] //달력의 요일 부분 Tooltip 텍스트
+                , minDate: "-1Y" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
+                , onSelect: function (date) {
+                    $('#endDate').datepicker("option", "minDate", date);
+                }
+            });
+
+
+        $("#endDate").datepicker({
             dateFormat: 'yy-mm-dd' //Input Display Format 변경
             , showOtherMonths: false //빈 공간에 현재월의 앞뒤월의 날짜를 표시
             , showMonthAfterYear: false //년도 먼저 나오고, 뒤에 월 표시
@@ -651,28 +749,26 @@
             , monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'] //달력의 월 부분 Tooltip 텍스트
             , dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'] //달력의 요일 부분 텍스트
             , dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'] //달력의 요일 부분 Tooltip 텍스트
-            , minDate: "-6M" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
-            , maxDate: "+6M" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)
-        });
-        $("#datepicker2").datepicker({
-            dateFormat: 'yy-mm-dd' //Input Display Format 변경
-            , showOtherMonths: false //빈 공간에 현재월의 앞뒤월의 날짜를 표시
-            , showMonthAfterYear: false //년도 먼저 나오고, 뒤에 월 표시
-            , changeYear: true //콤보박스에서 년 선택 가능
-            , changeMonth: true //콤보박스에서 월 선택 가능
-            , buttonText: "선택" //버튼에 마우스 갖다 댔을 때 표시되는 텍스트
-            , yearSuffix: "년" //달력의 년도 부분 뒤에 붙는 텍스트
-            , monthNamesShort: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'] //달력의 월 부분 텍스트
-            , monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'] //달력의 월 부분 Tooltip 텍스트
-            , dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'] //달력의 요일 부분 텍스트
-            , dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'] //달력의 요일 부분 Tooltip 텍스트
-            , minDate: "-6M" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
-            , maxDate: "+6M" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)
+            , minDate: "-1Y" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
+            , onSelect: function (date) {
+
+            }
         });
 
-        //초기값을 오늘 날짜로 설정
-        $('#datepicker1').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
-        $('#datepicker2').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
+        // 선택 최대값 설정
+        $('#startDate').datepicker("option", "maxDate", maxDate);
+        $('#endDate').datepicker("option", "maxDate", maxDate);
     });
+
+    function pageMove(pageNum) {
+
+        let num = pageNum;
+        let startDate = document.querySelector('#startDate').value;
+        let endDate = document.querySelector('#endDate').value;
+
+        location.href = '/admin/order-statistics?page=' + num + '&size=7&startDate=' + startDate + '&endDate=' + endDate;
+
+    }
+
 </script>
 </body>

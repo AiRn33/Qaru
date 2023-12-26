@@ -9,6 +9,7 @@ import Qaru.Prj.domain.response.*;
 import Qaru.Prj.error.ScriptErrors;
 import Qaru.Prj.service.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -167,16 +168,100 @@ public class AdminController {
     }
 
     @GetMapping("/admin/city-statistics")
-    public String cityStatisticsPage(){
+    public String cityStatisticsPage(Pageable pageable, Model model,
+                                     @RequestParam(value = "startDate") String startDate,
+                                     @RequestParam(value = "endDate") String endDate,
+                                     @AuthenticationPrincipal PrincipalDetails request){
+
+        model.addAttribute("startDate", startDate);
+        model.addAttribute("endDate", endDate);
 
         return "/admin/cityStatistics";
     }
     @GetMapping("/admin/order-statistics")
-    public String shopStatisticsPage(Pageable pageable){
+    public String orderStatisticsPage(Pageable pageable, Model model,
+                                     @RequestParam(value = "startDate") String startDate,
+                                     @RequestParam(value = "endDate") String endDate,
+                                     @AuthenticationPrincipal PrincipalDetails request){
 
-        System.out.println("============ > : " + pageable.getPageSize());
-        System.out.println("============ > : " + pageable.getPageNumber());
+        if(startDate.equals("")){
+            LocalDateTime date = LocalDateTime.now();
+            startDate = date.getYear() + "-" + date.getMonth() + "-" + date.getDayOfMonth();
+        }
+        if(endDate.equals("")){
+            LocalDateTime date = LocalDateTime.now();
+            endDate = date.getYear() + "-" + date.getMonth().getValue() + "-" + date.getDayOfMonth();
+        }
+
+        List<OrderStatisticsResponse> orderStatisticsResponseList = orderService.searchStatistics(pageable, request, startDate, endDate).toList();
+        Long pageCount = orderService.searchStatisticsAllCount(request, startDate, endDate);
+
+        if (orderStatisticsResponseList.size() > 0) {
+
+            model.addAttribute("startDate", startDate);
+            model.addAttribute("endDate", endDate);
+            model.addAttribute("orderStatisticsList", orderStatisticsResponseList);
+            model.addAttribute("orderStatisticsListCount", pageCount);
+
+            int pageNum = 0;
+            int searchPageAllNum = (int) (pageCount / pageable.getPageSize());
+            if (pageCount % pageable.getPageSize() > 0) {
+                searchPageAllNum++;
+            }
+
+            // 페이지 num 이 3보다 작을 경우 1부터 시작하게 셋팅
+            if (pageable.getPageNumber() < 3) {
+                pageNum = 0;
+            } else if (searchPageAllNum < 6) {
+                pageNum = 0;
+            } else if (pageable.getPageNumber() + 3 > searchPageAllNum) {
+                pageNum = (searchPageAllNum) - 5;
+                if (pageNum < 1) {
+                    pageNum = 0;
+                }
+            } else {
+                pageNum = pageable.getPageNumber() - 2;
+            }
+
+            int endPageNum = 0;
+
+            // 즉 3페이지 이전일 때
+            if (pageNum == 0) {
+                // 전체 페이지가 5 페이지 이상일 경우
+                if (searchPageAllNum > 4) {
+                    endPageNum = 4;
+                } else {
+                    endPageNum = searchPageAllNum - 1;
+                }
+            } else {
+                if (searchPageAllNum < 6) {
+                    endPageNum = searchPageAllNum - 1;
+                } else if (pageable.getPageNumber() + 3 > searchPageAllNum) {
+                    endPageNum = searchPageAllNum - 1;
+                } else {
+                    endPageNum = pageable.getPageNumber() + 2;
+                }
+            }
+
+            model.addAttribute("pageNum", pageNum);
+            model.addAttribute("pages", pageable.getPageNumber());
+            model.addAttribute("endPageNum", endPageNum);
+
+        } else {
+            model.addAttribute("tourListCount", pageCount);
+            model.addAttribute("orderStatisticsList", orderStatisticsResponseList);
+            model.addAttribute("orderStatisticsListCount", pageCount);
+        }
+
 
         return "/admin/orderStatistics";
+    }
+
+    @ResponseBody
+    @PostMapping("/admin/order-statistics")
+    public List<OrderMenuCheckResponse> orderStatisticsPage(@RequestParam("id") String id){
+
+
+        return orderService.findOrderMenu(id);
     }
 }

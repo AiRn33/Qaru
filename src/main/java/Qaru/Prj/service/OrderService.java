@@ -9,17 +9,25 @@ import Qaru.Prj.domain.entity.Shop;
 import Qaru.Prj.domain.enums.StatusType;
 import Qaru.Prj.domain.request.OrderRequest;
 import Qaru.Prj.domain.response.OrderMenuCheckResponse;
+import Qaru.Prj.domain.response.OrderStatisticsResponse;
 import Qaru.Prj.domain.response.OrdersResponse;
+import Qaru.Prj.domain.response.TourListResponse;
+import Qaru.Prj.repository.Impl.OrderRepositoryImpl;
 import Qaru.Prj.repository.Impl.UserRepositoryImpl;
 import Qaru.Prj.repository.MenuRepository;
 import Qaru.Prj.repository.OrderMenuRepository;
 import Qaru.Prj.repository.OrderRepository;
 import Qaru.Prj.repository.ShopRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,6 +40,7 @@ public class OrderService {
     private final OrderMenuRepository orderMenuRepository;
     private final ShopRepository shopRepository;
     private final UserRepositoryImpl userRepositoryImpl;
+    private final OrderRepositoryImpl orderRepositoryImpl;
 
     @Transactional
     public List<Order> createOrder(List<OrderRequest> orderRequest, PrincipalDetails request, Long id) {
@@ -185,5 +194,31 @@ public class OrderService {
         }else{
             return null;
         }
+    }
+
+    public Page<OrderStatisticsResponse> searchStatistics(Pageable pageable, PrincipalDetails principalDetails, String startDate, String endDate) {
+
+        Page<OrderStatisticsResponse> orderStatisticsList = orderRepositoryImpl.searchStatisticsList(pageable, principalDetails.getUser().getId(), startDate, endDate);
+
+        return orderStatisticsList;
+    }
+
+    public Long searchStatisticsAllCount(PrincipalDetails request, String startDate, String endDate) {
+
+
+        Long pageCount = orderRepositoryImpl.searchPageCount(request.getUser().getId(), startDate, endDate);
+
+        return pageCount;
+    }
+
+    public List<OrderMenuCheckResponse> findOrderMenu(String id) {
+
+        List<OrderMenuCheckResponse> orderMenuList = orderRepositoryImpl.findByOrderMenuId(Long.valueOf(id));
+
+        List<OrderMenuCheckResponse> list = new ArrayList<>();
+
+        orderMenuList.forEach(order -> list.add(new OrderMenuCheckResponse().orderDataSet(order)));
+
+        return list;
     }
 }
