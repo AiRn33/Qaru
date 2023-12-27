@@ -117,16 +117,32 @@
                                 <div class="col-2 align-self-center">
                                     <div class="card" style="padding: 6px 5px 7px 5px; height: 50px;">
                                         <div style="margin-top: 3px;">
-                                            <c:if test="${item.statusType == 'INCOMPLETE'}">
-                                                <span style="font-size: 15px; font-weight: bold;">
-                                                    🫕 메뉴 조리 중
-                                                </span>
-                                            </c:if>
-                                            <c:if test="${item.statusType == 'COMPLETE'}">
-                                                <span style="font-size: 15px; font-weight: bold;">
-                                                    🥘 메뉴 조리 완료
-                                                </span>
-                                            </c:if>
+                                            <c:choose>
+                                                <c:when test="${item.statusType == 'INCOMPLETE' || item.statusType == 'COMPLETE'}">
+                                                    <c:if test="${item.statusType == 'INCOMPLETE'}">
+                                                        <span style="font-size: 15px; font-weight: bold;">
+                                                            🫕 메뉴 조리 중
+                                                        </span>
+                                                    </c:if>
+                                                    <c:if test="${item.statusType == 'COMPLETE'}">
+                                                        <span style="font-size: 15px; font-weight: bold;">
+                                                            🥘 메뉴 조리 완료
+                                                        </span>
+                                                    </c:if>
+                                                </c:when>
+                                                <c:when test="${item.statusType == 'TAKE_INCOMPLETE' || item.statusType == 'TAKE_COMPLETE'}">
+                                                    <c:if test="${item.statusType == 'TAKE_INCOMPLETE'}">
+                                                        <span style="font-size: 15px; font-weight: bold;">
+                                                            🍳 포장 조리 중
+                                                        </span>
+                                                    </c:if>
+                                                    <c:if test="${item.statusType == 'TAKE_COMPLETE'}">
+                                                        <span style="font-size: 15px; font-weight: bold;">
+                                                            🎁 포장 조리 완료
+                                                        </span>
+                                                    </c:if>
+                                                </c:when>
+                                            </c:choose>
                                         </div>
                                     </div>
                                 </div>

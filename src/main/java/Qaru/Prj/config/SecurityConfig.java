@@ -57,8 +57,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .defaultSuccessUrl("/")
                 .and()
                     .logout()
-                    .logoutUrl("/user/logout")
-                    .logoutSuccessUrl("/");	// logout에 성공하면 /로 redirect
+                    .logoutUrl("/user/logout");
+//                    .logoutSuccessUrl("/");	// logout에 성공하면 /로 redirect
 
 
 //         =============== JWT Security 설정

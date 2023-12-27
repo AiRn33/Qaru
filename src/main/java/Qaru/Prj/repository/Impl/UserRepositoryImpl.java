@@ -85,7 +85,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
     public List<OrdersResponse> adminOrdersList(Long userId) {
 
         LocalDateTime date = LocalDateTime.now();
-        LocalDateTime startToday = LocalDateTime.of(date.minusDays(3).getYear(), date.minusDays(3).getMonth(), date.minusDays(3).getDayOfMonth(), 0, 0);
+        LocalDateTime startToday = LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), 0, 0);
         LocalDateTime endTodaty = LocalDateTime.of(date.getYear(), date.getMonth(), date.getDayOfMonth(), 23, 59);
 
         return queryFactory

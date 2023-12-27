@@ -32,6 +32,7 @@
 
             <form id="menuForm" method="post" action="/order/menu/${shopData.shopId}">
                 <input type="hidden" id="menu_count" value="${menuListCount}">
+                <input type="hidden" id="order" name="orderType" value="${orderType}">
                 <c:forEach items="${menuList}" varStatus="status" var="item">
                     <input type="hidden" id="menu_id_${status.index}" name="menuId" value="${item.menuId}">
                     <div>

@@ -4,6 +4,7 @@ import Qaru.Prj.config.customSecurity.PrincipalDetails;
 import Qaru.Prj.domain.baseEntity.DateTime;
 import Qaru.Prj.domain.entity.ImageGroup;
 import Qaru.Prj.domain.entity.Shop;
+import Qaru.Prj.domain.entity.ShopOpen;
 import Qaru.Prj.domain.entity.User;
 import Qaru.Prj.domain.request.ShopUpdateRequest;
 import Qaru.Prj.domain.request.UserAdminChangeRequest;
@@ -13,6 +14,7 @@ import Qaru.Prj.domain.response.UserAdminUpdateResponse;
 import Qaru.Prj.repository.ImageRepository;
 import Qaru.Prj.repository.Impl.ShopRepositoryImpl;
 import Qaru.Prj.repository.Impl.UserRepositoryImpl;
+import Qaru.Prj.repository.ShopOpenRepository;
 import Qaru.Prj.repository.ShopRepository;
 import Qaru.Prj.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +37,7 @@ public class ShopService {
     private final UserRepositoryImpl userRepositoryImpl;
     private final ImageGroupService imageGroupService;
     private final ShopRepositoryImpl shopRepositoryImpl;
+    private final ShopOpenRepository shopOpenRepository;
 
 
     public Long createAdmin(UserAdminChangeRequest userRequest, String storedName, PrincipalDetails request) {
@@ -46,6 +49,8 @@ public class ShopService {
         user.get().updateRole();
 
         imageService.imageSave(userRequest.getFile(), storedName, shop.getImageGroup());
+
+        shopOpenRepository.save(new ShopOpen().createShopOpen(userRequest, shop));
 
         return shop.getId();
     }
@@ -60,7 +65,7 @@ public class ShopService {
         imageGroupService.imageGroupDateUpdate(shop.getImageGroup().getId());
     }
 
-    public Page<ShopListResponse> searchShopListAll(Pageable pageable){
+    public Page<ShopListResponse> shopListAll(Pageable pageable){
 
         Page<ShopListResponse> shopListResponses = shopRepositoryImpl.searchPage(pageable);
 
@@ -89,5 +94,11 @@ public class ShopService {
         }
 
         return shopRepository.findByUserId(request.getUser().getId()).get();
+    }
+
+    public List<ShopListResponse> searchShopListAll(String searchType, String searchContent) {
+
+        return shopRepositoryImpl.searchShopList(searchType, searchContent);
+
     }
 }

@@ -14,6 +14,7 @@ public interface ShopRepositoryCustom {
 
     Long searchPageCount();
 
+    List<ShopListResponse> searchShopList(String type, String content);
     List<ShopListResponse> searchData(String type, String content);
 
     ShopListResponse shopDataByUserId(Long userId);

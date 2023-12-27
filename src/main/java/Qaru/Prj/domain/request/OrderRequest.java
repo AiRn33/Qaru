@@ -14,4 +14,5 @@ public class OrderRequest {
     private Long orderCount;
 
     private Long menuId;
+    private String orderType;
 }

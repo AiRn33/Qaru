@@ -69,16 +69,36 @@
                 <div class="col-2"></div>
             </div>
             <div class="row g-0">
-                <div class="col-4"></div>
-                <div class="col-4" style="margin-top: 10px;">
+                <div class="col-3"></div>
+                <div class="col-6" style="margin-top: 10px;">
                     <div class="card">
-                        <button class="btn btn-outline-bluemint" onclick="location.href='/order/menu/${shopData.shopId}'">
-                            <i class="bi bi-basket"></i>
-                            &nbsp;&nbsp;주문 하기
+                        <button class="btn btn-outline-bluemint" onclick="location.href='/order/menu/${shopData.shopId}?order=site'">
+                            <i class="bi bi-shop"></i>
+                            &nbsp;&nbsp;매장 식사 주문 하기
                         </button>
                     </div>
                 </div>
-                <div class="col-4"></div>
+                <div class="col-3"></div>
+            </div>
+            <div class="row g-0">
+                <div class="col-3"></div>
+                <div class="col-3" style="margin-top: 10px;">
+                    <div class="card">
+                        <button class="btn btn-outline-pink" onclick="location.href='/order/menu/${shopData.shopId}?order=take'">
+                            <i class="bi bi-basket"></i>
+                            &nbsp;&nbsp;포장 하기
+                        </button>
+                    </div>
+                </div>
+                <div class="col-3" style="margin-top: 10px;">
+                    <div class="card">
+                        <button class="btn btn-outline-light_green" onclick="">
+                            <i class="bi bi-calendar-check"></i>
+                            &nbsp;&nbsp;예약 하기
+                        </button>
+                    </div>
+                </div>
+                <div class="col-3"></div>
             </div>
         </div>
     </div>

@@ -3,6 +3,7 @@ package Qaru.Prj.repository.Impl;
 import Qaru.Prj.domain.entity.*;
 import Qaru.Prj.domain.response.ShopListResponse;
 import Qaru.Prj.domain.response.TourListResponse;
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -61,6 +62,34 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
                 .fetchCount();
 
         return count;
+    }
+
+    @Override
+    public List<ShopListResponse> searchShopList(String type, String content) {
+
+        BooleanBuilder bulider = new BooleanBuilder();
+        if(type.equals("name")){
+            bulider.and(shop.shopName.contains(content));
+        }else if(type.equals("city")){
+            bulider.and(shop.address.city.contains(content).or(shop.address.street.contains(content)));
+        }
+
+        return queryFactory	// (1)
+                .select(Projections.fields(ShopListResponse.class,
+                        shop.id.as("shopId"),
+                        shop.shopName.as("shopName"),
+                        shop.shopComment.as("shopComment"),
+                        shop.shopType.as("shopType"),
+                        shop.address.city.as("shopCity"),
+                        shop.address.street.as("shopStreet"),
+                        image.storedFileName.as("storedFileName")
+                ))
+                .from(shop)
+                .innerJoin(imageGroup).on(imageGroup.id.eq(shop.imageGroup.id))
+                .innerJoin(image).on(image.imageGroup.id.eq(imageGroup.id))
+                .where(shop.menuCheck.eq(true).and(shop.menuView.eq(true)).and(bulider))
+                .orderBy(shop.id.desc())
+                .fetch();
     }
 
     @Override

@@ -10,7 +10,7 @@
             <div class="card" style="padding:8px;">
                 <h1 style="margin-top: 10px;">주문 내역 확인 </h1>
                 <span style="color: dimgray; font-size: 15px;">가게 이름 : ${orders[0].shopName}</span>
-                <span style="color: red; font-size: 12px;"> 주문 내역은 3일 전 내역까지 확인가능합니다</span>
+                <span style="color: red; font-size: 12px;"> 주문 내역은 당일 내역만 확인가능합니다</span>
             </div>
             <div>
                 <div class="row g-0">
@@ -28,7 +28,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-4 align-self-center">
+                    <div class="col-3 align-self-center">
                         <div class="card" style="padding:8px; height: 50px; line-height:115%;">
                             <div style="margin-top: 3px;">
                                 <span style="color: dimgray; font-size: 15px;">
@@ -50,6 +50,13 @@
                         <div class="card" style="padding:8px; height: 50px;">
                             <div style="margin-top: 3px;">
                                 <span style="color: dimgray; font-size: 18px;">총 메뉴 가격</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-1 align-self-center">
+                        <div class="card" style="padding:8px; height: 50px;">
+                            <div style="margin-top: 3px;">
+                                <span style="color: dimgray; font-size: 18px;">종류</span>
                             </div>
                         </div>
                     </div>
@@ -81,7 +88,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-4 align-self-center">
+                                <div class="col-3 align-self-center">
                                     <c:forEach items="${item.orderData}" var="data">
                                         <input type="hidden" name="orderData_${status.index}"
                                                value="${data.menuName}/${data.menuCount}">
@@ -115,13 +122,37 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-1 align-self-center">
+                                    <div class="card" style="padding:8px; height: 50px;">
+                                        <div style="margin-top: 3px;">
+                                            <span style="font-size: 15px;margin-top: 3px;">
+                                                 <c:choose>
+                                                     <c:when test="${item.statusType == 'INCOMPLETE' || item.statusType == 'COMPLETE'}">
+                                                         🏪 현장
+                                                     </c:when>
+                                                     <c:when test="${item.statusType == 'TAKE_INCOMPLETE' || item.statusType == 'TAKE_COMPLETE'}">
+                                                         🎁 포장
+                                                     </c:when>
+                                                 </c:choose>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="col-2 align-self-center">
                                     <div class="card" style="padding: 6px 5px 7px 5px; height: 50px;">
                                         <div>
-                                                <span style="font-size: 15px; font-weight: bold;">
+                                                </select style="font-size: 15px; font-weight: bold;">
                                                     <select class="form-select" onchange="orderStatusUpdate(this.value, '${item.orderMenuId}')">
-                                                        <option value="1"<c:if test="${item.statusType == 'INCOMPLETE'}">selected</c:if>>✔️주문 대기</option>
-                                                          <option value="2"<c:if test="${item.statusType == 'COMPLETE'}">selected</c:if>>⭕주문 완료</option>
+                                                        <c:choose>
+                                                            <c:when test="${item.statusType == 'INCOMPLETE' || item.statusType == 'COMPLETE'}">
+                                                                <option value="1"<c:if test="${item.statusType == 'INCOMPLETE'}">selected</c:if>>✔️주문 대기</option>
+                                                                <option value="2"<c:if test="${item.statusType == 'COMPLETE'}">selected</c:if>>⭕주문 완료</option>
+                                                            </c:when>
+                                                            <c:when test="${item.statusType == 'TAKE_INCOMPLETE' || item.statusType == 'TAKE_COMPLETE'}">
+                                                                <option value="3"<c:if test="${item.statusType == 'TAKE_INCOMPLETE'}">selected</c:if>>✔️포장 대기</option>
+                                                                <option value="4"<c:if test="${item.statusType == 'TAKE_COMPLETE'}">selected</c:if>>⭕포장 완료</option>
+                                                            </c:when>
+                                                        </c:choose>
                                                     </select>
                                                 </span>
                                         </div>

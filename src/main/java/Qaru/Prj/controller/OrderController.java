@@ -29,14 +29,18 @@ public class OrderController {
     private final OrderService orderService;
 
     @GetMapping("/order/menu/{id}")
-    public String orderMenuForm(Model model, @PathVariable Long id, @AuthenticationPrincipal PrincipalDetails request){
+    public String orderMenuForm(Model model, @PathVariable Long id,
+                                @AuthenticationPrincipal PrincipalDetails request,
+                                @RequestParam("order") String orderType){
 
         List<MenuListResponse> menuList = menuService.getMenuList(id);
         ShopListResponse shopListResponse = shopService.shopDataByShopId(id);
 
+        model.addAttribute("orderType", orderType);
         model.addAttribute("shopData", shopListResponse);
         model.addAttribute("menuList", menuList);
         model.addAttribute("menuListCount", menuList.size());
+
         return "/order/orderMenu";
     }
 
@@ -44,7 +48,9 @@ public class OrderController {
     public String orderMenuCheckList(Model model,
                                      @PathVariable Long id,
                                      @RequestParam List<Long> inputCount,
-                                     @RequestParam List<Long> menuId){
+                                     @RequestParam List<Long> menuId,
+                                     @RequestParam("orderType") String orderType){
+
 
         List<Menu> menuList = menuService.selectMenuAll(menuId);
 
@@ -60,15 +66,19 @@ public class OrderController {
         }
 
         model.addAttribute("shopId", id);
+        model.addAttribute("orderType", orderType);
         model.addAttribute("orderData", orderMenuCheckList);
         model.addAttribute("orderAllPrice", orderAllPrice);
         model.addAttribute("orderMenuCount", orderMenuCheckList.size());
+
         return "/order/orderMenuCheck";
     }
 
     @ResponseBody
     @PostMapping("/order/{id}")
-    public Long createOrder(@PathVariable Long id ,@RequestBody List<OrderRequest> orderRequest, @AuthenticationPrincipal PrincipalDetails request){
+    public Long createOrder(@PathVariable Long id,
+                            @RequestBody List<OrderRequest> orderRequest,
+                            @AuthenticationPrincipal PrincipalDetails request){
 
         List<Order> orderList = orderService.createOrder(orderRequest, request, id);
 

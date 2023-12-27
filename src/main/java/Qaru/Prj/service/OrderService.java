@@ -53,6 +53,7 @@ public class OrderService {
                 .orderMenuPrice(0L)
                 .orderMenuCount(0L)
                 .shop(shop)
+                .statusType(orderRequest.get(0).getOrderType().equals("site")?StatusType.INCOMPLETE:StatusType.TAKE_INCOMPLETE)
                 .dateTime(new DateTime().createTime())
                 .build();
 

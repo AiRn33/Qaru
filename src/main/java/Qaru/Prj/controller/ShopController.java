@@ -38,12 +38,12 @@ public class ShopController {
     @GetMapping("/shop/shopList")
     public String shopList(Pageable pageable, Model model){
 
-        List<ShopListResponse> tourListResponses =
-                shopService.searchShopListAll(pageable).toList();
+        List<ShopListResponse> shopListResponses =
+                shopService.shopListAll(pageable).toList();
 
 
-        if (tourListResponses.size() > 0) {
-            model.addAttribute("shopList", tourListResponses);
+        if (shopListResponses.size() > 0) {
+            model.addAttribute("shopList", shopListResponses);
             model.addAttribute("shopListCount", shopService.searchTourListAllCount());
 
 
@@ -99,6 +99,17 @@ public class ShopController {
             model.addAttribute("shopListCount", shopService.searchTourListAllCount());
         }
         return "/shop/shopList";
+    }
+
+    @ResponseBody
+    @GetMapping("/shop/search")
+    public List<ShopListResponse> shopSearch(@RequestParam(value = "searchType", required = false) String searchType,
+                             @RequestParam(value = "searchContent", required = false) String searchContent){
+
+        List<ShopListResponse> shopListResponses =
+                shopService.searchShopListAll(searchType, searchContent);
+
+        return shopListResponses;
     }
 
     @GetMapping("/shop/menu")

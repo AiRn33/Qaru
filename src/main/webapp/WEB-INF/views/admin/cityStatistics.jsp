@@ -9,7 +9,7 @@
         <div class="col-8 text-center">
             <div class="row g-0">
                 <div class="col-12" style="line-height:150%;">
-                    <span style="font-size: 30px;">지역별 통계 조회</span>
+                    <span style="font-size: 30px;">주문별 지역 통계 조회</span>
                     <br>
                     <span style="font-size: 12px; color: red;">초기 데이터는 현재 기준 1년 전 데이터까지 조회됩니다.</span>
                     <hr style="margin: 0.4rem;">
@@ -288,9 +288,9 @@
                                 <button class="btn btn-outline-gray" type="button" id="dateBtn" style="float: right;">
                                     조회
                                 </button>
-                                <input class="btn btn-outline-gray" type="text" id="datepicker2"
+                                <input class="btn btn-outline-gray" type="text" id="endDate"
                                        style="width: 35%; float: right;">
-                                <input class="btn btn-outline-gray" type="text" id="datepicker1"
+                                <input class="btn btn-outline-gray" type="text" id="startDate"
                                        style="width: 35%; float: right;">
                             </div>
                             <div style="float: right;">
@@ -711,10 +711,11 @@
         document.querySelector('#modal-wrap').style.display = 'none';
     }
 
-    var maxDate = new Date();
 
     /* cursor: pointer; */
     $(function () {
+        var maxDate = new Date();
+
         //input을 datepicker로 선언
         $("#startDate").datepicker(
             {

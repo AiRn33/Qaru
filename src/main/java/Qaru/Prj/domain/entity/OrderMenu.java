@@ -49,11 +49,11 @@ public class OrderMenu {
     }
 
     @Builder
-    public OrderMenu(Long id, Shop shop, User user, Long orderMenuCount, Long orderMenuPrice, DateTime dateTime) {
+    public OrderMenu(Long id, Shop shop, User user, Long orderMenuCount, Long orderMenuPrice, DateTime dateTime, StatusType statusType) {
         this.id = id;
         this.user = user;
         this.shop = shop;
-        this.statusType = StatusType.INCOMPLETE;
+        this.statusType = statusType;
         this.orderMenuCount = orderMenuCount;
         this.orderMenuPrice = orderMenuPrice;
         this.dateTime = dateTime;
@@ -71,6 +71,12 @@ public class OrderMenu {
             this.dateTime.orderMenuUpdateTime(orderMenu);
         }else if(value.equals("2")){
             this.statusType = StatusType.COMPLETE;
+            this.dateTime.orderMenuUpdateTime(orderMenu);
+        }else if(value.equals("3")){
+            this.statusType = StatusType.TAKE_INCOMPLETE;
+            this.dateTime.orderMenuUpdateTime(orderMenu);
+        }else if(value.equals("4")){
+            this.statusType = StatusType.TAKE_COMPLETE;
             this.dateTime.orderMenuUpdateTime(orderMenu);
         }
         return this;

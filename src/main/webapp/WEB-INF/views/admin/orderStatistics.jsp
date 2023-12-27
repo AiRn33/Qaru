@@ -164,11 +164,11 @@
                     </c:when>
                     <c:otherwise>
                         <div class="row g-0">
-                            <div class="col-12 align-self-center">
-                                <div class="card" style="padding:8px; height: 50px;">
-                                    <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                        <span style="color: dimgray; font-size: 14px;">111</span>
-                                    </div>
+                            <div class="col-12">
+                                <div class="card" style="padding:8px">
+                                    <h8 style=""><i class="bi bi-clipboard-x" style="font-size: 30px; "></i></h8>
+                                    <hr style="margin: 0.4rem;">
+                                    <label style="font-size: 15px; font-weight: lighter;">주문 내역이 없습니다.</label>
                                 </div>
                             </div>
                         </div>
@@ -365,10 +365,10 @@
         document.querySelector('#modal-wrap').style.display = 'none';
     }
 
-    var maxDate = new Date();
-
     /* cursor: pointer; */
     $(function () {
+        var maxDate = new Date();
+
         //input을 datepicker로 선언
         $("#startDate").datepicker(
             {

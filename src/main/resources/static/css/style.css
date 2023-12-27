@@ -251,7 +251,7 @@ input[type=number] {
     --bs-btn-border-color: #81ecec;
     --bs-btn-hover-color: #00cec9;
     --bs-btn-hover-bg: #00cec9;
-    --bs-btn-hover-border-color: #8F7CEE;
+    --bs-btn-hover-border-color: #00cec9;
     --bs-btn-focus-shadow-rgb: 66,70,73;
     --bs-btn-active-color: #fff;
     --bs-btn-active-bg: #00cec9;

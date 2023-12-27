@@ -55,6 +55,7 @@ public class AdminController {
     @PostMapping("/admin/change-admin")
     public String changeRoleAdminPost(@Valid UserAdminChangeRequest userRequest, BindingResult bindingResult,
                                       @AuthenticationPrincipal PrincipalDetails request, Model model) throws Exception {
+
         // valid에 걸릴 시
         if(bindingResult.hasErrors() || userRequest.getFile().getSize() < 1){
             List errors = new ScriptErrors().errors(bindingResult);
@@ -251,6 +252,8 @@ public class AdminController {
             model.addAttribute("tourListCount", pageCount);
             model.addAttribute("orderStatisticsList", orderStatisticsResponseList);
             model.addAttribute("orderStatisticsListCount", pageCount);
+            model.addAttribute("startDate", startDate);
+            model.addAttribute("endDate", endDate);
         }
 
 

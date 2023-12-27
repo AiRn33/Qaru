@@ -166,7 +166,8 @@
                 {
                     orderPriceAll: input.paid_amount,
                     menuId: document.querySelector('#menuId_' + i).value,
-                    orderCount: document.querySelector('#orderCount_' + i).value
+                    orderCount: document.querySelector('#orderCount_' + i).value,
+                    orderType: '${orderType}'
                 });
         }
 

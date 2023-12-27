@@ -4,6 +4,7 @@ import Qaru.Prj.domain.baseEntity.Address;
 import Qaru.Prj.domain.baseEntity.DateTime;
 import Qaru.Prj.domain.entity.ImageGroup;
 import Qaru.Prj.domain.entity.Shop;
+import Qaru.Prj.domain.entity.ShopOpen;
 import Qaru.Prj.domain.entity.User;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,6 +37,27 @@ public class UserAdminChangeRequest {
 
     private MultipartFile file;
 
+    private Boolean mon;
+
+    private Boolean tues;
+
+    private Boolean wed;
+
+    private Boolean thur;
+
+    private Boolean fri;
+
+    private Boolean sat;
+
+    private Boolean sun;
+
+    private String openTime;
+
+    private String openMinute;
+
+    private String closeTime;
+    private String closeMinute;
+
     public Shop toEntity(User user, ImageGroup imageGroup){
         return Shop.builder()
                 .user(user)
@@ -47,4 +69,5 @@ public class UserAdminChangeRequest {
                 .shopType(shopType)
                 .build();
     }
+
 }
