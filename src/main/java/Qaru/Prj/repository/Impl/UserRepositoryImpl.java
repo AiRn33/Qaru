@@ -19,6 +19,7 @@ import static Qaru.Prj.domain.entity.QMenuGroup.menuGroup;
 import static Qaru.Prj.domain.entity.QOrder.order;
 import static Qaru.Prj.domain.entity.QOrderMenu.orderMenu;
 import static Qaru.Prj.domain.entity.QShop.*;
+import static Qaru.Prj.domain.entity.QShopOpen.shopOpen;
 import static Qaru.Prj.domain.entity.QUser.*;
 
 @Repository
@@ -44,9 +45,23 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
                                 shop.address.zipcode.as("userZipcode"),
                                 image.originalFileName,
                                 image.storedFileName,
-                                image.storedFilePath))
+                                image.storedFilePath,
+                                shopOpen.mon,
+                                shopOpen.tues,
+                                shopOpen.wed,
+                                shopOpen.thur,
+                                shopOpen.fri,
+                                shopOpen.sat,
+                                shopOpen.sun,
+                                shopOpen.openTime,
+                                shopOpen.closeTime,
+                                shopOpen.reservationOpen.as("reservationOpenTime"),
+                                shopOpen.reservationClose.as("reservationCloseTime"),
+                                shopOpen.reservationTime
+                                ))
                         .from(shop,image)
                         .innerJoin(shop.imageGroup).on(image.imageGroup.id.eq(shop.imageGroup.id))
+                        .innerJoin(shopOpen).on(shop.id.eq(shopOpen.shop.id))
                         .where(shop.user.id.eq(userId)).fetchOne();
 
         return fetch;

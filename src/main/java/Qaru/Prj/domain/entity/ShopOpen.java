@@ -1,5 +1,6 @@
 package Qaru.Prj.domain.entity;
 
+import Qaru.Prj.domain.request.ShopUpdateRequest;
 import Qaru.Prj.domain.request.UserAdminChangeRequest;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
@@ -41,6 +42,29 @@ public class ShopOpen {
 
     private String closeTime;
 
+    private String reservationOpen;
+
+    private String reservationClose;
+
+    private String reservationTime;
+
+    public ShopOpen updateShopOpen(ShopUpdateRequest request, Shop shop) {
+        this.shop = shop;
+        this.mon = request.getMon();
+        this.tues = request.getTues();
+        this.wed = request.getWed();
+        this.thur = request.getThur();
+        this.fri = request.getFri();
+        this.sat = request.getSat();
+        this.sun = request.getSun();
+        this.openTime = request.getOpenTime() + "-" + request.getOpenMinute();
+        this.closeTime = request.getCloseTime() + "-" + request.getCloseMinute();
+        this.reservationOpen = request.getReservationOpenTime() + "-" + request.getReservationOpenMinute();
+        this.reservationClose = request.getReservationCloseTime()+ "-" + request.getReservationCloseMinute();
+        this.reservationTime = request.getReservationTime();
+        return this;
+    }
+
     public ShopOpen createShopOpen(UserAdminChangeRequest request, Shop shop){
         this.shop = shop;
         this.mon = request.getMon();
@@ -52,6 +76,9 @@ public class ShopOpen {
         this.sun = request.getSun();
         this.openTime = request.getOpenTime() + "-" + request.getOpenMinute();
         this.closeTime = request.getCloseTime() + "-" + request.getCloseMinute();
+        this.reservationOpen = request.getReservationOpenTime() + "-" + request.getReservationOpenMinute();
+        this.reservationClose = request.getReservationCloseTime()+ "-" + request.getReservationCloseMinute();
+        this.reservationTime = request.getReservationTime();
         return this;
     }
 }

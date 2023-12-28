@@ -192,4 +192,21 @@ public class ShopController {
 
         return menus.size();
     }
+
+    @GetMapping("/shop/reservation/{id}")
+    public String reservationGet(@AuthenticationPrincipal PrincipalDetails reqeust, @PathVariable("id") Long id, Model model){
+
+        model.addAttribute("shopData", shopService.shopDataByShopId(id));
+
+        return "/shop/reservation";
+    }
+
+    @ResponseBody
+    @GetMapping("/shop/reservation-time/{id}")
+    public void reservationTimeSearch(@AuthenticationPrincipal PrincipalDetails request,
+                                      @PathVariable("id") Long id,
+                                      @RequestParam("reservationDate") String date){
+
+        shopService.searchReservationList(id, date);
+    }
 }

@@ -32,15 +32,48 @@
                 <hr style="margin: 0.4rem;">
                 <div class="card" style="padding:8px">
                     <div class="row g-0">
-                        <div class="col-6">
+                        <div class="col-4">
                             <span>가게 설명</span>
                             <hr style="margin: 0.4rem;">
                             <span>${shopData.shopComment}</span>
                         </div>
-                        <div class="col-6">
+                        <div class="col-4">
                             <span>가게 종류</span>
                             <hr style="margin: 0.4rem;">
                             <span>${shopData.shopType}</span>
+                        </div>
+                        <div class="col-4">
+                            <span>가게 영업 정보</span>
+                            <hr style="margin: 0.4rem;">
+                            <span>
+                                <span style="font-size: 13px; color: dimgray;">영업일 :</span>
+                                <span style="font-size: 13px; color: red;">
+                                    <c:if test="${shopData.mon == 'true'}">월</c:if>
+                                    <c:if test="${shopData.tues == 'true'}">화</c:if>
+                                    <c:if test="${shopData.wed == 'true'}">수</c:if>
+                                    <c:if test="${shopData.thur == 'true'}">목</c:if>
+                                    <c:if test="${shopData.fri == 'true'}">금</c:if>
+                                    <c:if test="${shopData.sat == 'true'}">토</c:if>
+                                    <c:if test="${shopData.sun == 'true'}">일</c:if>
+                                </span>
+                                <span style="font-size: 13px; color: dimgray;">&nbsp;&nbsp;&nbsp; 휴일 :</span>
+                                <span style="font-size: 13px; color: red;">
+                                    <c:if test="${shopData.mon == 'false'}">월</c:if>
+                                    <c:if test="${shopData.tues == 'false'}">화</c:if>
+                                    <c:if test="${shopData.wed == 'false'}">수</c:if>
+                                    <c:if test="${shopData.thur == 'false'}">목</c:if>
+                                    <c:if test="${shopData.fri == 'false'}">금</c:if>
+                                    <c:if test="${shopData.sat == 'false'}">토</c:if>
+                                    <c:if test="${shopData.sun == 'false'}">일</c:if>
+                                </span>
+                            </span>
+                            <br>
+                            <span>
+                                <span style="font-size: 13px; color: dimgray;">
+                                    영업 시간 :
+                                    ${shopData.openTime}시${shopData.openMinute}분 ~ ${shopData.closeTime}시${shopData.closeMinute}분
+                                </span>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -92,7 +125,7 @@
                 </div>
                 <div class="col-3" style="margin-top: 10px;">
                     <div class="card">
-                        <button class="btn btn-outline-light_green" onclick="">
+                        <button class="btn btn-outline-light_green" onclick="location.href='/shop/reservation/${shopData.shopId}'">
                             <i class="bi bi-calendar-check"></i>
                             &nbsp;&nbsp;예약 하기
                         </button>

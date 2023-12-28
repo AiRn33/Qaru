@@ -94,6 +94,7 @@ public class AdminController {
     public String changeRoleAdminModify(@AuthenticationPrincipal PrincipalDetails request, Model model) throws Exception {
 
         UserAdminUpdateResponse response = userService.userAdminUpdate(request);
+        response.shopOpenTimeSet();
 
         ImageResponse imageResponse = new ImageResponse().selectImage(imageService.imageSelectAll(response.getImageGroup().getId()).get(0));
 

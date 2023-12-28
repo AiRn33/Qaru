@@ -3,6 +3,7 @@ package Qaru.Prj.repository.Impl;
 import Qaru.Prj.domain.entity.Menu;
 import Qaru.Prj.domain.entity.QMenu;
 import Qaru.Prj.domain.entity.QMenuGroup;
+import Qaru.Prj.domain.entity.QShopOpen;
 import Qaru.Prj.domain.response.MenuListResponse;
 import Qaru.Prj.domain.response.ShopListResponse;
 import com.querydsl.core.types.Projections;
@@ -18,6 +19,7 @@ import java.util.List;
 import static Qaru.Prj.domain.entity.QMenu.menu;
 import static Qaru.Prj.domain.entity.QMenuGroup.menuGroup;
 import static Qaru.Prj.domain.entity.QShop.shop;
+import static Qaru.Prj.domain.entity.QShopOpen.shopOpen;
 import static Qaru.Prj.domain.entity.QUser.user;
 
 @RequiredArgsConstructor

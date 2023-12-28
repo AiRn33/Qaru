@@ -9,9 +9,11 @@ import Qaru.Prj.domain.entity.User;
 import Qaru.Prj.domain.request.ShopUpdateRequest;
 import Qaru.Prj.domain.request.UserAdminChangeRequest;
 import Qaru.Prj.domain.response.ShopListResponse;
+import Qaru.Prj.domain.response.ShopRervationListResponse;
 import Qaru.Prj.domain.response.TourListResponse;
 import Qaru.Prj.domain.response.UserAdminUpdateResponse;
 import Qaru.Prj.repository.ImageRepository;
+import Qaru.Prj.repository.Impl.ReservationRepositoryImpl;
 import Qaru.Prj.repository.Impl.ShopRepositoryImpl;
 import Qaru.Prj.repository.Impl.UserRepositoryImpl;
 import Qaru.Prj.repository.ShopOpenRepository;
@@ -38,6 +40,7 @@ public class ShopService {
     private final ImageGroupService imageGroupService;
     private final ShopRepositoryImpl shopRepositoryImpl;
     private final ShopOpenRepository shopOpenRepository;
+    private final ReservationRepositoryImpl reservationRepositoryImpl;
 
 
     public Long createAdmin(UserAdminChangeRequest userRequest, String storedName, PrincipalDetails request) {
@@ -61,6 +64,8 @@ public class ShopService {
         Shop shop = shopRepository.findByUserId(request.getUser().getId()).get();
 
         shop.updateShop(userRequest, shop);
+
+        shopOpenRepository.findByShopId(shop.getId()).updateShopOpen(userRequest, shop);
 
         imageGroupService.imageGroupDateUpdate(shop.getImageGroup().getId());
     }
@@ -100,5 +105,11 @@ public class ShopService {
 
         return shopRepositoryImpl.searchShopList(searchType, searchContent);
 
+    }
+
+    public void searchReservationList(Long id, String date) {
+        List<ShopRervationListResponse> shopRervationListResponses = reservationRepositoryImpl.searchReservation(id, date);
+
+        System.out.println("========= > : " + shopRervationListResponses.size());
     }
 }

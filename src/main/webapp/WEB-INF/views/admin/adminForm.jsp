@@ -23,6 +23,11 @@
                 <input type="hidden" id="openMinuteSet" name="openMinute">
                 <input type="hidden" id="closeTimeSet" name="closeTime">
                 <input type="hidden" id="closeMinuteSet" name="closeMinute">
+                <input type="hidden" id="reservationOpenTimeSet" name="reservationOpenTime">
+                <input type="hidden" id="reservationOpenMinuteSet" name="reservationOpenMinute">
+                <input type="hidden" id="reservationCloseTimeSet" name="reservationCloseTime">
+                <input type="hidden" id="reservationCloseMinuteSet" name="reservationCloseMinute">
+                <input type="hidden" id="reservationTimeSet" name="reservationTime">
                 <div class="row g-0">
                     <div class="col">
                         <div class="card" style="padding:8px">
@@ -115,8 +120,8 @@
 
 <div id="modal-bg" class="modal-bg" style="display: none;">
 </div>
-<div id="modal-wrap" class="modal-wrap" style="display: none; height: 300px;">
-    <div class="container-md" style="height: 110%!important;">
+<div id="modal-wrap" class="modal-wrap" style="display: none; height: 460px;">
+    <div class="container-md" style="height: 100%!important;">
         <div class="row d-flex justify-content-center align-items-center h-100" style="margin-right: 12px;">
             <div class="col-1"></div>
             <div class="col-10 text-center">
@@ -152,8 +157,9 @@
                         <label class="btn btn-outline-gray" for="btn-check-sun" style="font-size: 13px;">일</label><br>
                     </div>
                     <br><br>
+                    <hr>
                     <span style="font-size: 12px;">영업 시간 설정</span>
-                    <span style="font-size: 10px; color: red; margin-bottom: 5px;">(30분 단위로 선택가능합니다)</span>
+                    <span style="font-size: 10px; color: red; margin-bottom: 5px;">(10분 단위로 선택가능합니다)</span>
                     <div class="col-6" style="text-align: center;">
                         <span style="font-size: 12px;">오픈 시간</span>
                     </div>
@@ -238,6 +244,106 @@
                             <option value="50">50분</option>
                         </select>
                     </div>
+                    <br><br>
+                    <hr>
+                    <span style="font-size: 12px;">예약 가능 시간 설정</span>
+                    <span style="font-size: 10px; color: red; margin-bottom: 5px;">(30분 단위로 선택가능합니다)</span>
+                    <div class="col-6" style="text-align: center;">
+                        <span style="font-size: 12px;">예약 시작 시간</span>
+                    </div>
+                    <div class="col-6" style="text-align: center;">
+                        <span style="font-size: 12px;">마지막 예약 시간</span>
+                    </div>
+                    <div class="col-3">
+                        <select class="form-select me-2" id="reservationOpenTime" style="width: 92px; font-size: 14px;">
+                            <option value="00">00시</option>
+                            <option value="01">01시</option>
+                            <option value="02">02시</option>
+                            <option value="03">03시</option>
+                            <option value="04">04시</option>
+                            <option value="04">05시</option>
+                            <option value="04">06시</option>
+                            <option value="07">07시</option>
+                            <option value="08">08시</option>
+                            <option value="09">09시</option>
+                            <option value="10">10시</option>
+                            <option value="11">11시</option>
+                            <option value="12">12시</option>
+                            <option value="13">13시</option>
+                            <option value="14">14시</option>
+                            <option value="15">15시</option>
+                            <option value="16">16시</option>
+                            <option value="17">17시</option>
+                            <option value="18">18시</option>
+                            <option value="19">19시</option>
+                            <option value="20">20시</option>
+                            <option value="21">21시</option>
+                            <option value="22">22시</option>
+                            <option value="23">23시</option>
+                            <option value="24">24시</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <select class="form-select me-2" id="reservationOpenMinute" style="width: 92px; font-size: 14px;">
+                            <option value="00">00분</option>
+                            <option value="10">10분</option>
+                            <option value="20">20분</option>
+                            <option value="30">30분</option>
+                            <option value="40">40분</option>
+                            <option value="50">50분</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <select class="form-select me-2" id="reservationCloseTime" style="width: 92px; font-size: 14px;">
+                            <option value="00">00시</option>
+                            <option value="01">01시</option>
+                            <option value="02">02시</option>
+                            <option value="03">03시</option>
+                            <option value="04">04시</option>
+                            <option value="04">05시</option>
+                            <option value="04">06시</option>
+                            <option value="07">07시</option>
+                            <option value="08">08시</option>
+                            <option value="09">09시</option>
+                            <option value="10">10시</option>
+                            <option value="11">11시</option>
+                            <option value="12">12시</option>
+                            <option value="13">13시</option>
+                            <option value="14">14시</option>
+                            <option value="15">15시</option>
+                            <option value="16">16시</option>
+                            <option value="17">17시</option>
+                            <option value="18">18시</option>
+                            <option value="19">19시</option>
+                            <option value="20">20시</option>
+                            <option value="21">21시</option>
+                            <option value="22">22시</option>
+                            <option value="23">23시</option>
+                            <option value="24">24시</option>
+                        </select>
+                    </div>
+                    <div class="col-3">
+                        <select class="form-select me-2" id="reservationCloseMinute" style="width: 92px; font-size: 14px;">
+                            <option value="00">00분</option>
+                            <option value="10">10분</option>
+                            <option value="20">20분</option>
+                            <option value="30">30분</option>
+                            <option value="40">40분</option>
+                            <option value="50">50분</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <span style="font-size: 12px;">예약 가능 시간 간격</span>
+                    </div>
+                    <div class="col-3">
+
+                    </div>
+                    <div class="col-6">
+                        <select class="form-select me-2" id="reservationTime" style="width: 189px; font-size: 14px;">
+                            <option value="30">30분</option>
+                            <option value="60">1시간</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="row g-0" style="margin-top: 15px;">
                     <div class="col-12 align-self-center">
@@ -256,6 +362,7 @@
 </div>
 </div>
 
+
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
     window.onload = function () {
@@ -269,6 +376,45 @@
             document.querySelector('#file_btn').style.marginTop = '5px';
         }
 
+        if(${shopData != null}){
+            if(${shopData.mon == 'true'}){
+                document.querySelector('#btn-check-mon').checked = true;
+            }
+
+            if(${shopData.tues == 'true'}){
+                document.querySelector('#btn-check-tues').checked = true;
+            }
+
+            if(${shopData.wed == 'true'}){
+                document.querySelector('#btn-check-wed').checked = true;
+            }
+
+            if(${shopData.thur == 'true'}){
+                document.querySelector('#btn-check-thur').checked = true;
+            }
+
+            if(${shopData.fri == 'true'}){
+                document.querySelector('#btn-check-fri').checked = true;
+            }
+
+            if(${shopData.sat == 'true'}){
+                document.querySelector('#btn-check-sat').checked = true;
+            }
+
+            if(${shopData.sun == 'true'}){
+                document.querySelector('#btn-check-sun').checked = true;
+            }
+
+            $('#openTime').val('${shopData.openTime}').prop("selected", true);
+            $('#openMinute').val('${shopData.openMinute}').prop("selected", true);
+            $('#closeTime').val('${shopData.closeTime}').prop("selected", true);
+            $('#closeMinute').val('${shopData.closeMinute}').prop("selected", true);
+            $('#reservationOpenTime').val('${shopData.reservationOpenTime}').prop("selected", true);
+            $('#reservationOpenMinute').val('${shopData.reservationOpenMinute}').prop("selected", true);
+            $('#reservationCloseTime').val('${shopData.reservationCloseTime}').prop("selected", true);
+            $('#reservationCloseMinute').val('${shopData.reservationCloseMinute}').prop("selected", true);
+            $('#reservationTime').val('${shopData.reservationTime}').prop("selected", true);
+        }
     }
 
     document.getElementById("address_search").addEventListener("click", function () { //주소입력칸을 클릭하면
@@ -294,10 +440,17 @@
         document.querySelector('#fri').value = document.querySelector('#btn-check-fri').checked;
         document.querySelector('#sat').value = document.querySelector('#btn-check-sat').checked;
         document.querySelector('#sun').value = document.querySelector('#btn-check-sun').checked;
+
         document.querySelector('#openTimeSet').value = document.querySelector('#openTime').value;
         document.querySelector('#openMinuteSet').value = document.querySelector('#openMinute').value;
         document.querySelector('#closeTimeSet').value = document.querySelector('#closeTime').value;
         document.querySelector('#closeMinuteSet').value = document.querySelector('#closeMinute').value;
+        document.querySelector('#reservationOpenTimeSet').value = document.querySelector('#reservationOpenTime').value;
+        document.querySelector('#reservationOpenMinuteSet').value = document.querySelector('#reservationOpenMinute').value;
+        document.querySelector('#reservationCloseTimeSet').value = document.querySelector('#reservationCloseTime').value;
+        document.querySelector('#reservationCloseMinuteSet').value = document.querySelector('#reservationCloseMinute').value;
+        document.querySelector('#reservationTimeSet').value = document.querySelector('#reservationTime').value;
+
         document.querySelector('#shopType').value = document.querySelector('#shopType').value.replace(/(\s*)/g, "");
         document.querySelector('#userCity').disabled = false;
         document.querySelector('#userStreet').disabled = false;

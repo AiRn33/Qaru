@@ -18,6 +18,7 @@ import static Qaru.Prj.domain.entity.QComment.comment;
 import static Qaru.Prj.domain.entity.QImage.image;
 import static Qaru.Prj.domain.entity.QImageGroup.imageGroup;
 import static Qaru.Prj.domain.entity.QShop.*;
+import static Qaru.Prj.domain.entity.QShopOpen.shopOpen;
 import static Qaru.Prj.domain.entity.QTour.tour;
 import static Qaru.Prj.domain.entity.QUser.user;
 
@@ -118,8 +119,20 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
                         shop.shopName.as("shopName"),
                         shop.shopComment.as("shopComment"),
                         shop.shopType.as("shopType"),
-                        shop.menuView.as("menuView")
+                        shop.menuView.as("menuView"),
+                        shop.address.city.as("shopCity"),
+                        shop.address.street.as("shopStreet"),
+                        shopOpen.mon,
+                        shopOpen.tues,
+                        shopOpen.wed,
+                        shopOpen.thur,
+                        shopOpen.fri,
+                        shopOpen.sat,
+                        shopOpen.sun,
+                        shopOpen.openTime,
+                        shopOpen.closeTime
                 )).from(shop)
+                .innerJoin(shopOpen).on(shopOpen.shop.id.eq(shop.id))
                 .where(shop.id.eq(shopId))
                 .fetchOne();
     }

@@ -40,6 +40,36 @@ public class ShopUpdateRequest {
 
     private String storedFileName;
 
+    private Boolean mon;
+
+    private Boolean tues;
+
+    private Boolean wed;
+
+    private Boolean thur;
+
+    private Boolean fri;
+
+    private Boolean sat;
+
+    private Boolean sun;
+
+    private String openTime;
+
+    private String openMinute;
+
+    private String closeTime;
+    private String closeMinute;
+
+    private String reservationOpenTime;
+
+    private String reservationOpenMinute;
+
+    private String reservationCloseTime;
+    private String reservationCloseMinute;
+    private String reservationTime;
+
+
     public Shop toEntity(User user, ImageGroup imageGroup){
         return Shop.builder()
                 .user(user)

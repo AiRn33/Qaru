@@ -1,5 +1,6 @@
 package Qaru.Prj.controller;
 
+import Qaru.Prj.domain.response.ShopListResponse;
 import Qaru.Prj.repository.ShopRepository;
 import Qaru.Prj.service.MenuService;
 import Qaru.Prj.service.ShopService;
@@ -21,7 +22,8 @@ public class MenuController {
     public String menuView(@PathVariable Long id, Model model){
 
         model.addAttribute("menuList", menuService.getMenuList(id));
-        model.addAttribute("shopData", shopService.shopDataByShopId(id));
+
+        model.addAttribute("shopData", shopService.shopDataByShopId(id).shopOpenTimeSet());
 
         return "/menu/view";
     }
