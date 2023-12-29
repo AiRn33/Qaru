@@ -175,7 +175,6 @@
             url: "/shop/search",      // 컨트롤러에서 대기중인 URL 주소이다.
             data: shopSearchRequest,
             success: function (res) { // 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.
-                console.log(res);
                 let html = '';
                 if(res.length > 0){
                     for(let i = 0; i < res.length; i++){

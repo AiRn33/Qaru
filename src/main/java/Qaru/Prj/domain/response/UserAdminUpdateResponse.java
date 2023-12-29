@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.validation.constraints.NotNull;
+
 @Getter
 @Setter
 public class UserAdminUpdateResponse {
@@ -49,7 +51,14 @@ public class UserAdminUpdateResponse {
 
     private String reservationCloseTime;
     private String reservationCloseMinute;
-    private String reservationTime;
+
+    private Long reservationTime;
+
+    private Long reservationLimitNum;
+
+    private Long reservationLimitTeam;
+
+    private Boolean reservationCheck;
 
     public UserAdminUpdateResponse shopOpenTimeSet(){
         String openTimes = this.openTime;

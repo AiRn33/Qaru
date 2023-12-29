@@ -115,7 +115,15 @@
             </div>
             <div class="row g-0">
                 <div class="col-3"></div>
-                <div class="col-3" style="margin-top: 10px;">
+
+                <c:choose>
+                    <c:when test="${shopData.reservationCheck}">
+                        <div class="col-3" style="margin-top: 10px;">
+                    </c:when>
+                    <c:otherwise>
+                        <div class="col-6" style="margin-top: 10px;">
+                    </c:otherwise>
+                </c:choose>
                     <div class="card">
                         <button class="btn btn-outline-pink" onclick="location.href='/order/menu/${shopData.shopId}?order=take'">
                             <i class="bi bi-basket"></i>
@@ -123,17 +131,22 @@
                         </button>
                     </div>
                 </div>
-                <div class="col-3" style="margin-top: 10px;">
-                    <div class="card">
-                        <button class="btn btn-outline-light_green" onclick="location.href='/shop/reservation/${shopData.shopId}'">
-                            <i class="bi bi-calendar-check"></i>
-                            &nbsp;&nbsp;예약 하기
-                        </button>
+                <c:if test="${shopData.reservationCheck}">
+                    <div class="col-3" style="margin-top: 10px;">
+                        <div class="card">
+                            <button class="btn btn-outline-light_green" onclick="location.href='/shop/reservation/${shopData.shopId}'">
+                                <i class="bi bi-calendar-check"></i>
+                                &nbsp;&nbsp;예약 하기
+                            </button>
+                        </div>
                     </div>
-                </div>
+                </c:if>
                 <div class="col-3"></div>
             </div>
         </div>
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
+<script>
+    console.log('${shopData.reservationCheck}')
+</script>

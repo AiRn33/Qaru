@@ -11,7 +11,10 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
@@ -65,7 +68,15 @@ public class UserAdminChangeRequest {
 
     private String reservationCloseTime;
     private String reservationCloseMinute;
-    private String reservationTime;
+    private Long reservationTime;
+
+    @NotNull(message = "예약당 최대 인원을 입력하지 않았습니다.")
+    private Long reservationLimitNum;
+
+    @NotNull(message = "시간당 최대 팀을 입력하지 않았습니다.")
+    private Long reservationLimitTeam;
+
+    private Boolean reservationCheck;
 
     public Shop toEntity(User user, ImageGroup imageGroup){
         return Shop.builder()
@@ -76,6 +87,7 @@ public class UserAdminChangeRequest {
                 .shopName(shopName)
                 .shopComment(shopComment)
                 .shopType(shopType)
+                .reservationCheck(reservationCheck)
                 .build();
     }
 

@@ -30,14 +30,27 @@ public class ReservationRepositoryImpl implements ReservationRepositoryCustom {
 
 
     @Override
-    public List<ShopRervationListResponse> searchReservation(Long shopId, String date) {
+    public ShopRervationListResponse searchReservation(Long shopId, String date) {
 
         return queryFactory
                 .select(Projections.fields(ShopRervationListResponse.class,
-                        reservation.reservationTime.as("reservationDate"),
-                        reservation.id.as("reservationId")
+                        shopOpen.mon,
+                        shopOpen.tues,
+                        shopOpen.wed,
+                        shopOpen.thur,
+                        shopOpen.fri,
+                        shopOpen.sat,
+                        shopOpen.sun,
+                        shopOpen.openTime,
+                        shopOpen.closeTime,
+                        shopOpen.reservationOpen.as("reservationOpenTime"),
+                        shopOpen.reservationClose.as("reservationCloseTime"),
+                        shopOpen.reservationTime,
+                        shopOpen.reservationLimitNum,
+                        shopOpen.reservationLimitTeam
                 ))
-                .from(reservation)
-                .innerJoin(shop).on(shop.id.eq(reservation.shop.id)).fetch();
+                .from(shopOpen)
+                .where(shop.id.eq(shopId))
+                .fetchOne();
     }
 }

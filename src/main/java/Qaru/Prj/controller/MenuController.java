@@ -22,9 +22,9 @@ public class MenuController {
     public String menuView(@PathVariable Long id, Model model){
 
         model.addAttribute("menuList", menuService.getMenuList(id));
-
         model.addAttribute("shopData", shopService.shopDataByShopId(id).shopOpenTimeSet());
 
         return "/menu/view";
+
     }
 }

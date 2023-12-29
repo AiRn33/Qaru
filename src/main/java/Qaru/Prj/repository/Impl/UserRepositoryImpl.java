@@ -43,6 +43,7 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
                                 shop.address.city.as("userCity"),
                                 shop.address.street.as("userStreet"),
                                 shop.address.zipcode.as("userZipcode"),
+                                shop.reservationCheck,
                                 image.originalFileName,
                                 image.storedFileName,
                                 image.storedFilePath,
@@ -57,7 +58,9 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
                                 shopOpen.closeTime,
                                 shopOpen.reservationOpen.as("reservationOpenTime"),
                                 shopOpen.reservationClose.as("reservationCloseTime"),
-                                shopOpen.reservationTime
+                                shopOpen.reservationTime,
+                                shopOpen.reservationLimitNum,
+                                shopOpen.reservationLimitTeam
                                 ))
                         .from(shop,image)
                         .innerJoin(shop.imageGroup).on(image.imageGroup.id.eq(shop.imageGroup.id))

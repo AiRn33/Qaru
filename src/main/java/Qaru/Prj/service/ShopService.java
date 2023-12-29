@@ -43,6 +43,7 @@ public class ShopService {
     private final ReservationRepositoryImpl reservationRepositoryImpl;
 
 
+    @Transactional
     public Long createAdmin(UserAdminChangeRequest userRequest, String storedName, PrincipalDetails request) {
 
         Optional<User> user = userRepository.findByUserId(request.getUsername());
@@ -107,9 +108,8 @@ public class ShopService {
 
     }
 
-    public void searchReservationList(Long id, String date) {
-        List<ShopRervationListResponse> shopRervationListResponses = reservationRepositoryImpl.searchReservation(id, date);
+    public ShopRervationListResponse searchReservationList(Long id, String date) {
 
-        System.out.println("========= > : " + shopRervationListResponses.size());
+        return reservationRepositoryImpl.searchReservation(id, date).shopOpenTimeSet();
     }
 }

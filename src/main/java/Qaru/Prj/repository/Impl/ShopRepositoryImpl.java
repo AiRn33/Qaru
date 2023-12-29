@@ -122,6 +122,7 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
                         shop.menuView.as("menuView"),
                         shop.address.city.as("shopCity"),
                         shop.address.street.as("shopStreet"),
+                        shop.reservationCheck,
                         shopOpen.mon,
                         shopOpen.tues,
                         shopOpen.wed,
@@ -130,7 +131,12 @@ public class ShopRepositoryImpl implements ShopRepositoryCustom {
                         shopOpen.sat,
                         shopOpen.sun,
                         shopOpen.openTime,
-                        shopOpen.closeTime
+                        shopOpen.closeTime,
+                        shopOpen.reservationOpen,
+                        shopOpen.reservationClose,
+                        shopOpen.reservationTime,
+                        shopOpen.reservationLimitNum,
+                        shopOpen.reservationLimitTeam
                 )).from(shop)
                 .innerJoin(shopOpen).on(shopOpen.shop.id.eq(shop.id))
                 .where(shop.id.eq(shopId))

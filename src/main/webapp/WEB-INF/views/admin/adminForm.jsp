@@ -28,6 +28,9 @@
                 <input type="hidden" id="reservationCloseTimeSet" name="reservationCloseTime">
                 <input type="hidden" id="reservationCloseMinuteSet" name="reservationCloseMinute">
                 <input type="hidden" id="reservationTimeSet" name="reservationTime">
+                <input type="hidden" id="reservationLimitNumSet" name="reservationLimitNum">
+                <input type="hidden" id="reservationLimitTeamSet" name="reservationLimitTeam">
+                <input type="hidden" id="reservationCheckSet" name="reservationCheck">
                 <div class="row g-0">
                     <div class="col">
                         <div class="card" style="padding:8px">
@@ -120,7 +123,7 @@
 
 <div id="modal-bg" class="modal-bg" style="display: none;">
 </div>
-<div id="modal-wrap" class="modal-wrap" style="display: none; height: 460px;">
+<div id="modal-wrap" class="modal-wrap" style="display: none; height: 600px;">
     <div class="container-md" style="height: 100%!important;">
         <div class="row d-flex justify-content-center align-items-center h-100" style="margin-right: 12px;">
             <div class="col-1"></div>
@@ -332,17 +335,47 @@
                             <option value="50">50분</option>
                         </select>
                     </div>
-                    <div class="col-12">
+                    <div class="col-6">
                         <span style="font-size: 12px;">예약 가능 시간 간격</span>
                     </div>
-                    <div class="col-3">
-
+                    <div class="col-6">
+                        <span style="font-size: 12px;">예약당 최대 인원 / 시간당 최대 팀</span>
                     </div>
                     <div class="col-6">
-                        <select class="form-select me-2" id="reservationTime" style="width: 189px; font-size: 14px;">
+                        <select class="form-select me-2" id="reservationTime" style="width: 180px; font-size: 14px;">
                             <option value="30">30분</option>
                             <option value="60">1시간</option>
                         </select>
+                    </div>
+                    <div class="col-3">
+                        <input type="number" class="form-control" id="reservationLimitNum" placeholder=""
+                               style="text-align: right;" maxlength="2" min="0" value="0" onchange="numberCheck(this)">
+                    </div>
+                    <div class="col-3">
+                        <input type="number" class="form-control" id="reservationLimitTeam" placeholder=""
+                               style="text-align: right;" maxlength="2" min="0" value="0" onchange="numberCheck(this)">
+                    </div>
+                    <div class="col-12" style="text-align: right; line-height:70%;">
+                        <span style="font-size: 10px; color: red;">예약당 최대 인원은 한 건의 예약에 대한 최대인원 설정입니다<br>(예 : 4인 설정 시 해당 예약 당 입장 가능 인원은 최대 4인)</span>
+                        <br rel="0.4rem">
+                        <span style="font-size: 10px; color: red;">시간당 최대 팀은 해당 시간에 예약이 가능한 최대 팀 설정입니다<br>(예 : 3건 설정 시 타임 당 3팀만 예약가능)</span>
+                        <br rel="0.4rem">
+                        <span style="font-size: 10px; color: red;">인원, 팀 설정 모두 0을 입력 시 제한 없음으로 판단합니다.</span>
+                    </div>
+                    <hr style="margin: 0.4rem;">
+                    <div class="col-4"></div>
+                    <div class="col-8" style="text-align: right;">
+                        <div class="form-check" style="float: right;">
+                            <input class="form-check-input" type="checkbox" id="reservationCheck">
+                            <label class="form-check-label" for="reservationCheck" style="color: red; font-size: 10px;">
+                                가게 예약 기능을 사용하시겠습니까?
+                            </label>
+                        </div>
+                        <div class="form-check" style="float: right; line-height: 0%;">
+                            <span class="form-check-label" style="color: red; font-size: 10px;">
+                                (체크 선택 시 가게예약 기능이 활성화 됩니다)
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div class="row g-0" style="margin-top: 15px;">
@@ -414,6 +447,12 @@
             $('#reservationCloseTime').val('${shopData.reservationCloseTime}').prop("selected", true);
             $('#reservationCloseMinute').val('${shopData.reservationCloseMinute}').prop("selected", true);
             $('#reservationTime').val('${shopData.reservationTime}').prop("selected", true);
+
+            document.querySelector('#reservationLimitNum').value = (Number)('${shopData.reservationLimitNum}');
+            document.querySelector('#reservationLimitTeam').value = (Number)('${shopData.reservationLimitTeam}');
+            if(${shopData.reservationCheck == true}){
+                document.querySelector('#reservationCheck').checked = true;
+            }
         }
     }
 
@@ -451,6 +490,10 @@
         document.querySelector('#reservationCloseMinuteSet').value = document.querySelector('#reservationCloseMinute').value;
         document.querySelector('#reservationTimeSet').value = document.querySelector('#reservationTime').value;
 
+        document.querySelector('#reservationLimitNumSet').value = document.querySelector('#reservationLimitNum').value;
+        document.querySelector('#reservationLimitTeamSet').value = document.querySelector('#reservationLimitTeam').value;
+        document.querySelector('#reservationCheckSet').value = document.querySelector('#reservationCheck').value;
+
         document.querySelector('#shopType').value = document.querySelector('#shopType').value.replace(/(\s*)/g, "");
         document.querySelector('#userCity').disabled = false;
         document.querySelector('#userStreet').disabled = false;
@@ -487,6 +530,25 @@
     function popup_close() {
         document.querySelector('#modal-bg').style.display = 'none';
         document.querySelector('#modal-wrap').style.display = 'none';
+    }
+
+    function numberCheck(target){
+
+        let check = /[0-9]/g;
+        if(!(target == undefined)){
+            if(target.value > 99){
+                alert('최소 0 ~ 최대 99까지 입력 가능합니다.');
+                target.value = 0;
+            }
+            if(target.value < 0){
+                alert('최소 0 ~ 최대 99까지 입력 가능합니다.');
+                target.value = 0;
+            }
+            if(!check.test(target.value)){
+                alert('숫자만 입력 가능합니다.');
+                target.value = 0;
+            }
+        }
     }
 </script>
 

@@ -53,8 +53,13 @@ public class Shop {
     @Embedded
     private Address address;
 
+    private Boolean reservationCheck;
+
     @Builder
-    public Shop(User user, ImageGroup imageGroup, String shopName, String shopComment, DateTime dateTime, String shopType,Address address) {
+    public Shop(User user, ImageGroup imageGroup,
+                String shopName, String shopComment,
+                DateTime dateTime, String shopType,
+                Address address, Boolean reservationCheck) {
         this.user = user;
         this.imageGroup = imageGroup;
         this.shopName = shopName;
@@ -64,6 +69,7 @@ public class Shop {
         this.shopType = shopType;
         this.menuCheck = false;
         this.menuView = false;
+        this.reservationCheck = reservationCheck;
     }
 
     public Shop updateShop(ShopUpdateRequest request, Shop shop){
@@ -72,6 +78,7 @@ public class Shop {
         this.shopType = request.getShopType();
         this.dateTime = dateTime.shopUpdateTime(shop);
         this.address = new Address(request.getUserCity(), request.getUserStreet(), request.getUserZipcode());
+        this.reservationCheck = request.getReservationCheck();
         return this;
     }
 

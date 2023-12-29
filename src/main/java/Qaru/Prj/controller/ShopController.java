@@ -7,6 +7,7 @@ import Qaru.Prj.domain.entity.Menu;
 import Qaru.Prj.domain.request.MenuCreateRequest;
 import Qaru.Prj.domain.response.MenuListResponse;
 import Qaru.Prj.domain.response.ShopListResponse;
+import Qaru.Prj.domain.response.ShopRervationListResponse;
 import Qaru.Prj.domain.response.TourListResponse;
 import Qaru.Prj.repository.Impl.ShopRepositoryImpl;
 import Qaru.Prj.service.*;
@@ -198,15 +199,18 @@ public class ShopController {
 
         model.addAttribute("shopData", shopService.shopDataByShopId(id));
 
+
+
         return "/shop/reservation";
     }
 
     @ResponseBody
     @GetMapping("/shop/reservation-time/{id}")
-    public void reservationTimeSearch(@AuthenticationPrincipal PrincipalDetails request,
+    public ShopRervationListResponse reservationTimeSearch(@AuthenticationPrincipal PrincipalDetails request,
                                       @PathVariable("id") Long id,
                                       @RequestParam("reservationDate") String date){
 
-        shopService.searchReservationList(id, date);
+
+        return shopService.searchReservationList(id, date);
     }
 }

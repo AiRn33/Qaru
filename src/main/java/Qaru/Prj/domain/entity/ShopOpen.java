@@ -46,7 +46,11 @@ public class ShopOpen {
 
     private String reservationClose;
 
-    private String reservationTime;
+    private Long reservationTime;
+
+    private Long reservationLimitNum;
+
+    private Long reservationLimitTeam;
 
     public ShopOpen updateShopOpen(ShopUpdateRequest request, Shop shop) {
         this.shop = shop;
@@ -62,6 +66,8 @@ public class ShopOpen {
         this.reservationOpen = request.getReservationOpenTime() + "-" + request.getReservationOpenMinute();
         this.reservationClose = request.getReservationCloseTime()+ "-" + request.getReservationCloseMinute();
         this.reservationTime = request.getReservationTime();
+        this.reservationLimitNum = request.getReservationLimitNum();
+        this.reservationLimitTeam = request.getReservationLimitTeam();
         return this;
     }
 
@@ -79,6 +85,8 @@ public class ShopOpen {
         this.reservationOpen = request.getReservationOpenTime() + "-" + request.getReservationOpenMinute();
         this.reservationClose = request.getReservationCloseTime()+ "-" + request.getReservationCloseMinute();
         this.reservationTime = request.getReservationTime();
+        this.reservationLimitNum = request.getReservationLimitNum();
+        this.reservationLimitTeam = request.getReservationLimitTeam();
         return this;
     }
 }

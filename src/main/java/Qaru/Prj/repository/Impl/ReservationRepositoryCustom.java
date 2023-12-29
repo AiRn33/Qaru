@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ReservationRepositoryCustom {
 
-    List<ShopRervationListResponse> searchReservation(Long shopId, String date);
+    ShopRervationListResponse searchReservation(Long shopId, String date);
 }

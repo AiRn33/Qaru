@@ -2,6 +2,7 @@ package Qaru.Prj.domain.response;
 
 import lombok.*;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Getter
@@ -28,37 +29,41 @@ public class ShopListResponse {
     private String storedFileName;
 
     private Boolean mon;
-
     private Boolean tues;
-
     private Boolean wed;
-
     private Boolean thur;
-
     private Boolean fri;
-
     private Boolean sat;
-
     private Boolean sun;
 
     private String openTime;
-
     private String openMinute;
-
     private String closeTime;
     private String closeMinute;
 
+    private Boolean reservationCheck;
+//
+//    private String reservationOpenTime;
+//    private String reservationOpenMinute;
+//    private String reservationCloseTime;
+//    private String reservationCloseMinute;
+//    private Long reservationTime;
+//
+//    private Long reservationLimitNum;
+//
+//    private Long reservationLimitTeam;
+
     public ShopListResponse shopOpenTimeSet(){
+
         String openTimes = this.openTime;
         String closeTimes = this.closeTime;
-        System.out.println("========= > : " + openTimes);
-        System.out.println("========= > : " + openTimes.split("-")[0]);
-        System.out.println("========= > : " + openTimes.split("-")[1]);
 
         this.openTime = openTimes.split("-")[0];
         this.openMinute = openTimes.split("-")[1];
         this.closeTime = closeTimes.split("-")[0];
         this.closeMinute = closeTimes.split("-")[1];
+
         return this;
     }
+
 }
