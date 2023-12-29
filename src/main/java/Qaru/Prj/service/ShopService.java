@@ -8,10 +8,7 @@ import Qaru.Prj.domain.entity.ShopOpen;
 import Qaru.Prj.domain.entity.User;
 import Qaru.Prj.domain.request.ShopUpdateRequest;
 import Qaru.Prj.domain.request.UserAdminChangeRequest;
-import Qaru.Prj.domain.response.ShopListResponse;
-import Qaru.Prj.domain.response.ShopRervationListResponse;
-import Qaru.Prj.domain.response.TourListResponse;
-import Qaru.Prj.domain.response.UserAdminUpdateResponse;
+import Qaru.Prj.domain.response.*;
 import Qaru.Prj.repository.ImageRepository;
 import Qaru.Prj.repository.Impl.ReservationRepositoryImpl;
 import Qaru.Prj.repository.Impl.ShopRepositoryImpl;
@@ -25,6 +22,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -110,6 +109,20 @@ public class ShopService {
 
     public ShopRervationListResponse searchReservationList(Long id, String date) {
 
-        return reservationRepositoryImpl.searchReservation(id, date).shopOpenTimeSet();
+        ShopRervationListResponse shopRervationListResponse = reservationRepositoryImpl.searchReservation(id, date).shopOpenTimeSet();
+        List<ReservationYnCheckResponse> reservationList = reservationRepositoryImpl.reservationCheck(id);
+        if(reservationList.size() > 0){
+            shopRervationListResponse.setReservationCheck(reservationList);
+        }
+
+        ReservationYnCheckResponse response = new ReservationYnCheckResponse();
+        response.setReservationTime(LocalDateTime.now());
+        reservationList = new ArrayList<>();
+        reservationList.add(response.setTimes());
+        reservationList.add(response.setTimes());
+        reservationList.add(response.setTimes());
+        shopRervationListResponse.setReservationCheck(reservationList);
+
+        return shopRervationListResponse;
     }
 }

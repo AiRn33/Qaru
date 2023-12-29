@@ -198,9 +198,7 @@ public class ShopController {
     public String reservationGet(@AuthenticationPrincipal PrincipalDetails reqeust, @PathVariable("id") Long id, Model model){
 
         model.addAttribute("shopData", shopService.shopDataByShopId(id));
-
-
-
+        
         return "/shop/reservation";
     }
 

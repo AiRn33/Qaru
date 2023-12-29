@@ -5,6 +5,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -42,6 +44,10 @@ public class ShopRervationListResponse {
     private String reservationCloseTime;
     private String reservationCloseMinute;
     private Long reservationTime;
+    private Long reservationLimitNum;
+    private Long reservationLimitTeam;
+
+    private List<ReservationYnCheckResponse> reservationCheck = new ArrayList<>();
 
     public ShopRervationListResponse shopOpenTimeSet(){
 

@@ -1,6 +1,7 @@
 package Qaru.Prj.repository.Impl;
 
 import Qaru.Prj.domain.entity.QReservation;
+import Qaru.Prj.domain.response.ReservationYnCheckResponse;
 import Qaru.Prj.domain.response.ShopListResponse;
 import Qaru.Prj.domain.response.ShopRervationListResponse;
 import Qaru.Prj.domain.response.UserAdminUpdateResponse;
@@ -52,5 +53,17 @@ public class ReservationRepositoryImpl implements ReservationRepositoryCustom {
                 .from(shopOpen)
                 .where(shop.id.eq(shopId))
                 .fetchOne();
+    }
+
+    @Override
+    public List<ReservationYnCheckResponse> reservationCheck(Long shopId) {
+        return queryFactory
+                .select(Projections.fields(ReservationYnCheckResponse.class,
+                        reservation.reservationTime
+                ))
+                .from(shop).
+                innerJoin(reservation).on(reservation.shop.id.eq(shop.id))
+                .where(shop.id.eq(shopId))
+                .fetch();
     }
 }
