@@ -16,14 +16,14 @@
                     <div class="col">
                         <div class="card" style="padding:8px">
                             <div class="row g-0" id="reservationTimeArea">
-                                <div class="col-6">
-                                    <input type="button" class="btn btn-outline-gray" value="06시 10분"
-                                           style="width: 95%">
-                                </div>
-                                <div class="col-6">
-                                    <input type="button" class="btn btn-outline-gray" value="06시 10분"
-                                           style="width: 95%">
-                                </div>
+                                <%--                                <div class="col-6">--%>
+                                <%--                                    <input type="button" class="btn btn-outline-gray" value="06시 10분"--%>
+                                <%--                                           style="width: 95%">--%>
+                                <%--                                </div>--%>
+                                <%--                                <div class="col-6">--%>
+                                <%--                                    <input type="button" class="btn btn-outline-gray" value="06시 10분"--%>
+                                <%--                                           style="width: 95%">--%>
+                                <%--                                </div>--%>
                             </div>
                         </div>
                         <div class="col-3">
@@ -250,7 +250,52 @@
                 let selectDateVal = selectDate[0] + '년 ' + selectDate[1] + '월 ' + selectDate[2] + '일';
                 document.querySelector('#selectDate').innerHTML = selectDateVal;
 
-                console.log(res);
+                let openTime = (Number)(res.openTime);
+                let openMinute = (Number)(res.openMinute);
+                let closeTime = (Number)(res.closeTime);
+                let closeMinute = (Number)(res.closeMinute);
+                let reservationOpenTime = (Number)(res.reservationOpenTime);
+                let reservationOpenMinute = (Number)(res.reservationOpenMinute);
+                let reservationCloseTime = (Number)(res.reservationCloseTime);
+                let reservationCloseMinute = (Number)(res.reservationCloseMinute);
+                let reservationTime = (Number)(res.reservationTime);
+
+                let html = '';
+                // html += '<div class="col-6">';
+                // html += '<input type="button" class="btn btn-outline-gray" value="06시 10분" style="width: 95%">';
+                // html += '</div>';
+
+
+                // 마감시간이 새벽인 경우
+                if (reservationOpenTime > reservationCloseTime) {
+
+                }
+                // 예약 시간과 마감 시간이 같은 경우
+                else if (reservationOpenTime == reservationCloseTime) {
+
+                }
+                // 정상
+                else {
+                    let setTime = reservationOpenTime;
+
+                    // 시간이 한 시간인 경우
+                    if (reservationTime == '60') {
+                        for (let i = 0; i < (reservationCloseTime - reservationOpenTime) + 1; i++) {
+                            html += thirtyHtml(setTime);
+                            setTime++;
+                        }
+
+                        // 시간이 30분인 경우
+                    } else if (reservationTime == '30') {
+                        for (let i = 0; i < (reservationCloseTime - reservationOpenTime) + 1; i++) {
+                            html += thirtyHtml(setTime);
+                            setTime++;
+                        }
+                    }
+
+                    document.querySelector('#reservationTimeArea').innerHTML = html;
+                    html = '';
+                }
             }
         });
     }
@@ -267,11 +312,30 @@
         }
     }
 
-    function timeBack(input){
-        if(input == 1){
+    function timeBack(input) {
+        if (input == 1) {
             document.querySelector('#dateSelectArea').style.display = '';
             document.querySelector('#timeSelectArea').style.display = 'none';
         }
+    }
+
+    function thirtyHtml(setTime) {
+        let html = '';
+        html += '<div class="col-6">';
+        html += '<input type="button" class="btn btn-outline-gray" value="' + setTime + '시 00분' + '" style="width: 95%">';
+        html += '</div>';
+        return html;
+    }
+
+    function sixtyHtml(setTime) {
+        let html = '';
+        html += '<div class="col-6">';
+        html += '<input type="button" class="btn btn-outline-gray" value="' + setTime + '시 00분' + '" style="width: 95%">';
+        html += '</div>';
+        html += '<div class="col-6">';
+        html += '<input type="button" class="btn btn-outline-gray" value="' + setTime + '시 30분' + '" style="width: 95%">';
+        html += '</div>';
+        return html;
     }
 </script>
 

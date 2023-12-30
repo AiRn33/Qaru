@@ -212,11 +212,7 @@
                     <div class="col-3">
                         <select class="form-select me-2" id="openMinute" style="width: 92px; font-size: 14px;">
                             <option value="00">00분</option>
-                            <option value="10">10분</option>
-                            <option value="20">20분</option>
                             <option value="30">30분</option>
-                            <option value="40">40분</option>
-                            <option value="50">50분</option>
                         </select>
                     </div>
                     <div class="col-3">
@@ -251,11 +247,7 @@
                     <div class="col-3">
                         <select class="form-select me-2" id="closeMinute" style="width: 92px; font-size: 14px;">
                             <option value="00">00분</option>
-                            <option value="10">10분</option>
-                            <option value="20">20분</option>
                             <option value="30">30분</option>
-                            <option value="40">40분</option>
-                            <option value="50">50분</option>
                         </select>
                     </div>
                     <br><br>
@@ -300,11 +292,7 @@
                     <div class="col-3">
                         <select class="form-select me-2" id="reservationOpenMinute" style="width: 92px; font-size: 14px;">
                             <option value="00">00분</option>
-                            <option value="10">10분</option>
-                            <option value="20">20분</option>
                             <option value="30">30분</option>
-                            <option value="40">40분</option>
-                            <option value="50">50분</option>
                         </select>
                     </div>
                     <div class="col-3">
@@ -339,11 +327,7 @@
                     <div class="col-3">
                         <select class="form-select me-2" id="reservationCloseMinute" style="width: 92px; font-size: 14px;">
                             <option value="00">00분</option>
-                            <option value="10">10분</option>
-                            <option value="20">20분</option>
                             <option value="30">30분</option>
-                            <option value="40">40분</option>
-                            <option value="50">50분</option>
                         </select>
                     </div>
                     <div class="col-6">
