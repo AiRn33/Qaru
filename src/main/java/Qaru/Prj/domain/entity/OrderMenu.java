@@ -26,10 +26,10 @@ public class OrderMenu {
     private User user;
 
 
-    @JoinColumn(name = "order_menu_count")
+    @Column(name = "order_menu_count")
     private Long orderMenuCount;
 
-    @JoinColumn(name = "order_menu_price")
+    @Column(name = "order_menu_price")
     private Long orderMenuPrice;
 
     @Column(name = "order_status")

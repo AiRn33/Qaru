@@ -104,6 +104,12 @@ input[type=number] {
     border-radius: var(--bs-card-border-radius);
 }
 
+/* icon font*/
+.fs-5{
+    font-style: normal;
+    font-size: 20px;
+}
+
 /* popup */
 .modal-bg{
     width: 100%;

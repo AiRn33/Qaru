@@ -22,7 +22,7 @@ public class Order {
     @JoinColumn(name = "menu_id")
     private Menu menu;
 
-    @JoinColumn(name = "order_count")
+    @Column(name = "order_count")
     private Long orderCount;
 
     @JsonIgnore

@@ -6,16 +6,14 @@ import Qaru.Prj.domain.entity.ImageGroup;
 import Qaru.Prj.domain.entity.Shop;
 import Qaru.Prj.domain.entity.ShopOpen;
 import Qaru.Prj.domain.entity.User;
+import Qaru.Prj.domain.request.ReservationDataRequest;
 import Qaru.Prj.domain.request.ShopUpdateRequest;
 import Qaru.Prj.domain.request.UserAdminChangeRequest;
 import Qaru.Prj.domain.response.*;
-import Qaru.Prj.repository.ImageRepository;
+import Qaru.Prj.repository.*;
 import Qaru.Prj.repository.Impl.ReservationRepositoryImpl;
 import Qaru.Prj.repository.Impl.ShopRepositoryImpl;
 import Qaru.Prj.repository.Impl.UserRepositoryImpl;
-import Qaru.Prj.repository.ShopOpenRepository;
-import Qaru.Prj.repository.ShopRepository;
-import Qaru.Prj.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -39,6 +37,7 @@ public class ShopService {
     private final ImageGroupService imageGroupService;
     private final ShopRepositoryImpl shopRepositoryImpl;
     private final ShopOpenRepository shopOpenRepository;
+    private final ReservationRepository reservationRepository;
     private final ReservationRepositoryImpl reservationRepositoryImpl;
 
 
@@ -124,5 +123,14 @@ public class ShopService {
         shopRervationListResponse.setReservationCheck(reservationList);
 
         return shopRervationListResponse;
+    }
+
+    public Long reservationSave(ReservationDataRequest request, Long userId, Long shopId) {
+
+        User user = userRepository.findById(userId).get();
+
+        Shop shop = shopRepository.findById(shopId).get();
+
+        return reservationRepository.save(request.toEntity(request, user, shop)).getId();
     }
 }
