@@ -189,7 +189,7 @@
                     </div>
                     <div class="col-3">
                         <select class="form-select me-2" id="openTime" style="width: 92px; font-size: 14px;"
-                                onchange="timeSet('openTime')" onclick="timeSet('openTime')">
+                                onchange="timeSet('openTime')">
                             <option value="00" selected>0시</option>
                             <option value="01">01시</option>
                             <option value="02">02시</option>
@@ -219,19 +219,19 @@
                     </div>
                     <div class="col-3">
                         <select class="form-select me-2" id="openMinute" style="width: 92px; font-size: 14px;"
-                                onchange="timeSet('openMinute')" onclick="timeSet('openMinute')">
+                                onchange="timeSet('openMinute')">
                             <option value="00" selected>0분</option>
                             <option value="30">30분</option>
                         </select>
                     </div>
                     <div class="col-3">
                         <select class="form-select me-2" id="closeTime" style="width: 92px; font-size: 14px;"
-                                onchange="timeSet('closeTime')" onclick="timeSet('closeTime')" disabled>
+                                onchange="timeSet('closeTime')" disabled>
                         </select>
                     </div>
                     <div class="col-3">
                         <select class="form-select me-2" id="closeMinute" style="width: 92px; font-size: 14px;"
-                                onchange="timeSet('closeMinute')" onclick="timeSet('closeMinute')" disabled>
+                                onchange="timeSet('closeMinute')" disabled>
                         </select>
                     </div>
                     <br><br>
@@ -246,24 +246,24 @@
                     </div>
                     <div class="col-3">
                         <select class="form-select me-2" id="reservationOpenTime" style="width: 92px; font-size: 14px;"
-                                onchange="timeSet('reservationOpenTime')" onclick="timeSet('reservationOpenTime')" disabled>
+                                onchange="timeSet('reservationOpenTime')" disabled>
 
                         </select>
                     </div>
                     <div class="col-3">
                         <select class="form-select me-2" id="reservationOpenMinute"
                                 style="width: 92px; font-size: 14px;"
-                                onchange="timeSet('reservationOpenMinute')" onclick="timeSet('reservationOpenMinute')" disabled>
+                                onchange="timeSet('reservationOpenMinute')" disabled>
                         </select>
                     </div>
                     <div class="col-3">
                         <select class="form-select me-2" id="reservationCloseTime" style="width: 92px; font-size: 14px;"
-                                onchange="timeSet('reservationCloseTime')" onclick="timeSet('reservationCloseTime')" disabled>
+                                onchange="timeSet('reservationCloseTime')" disabled>
                         </select>
                     </div>
                     <div class="col-3">
                         <select class="form-select me-2" id="reservationCloseMinute" style="width: 92px; font-size: 14px;"
-                                onchange="timeSet('reservationCloseMinute')" onclick="timeSet('reservationCloseMinute')" disabled>
+                                onchange="timeSet('reservationCloseMinute')"  disabled>
                         </select>
                     </div>
                     <div class="col-6">
@@ -496,8 +496,41 @@
                     time = 0;
                 }
             }
+            if(area == 'reservationOpenTime'){
+                time = Number(document.querySelector('#openTime').value);
+                endTime = Number(document.querySelector('#closeTime').value) + 1;
+            }else if(area == 'reservationCloseTime'){
+                time = Number(document.querySelector('#reservationOpenTime').value);
+                endTime = Number(document.querySelector('#closeTime').value) + 1;
+            }
         }
+
+        if(dataType == '3'){
+            if(area == 'reservationOpenTime' || area == 'reservationCloseTime'){
+                endTime = Number(document.querySelector('#closeTime').value) + 1;
+            }
+        }
+        if(dataType == '5'){
+            if(area == 'reservationOpenTime'){
+                time = Number(document.querySelector('#openTime').value);
+                endTime = Number(document.querySelector('#closeTime').value) + 1;
+            }else if(area == 'reservationCloseTime'){
+                time = Number(document.querySelector('#reservationOpenTime').value);
+                endTime = Number(document.querySelector('#closeTime').value) + 1;
+            }
+        }
+        if(dataType == '7'){
+            if(area == 'reservationOpenTime'){
+                time = Number(document.querySelector('#openTime').value);
+                endTime = Number(document.querySelector('#reservationCloseTime').value) + 1;
+            }else if(area == 'reservationCloseTime'){
+                time = Number(document.querySelector('#reservationOpenTime').value);
+                endTime = Number(document.querySelector('#closeTime').value) + 1;
+            }
+        }
+
         if (type == 'time') {
+
             for (let i = time; i < endTime; i++) {
                 if(i == areaTime){
                     html += '<option value="' + i + '" selected>' + i + '시</option>';
@@ -557,16 +590,16 @@
         document.querySelector('#reservationCloseMinute').disabled = false;
     }
 
-    function basicTimes(openTime){
-        document.querySelector('#closeTime').innerHTML = timeSetHtml(openTime, 'time' , 'closeTime', '1');
-        document.querySelector('#reservationOpenTime').innerHTML = timeSetHtml(openTime, 'time', 'reservationOpenTime', '1');
-        document.querySelector('#reservationCloseTime').innerHTML = timeSetHtml(openTime, 'time', 'reservationCloseTime', '1');
+    function basicTimes(openTime, value){
+        document.querySelector('#closeTime').innerHTML = timeSetHtml(openTime, 'time' , 'closeTime', value);
+        document.querySelector('#reservationOpenTime').innerHTML = timeSetHtml(openTime, 'time', 'reservationOpenTime', value);
+        document.querySelector('#reservationCloseTime').innerHTML = timeSetHtml(openTime, 'time', 'reservationCloseTime', value);
     }
 
     function basicMinutes(openMinute, value){
-        document.querySelector('#closeMinute').innerHTML = timeSetHtml(openMinute, 'minute', 'closeMinute', value, '2');
-        document.querySelector('#reservationOpenMinute').innerHTML = timeSetHtml(openMinute, 'minute', 'reservationOpenMinute', value, '2');
-        document.querySelector('#reservationCloseMinute').innerHTML = timeSetHtml(openMinute, 'minute', 'reservationCloseMinute', value, '2');
+        document.querySelector('#closeMinute').innerHTML = timeSetHtml(openMinute, 'minute', 'closeMinute', value);
+        document.querySelector('#reservationOpenMinute').innerHTML = timeSetHtml(openMinute, 'minute', 'reservationOpenMinute', value);
+        document.querySelector('#reservationCloseMinute').innerHTML = timeSetHtml(openMinute, 'minute', 'reservationCloseMinute', value);
     }
 </script>
 
