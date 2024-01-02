@@ -401,3 +401,20 @@ input[type=number] {
     --bs-btn-disabled-border-color: #212529;
     --bs-gradient: none;
 }
+
+.btn-gray{
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #81ecec;
+    --bs-btn-border-color: #81ecec;
+    --bs-btn-hover-color: #00cec9;
+    --bs-btn-hover-bg: #00cec9;
+    --bs-btn-hover-border-color: #00cec9;
+    --bs-btn-focus-shadow-rgb: 66,70,73;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #00cec9;
+    --bs-btn-active-border-color: #00cec9;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #212529;
+    --bs-btn-disabled-border-color: #212529;
+}

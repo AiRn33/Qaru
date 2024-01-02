@@ -27,6 +27,20 @@ function errors(){
     }
 }
 
+function error(msg){
+    let html = '';
+    html += '<div>';
+    html += '<div class="input-group has-validation">';
+    html += '<div class="form-floating is-invalid">';
+    html += '</div>';
+    html += '<div class="invalid-feedback">';
+    html += '</div>';
+    html += '<div class="invalid-feedback-common">';
+    html += '&nbsp;&nbsp; ' + msg;
+    html += '</div></div></div>';
+    return html;
+}
+
 function errorsImg(){
     if(document.querySelector('#errorScriptImg').value.length > 0){
 

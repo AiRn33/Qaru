@@ -2,10 +2,7 @@ package Qaru.Prj.service;
 
 import Qaru.Prj.config.customSecurity.PrincipalDetails;
 import Qaru.Prj.domain.baseEntity.DateTime;
-import Qaru.Prj.domain.entity.ImageGroup;
-import Qaru.Prj.domain.entity.Shop;
-import Qaru.Prj.domain.entity.ShopOpen;
-import Qaru.Prj.domain.entity.User;
+import Qaru.Prj.domain.entity.*;
 import Qaru.Prj.domain.request.ReservationDataRequest;
 import Qaru.Prj.domain.request.ShopUpdateRequest;
 import Qaru.Prj.domain.request.UserAdminChangeRequest;
@@ -109,28 +106,32 @@ public class ShopService {
     public ShopRervationListResponse searchReservationList(Long id, String date) {
 
         ShopRervationListResponse shopRervationListResponse = reservationRepositoryImpl.searchReservation(id, date).shopOpenTimeSet();
-        List<ReservationYnCheckResponse> reservationList = reservationRepositoryImpl.reservationCheck(id);
-        if(reservationList.size() > 0){
+
+        List<ReservationYnCheckResponse> reservationList = reservationRepositoryImpl.reservationCheck(id, date);
+
+        if(reservationList.size() > 0 && shopRervationListResponse.getReservationTime() > 30){
+            List<ReservationYnCheckResponse> reservationListResult = new ArrayList<>();
+            Long reservationTimeCheck = (long) (shopRervationListResponse.getReservationTime()==60?0 : 30);
+            for(int i = 0; i < reservationList.size(); i++){
+                if(reservationList.get(i).getReservationTime().getMinute() == reservationTimeCheck){
+                    reservationListResult.add(reservationList.get(i));
+                }
+            }
+
+            shopRervationListResponse.setReservationCheck(reservationListResult);
+        }else if(reservationList.size() > 0){
             shopRervationListResponse.setReservationCheck(reservationList);
         }
-
-        ReservationYnCheckResponse response = new ReservationYnCheckResponse();
-        response.setReservationTime(LocalDateTime.now());
-        reservationList = new ArrayList<>();
-        reservationList.add(response.setTimes());
-        reservationList.add(response.setTimes());
-        reservationList.add(response.setTimes());
-        shopRervationListResponse.setReservationCheck(reservationList);
 
         return shopRervationListResponse;
     }
 
-    public Long reservationSave(ReservationDataRequest request, Long userId, Long shopId) {
+    public ReservationDataResponse reservationSave(ReservationDataRequest request, Long userId, Long shopId) {
 
         User user = userRepository.findById(userId).get();
 
         Shop shop = shopRepository.findById(shopId).get();
 
-        return reservationRepository.save(request.toEntity(request, user, shop)).getId();
+        return new ReservationDataResponse().responseSet(reservationRepository.save(request.toEntity(request, user, shop)));
     }
 }

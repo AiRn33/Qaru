@@ -112,12 +112,14 @@
                                            placeholder=""
                                            value="" id="reservationName">
                                     <label for="reservationName">예약자 이름<i class="bi bi-mouse"></i></label>
+                                    <div id="reservationNameArea"></div>
                                 </div>
                                 <div class="form-floating mb-1">
                                     <input type="text" class="form-control" name="reservationPhone"
                                            placeholder=""
                                            value="" id="reservationPhone">
                                     <label for="reservationPhone">예약자 연락처 &nbsp;<i class="bi bi-mouse"></i></label>
+                                    <div id="reservationPhoneArea"></div>
                                 </div>
                                 <div class="form-floating mb-1" style="margin-top: 10px;">
                                     <span style="color: dimgray">예약 인원 </span>
@@ -133,7 +135,8 @@
                                         <i class="bi bi-arrow-right-circle"></i>
                                     </button>
                                 </div>
-                                <div class="form-floating mb-1" style="text-align: center; font-size: 12px; color: red;" id="limitNumSpan">
+                                <div class="form-floating mb-1" style="text-align: center; font-size: 12px; color: red;"
+                                     id="limitNumSpan">
 
                                 </div>
                             </div>
@@ -147,20 +150,21 @@
                 <div class="col">
                     <div class="card" style="padding:8px">
                         <div class="row g-0">
-                        <div class="col-6">
-                            <button type="button" class="btn btn-bluemint" style="width: 95%;" onclick="reservationSubmit()">
-                                <i class="bi bi-bookmark-check-fill fs-5" style="color: white">
-                                    &nbsp;예약하기
-                                </i>
-                            </button>
-                        </div>
-                        <div class="col-6">
-                            <button type="button" class="btn btn-pink" style="width: 95%;" onclick="timeBack(2)">
-                                <i class="bi bi-arrow-bar-right fs-5" style="color: white">
-                                    &nbsp;뒤로가기
-                                </i>
-                            </button>
-                        </div>
+                            <div class="col-6">
+                                <button type="button" class="btn btn-bluemint" style="width: 95%;"
+                                        onclick="reservationSubmit()">
+                                    <i class="bi bi-bookmark-check-fill fs-5" style="color: white">
+                                        &nbsp;예약하기
+                                    </i>
+                                </button>
+                            </div>
+                            <div class="col-6">
+                                <button type="button" class="btn btn-pink" style="width: 95%;" onclick="timeBack(2)">
+                                    <i class="bi bi-arrow-bar-right fs-5" style="color: white">
+                                        &nbsp;뒤로가기
+                                    </i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -173,6 +177,12 @@
 </div>
 
 <script>
+
+    let reservationCheckList;
+    let reservationValid = [];
+    let reservationValidCount = 0;
+    let reservationValidCheckCount = 0;
+
     $(function () {
         var maxDate = new Date();
 
@@ -253,6 +263,13 @@
             url: "/shop/reservation-time/${shopData.shopId}",      // 컨트롤러에서 대기중인 URL 주소이다.
             data: {reservationDate: input},
             success: function (res) { // 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.
+                reservationCheckList = res.reservationCheck;
+                for (let i = 0; i < reservationCheckList.length; i++) {
+                    if (res.reservationCheck[i].count >= res.reservationLimitTeam) {
+                        reservationValid.push(reservationCheckList[i].reservationTime.slice(11));
+                        reservationValidCount++;
+                    }
+                }
 
                 document.querySelector('#dateSelectArea').style.display = 'none';
                 document.querySelector('#timeSelectArea').style.display = '';
@@ -263,7 +280,7 @@
                 document.querySelector('#selectDate').value = selectDate[0] + '-' + selectDate[1] + '-' + selectDate[2];
                 document.querySelector('#limitNum').value = res.reservationLimitNum;
                 document.querySelector('#limitNumSpan').innerHTML =
-                        '<span>최대 예약 가능 인원은 ' + res.reservationLimitNum + '명 입니다.</span>';
+                    '<span>최대 예약 가능 인원은 ' + res.reservationLimitNum + '명 입니다.</span>';
 
                 let reservationOpenTime = (Number)(res.reservationOpenTime);
                 let reservationOpenMinute = (Number)(res.reservationOpenMinute);
@@ -275,48 +292,47 @@
 
                 // 마감시간이 새벽인 경우
                 if (reservationOpenTime > reservationCloseTime) {
-
                     let setTime = reservationOpenTime;
-                    if(setTime > 24){
+                    if (setTime > 24) {
                         setTime = 0;
                     }
                     // 시간이 한 시간인 경우
                     if (reservationTime == '60') {
-                        for(let i = reservationOpenTime; i < 24; i++) {
-                            html += sixtyHtml(setTime);
+                        for (let i = reservationOpenTime; i < 24; i++) {
+                            html += sixtyHtml(setTime, reservationValidCheck(setTime));
                             setTime++;
                         }
                         setTime = 0;
-                        for(let i = setTime; i <= reservationCloseTime; i++){
-                            html += sixtyHtml(setTime);
+                        for (let i = setTime; i <= reservationCloseTime; i++) {
+                            html += sixtyHtml(setTime, reservationValidCheck(setTime));
                             setTime++;
                         }
 
                         // 시간이 30분인 경우
                     } else if (reservationTime == '30') {
 
-                        if(reservationOpenMinute == '30'){
-                            html += openThirtyHtml(setTime);
+                        if (reservationOpenMinute == '30') {
+                            html += openThirtyHtml(setTime, reservationValidCheck(setTime));
                             setTime++;
-                        }else{
-                            html += thirtyHtml(setTime);
+                        } else {
+                            html += thirtyHtml(setTime, reservationValidCheck(setTime));
                             setTime++;
                         }
 
-                        for(let i = reservationOpenTime + 1; i < 24; i++){
-                            html += thirtyHtml(setTime);
+                        for (let i = reservationOpenTime + 1; i < 24; i++) {
+                            html += thirtyHtml(setTime, reservationValidCheck(setTime));
                             setTime++;
                         }
                         setTime = 0;
-                        for(let i = setTime; i <= reservationCloseTime - 1; i++) {
-                            html += thirtyHtml(setTime);
+                        for (let i = setTime; i <= reservationCloseTime - 1; i++) {
+                            html += thirtyHtml(setTime, reservationValidCheck(setTime));
                             setTime++;
                         }
 
-                        if(reservationCloseMinute == '30'){
-                            html += thirtyHtml(setTime);
-                        }else if(reservationCloseMinute == '0'){
-                            html += sixtyHtml(setTime);
+                        if (reservationCloseMinute == '30') {
+                            html += thirtyHtml(setTime, reservationValidCheck(setTime));
+                        } else if (reservationCloseMinute == '0') {
+                            html += sixtyHtml(setTime, reservationValidCheck(setTime));
                         }
                     }
 
@@ -329,7 +345,23 @@
 
                     let setTime = reservationOpenTime;
 
-                    html += sixtyHtml(setTime);
+                    if(reservationTime == '60'){
+                        if(reservationOpenMinute != '30'){
+                            html += sixtyHtml(setTime, reservationValidCheck(setTime));
+                        }else{
+                            html += '예약 불가';
+                        }
+                    }else{
+                        if(reservationOpenMinute == reservationCloseMinute){
+                            if(reservationOpenMinute == '30'){
+                                html += openThirtyHtml(setTime, reservationValidCheck(setTime));
+                            }else{
+                                html += sixtyHtml(setTime, reservationValidCheck(setTime));
+                            }
+                        }else{
+                            html += thirtyHtml(setTime, reservationValidCheck(setTime));
+                        }
+                    }
 
                     document.querySelector('#reservationTimeArea').innerHTML = html;
                     html = '';
@@ -337,34 +369,45 @@
                 // 정상
                 else {
                     let setTime = reservationOpenTime;
-
                     // 시간이 한 시간인 경우
                     if (reservationTime == '60') {
+
+                        if (reservationOpenMinute == '30') {
+                            setTime++;
+                        }
                         for (let i = 0; i < (reservationCloseTime - reservationOpenTime) + 1; i++) {
-                            html += sixtyHtml(setTime);
+                            // 마지막 때
+                            if (reservationOpenMinute == '30') {
+                                if (i == (reservationCloseTime - reservationOpenTime)) {
+                                    if (reservationCloseMinute == '30') {
+                                        break;
+                                    }
+                                }
+                            }
+                            html += sixtyHtml(setTime, reservationValidCheck(setTime));
                             setTime++;
                         }
 
                         // 시간이 30분인 경우
                     } else if (reservationTime == '30') {
 
-                        if(reservationOpenMinute == '30'){
-                            html += openThirtyHtml(setTime);
+                        if (reservationOpenMinute == '30') {
+                            html += openThirtyHtml(setTime, reservationValidCheck(setTime));
                             setTime++;
-                        }else{
-                            html += thirtyHtml(setTime);
+                        } else {
+                            html += thirtyHtml(setTime, reservationValidCheck(setTime));
                             setTime++;
                         }
 
                         for (let i = 0; i < (reservationCloseTime - reservationOpenTime) - 1; i++) {
-                            html += thirtyHtml(setTime);
+                            html += thirtyHtml(setTime, reservationValidCheck(setTime));
                             setTime++;
                         }
 
-                        if(reservationCloseMinute == '30'){
-                            html += thirtyHtml(setTime);
-                        }else if(reservationCloseMinute == '0'){
-                            html += sixtyHtml(setTime);
+                        if (reservationCloseMinute == '30') {
+                            html += thirtyHtml(setTime, reservationValidCheck(setTime));
+                        } else if (reservationCloseMinute == '0') {
+                            html += sixtyHtml(setTime, reservationValidCheck(setTime));
                         }
                     }
 
@@ -379,7 +422,7 @@
         let limitNum = document.querySelector('#limitNum').value;
         let inputCount = document.querySelector('#inputCount').value;
 
-        if(Number(inputCount) >= Number(limitNum)){
+        if (Number(inputCount) >= Number(limitNum)) {
             alert('최대 예약 가능 인원은 ' + limitNum + "명 입니다.");
             return false;
         }
@@ -398,32 +441,50 @@
         if (input == 1) {
             document.querySelector('#dateSelectArea').style.display = '';
             document.querySelector('#timeSelectArea').style.display = 'none';
-        }else if(input ==2){
+        } else if (input == 2) {
             document.querySelector('#timeSelectArea').style.display = '';
             document.querySelector('#dataArea').style.display = 'none';
         }
     }
 
-    function reservationSubmit(){
+    function reservationSubmit() {
+
+        if (!validation()) {
+            return false;
+        }
+
+        let selectDate = (document.querySelector('#selectDate').value).split('-');
+        let time = (document.querySelector('#reservationTime').value).split('-');
+
+        if (!confirm('예약자 성함 : ' + document.querySelector('#reservationName').value +
+            '\n예약 시간 : ' + selectDate[0] + '년 ' + selectDate[1] + '월 ' + selectDate[2] + '일 ' + time[0] + '시 ' + time[1] + '분' +
+            '\n휴대폰 번호 : ' + document.querySelector('#reservationPhone').value +
+            '\n예약 인원 : ' + document.querySelector('#inputCount').value +
+            '\n예약 하시겠습니까?')) {
+            return false;
+        }
 
         let data = {
             selectDate: document.querySelector('#selectDate').value,
-            reservationTime:document.querySelector('#reservationTime').value,
-            reservationName:document.querySelector('#reservationName').value,
-            reservationLimitNum:document.querySelector('#inputCount').value,
-            reservationPhone:document.querySelector('#reservationPhone').value
+            reservationTime: document.querySelector('#reservationTime').value,
+            reservationName: document.querySelector('#reservationName').value,
+            reservationLimitNum: document.querySelector('#inputCount').value,
+            reservationPhone: document.querySelector('#reservationPhone').value
         }
-
-        console.log(data);
 
         $.ajax({
             type: "POST",            // HTTP method type(GET, POST) 형식이다.
             url: "/shop/reservation-time/${shopData.shopId}",      // 컨트롤러에서 대기중인 URL 주소이다.
             data: data,
-            contentType : "application/x-www-form-urlencoded; charset=utf-8",
-            dataType : "json",
+            contentType: "application/x-www-form-urlencoded; charset=utf-8",
+            dataType: "json",
             success: function (res) { // 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.
-                console.log(res);
+                alert('예약 완료 \n\n' +
+                    '예약자 성함 : ' + res.reservationName +
+                    '\n예약 시간 : ' + res.selectDate +
+                    '\n휴대폰 번호 : ' + res.reservationPhone +
+                    '\n예약 인원 : ' + res.reservationLimitNum);
+                location.href = '/';
             },
             error: function () { // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
 
@@ -432,51 +493,81 @@
 
     }
 
-    function sixtyHtml(setTime) {
+    function sixtyHtml(setTime, type) {
         let html = '';
         let sixty = '00';
 
         html += '<div class="col-6">';
-        html += '<input type="button" class="btn btn-outline-gray" value="' + setTime + '시 00분' + '" ' +
+
+        if (type == '1' || type == '3') {
+            html += '<input type="button" class="btn btn-outline-gray" value="' + setTime + '시 00분' + '"' +
                 'style="width: 95%" onclick="reservationDataOn(' + setTime + ', ' + sixty + ')">';
+        } else if (type == '2') {
+            html += '<input type="button" class="btn btn-gray" value="' + setTime + '시 00분' + '(예약 불가)"' +
+                'style="width: 95%" disabled>';
+        }
         html += '</div>';
+
         return html;
     }
 
-    function thirtyHtml(setTime) {
+    function thirtyHtml(setTime, type) {
         let html = '';
         let sixty = '00';
         let thirty = '30';
 
         html += '<div class="col-6">';
-        html += '<input type="button" class="btn btn-outline-gray" value="' + setTime + '시 00분' + '"' +
+        if (type == '1' || type == '3') {
+            html += '<input type="button" class="btn btn-outline-gray" value="' + setTime + '시 00분' + '"' +
                 'style="width: 95%" onclick="reservationDataOn(' + setTime + ', ' + sixty + ')">';
+        } else if (type == '2') {
+            html += '<input type="button" class="btn btn-gray" value="' + setTime + '시 00분' + '(예약 불가)"' +
+                'style="width: 95%" disabled>';
+        } else if (type == '4') {
+            html += '<input type="button" class="btn btn-gray" value="' + setTime + '시 00분' + '(예약 불가)"' +
+                'style="width: 95%" disabled>';
+        }
         html += '</div>';
 
         html += '<div class="col-6">';
-        html += '<input type="button" class="btn btn-outline-gray" value="' + setTime + '시 30분' + '" ' +
+        if (type == '1' || type == '2') {
+            html += '<input type="button" class="btn btn-outline-gray" value="' + setTime + '시 30분' + '" ' +
                 'style="width: 95%" onclick="reservationDataOn(' + setTime + ', ' + thirty + ')">';
+        } else if (type == '3') {
+            html += '<input type="button" class="btn btn-gray" value="' + setTime + '시 30분' + '(예약 불가)" ' +
+                'style="width: 95%;" disabled>';
+        } else if (type == '4') {
+            html += '<input type="button" class="btn btn-gray" value="' + setTime + '시 30분' + '(예약 불가)" ' +
+                'style="width: 95%;" disabled>';
+        }
         html += '</div>';
         return html;
     }
 
-    function openThirtyHtml(setTime) {
+    function openThirtyHtml(setTime, type) {
         let html = '';
         let thirty = '30';
+
         html += '<div class="col-6">';
-        html += '<input type="button" class="btn btn-outline-gray" value="' + setTime + '시 30분' + '" ' +
+        if (type == '1' || type == '2') {
+            html += '<input type="button" class="btn btn-outline-gray" value="' + setTime + '시 30분' + '" ' +
                 'style="width: 95%" onclick="reservationDataOn(' + setTime + ', ' + thirty + ')">';
+        } else if (type == '3') {
+            html += '<input type="button" class="btn btn-gray" value="' + setTime + '시 30분' + '(예약 불가)" ' +
+                'style="width: 95%;" disabled>';
+        }
         html += '</div>';
+
         return html;
     }
 
-    function reservationDataOn(setTime, type){
+    function reservationDataOn(setTime, type) {
 
         let timeSet;
-        if(type == '0'){
+        if (type == '0') {
             timeSet = setTime + '-00';
             document.querySelector('#reservationHourSpan').innerHTML = setTime + '시 00분';
-        }else{
+        } else {
             timeSet = setTime + '-30';
             document.querySelector('#reservationHourSpan').innerHTML = setTime + '시 30분';
         }
@@ -486,6 +577,81 @@
         document.querySelector('#dataArea').style.display = '';
         document.querySelector('#timeSelectArea').style.display = 'none';
 
+    }
+
+    function validation() {
+
+        let patternPhone = /01[016789]-[^0][0-9]{2,3}-[0-9]{3,4}/;
+        let patternKorean = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+
+        let check = true;
+
+        let phone = document.querySelector('#reservationPhone').value;
+        let hipunPhone = phone
+            .replace(/[^0-9]/g, '')
+            .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`);
+
+        if (!patternPhone.test(hipunPhone)) {
+            let html = '';
+            html = error('휴대폰 번호를 다시 입력해주세요.');
+            document.querySelector('#reservationPhoneArea').innerHTML = html;
+            check = false;
+        } else {
+            document.querySelector('#reservationPhoneArea').innerHTML = '';
+        }
+
+        if (!patternKorean.test(document.querySelector('#reservationName').value)) {
+            let html = '';
+            html = error('예약자명은 한글만 입력가능합니다.');
+            document.querySelector('#reservationNameArea').innerHTML = html;
+            check = false;
+        } else {
+            document.querySelector('#reservationNameArea').innerHTML = '';
+        }
+
+        if (!check) {
+            return false;
+        }
+        return true;
+    }
+
+    function reservationValidCheck(input) {
+        if (reservationValidCount > 0) {
+            if (input == reservationValid[reservationValidCheckCount].split(':')[0]) {
+
+                if(reservationValid.length > (reservationValidCheckCount + 1)){
+                    if (reservationValid[reservationValidCheckCount].split(':')[0] ==
+                        reservationValid[reservationValidCheckCount + 1].split(':')[0]) {
+                        // 12:00 / 12:30 동시 예약시 체크
+                        reservationValidCount = reservationValidCount - 2;
+                        reservationValidCheckCount = reservationValidCheckCount + 2;
+                        return '4';
+                    } else {
+                        if (reservationValid[reservationValidCheckCount].split(':')[1] == '30') {
+                            reservationValidCount--;
+                            reservationValidCheckCount++;
+                            return '3';
+                        } else {
+                            reservationValidCount--;
+                            reservationValidCheckCount++;
+                            return '2';
+                        }
+                    }
+                }else{
+                    if (reservationValid[reservationValidCheckCount].split(':')[1] == '30') {
+                        reservationValidCount--;
+                        reservationValidCheckCount++;
+                        return '3';
+                    } else {
+                        reservationValidCount--;
+                        reservationValidCheckCount++;
+                        return '2';
+                    }
+                }
+            }
+            return '1';
+        }
+        return '1';
     }
 </script>
 

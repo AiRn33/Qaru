@@ -143,31 +143,38 @@
                     <span style="font-size: 12px;">요일 설정</span>
                     <span style="font-size: 10px; color: red; margin-bottom: 5px;">(선택 시 색이 입력됩니다)</span>
                     <div class="col-sm">
-                        <input type="checkbox" name="check_days" class="btn-check" id="btn-check-mon" autocomplete="off">
+                        <input type="checkbox" name="check_days" class="btn-check" id="btn-check-mon"
+                               autocomplete="off">
                         <label class="btn btn-outline-gray" for="btn-check-mon" style="font-size: 12px;">월</label><br>
                     </div>
                     <div class="col-sm">
-                        <input type="checkbox" name="check_days" class="btn-check" id="btn-check-tues" autocomplete="off">
+                        <input type="checkbox" name="check_days" class="btn-check" id="btn-check-tues"
+                               autocomplete="off">
                         <label class="btn btn-outline-gray" for="btn-check-tues" style="font-size: 13px;">화</label><br>
                     </div>
                     <div class="col-sm">
-                        <input type="checkbox" name="check_days" class="btn-check" id="btn-check-wed" autocomplete="off">
+                        <input type="checkbox" name="check_days" class="btn-check" id="btn-check-wed"
+                               autocomplete="off">
                         <label class="btn btn-outline-gray" for="btn-check-wed" style="font-size: 13px;">수</label><br>
                     </div>
                     <div class="col-sm">
-                        <input type="checkbox" name="check_days" class="btn-check" id="btn-check-thur" autocomplete="off">
+                        <input type="checkbox" name="check_days" class="btn-check" id="btn-check-thur"
+                               autocomplete="off">
                         <label class="btn btn-outline-gray" for="btn-check-thur" style="font-size: 13px;">목</label><br>
                     </div>
                     <div class="col-sm">
-                        <input type="checkbox" name="check_days" class="btn-check" id="btn-check-fri" autocomplete="off">
+                        <input type="checkbox" name="check_days" class="btn-check" id="btn-check-fri"
+                               autocomplete="off">
                         <label class="btn btn-outline-gray" for="btn-check-fri" style="font-size: 13px;">금</label><br>
                     </div>
                     <div class="col-sm">
-                        <input type="checkbox" name="check_days" class="btn-check" id="btn-check-sat" autocomplete="off">
+                        <input type="checkbox" name="check_days" class="btn-check" id="btn-check-sat"
+                               autocomplete="off">
                         <label class="btn btn-outline-gray" for="btn-check-sat" style="font-size: 13px;">토</label><br>
                     </div>
                     <div class="col-sm">
-                        <input type="checkbox" name="check_days" class="btn-check" id="btn-check-sun" autocomplete="off">
+                        <input type="checkbox" name="check_days" class="btn-check" id="btn-check-sun"
+                               autocomplete="off">
                         <label class="btn btn-outline-gray" for="btn-check-sun" style="font-size: 13px;">일</label><br>
                     </div>
                     <br><br>
@@ -181,14 +188,15 @@
                         <span style="font-size: 12px;">닫는 시간</span>
                     </div>
                     <div class="col-3">
-                        <select class="form-select me-2" id="openTime" style="width: 92px; font-size: 14px;">
-                            <option value="00">00시</option>
+                        <select class="form-select me-2" id="openTime" style="width: 92px; font-size: 14px;"
+                                onchange="timeSet('openTime')" onclick="timeSet('openTime')">
+                            <option value="00" selected>0시</option>
                             <option value="01">01시</option>
                             <option value="02">02시</option>
                             <option value="03">03시</option>
                             <option value="04">04시</option>
-                            <option value="04">05시</option>
-                            <option value="04">06시</option>
+                            <option value="05">05시</option>
+                            <option value="06">06시</option>
                             <option value="07">07시</option>
                             <option value="08">08시</option>
                             <option value="09">09시</option>
@@ -210,44 +218,20 @@
                         </select>
                     </div>
                     <div class="col-3">
-                        <select class="form-select me-2" id="openMinute" style="width: 92px; font-size: 14px;">
-                            <option value="00">00분</option>
+                        <select class="form-select me-2" id="openMinute" style="width: 92px; font-size: 14px;"
+                                onchange="timeSet('openMinute')" onclick="timeSet('openMinute')">
+                            <option value="00" selected>0분</option>
                             <option value="30">30분</option>
                         </select>
                     </div>
                     <div class="col-3">
-                        <select class="form-select me-2" id="closeTime" style="width: 92px; font-size: 14px;">
-                            <option value="00">00시</option>
-                            <option value="01">01시</option>
-                            <option value="02">02시</option>
-                            <option value="03">03시</option>
-                            <option value="04">04시</option>
-                            <option value="04">05시</option>
-                            <option value="04">06시</option>
-                            <option value="07">07시</option>
-                            <option value="08">08시</option>
-                            <option value="09">09시</option>
-                            <option value="10">10시</option>
-                            <option value="11">11시</option>
-                            <option value="12">12시</option>
-                            <option value="13">13시</option>
-                            <option value="14">14시</option>
-                            <option value="15">15시</option>
-                            <option value="16">16시</option>
-                            <option value="17">17시</option>
-                            <option value="18">18시</option>
-                            <option value="19">19시</option>
-                            <option value="20">20시</option>
-                            <option value="21">21시</option>
-                            <option value="22">22시</option>
-                            <option value="23">23시</option>
-                            <option value="24">24시</option>
+                        <select class="form-select me-2" id="closeTime" style="width: 92px; font-size: 14px;"
+                                onchange="timeSet('closeTime')" onclick="timeSet('closeTime')" disabled>
                         </select>
                     </div>
                     <div class="col-3">
-                        <select class="form-select me-2" id="closeMinute" style="width: 92px; font-size: 14px;">
-                            <option value="00">00분</option>
-                            <option value="30">30분</option>
+                        <select class="form-select me-2" id="closeMinute" style="width: 92px; font-size: 14px;"
+                                onchange="timeSet('closeMinute')" onclick="timeSet('closeMinute')" disabled>
                         </select>
                     </div>
                     <br><br>
@@ -261,73 +245,25 @@
                         <span style="font-size: 12px;">마지막 예약 시간</span>
                     </div>
                     <div class="col-3">
-                        <select class="form-select me-2" id="reservationOpenTime" style="width: 92px; font-size: 14px;">
-                            <option value="00">00시</option>
-                            <option value="01">01시</option>
-                            <option value="02">02시</option>
-                            <option value="03">03시</option>
-                            <option value="04">04시</option>
-                            <option value="04">05시</option>
-                            <option value="04">06시</option>
-                            <option value="07">07시</option>
-                            <option value="08">08시</option>
-                            <option value="09">09시</option>
-                            <option value="10">10시</option>
-                            <option value="11">11시</option>
-                            <option value="12">12시</option>
-                            <option value="13">13시</option>
-                            <option value="14">14시</option>
-                            <option value="15">15시</option>
-                            <option value="16">16시</option>
-                            <option value="17">17시</option>
-                            <option value="18">18시</option>
-                            <option value="19">19시</option>
-                            <option value="20">20시</option>
-                            <option value="21">21시</option>
-                            <option value="22">22시</option>
-                            <option value="23">23시</option>
-                            <option value="24">24시</option>
+                        <select class="form-select me-2" id="reservationOpenTime" style="width: 92px; font-size: 14px;"
+                                onchange="timeSet('reservationOpenTime')" onclick="timeSet('reservationOpenTime')" disabled>
+
                         </select>
                     </div>
                     <div class="col-3">
-                        <select class="form-select me-2" id="reservationOpenMinute" style="width: 92px; font-size: 14px;">
-                            <option value="00">00분</option>
-                            <option value="30">30분</option>
+                        <select class="form-select me-2" id="reservationOpenMinute"
+                                style="width: 92px; font-size: 14px;"
+                                onchange="timeSet('reservationOpenMinute')" onclick="timeSet('reservationOpenMinute')" disabled>
                         </select>
                     </div>
                     <div class="col-3">
-                        <select class="form-select me-2" id="reservationCloseTime" style="width: 92px; font-size: 14px;">
-                            <option value="00">00시</option>
-                            <option value="01">01시</option>
-                            <option value="02">02시</option>
-                            <option value="03">03시</option>
-                            <option value="04">04시</option>
-                            <option value="04">05시</option>
-                            <option value="04">06시</option>
-                            <option value="07">07시</option>
-                            <option value="08">08시</option>
-                            <option value="09">09시</option>
-                            <option value="10">10시</option>
-                            <option value="11">11시</option>
-                            <option value="12">12시</option>
-                            <option value="13">13시</option>
-                            <option value="14">14시</option>
-                            <option value="15">15시</option>
-                            <option value="16">16시</option>
-                            <option value="17">17시</option>
-                            <option value="18">18시</option>
-                            <option value="19">19시</option>
-                            <option value="20">20시</option>
-                            <option value="21">21시</option>
-                            <option value="22">22시</option>
-                            <option value="23">23시</option>
-                            <option value="24">24시</option>
+                        <select class="form-select me-2" id="reservationCloseTime" style="width: 92px; font-size: 14px;"
+                                onchange="timeSet('reservationCloseTime')" onclick="timeSet('reservationCloseTime')" disabled>
                         </select>
                     </div>
                     <div class="col-3">
-                        <select class="form-select me-2" id="reservationCloseMinute" style="width: 92px; font-size: 14px;">
-                            <option value="00">00분</option>
-                            <option value="30">30분</option>
+                        <select class="form-select me-2" id="reservationCloseMinute" style="width: 92px; font-size: 14px;"
+                                onchange="timeSet('reservationCloseMinute')" onclick="timeSet('reservationCloseMinute')" disabled>
                         </select>
                     </div>
                     <div class="col-6">
@@ -343,11 +279,13 @@
                         </select>
                     </div>
                     <div class="col-3">
-                        <input type="number" class="form-control" id="reservationLimitNum" name="shopName" placeholder=""
+                        <input type="number" class="form-control" id="reservationLimitNum" name="shopName"
+                               placeholder=""
                                style="text-align: right;" maxlength="2" min="0" value="" onchange="numberCheck(this)">
                     </div>
                     <div class="col-3">
-                        <input type="number" class="form-control" id="reservationLimitTeam" name="shopName" placeholder=""
+                        <input type="number" class="form-control" id="reservationLimitTeam" name="shopName"
+                               placeholder=""
                                style="text-align: right;" maxlength="2" min="0" value="" onchange="numberCheck(this)">
                     </div>
                     <div class="col-12" style="text-align: right; line-height:70%;">
@@ -402,37 +340,37 @@
             document.querySelector('#file_btn').style.marginTop = '5px';
         }
 
-        if(${shopData.reservationCheck == true}){
+        if (${shopData.reservationCheck == true}) {
             document.querySelector('#reservationCheck').checked = true;
         }
 
-        if(${shopData != null}){
+        if (${shopData != null}) {
 
-            if(${shopData.mon == 'true'}){
+            if (${shopData.mon == 'true'}) {
                 document.querySelector('#btn-check-mon').checked = true;
             }
 
-            if(${shopData.tues == 'true'}){
+            if (${shopData.tues == 'true'}) {
                 document.querySelector('#btn-check-tues').checked = true;
             }
 
-            if(${shopData.wed == 'true'}){
+            if (${shopData.wed == 'true'}) {
                 document.querySelector('#btn-check-wed').checked = true;
             }
 
-            if(${shopData.thur == 'true'}){
+            if (${shopData.thur == 'true'}) {
                 document.querySelector('#btn-check-thur').checked = true;
             }
 
-            if(${shopData.fri == 'true'}){
+            if (${shopData.fri == 'true'}) {
                 document.querySelector('#btn-check-fri').checked = true;
             }
 
-            if(${shopData.sat == 'true'}){
+            if (${shopData.sat == 'true'}) {
                 document.querySelector('#btn-check-sat').checked = true;
             }
 
-            if(${shopData.sun == 'true'}){
+            if (${shopData.sun == 'true'}) {
                 document.querySelector('#btn-check-sun').checked = true;
             }
             $('#openTime').val('${shopData.openTime}').prop("selected", true);
@@ -446,7 +384,7 @@
             $('#reservationTime').val('${shopData.reservationTime}').prop("selected", true);
             document.querySelector('#reservationLimitNum').value = (Number)('${shopData.reservationLimitNum}');
             document.querySelector('#reservationLimitTeam').value = (Number)('${shopData.reservationLimitTeam}');
-            if(${shopData.reservationCheck == true}){
+            if (${shopData.reservationCheck == true}) {
                 document.querySelector('#reservationCheck').checked = true;
             }
         }
@@ -495,6 +433,7 @@
         document.querySelector('#userStreet').disabled = false;
         document.querySelector('#signupForm').submit();
     }
+
     function returnImg(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -527,25 +466,107 @@
         document.querySelector('#modal-wrap').style.display = 'none';
     }
 
-    function numberCheck(target){
+    function numberCheck(target) {
 
         let check = /[0-9]/g;
-        if(!(target == undefined)){
-            if(target.value > 99){
+        if (!(target == undefined)) {
+            if (target.value > 99) {
                 alert('최소 0 ~ 최대 99까지 입력 가능합니다.');
                 target.value = '';
             }
-            if(target.value < 0){
+            if (target.value < 0) {
                 alert('최소 0 ~ 최대 99까지 입력 가능합니다.');
                 target.value = '';
             }
-            if(!check.test(target.value)){
+            if (!check.test(target.value)) {
                 alert('숫자만 입력 가능합니다.');
                 target.value = '';
             }
         }
     }
 
-    numberCheck();
+    function timeSetHtml(time, type, area, dataType) {
+        let html = '';
+        let areaTime = Number(document.querySelector('#' + area).value);
+        let endTime = 24;
+        if(Number(dataType) > 1){
+            if(area.indexOf('Minute') != -1){
+                let areaData = area.split("Minute")[0] + 'Time';
+                if(Number(document.querySelector('#openTime').value) < Number(document.querySelector('#' + areaData).value)){
+                    time = 0;
+                }
+            }
+        }
+        if (type == 'time') {
+            for (let i = time; i < endTime; i++) {
+                if(i == areaTime){
+                    html += '<option value="' + i + '" selected>' + i + '시</option>';
+                }else{
+                    html += '<option value="' + i + '">' + i + '시</option>';
+                }
+            }
+        } else if (type == 'minute') {
+            for (let i = time; i < 60; i = i + 30) {
+                if(i == areaTime){
+                    html += '<option value="' + i + '" selected>' + i + '분</option>';
+                }else{
+                    html += '<option value="' + i + '">' + i + '분</option>';
+                }
+            }
+        }
+        return html;
+    }
+
+    function timeSet(input){
+
+        allDisabled();
+
+        if(input == 'openTime') {
+            basicTimes(Number(document.querySelector('#openTime').value), '1');
+            basicMinutes(Number(document.querySelector('#openMinute').value), '1');
+        }else if(input == 'openMinute'){
+            basicTimes(Number(document.querySelector('#openTime').value), '2');
+            basicMinutes(Number(document.querySelector('#openMinute').value), '2');
+        }else if(input == 'closeTime'){
+            basicTimes(Number(document.querySelector('#openTime').value), '3');
+            basicMinutes(Number(document.querySelector('#openMinute').value), '3');
+        }else if(input == 'closeMinute'){
+            basicTimes(Number(document.querySelector('#openTime').value), '4');
+            basicMinutes(Number(document.querySelector('#openMinute').value), '4');
+        }else if(input == 'reservationOpenTime'){
+            basicTimes(Number(document.querySelector('#openTime').value), '5');
+            basicMinutes(Number(document.querySelector('#openMinute').value), '5');
+        }else if(input == 'reservationOpenMinute'){
+            basicTimes(Number(document.querySelector('#openTime').value), '6');
+            basicMinutes(Number(document.querySelector('#openMinute').value), '6');
+        }else if(input == 'reservationCloseTime'){
+            basicTimes(Number(document.querySelector('#openTime').value), '7');
+            basicMinutes(Number(document.querySelector('#openMinute').value), '7');
+        }else if(input == 'reservationCloseMinute'){
+            basicTimes(Number(document.querySelector('#openTime').value), '8');
+            basicMinutes(Number(document.querySelector('#openMinute').value), '8');
+        }
+    }
+
+    function allDisabled(){
+        document.querySelector('#closeTime').disabled = false;
+        document.querySelector('#closeMinute').disabled = false;
+        document.querySelector('#reservationOpenTime').disabled = false;
+        document.querySelector('#reservationOpenMinute').disabled = false;
+        document.querySelector('#reservationCloseTime').disabled = false;
+        document.querySelector('#reservationCloseMinute').disabled = false;
+    }
+
+    function basicTimes(openTime){
+        document.querySelector('#closeTime').innerHTML = timeSetHtml(openTime, 'time' , 'closeTime', '1');
+        document.querySelector('#reservationOpenTime').innerHTML = timeSetHtml(openTime, 'time', 'reservationOpenTime', '1');
+        document.querySelector('#reservationCloseTime').innerHTML = timeSetHtml(openTime, 'time', 'reservationCloseTime', '1');
+    }
+
+    function basicMinutes(openMinute, value){
+        document.querySelector('#closeMinute').innerHTML = timeSetHtml(openMinute, 'minute', 'closeMinute', value, '2');
+        document.querySelector('#reservationOpenMinute').innerHTML = timeSetHtml(openMinute, 'minute', 'reservationOpenMinute', value, '2');
+        document.querySelector('#reservationCloseMinute').innerHTML = timeSetHtml(openMinute, 'minute', 'reservationCloseMinute', value, '2');
+    }
 </script>
 

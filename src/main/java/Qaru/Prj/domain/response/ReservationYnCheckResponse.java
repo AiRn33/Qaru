@@ -11,14 +11,12 @@ public class ReservationYnCheckResponse {
 
     private LocalDateTime reservationTime;
 
-    private Long hour;
-    private Long minute;
+   private String reservationTimes;
 
+   private Long count;
     public ReservationYnCheckResponse setTimes(){
 
-        this.hour = (long) this.reservationTime.getHour();
-        this.minute = (long) this.reservationTime.getMinute();
-
+        this.reservationTimes = String.valueOf(reservationTime.getYear()) + reservationTime.getMonth() + reservationTime.getDayOfMonth();
         return this;
     }
 }
