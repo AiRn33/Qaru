@@ -68,4 +68,9 @@ public class Reservation {
     public Reservation() {
 
     }
+
+    public Reservation reservationCancalChange(){
+        this.type = ReservationType.CANCEL;
+        return this;
+    }
 }

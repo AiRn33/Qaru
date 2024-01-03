@@ -268,4 +268,9 @@ public class AdminController {
 
         return orderService.findOrderMenu(id);
     }
+
+    @GetMapping("/admin/reservationOrders")
+    public String reservationOrdersPage(){
+        return "/admin/reservationOrders";
+    }
 }

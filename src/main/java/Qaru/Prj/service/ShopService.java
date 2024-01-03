@@ -3,6 +3,7 @@ package Qaru.Prj.service;
 import Qaru.Prj.config.customSecurity.PrincipalDetails;
 import Qaru.Prj.domain.baseEntity.DateTime;
 import Qaru.Prj.domain.entity.*;
+import Qaru.Prj.domain.enums.ReservationType;
 import Qaru.Prj.domain.request.ReservationDataRequest;
 import Qaru.Prj.domain.request.ShopUpdateRequest;
 import Qaru.Prj.domain.request.UserAdminChangeRequest;
@@ -133,5 +134,31 @@ public class ShopService {
         Shop shop = shopRepository.findById(shopId).get();
 
         return new ReservationDataResponse().responseSet(reservationRepository.save(request.toEntity(request, user, shop)));
+    }
+
+    public List<ReservationListResponse> reservationList(PrincipalDetails request){
+
+        List<ReservationListResponse> reservationListResponses = reservationRepositoryImpl.myReservationList(request.getUser().getId());
+
+        for(int i = 0; i < reservationListResponses.size(); i++){
+            reservationListResponses.get(i).setTime();
+        }
+
+        return reservationListResponses;
+    }
+
+    public String reservationMsg(Long id) {
+
+        return reservationRepository.findById(id).get().getReservationMessage();
+    }
+
+    @Transactional
+    public ReservationType reservationStatusChange(Long id) {
+
+        Reservation reservation = reservationRepository.findById(id).get();
+
+        reservation.reservationCancalChange();
+
+        return reservation.getType();
     }
 }

@@ -47,6 +47,11 @@
                             style="--bs-btn-hover-color: white; --bs-btn-active-color: white; --bs-btn-padding-x: 2.75rem">
                         <i class="bi bi-person-circle fs-4"></i>
                     </button>
+                    <button type="button" class="btn btn-outline-yellow"
+                            onclick="location.href='/user/reservations'"
+                            style="--bs-btn-hover-color: white; --bs-btn-active-color: white; --bs-btn-padding-x: 2.75rem">
+                        <i class="bi bi-calendar-week fs-4"></i>
+                    </button>
                     <button type="button" class="btn btn-outline-bluemint"
                             onclick="location.href='/user/orders'"
                             style="--bs-btn-hover-color: white; --bs-btn-active-color: white; --bs-btn-padding-x: 2.75rem">

@@ -1,10 +1,7 @@
 package Qaru.Prj.repository.Impl;
 
 import Qaru.Prj.domain.entity.QReservation;
-import Qaru.Prj.domain.response.ReservationYnCheckResponse;
-import Qaru.Prj.domain.response.ShopListResponse;
-import Qaru.Prj.domain.response.ShopRervationListResponse;
-import Qaru.Prj.domain.response.UserAdminUpdateResponse;
+import Qaru.Prj.domain.response.*;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -72,6 +69,27 @@ public class ReservationRepositoryImpl implements ReservationRepositoryCustom {
                 .groupBy(reservation.reservationTime)
                 .orderBy(reservation.reservationTime.asc())
                 .where(shop.id.eq(shopId).and(reservation.reservationTime.between(selectDateStart, selectDateEnd)))
+                .fetch();
+    }
+
+    @Override
+    public List<ReservationListResponse> myReservationList(Long userId) {
+
+        return queryFactory
+                .select(Projections.fields(ReservationListResponse.class,
+                        shop.shopName.as("shopName"),
+                        reservation.id.as("reservationId"),
+                        reservation.reservationName.as("reservationName"),
+                        reservation.reservationPhone.as("reservationPhone"),
+                        reservation.reservationNum.as("reservationNum"),
+                        reservation.type.as("reservationType"),
+                        reservation.reservationMessage.as("reservationMessage"),
+                        reservation.reservationTime.as("reservationTime")
+                ))
+                .from(reservation)
+                .innerJoin(shop).on(shop.id.eq(reservation.shop.id))
+                .where(reservation.user.id.eq(userId))
+                .orderBy(reservation.id.desc())
                 .fetch();
     }
 }

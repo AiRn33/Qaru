@@ -279,8 +279,10 @@
                 document.querySelector('#selectDateSpan').innerHTML = selectDateVal;
                 document.querySelector('#selectDate').value = selectDate[0] + '-' + selectDate[1] + '-' + selectDate[2];
                 document.querySelector('#limitNum').value = res.reservationLimitNum;
-                document.querySelector('#limitNumSpan').innerHTML =
-                    '<span>최대 예약 가능 인원은 ' + res.reservationLimitNum + '명 입니다.</span>';
+                if(res.reservationLimitNum > 0){
+                    document.querySelector('#limitNumSpan').innerHTML =
+                        '<span>최대 예약 가능 인원은 ' + res.reservationLimitNum + '명 입니다.</span>';
+                }
 
                 let reservationOpenTime = (Number)(res.reservationOpenTime);
                 let reservationOpenMinute = (Number)(res.reservationOpenMinute);
@@ -290,58 +292,8 @@
 
                 let html = '';
 
-                // 마감시간이 새벽인 경우
-                if (reservationOpenTime > reservationCloseTime) {
-                    let setTime = reservationOpenTime;
-                    if (setTime > 24) {
-                        setTime = 0;
-                    }
-                    // 시간이 한 시간인 경우
-                    if (reservationTime == '60') {
-                        for (let i = reservationOpenTime; i < 24; i++) {
-                            html += sixtyHtml(setTime, reservationValidCheck(setTime));
-                            setTime++;
-                        }
-                        setTime = 0;
-                        for (let i = setTime; i <= reservationCloseTime; i++) {
-                            html += sixtyHtml(setTime, reservationValidCheck(setTime));
-                            setTime++;
-                        }
-
-                        // 시간이 30분인 경우
-                    } else if (reservationTime == '30') {
-
-                        if (reservationOpenMinute == '30') {
-                            html += openThirtyHtml(setTime, reservationValidCheck(setTime));
-                            setTime++;
-                        } else {
-                            html += thirtyHtml(setTime, reservationValidCheck(setTime));
-                            setTime++;
-                        }
-
-                        for (let i = reservationOpenTime + 1; i < 24; i++) {
-                            html += thirtyHtml(setTime, reservationValidCheck(setTime));
-                            setTime++;
-                        }
-                        setTime = 0;
-                        for (let i = setTime; i <= reservationCloseTime - 1; i++) {
-                            html += thirtyHtml(setTime, reservationValidCheck(setTime));
-                            setTime++;
-                        }
-
-                        if (reservationCloseMinute == '30') {
-                            html += thirtyHtml(setTime, reservationValidCheck(setTime));
-                        } else if (reservationCloseMinute == '0') {
-                            html += sixtyHtml(setTime, reservationValidCheck(setTime));
-                        }
-                    }
-
-                    document.querySelector('#reservationTimeArea').innerHTML = html;
-                    html = '';
-
-                }
                 // 예약 시간과 마감 시간이 같은 경우
-                else if (reservationOpenTime == reservationCloseTime) {
+                if (reservationOpenTime == reservationCloseTime) {
 
                     let setTime = reservationOpenTime;
 
@@ -421,11 +373,13 @@
     function countUp() {
         let limitNum = document.querySelector('#limitNum').value;
         let inputCount = document.querySelector('#inputCount').value;
-
-        if (Number(inputCount) >= Number(limitNum)) {
-            alert('최대 예약 가능 인원은 ' + limitNum + "명 입니다.");
-            return false;
+        if(limitNum > 0){
+            if (Number(inputCount) >= Number(limitNum)) {
+                alert('최대 예약 가능 인원은 ' + limitNum + "명 입니다.");
+                return false;
+            }
         }
+
         document.querySelector('#inputCount').value++;
     }
 

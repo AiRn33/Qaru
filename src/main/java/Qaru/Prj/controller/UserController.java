@@ -3,6 +3,7 @@ package Qaru.Prj.controller;
 import Qaru.Prj.config.customSecurity.PrincipalDetails;
 import Qaru.Prj.domain.entity.Image;
 import Qaru.Prj.domain.entity.User;
+import Qaru.Prj.domain.enums.ReservationType;
 import Qaru.Prj.domain.request.*;
 import Qaru.Prj.domain.response.*;
 import Qaru.Prj.error.ScriptErrors;
@@ -281,4 +282,28 @@ public class UserController {
         return "/user/orders";
     }
 
+    @GetMapping("/user/reservations")
+    public String myReservations(@AuthenticationPrincipal PrincipalDetails request, Model model){
+
+        List<ReservationListResponse> reservationListResponses = shopService.reservationList(request);
+
+        model.addAttribute("reservationData", reservationListResponses);
+        model.addAttribute("reservationCount", reservationListResponses.size());
+
+        return "/user/reservations";
+    }
+
+    @ResponseBody
+    @GetMapping("/user/reservationMsg/{id}")
+    public String reservationMsg(@PathVariable("id") Long id){
+
+        return shopService.reservationMsg(id);
+    }
+
+    @ResponseBody
+    @GetMapping("/user/reservationStatus/{id}")
+    public ReservationType reservationStatusChange(@PathVariable("id") Long id){
+
+        return shopService.reservationStatusChange(id);
+    }
 }

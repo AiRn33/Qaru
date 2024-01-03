@@ -66,9 +66,9 @@
                 <div class="col-3" style="margin-top: 50px;">
                     <div class="card" style="--bs-card-border-color: none;">
                         <button type="submit" class="btn btn-outline-pink"
-                                style="height: 300px;" onclick="location.href='/admin/orders'">
+                                style="height: 300px;" onclick="location.href='/admin/reservationOrders'">
                             <i class="bi bi-shop fs-5">
-                                &nbsp;주문 확인하기
+                                &nbsp;주문 / 예약 확인하기
                             </i>
                         </button>
                     </div>

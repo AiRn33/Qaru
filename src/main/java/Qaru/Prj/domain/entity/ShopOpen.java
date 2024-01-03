@@ -61,14 +61,19 @@ public class ShopOpen {
         this.fri = request.getFri();
         this.sat = request.getSat();
         this.sun = request.getSun();
-        this.openTime = request.getOpenTime() + "-" + request.getOpenMinute();
-        this.closeTime = request.getCloseTime() + "-" + request.getCloseMinute();
-        this.reservationOpen = request.getReservationOpenTime() + "-" + request.getReservationOpenMinute();
-        this.reservationClose = request.getReservationCloseTime()+ "-" + request.getReservationCloseMinute();
+        this.openTime = plusZero(request.getOpenTime()) + "-" + plusZero(request.getOpenMinute());
+        this.closeTime = plusZero(request.getCloseTime()) + "-" + plusZero(request.getCloseMinute());
+        this.reservationOpen = plusZero(request.getReservationOpenTime()) + "-" + plusZero(request.getReservationOpenMinute());
+        this.reservationClose = plusZero(request.getReservationCloseTime())+ "-" + plusZero(request.getReservationCloseMinute());
         this.reservationTime = request.getReservationTime();
         this.reservationLimitNum = request.getReservationLimitNum();
         this.reservationLimitTeam = request.getReservationLimitTeam();
+
         return this;
+    }
+
+    public String plusZero(String time){
+        return time.length() == 1 ? "0" + time : time;
     }
 
     public ShopOpen createShopOpen(UserAdminChangeRequest request, Shop shop){
@@ -80,10 +85,10 @@ public class ShopOpen {
         this.fri = request.getFri();
         this.sat = request.getSat();
         this.sun = request.getSun();
-        this.openTime = request.getOpenTime() + "-" + request.getOpenMinute();
-        this.closeTime = request.getCloseTime() + "-" + request.getCloseMinute();
-        this.reservationOpen = request.getReservationOpenTime() + "-" + request.getReservationOpenMinute();
-        this.reservationClose = request.getReservationCloseTime()+ "-" + request.getReservationCloseMinute();
+        this.openTime = plusZero(request.getOpenTime()) + "-" + plusZero(request.getOpenMinute());
+        this.closeTime = plusZero(request.getCloseTime()) + "-" + plusZero(request.getCloseMinute());
+        this.reservationOpen = plusZero(request.getReservationOpenTime()) + "-" + plusZero(request.getReservationOpenMinute());
+        this.reservationClose = plusZero(request.getReservationCloseTime())+ "-" + plusZero(request.getReservationCloseMinute());
         this.reservationTime = request.getReservationTime();
         this.reservationLimitNum = request.getReservationLimitNum();
         this.reservationLimitTeam = request.getReservationLimitTeam();

@@ -141,20 +141,31 @@
                                 <div class="col-2 align-self-center">
                                     <div class="card" style="padding: 6px 5px 7px 5px; height: 50px;">
                                         <div>
-                                                </select style="font-size: 15px; font-weight: bold;">
-                                                    <select class="form-select" onchange="orderStatusUpdate(this.value, '${item.orderMenuId}')">
-                                                        <c:choose>
-                                                            <c:when test="${item.statusType == 'INCOMPLETE' || item.statusType == 'COMPLETE'}">
-                                                                <option value="1"<c:if test="${item.statusType == 'INCOMPLETE'}">selected</c:if>>✔️주문 대기</option>
-                                                                <option value="2"<c:if test="${item.statusType == 'COMPLETE'}">selected</c:if>>⭕주문 완료</option>
-                                                            </c:when>
-                                                            <c:when test="${item.statusType == 'TAKE_INCOMPLETE' || item.statusType == 'TAKE_COMPLETE'}">
-                                                                <option value="3"<c:if test="${item.statusType == 'TAKE_INCOMPLETE'}">selected</c:if>>✔️포장 대기</option>
-                                                                <option value="4"<c:if test="${item.statusType == 'TAKE_COMPLETE'}">selected</c:if>>⭕포장 완료</option>
-                                                            </c:when>
-                                                        </c:choose>
-                                                    </select>
-                                                </span>
+                                            <select class="form-select"
+                                                    onchange="orderStatusUpdate(this.value, '${item.orderMenuId}')">
+                                                <c:choose>
+                                                    <c:when test="${item.statusType == 'INCOMPLETE' || item.statusType == 'COMPLETE'}">
+                                                        <option value="1"
+                                                                <c:if test="${item.statusType == 'INCOMPLETE'}">selected</c:if>>
+                                                            ✔️주문 대기
+                                                        </option>
+                                                        <option value="2"
+                                                                <c:if test="${item.statusType == 'COMPLETE'}">selected</c:if>>
+                                                            ⭕주문 완료
+                                                        </option>
+                                                    </c:when>
+                                                    <c:when test="${item.statusType == 'TAKE_INCOMPLETE' || item.statusType == 'TAKE_COMPLETE'}">
+                                                        <option value="3"
+                                                                <c:if test="${item.statusType == 'TAKE_INCOMPLETE'}">selected</c:if>>
+                                                            ✔️포장 대기
+                                                        </option>
+                                                        <option value="4"
+                                                                <c:if test="${item.statusType == 'TAKE_COMPLETE'}">selected</c:if>>
+                                                            ⭕포장 완료
+                                                        </option>
+                                                    </c:when>
+                                                </c:choose>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -175,7 +186,7 @@
             <div class="row g-0" style="margin-top: 10px;">
                 <div class="col">
                     <div class="card" style="padding:8px">
-                        <button type="button" class="btn btn-pink" onclick="location.href='/admin/home'">
+                        <button type="button" class="btn btn-pink" onclick="location.href='/admin/reservationOrders'">
                             <i class="bi bi-arrow-bar-right fs-5" style="color: white">
                                 &nbsp;뒤로가기
                             </i>
@@ -251,7 +262,7 @@
         for (let i = 0; i < data.length; i++) {
 
             let value = data[i].value.split('/');
-            let name = (value[0] == ''?'단종 된 메뉴':value[0]);
+            let name = (value[0] == '' ? '단종 된 메뉴' : value[0]);
 
             html += '<div class="row g-0">'
             html += '   <div class="col-2 align-self-center">'
@@ -279,10 +290,10 @@
         }
         document.querySelector('#orderDataArea').innerHTML += html;
 
-        if(data.length > 4){
+        if (data.length > 4) {
             let heightLength = data.length * 85;
             document.querySelector('#modal-wrap').style.height = heightLength + "px";
-        }else{
+        } else {
             document.querySelector('#modal-wrap').style.height = "500px";
         }
 
@@ -298,11 +309,11 @@
     }
 
 
-    function orderStatusUpdate(value, menuId){
+    function orderStatusUpdate(value, menuId) {
         $.ajax({
             type: "post",            // HTTP method type(GET, POST) 형식이다.
             url: "/admin/order/" + menuId,      // 컨트롤러에서 대기중인 URL 주소이다.
-            data: {value : value},
+            data: {value: value},
             success: function (res) { // 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.
 
             },
