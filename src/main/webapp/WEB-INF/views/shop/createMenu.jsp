@@ -123,7 +123,7 @@
             <div class="row g-0">
                 <div class="col">
                     <div class="card" style="padding:8px">
-                        <button type="button" class="btn btn-pink" onclick="location.href='/'">
+                        <button type="button" class="btn btn-pink" onclick="location.href='/admin/home'">
                             <i class="bi bi-arrow-bar-right fs-5" style="color: white">
                                 &nbsp;뒤로가기
                             </i>

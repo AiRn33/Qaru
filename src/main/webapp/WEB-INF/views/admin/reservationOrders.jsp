@@ -33,7 +33,7 @@
         <div class="col-3" style="margin-top: 50px;">
             <div class="card" style="--bs-card-border-color: none;">
                 <button type="submit" class="btn btn-outline-bluemint"
-                        style="height: 300px;" onclick="cityStatistics()">
+                        style="height: 300px;" onclick="location.href='/admin/reservations'">
                     <i class="bi bi-calendar-week fs-5">
                         &nbsp;예약 확인하기
                     </i>

@@ -273,4 +273,9 @@ public class AdminController {
     public String reservationOrdersPage(){
         return "/admin/reservationOrders";
     }
+
+    @GetMapping("/admin/reservations")
+    public String reservations(){
+        return "/admin/reservations";
+    }
 }
