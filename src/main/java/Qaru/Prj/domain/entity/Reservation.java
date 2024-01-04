@@ -69,8 +69,23 @@ public class Reservation {
 
     }
 
-    public Reservation reservationCancalChange(){
-        this.type = ReservationType.CANCEL;
+    public Reservation reservationCancalChange(String type){
+
+        if(type.equals("cencel")){
+            this.type = ReservationType.CANCEL;
+        }else if(type.equals("approve")){
+            this.type = ReservationType.APPROVE;
+        }else if(type.equals("refuse")){
+            this.type = ReservationType.REFUSE;
+        }else if(type.equals("wait")){
+            this.type = ReservationType.WAIT;
+        }
         return this;
     }
+
+    public Reservation reservationMsgChange(String msg){
+        this.reservationMessage = msg;
+        return this;
+    }
+
 }

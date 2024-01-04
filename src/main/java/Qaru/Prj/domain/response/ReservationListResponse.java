@@ -31,12 +31,4 @@ public class ReservationListResponse {
 
     private String reservationTimes;
 
-    public ReservationListResponse setTime(){
-        LocalDateTime time = this.reservationTime;
-        this.reservationTimes = time.format(
-                DateTimeFormatter.ofPattern("yyyy년MM월dd일 HH시mm분")
-        );
-        return this;
-    }
-
 }

@@ -3,7 +3,11 @@ package Qaru.Prj.repository.Impl;
 import Qaru.Prj.domain.entity.QReservation;
 import Qaru.Prj.domain.response.*;
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.ConstantImpl;
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.DateTemplate;
+import com.querydsl.core.types.dsl.Expressions;
+import com.querydsl.core.types.dsl.StringTemplate;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -75,6 +79,12 @@ public class ReservationRepositoryImpl implements ReservationRepositoryCustom {
     @Override
     public List<ReservationListResponse> myReservationList(Long userId) {
 
+        DateTemplate<String> formattedDate = Expressions.dateTemplate(
+                String.class
+                , "DATE_FORMAT({0}, {1})"
+                , reservation.reservationTime
+                , ConstantImpl.create("%Y년%m월%d일 %h시%i분"));
+
         return queryFactory
                 .select(Projections.fields(ReservationListResponse.class,
                         shop.shopName.as("shopName"),
@@ -84,11 +94,40 @@ public class ReservationRepositoryImpl implements ReservationRepositoryCustom {
                         reservation.reservationNum.as("reservationNum"),
                         reservation.type.as("reservationType"),
                         reservation.reservationMessage.as("reservationMessage"),
-                        reservation.reservationTime.as("reservationTime")
+                        reservation.reservationTime.as("reservationTime"),
+                        formattedDate.as("reservationTimes")
                 ))
                 .from(reservation)
                 .innerJoin(shop).on(shop.id.eq(reservation.shop.id))
                 .where(reservation.user.id.eq(userId))
+                .orderBy(reservation.id.desc())
+                .fetch();
+    }
+
+    @Override
+    public List<ReservationListResponse> shopReservationList(Long shopId) {
+
+        DateTemplate<String> formattedDate = Expressions.dateTemplate(
+                String.class
+                , "DATE_FORMAT({0}, {1})"
+                , reservation.reservationTime
+                , ConstantImpl.create("%Y년%m월%d일 %h시%i분"));
+
+        return queryFactory
+                .select(Projections.fields(ReservationListResponse.class,
+                        shop.shopName.as("shopName"),
+                        reservation.id.as("reservationId"),
+                        reservation.reservationName.as("reservationName"),
+                        reservation.reservationPhone.as("reservationPhone"),
+                        reservation.reservationNum.as("reservationNum"),
+                        reservation.type.as("reservationType"),
+                        reservation.reservationMessage.as("reservationMessage"),
+                        reservation.reservationTime.as("reservationTime"),
+                        formattedDate.as("reservationTimes")
+                ))
+                .from(reservation)
+                .innerJoin(shop).on(shop.id.eq(reservation.shop.id))
+                .where(reservation.shop.id.eq(shopId))
                 .orderBy(reservation.id.desc())
                 .fetch();
     }

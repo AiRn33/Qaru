@@ -140,10 +140,6 @@ public class ShopService {
 
         List<ReservationListResponse> reservationListResponses = reservationRepositoryImpl.myReservationList(request.getUser().getId());
 
-        for(int i = 0; i < reservationListResponses.size(); i++){
-            reservationListResponses.get(i).setTime();
-        }
-
         return reservationListResponses;
     }
 
@@ -153,12 +149,26 @@ public class ShopService {
     }
 
     @Transactional
-    public ReservationType reservationStatusChange(Long id) {
+    public ReservationType reservationStatusChange(Long id, String type) {
 
         Reservation reservation = reservationRepository.findById(id).get();
 
-        reservation.reservationCancalChange();
+        reservation.reservationCancalChange(type);
 
         return reservation.getType();
+    }
+
+    public List<ReservationListResponse> shopReservationList(PrincipalDetails request) {
+        
+        Long shopId = shopRepository.findByUserId(request.getUser().getId()).get().getId();
+        return reservationRepositoryImpl.shopReservationList(shopId);
+    }
+
+    @Transactional
+    public String reservationMsgChange(Long id, String msg){
+        Reservation reservation = reservationRepository.findById(id).get();
+        reservation.reservationMsgChange(msg);
+
+        return reservation.getReservationMessage();
     }
 }

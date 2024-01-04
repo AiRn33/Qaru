@@ -2,6 +2,7 @@ package Qaru.Prj.controller;
 
 import Qaru.Prj.config.customSecurity.PrincipalDetails;
 import Qaru.Prj.domain.entity.User;
+import Qaru.Prj.domain.enums.ReservationType;
 import Qaru.Prj.domain.enums.StatusType;
 import Qaru.Prj.domain.request.ShopUpdateRequest;
 import Qaru.Prj.domain.request.UserAdminChangeRequest;
@@ -275,7 +276,25 @@ public class AdminController {
     }
 
     @GetMapping("/admin/reservations")
-    public String reservations(){
+    public String reservations(@AuthenticationPrincipal PrincipalDetails request, Model model){
+
+        model.addAttribute("reservationData",shopService.shopReservationList(request));
+        model.addAttribute("reservationCount",shopService.shopReservationList(request).size());
+
         return "/admin/reservations";
+    }
+
+    @ResponseBody
+    @PostMapping("/admin/reservation-msg/{id}")
+    public String reservationMsgChange(@PathVariable("id") Long id, @RequestParam("msg") String msg){
+
+        return shopService.reservationMsgChange(id, msg);
+    }
+
+    @ResponseBody
+    @GetMapping("/admin/reservationStatus/{id}")
+    public ReservationType reservationStatusChange(@PathVariable("id") Long id, @RequestParam("status") String status){
+
+        return shopService.reservationStatusChange(id, status);
     }
 }

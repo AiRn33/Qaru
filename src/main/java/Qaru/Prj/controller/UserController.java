@@ -304,6 +304,6 @@ public class UserController {
     @GetMapping("/user/reservationStatus/{id}")
     public ReservationType reservationStatusChange(@PathVariable("id") Long id){
 
-        return shopService.reservationStatusChange(id);
+        return shopService.reservationStatusChange(id, "cencel");
     }
 }

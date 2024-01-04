@@ -109,7 +109,10 @@ input[type=number] {
     font-style: normal;
     font-size: 20px;
 }
-
+.fs-7{
+    font-style: normal;
+    font-size: 14px;
+}
 /* popup */
 .modal-bg{
     width: 100%;

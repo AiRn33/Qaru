@@ -14,4 +14,6 @@ public interface ReservationRepositoryCustom {
     List<ReservationYnCheckResponse> reservationCheck(Long shopId, String date);
 
     List<ReservationListResponse> myReservationList(Long userId);
+
+    List<ReservationListResponse> shopReservationList(Long shopId);
 }

@@ -438,7 +438,7 @@
                     '\n예약 시간 : ' + res.selectDate +
                     '\n휴대폰 번호 : ' + res.reservationPhone +
                     '\n예약 인원 : ' + res.reservationLimitNum);
-                location.href = '/';
+                location.href = '/user/reservations';
             },
             error: function () { // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
 
