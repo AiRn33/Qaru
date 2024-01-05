@@ -35,7 +35,7 @@
                 <button type="submit" class="btn btn-outline-bluemint"
                         style="height: 300px;" onclick="cityStatistics()">
                     <i class="bi bi-map-fill fs-5">
-                        &nbsp;지역 통계보기
+                        &nbsp;예약 지역 통계보기
                     </i>
                 </button>
             </div>

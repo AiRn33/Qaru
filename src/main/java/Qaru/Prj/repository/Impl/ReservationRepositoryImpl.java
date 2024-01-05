@@ -1,6 +1,7 @@
 package Qaru.Prj.repository.Impl;
 
 import Qaru.Prj.domain.entity.QReservation;
+import Qaru.Prj.domain.enums.ReservationType;
 import Qaru.Prj.domain.response.*;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.ConstantImpl;
@@ -72,7 +73,8 @@ public class ReservationRepositoryImpl implements ReservationRepositoryCustom {
                 innerJoin(shop).on(reservation.shop.id.eq(shop.id))
                 .groupBy(reservation.reservationTime)
                 .orderBy(reservation.reservationTime.asc())
-                .where(shop.id.eq(shopId).and(reservation.reservationTime.between(selectDateStart, selectDateEnd)))
+                .where(shop.id.eq(shopId).and(reservation.reservationTime.between(selectDateStart, selectDateEnd))
+                        .and(reservation.type.eq(ReservationType.WAIT).or(reservation.type.eq(ReservationType.APPROVE))))
                 .fetch();
     }
 
@@ -129,6 +131,71 @@ public class ReservationRepositoryImpl implements ReservationRepositoryCustom {
                 .innerJoin(shop).on(shop.id.eq(reservation.shop.id))
                 .where(reservation.shop.id.eq(shopId))
                 .orderBy(reservation.id.desc())
+                .fetch();
+    }
+
+    @Override
+    public Page<ReservationListResponse> reservationAllList(Long shopId, Pageable pageable, String startDate, String endDate) {
+
+        LocalDateTime selectDateStart = LocalDateTime.of(Integer.parseInt(startDate.split("-")[0]), Integer.parseInt(startDate.split("-")[1]), Integer.parseInt(startDate.split("-")[2]), 00, 00);
+        LocalDateTime selectDateEnd = LocalDateTime.of(Integer.parseInt(endDate.split("-")[0]), Integer.parseInt(endDate.split("-")[1]), Integer.parseInt(endDate.split("-")[2]), 23, 59);
+
+        DateTemplate<String> formattedDate = Expressions.dateTemplate(
+                String.class
+                , "DATE_FORMAT({0}, {1})"
+                , reservation.reservationTime
+                , ConstantImpl.create("%Y년%m월%d일 %h시%i분"));
+
+        List<ReservationListResponse> shopList = queryFactory	// (1)
+                .select(Projections.fields(ReservationListResponse.class,
+                        shop.shopName.as("shopName"),
+                        reservation.id.as("reservationId"),
+                        reservation.reservationName.as("reservationName"),
+                        reservation.reservationPhone.as("reservationPhone"),
+                        reservation.reservationNum.as("reservationNum"),
+                        reservation.type.as("reservationType"),
+                        reservation.reservationMessage.as("reservationMessage"),
+                        reservation.reservationTime.as("reservationTime"),
+                        formattedDate.as("reservationTimes")
+                ))
+                .from(reservation)
+                .innerJoin(shop).on(shop.id.eq(reservation.shop.id))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .orderBy(reservation.reservationTime.desc())
+                .where(shop.id.eq(shopId).and(reservation.reservationTime.between(selectDateStart, selectDateEnd)))
+                .fetch();
+
+
+        return new PageImpl<>(shopList, pageable, shopList.size());
+    }
+
+    @Override
+    public Long reservationSearchPageCount(Long shopId, String startDate, String endDate) {
+
+        LocalDateTime selectDateStart = LocalDateTime.of(Integer.parseInt(startDate.split("-")[0]), Integer.parseInt(startDate.split("-")[1]), Integer.parseInt(startDate.split("-")[2]), 00, 00);
+        LocalDateTime selectDateEnd = LocalDateTime.of(Integer.parseInt(endDate.split("-")[0]), Integer.parseInt(endDate.split("-")[1]), Integer.parseInt(endDate.split("-")[2]), 23, 59);
+
+        Long count = queryFactory
+                .select(reservation)
+                .from(reservation)
+                .where(shop.id.eq(shopId).and(reservation.reservationTime.between(selectDateStart, selectDateEnd)))
+                .fetchCount();
+
+        return count;
+    }
+
+    @Override
+    public List<ReservationAreaList> reservationAreaList(Long shopId) {
+        return queryFactory
+                .select(Projections.fields(ReservationAreaList.class,
+                        reservation.user.address.city.substring(0,2).as("cityName"),
+                        reservation.count().as("count")
+                ))
+                .from(reservation)
+                .innerJoin(shop).on(shop.id.eq(reservation.shop.id))
+                .where(reservation.shop.id.eq(shopId))
+                .groupBy(reservation.user.address.city.substring(0,2))
                 .fetch();
     }
 }

@@ -171,4 +171,31 @@ public class ShopService {
 
         return reservation.getReservationMessage();
     }
+
+    public List<ReservationListResponse> reservationPagingList(Pageable pageable, Long userId, String startDate, String endDate){
+
+        Long shopId = shopRepository.findByUserId(userId).get().getId();
+
+        List<ReservationListResponse> reservationList = reservationRepositoryImpl.reservationAllList(shopId, pageable, startDate, endDate).toList();
+
+        return reservationList;
+    }
+
+    public Long searchReservationPageCount(Long userId, String startDate, String endDate){
+
+        Long shopId = shopRepository.findByUserId(userId).get().getId();
+
+        return reservationRepositoryImpl.reservationSearchPageCount(shopId, startDate, endDate);
+    }
+
+    public ReservationAreaList areaList(Long userId) {
+
+        Long shopId = shopRepository.findByUserId(userId).get().getId();
+
+        List<ReservationAreaList> reservationAreaLists = reservationRepositoryImpl.reservationAreaList(shopId);
+
+        ReservationAreaList list = new ReservationAreaList().setAreaList(reservationAreaLists);
+
+        return list;
+    }
 }

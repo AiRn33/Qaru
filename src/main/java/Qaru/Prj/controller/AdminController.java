@@ -179,6 +179,67 @@ public class AdminController {
         model.addAttribute("startDate", startDate);
         model.addAttribute("endDate", endDate);
 
+        List<ReservationListResponse> reservationPageList = shopService.reservationPagingList(pageable, request.getUser().getId(), startDate,endDate);
+        Long count = shopService.searchReservationPageCount(request.getUser().getId(), startDate, endDate);
+
+        model.addAttribute("area", shopService.areaList(request.getUser().getId()));
+
+        if (reservationPageList.size() > 0) {
+            model.addAttribute("reservationList", reservationPageList);
+            model.addAttribute("reservationCount", count);
+
+            int pageNum = 0;
+            int searchPageAllNum = (int) (count / pageable.getPageSize());
+
+            // 전체 페이지 조회 - searchPageAllNum
+            if (count % pageable.getPageSize() > 0) {
+                searchPageAllNum++;
+            }
+
+            // 페이지 num 이 3보다 작을 경우 1부터 시작하게 셋팅
+            // [1] : 선택 페이지가 3 이하일 경우 [<<] 클릭 시 1페이지로 돌아가게 설정
+            if (pageable.getPageNumber() < 3) {
+                pageNum = 0;
+                // [2] : 전체 페이지가 5 이하일 시 [<<] 클릭 시 1페이지로 돌아가게 설정
+            } else if (searchPageAllNum < 6) {
+                pageNum = 0;
+            } else {
+                // [3] : 선택 페이지 - 2부터 출력하도록 설정
+                pageNum = pageable.getPageNumber() - 2;
+            }
+
+            int endPageNum = 0;
+
+            // [4] : 전체 페이지가 5 이하 이거나, 현재 페이지가 3페이지 이하인 경우
+            if (pageNum == 0) {
+                // [5] : 전체 페이지가 4 이상인데 전체 페이지가 5일 경우 1 ~ 5까지 출력 되도록 설정
+                if (searchPageAllNum > 4) {
+                    endPageNum = 4;
+                } else {
+                    // [6] : 전체 페이지가 4 이하 일 때 전체페이지 만큼만 출력되도록 설정
+                    endPageNum = searchPageAllNum - 1;
+                }
+            } else {
+//                if (searchPageAllNum < 6) {
+//                    endPageNum = searchPageAllNum - 1;
+//                }
+                // [7] : 선택 페이지에서 [>>] 버튼을 눌렀을 때 전체 페이지를 넘는경우
+                if (pageable.getPageNumber() + 3 > searchPageAllNum) {
+                    endPageNum = searchPageAllNum - 1;
+                    // [8] : [>>] 전체 페이지 클릭 시 현재 페이지 + 2
+                } else {
+                    endPageNum = pageable.getPageNumber() + 2;
+                }
+            }
+
+            model.addAttribute("pageNum", pageNum);
+            model.addAttribute("endPageNum", endPageNum);
+            model.addAttribute("getPageNum", pageable.getPageNumber());
+
+        } else {
+            model.addAttribute("reservationCount", count);
+        }
+
         return "/admin/cityStatistics";
     }
     @GetMapping("/admin/order-statistics")

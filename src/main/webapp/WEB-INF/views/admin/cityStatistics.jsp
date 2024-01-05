@@ -9,9 +9,9 @@
         <div class="col-8 text-center">
             <div class="row g-0">
                 <div class="col-12" style="line-height:150%;">
-                    <span style="font-size: 30px;">주문별 지역 통계 조회</span>
+                    <span style="font-size: 30px;">예약별 지역 통계 조회</span>
                     <br>
-                    <span style="font-size: 12px; color: red;">초기 데이터는 현재 기준 1년 전 데이터까지 조회됩니다.</span>
+                    <span style="font-size: 12px; color: red;">지역별 통계 데이터는 전체 예약자들의 통계입니다.</span>
                     <hr style="margin: 0.4rem;">
                 </div>
             </div>
@@ -85,63 +85,63 @@
                     <div class="col-1 align-self-center">
                         <div class="card" style="padding:8px; height: 50px;">
                             <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">0</span>
+                                <span style="color: dimgray; font-size: 18px;">${area.seoul}</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-1 align-self-center">
                         <div class="card" style="padding:8px; height: 50px;">
                             <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">0</span>
+                                <span style="color: dimgray; font-size: 18px;">${area.incheon}</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-1 align-self-center">
                         <div class="card" style="padding:8px; height: 50px;">
                             <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">0</span>
+                                <span style="color: dimgray; font-size: 18px;">${area.gwangju}</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-1 align-self-center">
                         <div class="card" style="padding:8px; height: 50px;">
                             <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">0</span>
+                                <span style="color: dimgray; font-size: 18px;">${area.daegu}</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-1 align-self-center">
                         <div class="card" style="padding:8px; height: 50px;">
                             <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">0</span>
+                                <span style="color: dimgray; font-size: 18px;">${area.daejeon}</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-1 align-self-center">
                         <div class="card" style="padding:8px; height: 50px;">
                             <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">0</span>
+                                <span style="color: dimgray; font-size: 18px;">${area.ulsan}</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-1 align-self-center">
                         <div class="card" style="padding:8px; height: 50px;">
                             <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">0</span>
+                                <span style="color: dimgray; font-size: 18px;">${area.busan}</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-1 align-self-center">
                         <div class="card" style="padding:8px; height: 50px;">
                             <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">0</span>
+                                <span style="color: dimgray; font-size: 18px;">${area.jeju}</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-1 align-self-center">
                         <div class="card" style="padding:8px; height: 50px;">
                             <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">0</span>
+                                <span style="color: dimgray; font-size: 18px;">${area.sejong}</span>
                             </div>
                         </div>
                     </div>
@@ -210,56 +210,56 @@
                     <div class="col-1 align-self-center">
                         <div class="card" style="padding:8px; height: 50px;">
                             <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">0</span>
+                                <span style="color: dimgray; font-size: 18px;">${area.gyeonggi}</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-1 align-self-center">
                         <div class="card" style="padding:8px; height: 50px;">
                             <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">0</span>
+                                <span style="color: dimgray; font-size: 18px;">${area.gangwon}</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-1 align-self-center">
                         <div class="card" style="padding:8px; height: 50px;">
                             <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">0</span>
+                                <span style="color: dimgray; font-size: 18px;">${area.chungbuk}</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-1 align-self-center">
                         <div class="card" style="padding:8px; height: 50px;">
                             <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">0</span>
+                                <span style="color: dimgray; font-size: 18px;">${area.chungnam}</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-1 align-self-center">
                         <div class="card" style="padding:8px; height: 50px;">
                             <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">0</span>
+                                <span style="color: dimgray; font-size: 18px;">${area.jeonbuk}</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-1 align-self-center">
                         <div class="card" style="padding:8px; height: 50px;">
                             <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">0</span>
+                                <span style="color: dimgray; font-size: 18px;">${area.jeonnam}</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-1 align-self-center">
                         <div class="card" style="padding:8px; height: 50px;">
                             <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">0</span>
+                                <span style="color: dimgray; font-size: 18px;">${area.gyeongbuk}</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-1 align-self-center">
                         <div class="card" style="padding:8px; height: 50px;">
                             <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">0</span>
+                                <span style="color: dimgray; font-size: 18px;">${area.gyeongnam}</span>
                             </div>
                         </div>
                     </div>
@@ -285,7 +285,8 @@
                                 날짜 조회&nbsp<span style="font-size: 10px; color: red;">(시작 날짜 / 마지막 날짜)</span>
                             </div>
                             <div style="float: right;">
-                                <button class="btn btn-outline-gray" type="button" id="dateBtn" style="float: right;">
+                                <button class="btn btn-outline-gray" type="button" id="dateBtn" style="float: right;"
+                                        onclick="searchOrderList()">
                                     조회
                                 </button>
                                 <input class="btn btn-outline-gray" type="text" id="endDate"
@@ -316,321 +317,191 @@
                     <div class="col-2 align-self-center">
                         <div class="card" style="padding:8px; height: 50px;">
                             <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">조회 유저</span>
+                                <span style="color: dimgray; font-size: 18px;">예약 유저</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-2 align-self-center">
                         <div class="card" style="padding:8px; height: 50px;">
                             <div style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">유저 지역</span>
+                                <span style="color: dimgray; font-size: 18px;">번호</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-3 align-self-center">
                         <div class="card" style="padding:8px; height: 50px;">
                             <div style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">조회 날짜</span>
+                                <span style="color: dimgray; font-size: 18px;">예약 날짜/시간</span>
                             </div>
                         </div>
                     </div>
-                    <div class="col-3 align-self-center">
+                    <div class="col-2 align-self-center">
                         <div class="card" style="padding:8px; height: 50px;">
                             <div style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">조회 시간</span>
+                                <span style="color: dimgray; font-size: 18px;">예약 상태</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-1 align-self-center">
+                        <div class="card" style="padding:8px; height: 50px;">
+                            <div style="margin-top: 3px;">
+                                <span style="color: dimgray; font-size: 18px;">메시지</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div>
-                <div class="row g-0">
-                    <div class="col-2 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">순번</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-2 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">조회 유저</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-2 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">유저 지역</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">조회 날짜</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">조회 시간</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="row g-0">
-                    <div class="col-2 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">순번</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-2 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">조회 유저</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-2 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">유저 지역</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">조회 날짜</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">조회 시간</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="row g-0">
-                    <div class="col-2 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">순번</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-2 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">조회 유저</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-2 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">유저 지역</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">조회 날짜</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">조회 시간</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="row g-0">
-                    <div class="col-2 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">순번</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-2 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">조회 유저</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-2 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">유저 지역</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">조회 날짜</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">조회 시간</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="row g-0">
-                    <div class="col-2 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">순번</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-2 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">조회 유저</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-2 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">유저 지역</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">조회 날짜</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">조회 시간</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="row g-0">
-                    <div class="col-2 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">순번</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-2 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">조회 유저</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-2 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">유저 지역</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">조회 날짜</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3 align-self-center">
-                        <div class="card" style="padding:8px; height: 50px;">
-                            <div style="margin-top: 3px;">
-                                <span style="color: dimgray; font-size: 18px;">조회 시간</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row g-0">
-                <div class="col-4"></div>
-                <div class="col-4" style="margin-top: 20px;">
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination" style="justify-content: center;">
-                            <c:choose>
-                                <c:when test="${pageNum < 4}">
-                                    <li class="page-item">
-                                        <a class="page-link" onclick="pageMove(${pageNum})"
-                                           aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                        </a>
-                                    </li>
-                                    <c:forEach var="item" varStatus="status" begin="${pageNum}" end="${endPageNum}">
-                                        <li class="page-item">
-                                            <a class="page-link"
-                                               onclick="pageMove(${status.index})">${status.index + 1}</a>
-                                        </li>
-                                    </c:forEach>
-                                    <li class="page-item">
-                                        <a class="page-link" onclick="pageMove(${endPageNum})"
-                                           aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
-                                    </li>
-                                </c:when>
-                                <c:otherwise>
-                                    <li class="page-item">
-                                        <a class="page-link" onclick="pageMove(${pageNum})"
-                                           aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                        </a>
-                                    </li>
-                                    <c:forEach var="item" varStatus="status" begin="${pageNum}"
-                                               end="${pageNum + 4}">
-                                        <li class="page-item">
-                                            <a class="page-link"
-                                               onclick="pageMove(${status.index})">${status.index + 1}</a>
-                                        </li>
-                                    </c:forEach>
-                                    <li class="page-item">
-                                        <a class="page-link" onclick="pageMove(${pageNum + 4})"
-                                           aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
-                                    </li>
-                                </c:otherwise>
-                            </c:choose>
-                        </ul>
-                    </nav>
-                </div>
+            <c:choose>
+                <c:when test="${reservationCount     > 0}">
+                    <c:forEach items="${reservationList}" varStatus="status" var="item">
+                        <div>
+                            <div class="row g-0">
+                                <div class="col-2 align-self-center">
+                                    <div class="card" style="padding:8px; height: 50px;">
+                                        <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
+                                            <span style="color: dimgray; font-size: 18px;">${status.index + 1}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                    <div class="card" style="padding:8px; height: 50px;">
+                                        <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
+                                            <span style="color: dimgray; font-size: 18px;">${item.reservationName}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                    <div class="card" style="padding:8px; height: 50px;">
+                                        <div style="margin-top: 3px;">
+                                            <span style="color: dimgray; font-size: 15px;">${item.reservationPhone}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3 align-self-center">
+                                    <div class="card" style="padding:8px; height: 50px;">
+                                        <div style="margin-top: 3px;">
+                                            <span style="color: dimgray; font-size: 13px;">${item.reservationTimes}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-2 align-self-center">
+                                    <div class="card" style="padding:8px; height: 50px;">
+                                        <div style="margin-top: 3px;">
+                                    <span style="color: dimgray; font-size: 15px;">
+                                        <c:choose>
+                                            <c:when test="${item.reservationType == 'WAIT'}">
+                                                대기
+                                            </c:when>
+                                            <c:when test="${item.reservationType == 'CANCEL'}">
+                                                고객 취소
+                                            </c:when>
+                                            <c:when test="${item.reservationType == 'APPROVE'}">
+                                                예약 승인
+                                            </c:when>
+                                            <c:when test="${item.reservationType == 'REFUSE'}">
+                                                가게 취소
+                                            </c:when>
+                                        </c:choose>
+                                    </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-1 align-self-center">
+                                    <div class="" style="height: 50px;">
+                                        <div style="">
+                                    <span style="color: dimgray; font-size: 18px;">
+                                        <c:choose>
+                                            <c:when test="${item.reservationMessage != ''}">
+                                                <button type="button" class="btn btn-outline-pink"
+                                                        style="width: 100%; height: 50px;"
+                                                        onclick="popup_on(${item.reservationId})">
+                                                        <i class="bi bi-chat-dots"></i>
+                                                </button>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <button type="button" class="btn btn-outline-bluemint"
+                                                        style="width: 100%; height: 50px;" disabled>
+                                                        <i class="bi bi-x-circle"></i>
+                                                </button>
+                                            </c:otherwise>
+                                        </c:choose>
 
-                <div class="col-4"></div>
-            </div>
+                                    </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </c:forEach>
+                    <div class="row g-0">
+                        <div class="col-4"></div>
+                        <div class="col-4" style="margin-top: 20px;">
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination" style="justify-content: center;">
+                                    <c:choose>
+                                        <c:when test="${pageNum < 4}">
+                                            <li class="page-item">
+                                                <a class="page-link" onclick="pageMove(${pageNum})"
+                                                   aria-label="Previous">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                </a>
+                                            </li>
+                                            <c:forEach var="item" varStatus="status" begin="${pageNum}"
+                                                       end="${endPageNum}">
+                                                <li class="page-item">
+                                                    <a class="page-link"
+                                                       onclick="pageMove(${status.index})">${status.index + 1}</a>
+                                                </li>
+                                            </c:forEach>
+                                            <li class="page-item">
+                                                <a class="page-link" onclick="pageMove(${endPageNum})"
+                                                   aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </a>
+                                            </li>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <li class="page-item">
+                                                <a class="page-link" onclick="pageMove(${pageNum})"
+                                                   aria-label="Previous">
+                                                    <span aria-hidden="true">&laquo;</span>
+                                                </a>
+                                            </li>
+                                            <c:forEach var="item" varStatus="status" begin="${pageNum}"
+                                                       end="${pageNum + 4}">
+                                                <li class="page-item">
+                                                    <a class="page-link"
+                                                       onclick="pageMove(${status.index})">${status.index + 1}</a>
+                                                </li>
+                                            </c:forEach>
+                                            <li class="page-item">
+                                                <a class="page-link" onclick="pageMove(${pageNum + 4})"
+                                                   aria-label="Next">
+                                                    <span aria-hidden="true">&raquo;</span>
+                                                </a>
+                                            </li>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </ul>
+                            </nav>
+                        </div>
+
+                        <div class="col-4"></div>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <div class="row g-0">
+                        <div class="col-12">
+                            <div class="card" style="padding:8px">
+                                <h8 style=""><i class="bi bi-clipboard-x" style="font-size: 30px; "></i></h8>
+                                <hr style="margin: 0.4rem;">
+                                <label style="font-size: 15px; font-weight: lighter;">주문 내역이 없습니다.</label>
+                            </div>
+                        </div>
+                    </div>
+                </c:otherwise>
+            </c:choose>
         </div>
         <div class="col-2"></div>
     </div>
@@ -641,67 +512,17 @@
         //실행될 코드
         document.querySelector('#startDate').value = '${startDate}';
         document.querySelector('#endDate').value = '${endDate}';
-
-        document.querySelector('#container').style.height = '90%';
     }
 
     function searchOrderList() {
         let start = document.querySelector('#startDate').value;
         let end = document.querySelector('#endDate').value;
 
-        location.href = '/admin/order-statistics?page=0&size=7&startDate=' + start + '&endDate=' + end;
+        location.href = '/admin/city-statistics?page=0&size=7&startDate=' + start + '&endDate=' + end;
     }
 
     function popup_on(input) {
-        let html = '';
-
-        $.ajax({
-            type: "POST",            // HTTP method type(GET, POST) 형식이다.
-            url: "/admin/order-statistics",      // 컨트롤러에서 대기중인 URL 주소이다.
-            data: {id: input},
-            success: function (res) { // 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.
-                for (let i = 0; i < res.length; i++) {
-
-                    html += '<div class="row g-0">'
-                    html += '   <div class="col-2 align-self-center">'
-                    html += '       <div class="card" style="padding:8px; height: 50px;">'
-                    html += '           <div class="form-floating mb-1 align-middle" style="height: 170%;">'
-                    html += '               <span style="color: dimgray; font-size: 15px;">' + (i + 1) + '</span>'
-                    html += '           </div>'
-                    html += '       </div>'
-                    html += '   </div>'
-                    html += '       <div class="col-6 align-self-center">'
-                    html += '           <div class="card" style="padding:8px; height: 50px;">'
-                    html += '               <div class="form-floating mb-1 align-middle">'
-                    html += '                   <span style="color: dimgray; font-size: 15px;">' + res[i].menuName + '</span>'
-                    html += '               </div>'
-                    html += '           </div>'
-                    html += '       </div>'
-                    html += '       <div class="col-4 align-self-center">'
-                    html += '           <div class="card" style="padding:8px; height: 50px;">'
-                    html += '               <div class="form-floating mb-1 align-middle">'
-                    html += '                   <span style="color: dimgray; font-size: 15px;">' + res[i].menuCount + '개</span>'
-                    html += '               </div>'
-                    html += '           </div>'
-                    html += '       </div>'
-                    html += '</div>'
-                }
-                document.querySelector('#orderDataArea').innerHTML += html;
-
-                if (res.length > 4) {
-                    let heightLength = res.length * 100;
-                    document.querySelector('#modal-wrap').style.height = heightLength + "px";
-                } else {
-                    document.querySelector('#modal-wrap').style.height = "500px";
-                }
-
-                document.querySelector('#modal-bg').style.display = '';
-                document.querySelector('#modal-wrap').style.display = '';
-            },
-            error: function () { // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
-
-            }
-        });
+        alert(input);
     }
 
     function popup_close() {
@@ -731,12 +552,11 @@
                 , monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'] //달력의 월 부분 Tooltip 텍스트
                 , dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'] //달력의 요일 부분 텍스트
                 , dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'] //달력의 요일 부분 Tooltip 텍스트
-                , minDate: "-1Y" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
+                , minDate: "-1M" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
                 , onSelect: function (date) {
                     $('#endDate').datepicker("option", "minDate", date);
                 }
             });
-
 
         $("#endDate").datepicker({
             dateFormat: 'yy-mm-dd' //Input Display Format 변경
@@ -750,13 +570,13 @@
             , monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'] //달력의 월 부분 Tooltip 텍스트
             , dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'] //달력의 요일 부분 텍스트
             , dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'] //달력의 요일 부분 Tooltip 텍스트
-            , minDate: "-1Y" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
+            , minDate: "-1M" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
             , onSelect: function (date) {
-
+                $('#startDate').datepicker("option", "maxDate", date);
             }
         });
-
         // 선택 최대값 설정
+        maxDate.setMonth(maxDate.getMonth() + 1);
         $('#startDate').datepicker("option", "maxDate", maxDate);
         $('#endDate').datepicker("option", "maxDate", maxDate);
     });
@@ -767,9 +587,10 @@
         let startDate = document.querySelector('#startDate').value;
         let endDate = document.querySelector('#endDate').value;
 
-        location.href = '/admin/order-statistics?page=' + num + '&size=7&startDate=' + startDate + '&endDate=' + endDate;
+        location.href = '/admin/city-statistics?page=' + num + '&size=7&startDate=' + startDate + '&endDate=' + endDate;
 
     }
+
 
 </script>
 </body>

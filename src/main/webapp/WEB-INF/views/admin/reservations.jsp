@@ -75,7 +75,7 @@
                                     </div>
                                 </div>
                                 <div class="col-3 align-self-center">
-                                    <div class="card" style="padding:8px; height: 95px; line-height:500%;">
+                                    <div class="card" style="padding:8px; height: 95px; line-height:200%;">
                                             <span style="font-size: 14px;">
                                                 ${item.reservationName}
                                                 <hr style="margin: 0.4rem;">
@@ -86,7 +86,7 @@
                                 <div class="col-3 align-self-center">
                                     <div class="card" style="padding:8px; height: 95px; line-height:500%;">
                                         <div>
-                                            <span style="font-size: 12px; font-weight: bold">${item.reservationTimes}</span>
+                                            <span style="font-size: 15px; font-weight: bold">${item.reservationTimes}</span>
                                         </div>
                                     </div>
                                 </div>
