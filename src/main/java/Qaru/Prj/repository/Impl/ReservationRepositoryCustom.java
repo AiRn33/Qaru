@@ -1,10 +1,7 @@
 package Qaru.Prj.repository.Impl;
 
 import Qaru.Prj.domain.entity.Comment;
-import Qaru.Prj.domain.response.ReservationAreaList;
-import Qaru.Prj.domain.response.ReservationListResponse;
-import Qaru.Prj.domain.response.ReservationYnCheckResponse;
-import Qaru.Prj.domain.response.ShopRervationListResponse;
+import Qaru.Prj.domain.response.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

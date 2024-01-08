@@ -358,4 +358,11 @@ public class AdminController {
 
         return shopService.reservationStatusChange(id, status);
     }
+
+    @ResponseBody
+    @GetMapping("/admin/order-statistics/{id}")
+    public List<StatisticsMenuCountList> orderMenuStatistics(@PathVariable("id") Long shopId){
+
+        return shopService.orderMenuStatistics(shopId);
+    }
 }

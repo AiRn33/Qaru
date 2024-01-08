@@ -9,6 +9,7 @@ import Qaru.Prj.domain.request.ShopUpdateRequest;
 import Qaru.Prj.domain.request.UserAdminChangeRequest;
 import Qaru.Prj.domain.response.*;
 import Qaru.Prj.repository.*;
+import Qaru.Prj.repository.Impl.OrderRepositoryImpl;
 import Qaru.Prj.repository.Impl.ReservationRepositoryImpl;
 import Qaru.Prj.repository.Impl.ShopRepositoryImpl;
 import Qaru.Prj.repository.Impl.UserRepositoryImpl;
@@ -37,6 +38,7 @@ public class ShopService {
     private final ShopOpenRepository shopOpenRepository;
     private final ReservationRepository reservationRepository;
     private final ReservationRepositoryImpl reservationRepositoryImpl;
+    private final OrderRepositoryImpl orderRepositoryImpl;
 
 
     @Transactional
@@ -195,6 +197,13 @@ public class ShopService {
         List<ReservationAreaList> reservationAreaLists = reservationRepositoryImpl.reservationAreaList(shopId);
 
         ReservationAreaList list = new ReservationAreaList().setAreaList(reservationAreaLists);
+
+        return list;
+    }
+
+    public List<StatisticsMenuCountList> orderMenuStatistics(Long shopId) {
+
+        List<StatisticsMenuCountList> list = orderRepositoryImpl.orderMenuStatisticsList(shopId);
 
         return list;
     }

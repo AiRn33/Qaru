@@ -1,5 +1,7 @@
 package Qaru.Prj.repository.Impl;
 
+import Qaru.Prj.domain.entity.QMenu;
+import Qaru.Prj.domain.entity.QOrder;
 import Qaru.Prj.domain.entity.QReservation;
 import Qaru.Prj.domain.enums.ReservationType;
 import Qaru.Prj.domain.response.*;
@@ -21,6 +23,8 @@ import java.util.List;
 
 import static Qaru.Prj.domain.entity.QImage.image;
 import static Qaru.Prj.domain.entity.QImageGroup.imageGroup;
+import static Qaru.Prj.domain.entity.QMenu.menu;
+import static Qaru.Prj.domain.entity.QOrder.order;
 import static Qaru.Prj.domain.entity.QReservation.reservation;
 import static Qaru.Prj.domain.entity.QShop.shop;
 import static Qaru.Prj.domain.entity.QShopOpen.shopOpen;
@@ -198,4 +202,6 @@ public class ReservationRepositoryImpl implements ReservationRepositoryCustom {
                 .groupBy(reservation.user.address.city.substring(0,2))
                 .fetch();
     }
+
+
 }

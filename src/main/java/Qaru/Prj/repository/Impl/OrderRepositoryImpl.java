@@ -4,10 +4,7 @@ import Qaru.Prj.domain.entity.QOrder;
 import Qaru.Prj.domain.entity.QOrderMenu;
 import Qaru.Prj.domain.entity.QShop;
 import Qaru.Prj.domain.entity.QUser;
-import Qaru.Prj.domain.response.OrderMenuCheckResponse;
-import Qaru.Prj.domain.response.OrderStatisticsResponse;
-import Qaru.Prj.domain.response.ShopListResponse;
-import Qaru.Prj.domain.response.TourListResponse;
+import Qaru.Prj.domain.response.*;
 import com.querydsl.core.types.ConstantImpl;
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Projections;
@@ -30,6 +27,7 @@ import static Qaru.Prj.domain.entity.QLikes.likes;
 import static Qaru.Prj.domain.entity.QMenu.menu;
 import static Qaru.Prj.domain.entity.QOrder.*;
 import static Qaru.Prj.domain.entity.QOrderMenu.orderMenu;
+import static Qaru.Prj.domain.entity.QReservation.reservation;
 import static Qaru.Prj.domain.entity.QShop.*;
 import static Qaru.Prj.domain.entity.QTour.tour;
 import static Qaru.Prj.domain.entity.QUser.*;
@@ -95,5 +93,20 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom {
                 .where(orderMenu.id.eq(orderMenuId))
                 .fetch();
 
+    }
+
+    @Override
+    public List<StatisticsMenuCountList> orderMenuStatisticsList(Long shopId) {
+        return queryFactory
+                .select(Projections.fields(StatisticsMenuCountList.class,
+                        menu.menuName.as("menuName"),
+                        order.orderCount.sum().as("menuCount")
+                ))
+                .from(orderMenu)
+                .innerJoin(order).on(order.orderMenu.id.eq(orderMenu.id))
+                .innerJoin(menu).on(menu.id.eq(order.menu.id))
+                .where(orderMenu.shop.id.eq(shopId))
+                .groupBy(menu.menuName)
+                .fetch();
     }
 }

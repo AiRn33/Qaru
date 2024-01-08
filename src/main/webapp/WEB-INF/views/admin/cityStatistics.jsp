@@ -279,9 +279,10 @@
             </div>
         </div>
         <div class="col-2"></div>
-
     </div>
 </div>
+
+
 <div class="container-md" style="height: 110%!important;">
     <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-2"></div>

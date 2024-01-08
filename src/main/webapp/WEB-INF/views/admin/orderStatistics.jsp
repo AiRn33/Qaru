@@ -2,6 +2,55 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+
+<div class="container-md" style="height: 100px;!important;">
+    <div class="row d-flex justify-content-center align-items-center h-100" style="margin-top: 40px;">
+        <div class="col-2"></div>
+        <div class="col-8 text-center">
+            <div class="row g-0">
+                <div class="col-12" style="line-height:150%;">
+                    <span style="font-size: 30px;">예약별 지역 통계 조회</span>
+                    <br>
+                    <span style="font-size: 12px; color: red;">지역별 통계 데이터는 전체 예약자들의 통계입니다.</span>
+                    <hr style="margin: 0.4rem;">
+                </div>
+            </div>
+            <div>
+                <div class="row g-0" id="menuArea">
+                    <div class="col-2 align-self-center">
+                        <div class="card" style="padding:8px; height: 50px;">
+                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
+                                <span style="color: dimgray; font-size: 14px;">메뉴 이름</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-2 align-self-center">
+                        <div class="card" style="padding:8px; height: 50px;">
+                            <div class="form-floating mb-1 align-middle" style="margin-top: 3px;">
+                                <span style="color: dimgray; font-size: 14px;">총 주문 수량</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-5 align-self-center">
+                    </div>
+                    <div class="col-3 align-self-center">
+                        <button type="button" class="btn btn-outline-gray" onclick="chart_on()">
+                            <i class="bi bi-bar-chart-line fs-5">
+                                &nbsp;차트로 보기
+                            </i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-0">
+            </div>
+        </div>
+        <div class="col-2"></div>
+
+    </div>
+</div>
+
 <div class="container-md" id="container" style="height: 120%!important;">
     <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-2"></div>
@@ -288,7 +337,17 @@
     </div>
 </div>
 </div>
+<div id="chart-bg" class="modal-bg" style="display: none;">
+</div>
+<div id="chart-wrap" class="modal-wrap-graph" style="display: none;">
+    <button type="button" class="btn btn-outline-gray" style="border-radius: inherit; float: right;" onclick="chart_close()">
+        <i class="bi bi-x-circle fs-5">
+        </i>
+    </button>
+    <canvas id="myChart" width="300" height="300"></canvas>
+</div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
 <script>
     window.onload = function () {
 
@@ -297,6 +356,8 @@
         document.querySelector('#endDate').value = '${endDate}';
 
         document.querySelector('#container').style.height = '90%';
+
+        orderMenuStatistics();
     }
 
     function searchOrderList() {
@@ -304,6 +365,82 @@
         let end = document.querySelector('#endDate').value;
 
         location.href = '/admin/order-statistics?page=0&size=7&startDate=' + start + '&endDate=' + end;
+    }
+    function chart_on() {
+        document.querySelector('#chart-bg').style.display = '';
+        document.querySelector('#chart-wrap').style.display = '';
+    }
+
+    function chart_close() {
+        document.querySelector('#chart-bg').style.display = 'none';
+        document.querySelector('#chart-wrap').style.display = 'none';
+    }
+
+    function chart(input){
+        const ctx = document.getElementById('myChart').getContext('2d');
+        let menuNameArr = new Array();
+        let dataArr = new Array();
+        console.log(input);
+        for(let i = 0; i < input.length; i++){
+            menuNameArr.push(input[i].menuName);
+            dataArr.push(input[i].menuCount);
+        }
+        const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: menuNameArr,
+                datasets: [{
+                    label: '# of Votes',
+                    data: dataArr,
+                    backgroundColor: [
+                        'rgba(255, 0, 0, 0.2)',
+                        'rgba(0, 255, 0, 0.2)',
+                        'rgba(0, 0, 255, 0.2)',
+                        'rgba(255, 255, 0, 0.2)',
+                        'rgba(255, 0, 255, 0.2)',
+                        'rgba(0, 255, 255, 0.2)',
+                        'rgba(128, 0, 0, 0.2)',
+                        'rgba(0, 128, 0, 0.2)',
+                        'rgba(0, 0, 128, 0.2)',
+                        'rgba(128, 128, 0, 0.2)',
+                        'rgba(128, 0, 128, 0.2)',
+                        'rgba(0, 128, 128, 0.2)',
+                        'rgba(128, 128, 128, 0.2)',
+                        'rgba(192, 192, 192, 0.2)',
+                        'rgba(255, 165, 0, 0.2)',
+                        'rgba(0, 128, 255, 0.2)',
+                        'rgba(0, 0, 0, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 0, 0, 0.2)',
+                        'rgba(0, 255, 0, 0.2)',
+                        'rgba(0, 0, 255, 0.2)',
+                        'rgba(255, 255, 0, 0.2)',
+                        'rgba(255, 0, 255, 0.2)',
+                        'rgba(0, 255, 255, 0.2)',
+                        'rgba(128, 0, 0, 0.2)',
+                        'rgba(0, 128, 0, 0.2)',
+                        'rgba(0, 0, 128, 0.2)',
+                        'rgba(128, 128, 0, 0.2)',
+                        'rgba(128, 0, 128, 0.2)',
+                        'rgba(0, 128, 128, 0.2)',
+                        'rgba(128, 128, 128, 0.2)',
+                        'rgba(192, 192, 192, 0.2)',
+                        'rgba(255, 165, 0, 0.2)',
+                        'rgba(0, 128, 255, 0.2)',
+                        'rgba(0, 0, 0, 0.2)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
     }
 
     function popup_on(input) {
@@ -341,7 +478,6 @@
                     html += '</div>'
                 }
                 document.querySelector('#orderDataArea').innerHTML += html;
-
                 if (res.length > 4) {
                     let heightLength = res.length * 100;
                     document.querySelector('#modal-wrap').style.height = heightLength + "px";
@@ -424,5 +560,35 @@
 
     }
 
+    function orderMenuStatistics() {
+        $.ajax({
+            type: "get",            // HTTP method type(GET, POST) 형식이다.
+            url: "/admin/order-statistics/3497",      // 컨트롤러에서 대기중인 URL 주소이다.
+            success: function (res) { // 비동기통신의 성공일경우 success콜백으로 들어옵니다. 'res'는 응답받은 데이터이다.
+                chart(res);
+                let html = '';
+                for (let i = 0; i < res.length; i++) {
+                    html += '<div class="col-2 align-self-center">';
+                    html += '<div class="card" style="padding:8px; height: 50px;">';
+                    html += '<div class="form-floating mb-1 align-middle" style="margin-top: 3px;">'
+                    html += '<span style="color: dimgray; font-size: 14px;">' + res[i].menuName + '</span>';
+                    html += '</div></div></div>';
+                    html += '<div class="col-2 align-self-center">';
+                    html += '<div class="card" style="padding:8px; height: 50px;">';
+                    html += '<div class="form-floating mb-1 align-middle" style="margin-top: 3px;">'
+                    html += '<span style="color: dimgray; font-size: 14px;">' + res[i].menuCount + '</span>';
+                    html += '</div></div></div>';
+
+                }
+
+                document.querySelector('#menuArea').innerHTML += html;
+                document.querySelector('#container').style.height = 110 + (res.length / 6 * 15) + '%';
+
+            },
+            error: function () { // 비동기 통신이 실패할경우 error 콜백으로 들어옵니다.
+
+            }
+        });
+    }
 </script>
 </body>
