@@ -263,15 +263,25 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-1 align-self-center">
+
+                    </div>
+                    <div class="col-3 align-self-center">
+                            <button type="button" class="btn btn-outline-gray" onclick="popup_on()">
+                            <i class="bi bi-bar-chart-line fs-5">
+                                &nbsp;차트로 보기
+                            </i>
+                        </button>
+                    </div>
                 </div>
             </div>
             <div class="row g-0">
             </div>
         </div>
         <div class="col-2"></div>
+
     </div>
 </div>
-
 <div class="container-md" style="height: 110%!important;">
     <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-2"></div>
@@ -496,7 +506,7 @@
                             <div class="card" style="padding:8px">
                                 <h8 style=""><i class="bi bi-clipboard-x" style="font-size: 30px; "></i></h8>
                                 <hr style="margin: 0.4rem;">
-                                <label style="font-size: 15px; font-weight: lighter;">주문 내역이 없습니다.</label>
+                                <label style="font-size: 15px; font-weight: lighter;">예약 내역이 없습니다.</label>
                             </div>
                         </div>
                     </div>
@@ -506,12 +516,25 @@
         <div class="col-2"></div>
     </div>
 </div>
+
+<div id="modal-bg" class="modal-bg" style="display: none;">
+</div>
+<div id="modal-wrap" class="modal-wrap-graph" style="display: none;">
+    <button type="button" class="btn btn-outline-gray" style="border-radius: inherit; float: right;" onclick="popup_close()">
+        <i class="bi bi-x-circle fs-5">
+        </i>
+    </button>
+    <canvas id="myChart" width="300" height="300"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
 <script>
     window.onload = function () {
 
         //실행될 코드
         document.querySelector('#startDate').value = '${startDate}';
         document.querySelector('#endDate').value = '${endDate}';
+        chart();
     }
 
     function searchOrderList() {
@@ -522,12 +545,11 @@
     }
 
     function popup_on(input) {
-        alert(input);
+        document.querySelector('#modal-bg').style.display = '';
+        document.querySelector('#modal-wrap').style.display = '';
     }
 
     function popup_close() {
-        document.querySelector('#orderDataArea').innerHTML = '';
-
         document.querySelector('#modal-bg').style.display = 'none';
         document.querySelector('#modal-wrap').style.display = 'none';
     }
@@ -590,7 +612,66 @@
         location.href = '/admin/city-statistics?page=' + num + '&size=7&startDate=' + startDate + '&endDate=' + endDate;
 
     }
-
-
+    function chart(){
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['서울', '인천', '광주', '대구', '대전', '울산', '부산', '제주', '세종',
+                            '경기', '강원', '충북', '충남', '전북', '전남', '경북', '경남'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [${area.seoul}, ${area.incheon}, ${area.gwangju}, ${area.daegu}, ${area.daejeon}, ${area.ulsan}, ${area.busan}, ${area.jeju}, ${area.sejong},
+                        ${area.gyeonggi}, ${area.gangwon}, ${area.chungbuk}, ${area.chungnam}, ${area.jeonbuk}, ${area.jeonnam}, ${area.gyeongbuk}, ${area.gyeongnam}],
+                    backgroundColor: [
+                        'rgba(255, 0, 0, 0.2)',
+                        'rgba(0, 255, 0, 0.2)',
+                        'rgba(0, 0, 255, 0.2)',
+                        'rgba(255, 255, 0, 0.2)',
+                        'rgba(255, 0, 255, 0.2)',
+                        'rgba(0, 255, 255, 0.2)',
+                        'rgba(128, 0, 0, 0.2)',
+                        'rgba(0, 128, 0, 0.2)',
+                        'rgba(0, 0, 128, 0.2)',
+                        'rgba(128, 128, 0, 0.2)',
+                        'rgba(128, 0, 128, 0.2)',
+                        'rgba(0, 128, 128, 0.2)',
+                        'rgba(128, 128, 128, 0.2)',
+                        'rgba(192, 192, 192, 0.2)',
+                        'rgba(255, 165, 0, 0.2)',
+                        'rgba(0, 128, 255, 0.2)',
+                        'rgba(0, 0, 0, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 0, 0, 0.2)',
+                        'rgba(0, 255, 0, 0.2)',
+                        'rgba(0, 0, 255, 0.2)',
+                        'rgba(255, 255, 0, 0.2)',
+                        'rgba(255, 0, 255, 0.2)',
+                        'rgba(0, 255, 255, 0.2)',
+                        'rgba(128, 0, 0, 0.2)',
+                        'rgba(0, 128, 0, 0.2)',
+                        'rgba(0, 0, 128, 0.2)',
+                        'rgba(128, 128, 0, 0.2)',
+                        'rgba(128, 0, 128, 0.2)',
+                        'rgba(0, 128, 128, 0.2)',
+                        'rgba(128, 128, 128, 0.2)',
+                        'rgba(192, 192, 192, 0.2)',
+                        'rgba(255, 165, 0, 0.2)',
+                        'rgba(0, 128, 255, 0.2)',
+                        'rgba(0, 0, 0, 0.2)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
 </script>
 </body>

@@ -74,7 +74,7 @@
                 <c:forEach items="${tourList}" var="item" varStatus="status">
                     <div class="col-4">
                         <div class="card" style="padding:8px">
-                            <button type="button" class="btn btn-outline-bluemint"
+                            <button type="button" class="btn btn-outline-light_gray"
                                     onclick="location.href='/tour/${item.tourId}'">
                                 <img src="/img/${item.storedFileName}" class="img-thumbnail" alt="..."
                                      style="width: 200px; height: 200px;">

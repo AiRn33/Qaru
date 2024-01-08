@@ -260,7 +260,7 @@
             html += '       <div class="col-4 align-self-center">'
             html += '           <div class="card" style="padding:8px; height: 50px;">'
             html += '               <div class="form-floating mb-1 align-middle">'
-            html += '                   <span style="color: dimgray; font-size: 15px;">' + value[1] + '원</span>'
+            html += '                   <span style="color: dimgray; font-size: 15px;">' + value[1] + '개</span>'
             html += '               </div>'
             html += '           </div>'
             html += '       </div>'
