@@ -93,11 +93,12 @@ public class ShopService {
 
     public Shop getShop(PrincipalDetails request) {
 
-        if(!shopRepository.findByUserId(request.getUser().getId()).isPresent()){
+        Optional<Shop> shop = shopRepository.findByUserId(request.getUser().getId());
+
+        if(!shop.isPresent()){
             return null;
         }
-
-        return shopRepository.findByUserId(request.getUser().getId()).get();
+        return shop.get();
     }
 
     public List<ShopListResponse> searchShopListAll(String searchType, String searchContent) {

@@ -150,7 +150,7 @@
                                                 </div>
                                             </div>
                                         </c:when>
-                                        <c:otherwise>
+                                        <c:when test="${item.reservationType == 'CANCEL'}">
                                             <div class="card"
                                                  style="padding: 2px 5px 7px 5px; height: 75px; line-height: 375%;">
                                                 <div style="margin-top: 3px;">
@@ -159,7 +159,27 @@
                                                     </span>
                                                 </div>
                                             </div>
-                                        </c:otherwise>
+                                        </c:when>
+                                        <c:when test="${item.reservationType == 'REFUSE'}">
+                                            <div class="card"
+                                                 style="padding: 2px 5px 7px 5px; height: 75px; line-height: 375%;">
+                                                <div style="margin-top: 3px;">
+                                                    <span style="font-size: 15px;">
+                                                        ❌가게 예약 거절
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </c:when>
+                                        <c:when test="${item.reservationType == 'APPROVE'}">
+                                            <div class="card"
+                                                 style="padding: 2px 5px 7px 5px; height: 75px; line-height: 375%;">
+                                                <div style="margin-top: 3px;">
+                                                    <span style="font-size: 15px;">
+                                                        ✔️가게 예약 확정
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </c:when>
                                     </c:choose>
                                 </div>
 

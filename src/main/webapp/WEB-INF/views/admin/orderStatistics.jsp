@@ -571,7 +571,7 @@
                     html += '<div class="col-2 align-self-center">';
                     html += '<div class="card" style="padding:8px; height: 50px;">';
                     html += '<div class="form-floating mb-1 align-middle" style="margin-top: 3px;">'
-                    html += '<span style="color: dimgray; font-size: 14px;">' + res[i].menuName + '</span>';
+                    html += '<span style="color: dimgray; font-size: 14     px;">' + res[i].menuName + '</span>';
                     html += '</div></div></div>';
                     html += '<div class="col-2 align-self-center">';
                     html += '<div class="card" style="padding:8px; height: 50px;">';

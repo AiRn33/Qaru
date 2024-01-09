@@ -144,6 +144,19 @@
                                                 </div>
                                             </div>
                                         </c:when>
+                                        <c:when test="${item.reservationType == 'CANCEL'}">
+                                            <div class="card"
+                                                 style="padding: 2px 5px 7px 5px; height: 95px; line-height: 500%;">
+                                                <div style="margin-top: 3px;">
+
+                                                    <span style="font-size: 13px;">
+                                                        ❌손님 예약 취소
+                                                    </button>
+                                                    </span>
+
+                                                </div>
+                                            </div>
+                                        </c:when>
                                         <c:when test="${item.reservationType == 'APPROVE'}">
                                             <div class="card"
                                                  style="padding: 2px 5px 7px 5px; height: 95px; line-height: 180%;">
@@ -180,6 +193,7 @@
                                                 </div>
                                             </div>
                                         </c:when>
+
                                     </c:choose>
                                 </div>
 

@@ -129,14 +129,13 @@ public class TourController {
 
             return "/tour/createTour";
         }
-
         ImageGroup imageGroup = tourService.createTour(principalDetails, request);
+
         List<String> storedNames = new ArrayList<>();
         for (int i = 0; i < request.getFile().size(); i++) {
             String storedName = fileService.serverUploadFile(request.getFile().get(i));
             storedNames.add(storedName);
         }
-
         imageService.imageSaveAll(request.getFile(), storedNames, imageGroup);
 
         model.addAttribute("successAlert", 4);

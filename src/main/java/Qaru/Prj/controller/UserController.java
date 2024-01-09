@@ -182,10 +182,13 @@ public class UserController {
     @GetMapping("/user/mypage")
     public String userMypage(@AuthenticationPrincipal PrincipalDetails request, Model model) throws Exception {
 
+        System.out.println("========== > 1");
         User user = userService.getUserByUserId(request.getUsername());
-
+        System.out.println("========== > 2");
         model.addAttribute("userData", new UserMypageRespose().userUpdate(user));
+        System.out.println("========== > 3");
         model.addAttribute("adminCheck", userService.userSignupAdminCheck(request));
+        System.out.println("========== > 4");
         model.addAttribute("shopData", new MypageShopResponse().mypageShop(shopService.getShop(request)));
 
         return "/user/mypage";
