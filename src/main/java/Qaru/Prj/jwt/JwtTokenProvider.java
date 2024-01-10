@@ -54,7 +54,7 @@ public class JwtTokenProvider {
         return claims.getSubject();
     }
 
-    private Claims parseClaims(String accessToken) {
+    public Claims parseClaims(String accessToken) {
 
         try {
             return Jwts.parserBuilder()
@@ -63,6 +63,7 @@ public class JwtTokenProvider {
                     .parseClaimsJws(accessToken)
                     .getBody();
         } catch (ExpiredJwtException e) {
+
             return e.getClaims();
         }
     }
