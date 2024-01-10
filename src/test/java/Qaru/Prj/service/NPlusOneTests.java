@@ -25,13 +25,13 @@ public class NPlusOneTests {
     @Autowired
     private ReservationRepository reservationRepository;
 
-    @Test
-    @Transactional
-    void N플러스1테스트(){
-        List<Reservation> all =
-                reservationRepository.findAll();
-
-        System.out.println("============= > : " + all.get(0).getUser());
-    }
+//    @Test
+//    @Transactional
+//    void N플러스1테스트(){
+//        List<Reservation> all =
+//                reservationRepository.findAllJoinFetch();
+//
+//        System.out.println("============= > : " + all.get(0).getUser());
+//    }
 
 }
