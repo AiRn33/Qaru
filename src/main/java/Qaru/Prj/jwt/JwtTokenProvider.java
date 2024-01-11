@@ -63,7 +63,7 @@ public class JwtTokenProvider {
                     .parseClaimsJws(accessToken)
                     .getBody();
         } catch (ExpiredJwtException e) {
-
+            System.out.println("========= > : 유효시간 초과");
             return e.getClaims();
         }
     }

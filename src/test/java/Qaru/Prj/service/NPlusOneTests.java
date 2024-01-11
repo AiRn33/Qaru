@@ -74,31 +74,39 @@ public class NPlusOneTests {
 
         // refresh 토큰 용 random 함수
         SecureRandom random = SecureRandom.getInstanceStrong();
+        String refreshToken = String.valueOf(random.nextDouble());
 
         // refresh 토큰 저장
-        RefreshToken refreshToken = RefreshToken.builder()
-                .refreshToken(String.valueOf(random.nextDouble()))
+        RefreshToken refreshTokenEntity = RefreshToken.builder()
+                .refreshToken(refreshToken)
                 .user(user)
                 .expDate(refreshTokenExpiredAt).build();
-        RefreshToken refresh = refreshTokenRepository.save(refreshToken);
+        RefreshToken refresh = refreshTokenRepository.save(refreshTokenEntity);
 
         // accessToken 확인
         Claims claims = jwtTokenProvider.parseClaims(accessToken);
 
+        // accessToken 유효함
         System.out.println("=========== > userId : " + claims.getSubject());
 
-        for(int i = 0; i < 120; i++){
+        for(int i = 0; i < 65; i++){
             try{
-                System.out.println("======== > " + i);
                 Thread.sleep(1000);
             }catch (Exception e){
                 e.printStackTrace();
             }
         }
-
+        System.out.println("========== > : 100초 경과");
+        // accessToken 유효시간 만료
         Claims claims2 = jwtTokenProvider.parseClaims(accessToken);
+        Long userId = refreshTokenRepository.findByRefreshToken(refreshToken).getUser().getId();
 
-        System.out.println("========== > token : " + refreshTokenRepository.findById(refresh.getId()).get().getRefreshToken());
+        // 토큰 값이 일치할 때
+
+        String newAccessToken = jwtTokenProvider.generate(userRepository.findById(userId).get(), accessTokenExpiredAt);
+
+        System.out.println("========== > new token : " + newAccessToken);
+
     }
 
 }
