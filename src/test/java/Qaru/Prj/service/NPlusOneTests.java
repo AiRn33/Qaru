@@ -18,6 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import javax.transaction.Transactional;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -109,4 +110,25 @@ public class NPlusOneTests {
 
     }
 
+    @Test
+    void 날짜테스트(){
+        LocalDate now = LocalDate.now();
+        System.out.println("====== > : " + now);
+        System.out.println("====== > : " + now.getYear());
+        System.out.println("====== > : " + now.getMonth().getValue());
+        System.out.println("====== > : " + now.getDayOfMonth());
+    }
+    @Test
+    void 별(){
+        for(int i = 1; i <= 10; i++){
+            // 첫별
+            System.out.print("*");
+            for(int j = 1; j <= i - 1; j++){
+                // 2번재 부터 찍힐 별
+                System.out.print("*");
+            }
+            // X 번째 줄 종료
+            System.out.println();
+        }
+    }
 }

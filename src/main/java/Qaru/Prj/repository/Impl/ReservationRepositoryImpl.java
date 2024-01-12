@@ -18,7 +18,9 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 import static Qaru.Prj.domain.entity.QImage.image;
@@ -119,6 +121,10 @@ public class ReservationRepositoryImpl implements ReservationRepositoryCustom {
                 , reservation.reservationTime
                 , ConstantImpl.create("%Y년%m월%d일 %h시%i분"));
 
+        LocalDate now = LocalDate.now();
+        LocalDateTime selectDateStart = LocalDateTime.of(now.getYear(), now.getMonth().getValue(), now.getDayOfMonth(), 00, 00);
+        LocalDateTime selectDateEnd = LocalDateTime.of(now.getYear(), (now.getMonth().getValue() + 1), now.getDayOfMonth(), 23, 59);
+
         return queryFactory
                 .select(Projections.fields(ReservationListResponse.class,
                         shop.shopName.as("shopName"),
@@ -133,8 +139,8 @@ public class ReservationRepositoryImpl implements ReservationRepositoryCustom {
                 ))
                 .from(reservation)
                 .innerJoin(shop).on(shop.id.eq(reservation.shop.id))
-                .where(reservation.shop.id.eq(shopId))
-                .orderBy(reservation.id.desc())
+                .where(reservation.shop.id.eq(shopId).and(reservation.reservationTime.between(selectDateStart, selectDateEnd)))
+                .orderBy(reservation.reservationTime.asc())
                 .fetch();
     }
 

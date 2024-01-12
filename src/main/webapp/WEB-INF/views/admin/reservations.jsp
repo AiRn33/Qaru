@@ -9,8 +9,7 @@
         <div class="col-10 text-center">
             <div class="card" style="padding:8px;">
                 <h1 style="margin-top: 10px;">예약 내역</h1>
-                <span style="color: red; font-size: 12px;">예약 내역은 과거 2달까지만 확인가능합니다</span>
-                <span style="color: red; font-size: 12px;">사장님으로 부터 도착 한 메시지가 있을 시 메시지 버튼이 활성화 됩니다.</span>
+                <span style="color: red; font-size: 12px;">고객에게 보낼 메시지 작성이 가능합니다</span>
             </div>
             <div>
                 <div class="row g-0">

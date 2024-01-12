@@ -10,9 +10,9 @@
         <div class="col-8 text-center">
             <div class="row g-0">
                 <div class="col-12" style="line-height:150%;">
-                    <span style="font-size: 30px;">예약별 지역 통계 조회</span>
+                    <span style="font-size: 30px;">메뉴별 주문 통계 조회</span>
                     <br>
-                    <span style="font-size: 12px; color: red;">지역별 통계 데이터는 전체 예약자들의 통계입니다.</span>
+                    <span style="font-size: 12px; color: red;">메뉴별 주문 통계 조회에서는 총 주문량을 확인할 수 있습니다.</span>
                     <hr style="margin: 0.4rem;">
                 </div>
             </div>
